@@ -2,7 +2,7 @@
 - 137738503
 
 **普通版**
-- 地址：[lenosp](https://gitee.com/bweird/lenos) 
+- 地址：[lenos](https://gitee.com/bweird/lenos) 
 
 **项目说明** 
 - lenos(p为spring boot版本扩展名)一款快速开发模块化脚手架，采用spring boot+spring+SpringMvc+mybatis+shiro+swagger+ehcache+layui技术开发；实现功能有系统模块：菜单管理、用户管理、角色管理，系统监控：系统日志、接口api、sql监控。本项目会一直维护并集成新的技术，给您的开发节约时间成本，本项目拥有非boot版本，本项目也为纪念逝去的2017年，也是总结之作。
@@ -15,6 +15,10 @@
 - 登录次数校验，超出定义次数后冻结一段时间账号
 - 系统监控：系统日志、接口api、系统监控
 - 采用swagger可视化出实时方法格式以及数据属性，采用阿里drud监控sql。
+
+**ps**
+- 如果您喜欢本项目，可以clone下来使用，您的star将是本人前进的动力，本项目无丝毫保留开源，如果您有技术疑问，可以加群交流。
+- 本项目处于未成年阶段，如果您有好的idea，欢迎参与开源。
 
 **项目图片**
 
