@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/len-core/len-core.iml" filepath="$PROJECT_DIR$/len-core/len-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/len-sys/len-sys.iml" filepath="$PROJECT_DIR$/len-sys/len-sys.iml" />
+      <module fileurl="file://$PROJECT_DIR$/len-web/len-web.iml" filepath="$PROJECT_DIR$/len-web/len-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lenosp.iml" filepath="$PROJECT_DIR$/lenosp.iml" />
+    </modules>
+  </component>
+</project>
