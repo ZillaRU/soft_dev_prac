@@ -12,4 +12,6 @@
 - 登录次数校验，超出定义次数后冻结一段时间账号
 - 系统监控：系统日志、接口api、系统监控
 - 采用swagger可视化出实时方法格式以及数据属性，采用阿里drud监控sql。
+**项目图片**
 
+![图片说明](http://ww1.sinaimg.cn/large/0060lm7Tly1fn2bsi2kexj311y0hsdmw.jpg "图片说明")
