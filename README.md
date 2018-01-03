@@ -25,7 +25,6 @@
 * 持久层框架：MyBatis
 * 模板引擎：freemarker
 * 缓存：ehcache
-* 日志：log4j
 * 前端页面：layui
 
 ## ps
@@ -33,13 +32,17 @@
 - 本项目处于未成年阶段，如果您有好的idea，欢迎参与开源。
 
 ## 项目图片
-
+* 登录账号：admin 密码：123456
 ![图片说明](http://ww1.sinaimg.cn/large/0060lm7Tly1fn2bsi2kexj311y0hsdmw.jpg "图片说明")
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c1yaqrjj311y0hvdhj.jpg "图片说明")
+* 菜单管理分为一级菜单 二级菜单 按钮(也可以是元素)权限
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c2l057sj311y0hu767.jpg "图片说明")
+* 用户可以上传图片
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c33qyvrj311y0hv40e.jpg "图片说明")
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c3m4b77j311y0hpq4b.jpg "图片说明")
+* 日志监控 利用aop 自定义拦截日志持久化到数据库
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c4f4hgzj311y0hntad.jpg "图片说明")
+* 接口
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c4swdjrj311y0hptam.jpg "图片说明")
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c5ev8tgj30w50e7wfs.jpg "图片说明")
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2dvrcl9lj30wd0e6gmd.jpg "图片说明")
