@@ -6,6 +6,7 @@ logging:
 
 spring:
     freemarker:
+        cache: false
         template-loader-path: classpath:/ftl/
 
     datasource:
@@ -29,6 +30,9 @@ spring:
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
+    http:
+      encoding:
+        force: true
 
 
 

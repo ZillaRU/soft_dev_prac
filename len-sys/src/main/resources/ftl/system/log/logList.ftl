@@ -61,7 +61,7 @@
 </div>
 <div class="layui-col-md12" style="height:40px;margin-top:3px;">
     <div class="layui-btn-group">
-    <shiro.hasPermission name="user:select">
+    <shiro.hasPermission name="control:del">
         <button class="layui-btn layui-btn-normal" data-type="del">
             <i class="layui-icon">&#xe640;</i>删除
         </button>
@@ -71,7 +71,9 @@
 
 <table id="logList" class="layui-hide" lay-filter="log"></table>
 <script type="text/html" id="toolBar">
+  <shiro.hasPermission name="control:del">
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+  </shiro.hasPermission>
 </script>
 <script>
   layui.laytpl.toDateString = function(d, format){

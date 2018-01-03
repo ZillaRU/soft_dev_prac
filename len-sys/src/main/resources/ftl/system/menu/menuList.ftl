@@ -23,9 +23,11 @@
 <body>
 <div  class="x-nav">
     <div class="layui-btn-group">
+      <shiro.hasPermission name="nemu:add">
         <button class="layui-btn layui-btn-normal" data-type="add">
             <i class="layui-icon">&#xe608;</i>新增
         </button>
+      </shiro.hasPermission>
     </div>
     <button class="layui-btn layui-btn-sm" id="refresh" style="float: right;" onclick="javascript:location.replace(location.href);">
       <i class="layui-icon">ဂ</i>

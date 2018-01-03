@@ -252,7 +252,6 @@ To change this template use File | Settings | File Templates.-->
         type:'post',
         data:data.field,
         async:false,
-        dataType: "json",
         traditional: true,
         success:function(d){
             var index = parent.layer.getFrameIndex(window.name);

@@ -60,7 +60,7 @@ public class UserController  extends BaseController{
     return "/system/user/userList";
   }
 
-  @GetMapping(value = "showUserList", produces = "text/json;charset=UTF-8")
+  @GetMapping(value = "showUserList")
   @ResponseBody
   public String showUser(Model model, SysUser user, String page, String limit) {
    // logger.error("show userList");
@@ -144,10 +144,11 @@ public class UserController  extends BaseController{
       for(SysRoleUser sysRoleUser1 :keyList){
         roleUserService.deleteByPrimaryKey(sysRoleUser1);
       }
-
-      for(String r:role){
-        sysRoleUser.setRoleId(r);
-        roleUserService.insert(sysRoleUser);
+      if(role!=null){
+        for(String r:role){
+          sysRoleUser.setRoleId(r);
+          roleUserService.insert(sysRoleUser);
+        }
       }
       jsonUtil.setFlag(true);
       jsonUtil.setMsg("修改成功");
@@ -157,8 +158,9 @@ public class UserController  extends BaseController{
     return jsonUtil;
   }
 
- @ApiOperation(value = "/del", httpMethod = "POST", notes = "删除用户")
-  @PostMapping(value = "del")
+  @Log(desc = "删除用户",type = LOG_TYPE.DEL)
+  @ApiOperation(value = "/del", httpMethod = "POST", notes = "删除用户")
+  @PostMapping(value = "/del")
   @ResponseBody
   public String del(String id, boolean flag) {
     if (StringUtils.isEmpty(id)) {
@@ -220,6 +222,7 @@ public class UserController  extends BaseController{
     }
     if(newPwd.equals(user.getPassword())){
       j.setMsg("新密码不能与旧密码相同");
+
       return j;
     }
     user.setPassword(newPwd);

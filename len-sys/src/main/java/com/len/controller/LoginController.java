@@ -2,6 +2,7 @@ package com.len.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.len.core.annotation.Log;
+import com.len.core.shiro.LoginRealm;
 import com.len.core.shiro.ShiroUtil;
 import com.len.entity.SysMenu;
 import com.len.entity.SysUser;
@@ -20,6 +21,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -90,6 +92,7 @@ public class LoginController {
     String msg=null;
     try{
       subject.login(token);
+     subject.hasRole("admin");
       if(subject.isAuthenticated()){
         return "/main/main";
       }

@@ -249,7 +249,7 @@ To change this template use File | Settings | File Templates.-->
         url:'addUser',
         type:'post',
         data:data.field,
-        async:false, dataType: "json", traditional: true,
+        async:false,traditional: true,
         success:function(msg){
           var index = parent.layer.getFrameIndex(window.name);
           parent.layer.close(index);

@@ -58,6 +58,14 @@ public class ShiroConfig {
     return new LifecycleBeanPostProcessor();
   }
 
+  @Bean
+  public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator(){
+    getLifecycleBeanPostProcessor();
+    DefaultAdvisorAutoProxyCreator dc=new DefaultAdvisorAutoProxyCreator();
+    dc.setProxyTargetClass(true);
+    return dc;
+  }
+
   @Bean(name="securityManager")
   public DefaultWebSecurityManager getDefaultWebSecurityManager(){
     DefaultWebSecurityManager dwm=new DefaultWebSecurityManager();

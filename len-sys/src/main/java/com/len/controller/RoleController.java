@@ -3,6 +3,7 @@ package com.len.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.len.base.BaseController;
 import com.len.core.annotation.Log;
+import com.len.core.annotation.Log.LOG_TYPE;
 import com.len.entity.SysRole;
 import com.len.entity.SysRoleMenu;
 import com.len.entity.SysRoleUser;
@@ -52,7 +53,7 @@ public class RoleController extends BaseController {
   }
 
   @ApiOperation(value = "/showRoleList", httpMethod = "GET", notes = "展示角色")
-  @GetMapping(value = "showRoleList",produces = "text/json;charset=UTF-8")
+  @GetMapping(value = "showRoleList")
   @ResponseBody
   public String showRoleList(SysRole role,Model model,String page,String limit){
    return roleService.show(role,Integer.valueOf(page),Integer.valueOf(limit));
@@ -78,6 +79,8 @@ public class RoleController extends BaseController {
       //操作role-menu data
       SysRoleMenu sysRoleMenu=new SysRoleMenu();
       sysRoleMenu.setRoleId(sysRole.getId());
+
+      if(menus!=null)
       for(String menu:menus){
         sysRoleMenu.setMenuId(menu);
         roleMenuService.insert(sysRoleMenu);
@@ -122,6 +125,7 @@ public class RoleController extends BaseController {
       for(SysRoleMenu sysRoleMenu1:menuList){
         roleMenuService.deleteByPrimaryKey(sysRoleMenu1);
       }
+      if(menus!=null)
       for(String menu:menus){
         sysRoleMenu.setMenuId(menu);
         roleMenuService.insert(sysRoleMenu);
@@ -134,8 +138,8 @@ public class RoleController extends BaseController {
     return jsonUtil;
   }
 
- /* @ApiOperation(value = "/del", httpMethod = "POST", notes = "删除角色")
-  @Log(desc = "删除角色")*/
+  @ApiOperation(value = "/del", httpMethod = "POST", notes = "删除角色")
+  @Log(desc = "删除角色",type = LOG_TYPE.DEL)
   @PostMapping(value = "del")
   @ResponseBody
   public String del(String id) {

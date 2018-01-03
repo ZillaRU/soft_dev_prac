@@ -35,13 +35,8 @@ To change this template use File | Settings | File Templates.-->
             }
         };
         var zNodes =${menus};
-
-       /* function setCheck() {
-            var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
-        }*/
         $(document).ready(function(){
             $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-           // setCheck();
         });
     </script>
 </head>
@@ -141,7 +136,7 @@ To change this template use File | Settings | File Templates.-->
         url:'addRole',
         type:'post',
         data:data.field,
-        async:false,dataType: "json", traditional: true,
+        async:false, traditional: true,
         success:function(msg){
           console.info('msg:'+msg);
             var index = parent.layer.getFrameIndex(window.name);

@@ -38,7 +38,6 @@ To change this template use File | Settings | File Templates.-->
       var zNodes =${menus};
       $(document).ready(function(){
           $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-          // setCheck();
       });
 
 
@@ -158,7 +157,7 @@ To change this template use File | Settings | File Templates.-->
         url:'updateRole',
         type:'post',
         data:data.field,
-        async:false,dataType: "json", traditional: true,
+        async:false, traditional: true,
         success:function(d){
           var index = parent.layer.getFrameIndex(window.name);
           parent.layer.close(index);

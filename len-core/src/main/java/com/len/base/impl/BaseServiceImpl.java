@@ -120,4 +120,5 @@ public abstract class BaseServiceImpl <T,E extends Serializable> implements Base
     ReType reType=new ReType(tPage.getTotal(),tList);
     return JSON.toJSONString(reType);
   }
+
 }

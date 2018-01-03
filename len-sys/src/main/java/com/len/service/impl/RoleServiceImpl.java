@@ -32,6 +32,7 @@ public class RoleServiceImpl extends BaseServiceImpl<SysRole,String> implements 
 
   @Override
   public int insert(SysRole record) {
+    record=super.addValue(record,true);
     return roleMapper.insert(record);
   }
 

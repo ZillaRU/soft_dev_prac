@@ -67,19 +67,21 @@
       <i class="layui-icon">&#xe608;</i>新增
     </button>
       </shiro.hasPermission>
-<shiro.hasPermission name="user:update">
+    <shiro.hasPermission name="user:select">
     <button class="layui-btn layui-btn-normal" data-type="update">
       <i class="layui-icon">&#xe642;</i>编辑
     </button>
-</shiro.hasPermission>
+    </shiro.hasPermission>
 <shiro.hasPermission name="user:del">
     <button class="layui-btn layui-btn-normal" data-type="detail">
       <i class="layui-icon">&#xe605;</i>查看
     </button>
 </shiro.hasPermission>
+    <shiro.hasPermission name="user:repass">
     <button class="layui-btn layui-btn-normal" data-type="changePwd">
       <i class="layui-icon">&#xe605;</i>修改密码
     </button>
+    </shiro.hasPermission>
   </div>
 </div>
 <table id="userList" class="layui-hide" lay-filter="user"></table>
@@ -87,9 +89,9 @@
 <shiro.hasPermission name="user:select">
   <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
 </shiro.hasPermission>
-<#--<@shiro.hasPermission name="user:update">-->
+<shiro.hasPermission name="user:update">
   <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="edit">编辑</a>
-<#--</@shiro.hasPermission>-->
+</shiro.hasPermission>
 <shiro.hasPermission name="user:del">
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </shiro.hasPermission>
@@ -244,13 +246,14 @@
   }
   function del(id, flag) {
     $.ajax({
-      url: "del",
-      type: "post",
-      data: {id: id, flag: flag},
-      dataType: "json",
-      success: function (msg) {
-        layer.msg(msg, {icon: 6});
+      url:"del",
+      type:"post",
+      data:{id:id,flag:flag},async:false,
+      success:function(msg){
+        window.top.layer.msg(msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
         layui.table.reload('userList');
+      },error:function(){
+        alert('error');
       }
     });
   }

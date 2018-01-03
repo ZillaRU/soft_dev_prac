@@ -20,7 +20,7 @@ public class FreeMarkerConfig {
   @Bean
   public ViewResolver viewResolver() {
     FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
-    resolver.setCache(true);
+    resolver.setCache(false);
     resolver.setViewClass(org.springframework.web.servlet.view.freemarker.FreeMarkerView.class);
     resolver.setRequestContextAttribute("re");
     resolver.setExposeSpringMacroHelpers(true);
@@ -42,7 +42,7 @@ public class FreeMarkerConfig {
     configuration.setClassicCompatible(true);
     result.setConfiguration(configuration);
     Properties settings = new Properties();
-    settings.put("template_update_delay", 0);
+    settings.put("template_update_delay", "0");
     settings.put("default_encoding", "UTF-8");
     settings.put("number_format", "0.##########");
     settings.put("datetime_format", "yyyy-MM-dd HH:mm:ss");

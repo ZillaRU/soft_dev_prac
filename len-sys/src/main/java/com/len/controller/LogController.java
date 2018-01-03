@@ -45,7 +45,7 @@ public class LogController  extends BaseController{
      * @param limit
      * @return
      */
-    @GetMapping(value = "showLogList",produces = "text/json;charset=UTF-8")
+    @GetMapping(value = "showLogList")
     @ResponseBody
     public String showLog(SysLog sysLog, String page, String limit){
         List<SysLog> tList=null;

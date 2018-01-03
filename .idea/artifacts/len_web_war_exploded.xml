@@ -58,6 +58,8 @@
           <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.4.1" />
           <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-core:2.5.0" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-ehcache:1.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-aspectj:1.4.0" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.8.10" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-core:1.2.3" />
           <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.9.3" />
