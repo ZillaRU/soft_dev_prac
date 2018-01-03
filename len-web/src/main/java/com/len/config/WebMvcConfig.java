@@ -1,5 +1,6 @@
 package com.len.config;
 
+import com.len.core.annotation.LogAspect;
 import com.len.freemarker.MyFreemarkerConfig;
 import freemarker.template.TemplateException;
 import java.io.IOException;
@@ -26,6 +27,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/plugin/**")
             .addResourceLocations("classpath:/plugin/");
+    }
+
+    @Bean(name = "logAspect")
+    public LogAspect getLogAspect(){
+        return new LogAspect();
     }
 
 }

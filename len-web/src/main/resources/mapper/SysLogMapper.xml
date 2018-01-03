@@ -111,5 +111,6 @@
       <if test="userName!=null and userName!=''"> and user_name like "%" #{userName} "%"</if>
       <if test="type!=null and type!=''"> and type like "%" #{type} "%"</if>
     </where>
+    ORDER  BY create_time desc
   </select>
 </mapper>
