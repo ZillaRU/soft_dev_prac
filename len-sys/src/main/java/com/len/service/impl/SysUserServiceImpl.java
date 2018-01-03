@@ -45,17 +45,20 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser,String> implemen
 
   @Override
   public int deleteByPrimaryKey(String id) {
-    return 0;
+    return sysUserMapper.deleteByPrimaryKey(id);
   }
 
   @Override
   public int insert(SysUser record) {
-    return 0;
+    return sysUserMapper.insert(record);
   }
 
   @Override
   public int insertSelective(SysUser record) {
-    return 0;
+
+    String pwd= Md5Util.getMD5(record.getPassword().trim(),record.getUsername().trim());
+    record.setPassword(pwd);
+    return super.insertSelective(record);
   }
 
   @Override
@@ -65,7 +68,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser,String> implemen
 
   @Override
   public int updateByPrimaryKeySelective(SysUser record) {
-    return sysUserMapper.updateByPrimaryKeySelective(record);
+    return super.updateByPrimaryKeySelective(record);
   }
 
   @Override
@@ -98,7 +101,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser,String> implemen
     //密码加密
   String pwd= Md5Util.getMD5(user.getPassword().trim(),user.getUsername().trim());
   user.setPassword(pwd);
-    user.setCreateDate(new Date());
     return sysUserMapper.add(user);
   }
 
@@ -134,5 +136,10 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser,String> implemen
       checkboxList.add(checkbox);
     }
     return checkboxList;
+  }
+
+  @Override
+  public int rePass(SysUser user) {
+    return sysUserMapper.rePass(user);
   }
 }

@@ -2,6 +2,7 @@ package com.len.controller;
 
 import com.len.base.BaseController;
 import com.len.core.annotation.Log;
+import com.len.core.annotation.Log.LOG_TYPE;
 import com.len.entity.SysRoleUser;
 import com.len.entity.SysUser;
 import com.len.exception.MyException;
@@ -10,6 +11,7 @@ import com.len.service.SysUserService;
 import com.len.util.BeanUtil;
 import com.len.util.Checkbox;
 import com.len.util.JsonUtil;
+import com.len.util.Md5Util;
 import io.swagger.annotations.ApiOperation;
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -94,7 +96,7 @@ public class UserController  extends BaseController{
       return "用户名已存在";
     }
     try {
-      userService.add(user);
+      userService.insertSelective(user);
       SysRoleUser sysRoleUser=new SysRoleUser();
       sysRoleUser.setUserId(user.getId());
       for(String r:role){
@@ -163,21 +165,73 @@ public class UserController  extends BaseController{
       return "获取数据失败";
     }
     try {
+      SysUser sysUser = userService.selectByPrimaryKey(id);
+      if("admin".equals(sysUser.getUsername())){
+        return "超管无法删除";
+      }
       if (flag) {
         //逻辑
-        SysUser sysUser = userService.selectByPrimaryKey(id);
         sysUser.setDelFlag(Byte.parseByte("1"));
         userService.updateByPrimaryKeySelective(sysUser);
       } else {
         //物理
         userService.delById(id);
       }
-    } catch (Exception e) {
+    } catch (MyException e) {
       e.printStackTrace();
     }
     return "删除成功";
   }
 
+  @GetMapping(value = "goRePass")
+  public String goRePass(String id,Model model){
+    if(StringUtils.isEmpty(id)){
+      return "获取账户信息失败";
+    }
+    SysUser user=userService.selectByPrimaryKey(id);
+    model.addAttribute("user",user);
+    return "/system/user/re-pass";
+  }
+
+  /**
+   * 修改密码
+   * @param id
+   * @param password
+   * @param newPwd
+   * @return
+   */
+  @Log(desc = "修改密码",type = LOG_TYPE.UPDATE)
+  @PostMapping(value = "rePass")
+  @ResponseBody
+  public  JsonUtil rePass(String id,String pass,String newPwd){
+    boolean flag=StringUtils.isEmpty(id)||StringUtils.isEmpty(pass)||StringUtils.isEmpty(newPwd);
+    JsonUtil j=new JsonUtil();
+    j.setFlag(false);
+    if(flag){
+      j.setMsg("获取数据失败，修改失败");
+      return j;
+    }
+    SysUser user=userService.selectByPrimaryKey(id);
+    newPwd=Md5Util.getMD5(newPwd,user.getUsername());
+    pass=Md5Util.getMD5(pass,user.getUsername());
+    if(!pass.equals(user.getPassword())){
+        j.setMsg("密码不正确");
+        return j;
+    }
+    if(newPwd.equals(user.getPassword())){
+      j.setMsg("新密码不能与旧密码相同");
+      return j;
+    }
+    user.setPassword(newPwd);
+    try {
+      userService.rePass(user);
+      j.setMsg("修改成功");
+      j.setFlag(true);
+    }catch (MyException e){
+      e.printStackTrace();
+    }
+    return j;
+  }
   /**
    * 头像上传 目前首先相对路径
    */

@@ -37,5 +37,12 @@ public interface SysUserMapper extends BaseMapper<SysUser,String> {
 
     int checkUser(String username);
 
+    /**
+     * 更新密码
+     * @param user
+     * @return
+     */
+    int rePass(SysUser user);
+
 
 }

@@ -77,6 +77,9 @@
       <i class="layui-icon">&#xe605;</i>查看
     </button>
 </shiro.hasPermission>
+    <button class="layui-btn layui-btn-normal" data-type="changePwd">
+      <i class="layui-icon">&#xe605;</i>修改密码
+    </button>
   </div>
 </div>
 <table id="userList" class="layui-hide" lay-filter="user"></table>
@@ -170,6 +173,15 @@
           return false;
         }
         detail('查看用户信息', 'updateUser?id=' + data[0].id, 700, 450);
+      },
+      changePwd:function(){
+        var checkStatus = table.checkStatus('userList')
+            , data = checkStatus.data;
+        if (data.length != 1) {
+          layer.msg('请选择一个用户,已选['+data.length+']行', {icon: 5});
+          return false;
+        }
+        rePwd('修改密码','goRePass?id='+data[0].id,500,350);
       }
     };
 
@@ -205,6 +217,31 @@
     });
 
   });
+  function rePwd(title,url,w,h){
+    if (title == null || title == '') {
+      title = false;
+    };
+    if (url == null || url == '') {
+      url = "404.html";
+    };
+    if (w == null || w == '') {
+      w = ($(window).width() * 0.9);
+    };
+    if (h == null || h == '') {
+      h = ($(window).height() - 50);
+    };
+    layer.open({
+      id: 'user-rePwd',
+      type: 2,
+      area: [w + 'px', h + 'px'],
+      fix: false,
+      maxmin: true,
+      shadeClose: true,
+      shade: 0.4,
+      title: title,
+      content: url,
+    });
+  }
   function del(id, flag) {
     $.ajax({
       url: "del",
@@ -221,20 +258,16 @@
     var number = 1;
     if (title == null || title == '') {
       title = false;
-    }
-    ;
+    };
     if (url == null || url == '') {
       url = "404.html";
-    }
-    ;
+    };
     if (w == null || w == '') {
       w = ($(window).width() * 0.9);
-    }
-    ;
+    };
     if (h == null || h == '') {
       h = ($(window).height() - 50);
-    }
-    ;
+    };
     layer.open({
       id: 'user-detail',
       type: 2,

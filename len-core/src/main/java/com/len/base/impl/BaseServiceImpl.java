@@ -34,26 +34,47 @@ public abstract class BaseServiceImpl <T,E extends Serializable> implements Base
 
   @Override
   public int insert(T record) {
+    record=addValue(record,true);
     return getMappser().insert(record);
   }
 
-  @Override
-  public int insertSelective(T record) {
+  /**
+   * 通用注入创建 更新信息 可通过super调用
+   * @param record
+   * @param flag
+   * @return
+   */
+  public T  addValue(T record,boolean flag){
     CurrentUser currentUser= (CurrentUser) SecurityUtils.getSubject().getSession().getAttribute("curentUser");
     //统一处理公共字段
     Class<?> clazz=record.getClass();
     try {
-      Field field=clazz.getDeclaredField("createBy");
-      field.setAccessible(true);
-      field.set(record,currentUser.getId());
-      Field fieldDate=clazz.getDeclaredField("createDate");
-      fieldDate.setAccessible(true);
-      fieldDate.set(record,new Date());
+      if(flag){
+        Field field=clazz.getDeclaredField("createBy");
+        field.setAccessible(true);
+        field.set(record,currentUser.getId());
+        Field fieldDate=clazz.getDeclaredField("createDate");
+        fieldDate.setAccessible(true);
+        fieldDate.set(record,new Date());
+      }else{
+        Field field=clazz.getDeclaredField("updateBy");
+        field.setAccessible(true);
+        field.set(record,currentUser.getId());
+        Field fieldDate=clazz.getDeclaredField("updateDate");
+        fieldDate.setAccessible(true);
+        fieldDate.set(record,new Date());
+      }
     } catch (NoSuchFieldException e) {
-      e.printStackTrace();
+      //无此字段
     } catch (IllegalAccessException e) {
       e.printStackTrace();
     }
+    return record;
+  }
+
+  @Override
+  public int insertSelective(T record) {
+    record=addValue(record,true);
     return getMappser().insertSelective(record);
   }
 
@@ -64,11 +85,13 @@ public abstract class BaseServiceImpl <T,E extends Serializable> implements Base
 
   @Override
   public int updateByPrimaryKeySelective(T record) {
+    record=addValue(record,false);
     return getMappser().updateByPrimaryKeySelective(record);
   }
 
   @Override
   public int updateByPrimaryKey(T record) {
+    record=addValue(record,false);
     return getMappser().updateByPrimaryKey(record);
   }
 

@@ -51,4 +51,11 @@ public interface SysUserService extends BaseService<SysUser,String> {
 
   public List<Checkbox> getUserRoleByJson(String id);
 
+  /**
+   * 更新密码
+   * @param user
+   * @return
+   */
+  int rePass(SysUser user);
+
 }

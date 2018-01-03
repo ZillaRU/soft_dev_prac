@@ -125,6 +125,9 @@
     </trim>
   </sql>
   <insert id="insertSelective" parameterType="com.len.entity.SysUser">
+    <selectKey resultType="String" keyProperty="id" order="BEFORE">
+      select replace(uuid(),"-","") from dual
+    </selectKey>
     insert into sys_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -323,4 +326,7 @@
   <select id="checkUser" parameterType="java.lang.String" resultType="java.lang.Integer">
     select count(1) from sys_user where username=#{username}
   </select>
+  <update id="rePass" parameterType="com.len.entity.SysUser">
+    update sys_user set password=#{password,jdbcType=VARCHAR} where id = #{id,jdbcType=VARCHAR}
+  </update>
 </mapper>
