@@ -1,12 +1,14 @@
 package com.len.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.len.core.annotation.Log;
 import com.len.core.shiro.ShiroUtil;
 import com.len.entity.SysMenu;
 import com.len.entity.SysUser;
 import com.len.service.MenuService;
 import com.len.service.SysUserService;
 import com.len.util.VerifyCodeUtils;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -74,7 +76,7 @@ public class LoginController {
    * @param rememberMe
    * @return
    */
-  //@ApiOperation(value = "/login", httpMethod = "POST", notes = "登录method")
+  @ApiOperation(value = "/login", httpMethod = "POST", notes = "登录method")
   @PostMapping(value = "/login")
   public String login(SysUser user,Model model,String rememberMe,HttpServletRequest request){
     String codeMsg = (String)request.getAttribute("shiroLoginFailure");
@@ -104,7 +106,7 @@ public class LoginController {
     return "/login";
   }
 
-  //@Log(desc = "用户退出平台")
+  @Log(desc = "用户退出平台")
   @GetMapping(value = "/logout")
   public String logout(){
     Subject sub=SecurityUtils.getSubject();
@@ -136,63 +138,8 @@ public class LoginController {
     }
     return sysMenu;
   }
-  /*public JSONArray getMenu(){
-    SysMenu root=new SysMenu("系统管理","url");
-    SysMenu root1=new SysMenu("其他管理","url");
-    SysMenu m1=new SysMenu("用户管理","user/ShowUser");
-    SysMenu m2=new SysMenu("角色管理","user/ShowUser");
-    SysMenu m3=new SysMenu("权限管理","user/ShowUser");
-    SysMenu m4=new SysMenu("用户列表","user/ShowUser");
-    SysMenu m5=new SysMenu("会员管理","user/ShowUser");
-    SysMenu m6=new SysMenu("VIP管理","user/ShowUser");
-    SysMenu m7=new SysMenu("VIP管理1","user/ShowUser");
-    m6.addChild(m7);
-    m3.addChild(m5);
-    m3.addChild(m6);
-    root.addChild(m1);
-    root.addChild(m2);
-    root.addChild(m3);
-    root1.addChild(m4);
-    JSONArray json=new JSONArray();
-    json.add(root);
-    json.add(root1);
-    System.out.println(json);
-    return json;
-  }
-
-  @GetMapping(value = "test")
-  public String test(Model model){
-    //model.addAttribute("menu",getMenu());
-    return "ftl/main/tab";
-  }*/
 
 
-
-
-  public void jxJson(JSONArray ja,int x,int end){
-    if(x==0){
-      System.out.println("begin");
-    }
-    String str=" ";
-    x++;
-    for(int k=0;k<x;k++){
-      str+=str;
-    }
-     for(int i=0;i<ja.size();i++){
-      SysMenu menu= (SysMenu) ja.get(i);
-      if(menu.getChildren().size()>0){
-        System.out.println(str+menu.getName()+"-----------"+x+"级菜单");
-        JSONArray js=new JSONArray();
-          for(int j=0;j<menu.getChildren().size();j++){
-            js.add(menu.getChildren().get(j));
-          }
-        jxJson(js,x,end);
-      }else{
-        System.out.println(str+x+"级子菜单-----------"+menu.getName());
-      }
-     }
-
-  }
 
   @GetMapping(value="/getCode")
   public void getYzm(HttpServletResponse response, HttpServletRequest request){
@@ -214,10 +161,4 @@ public class LoginController {
       e.printStackTrace();
     }
   }
-
-  /*@Test
-  public void test(){
-    jxJson(getMenu(),0,getMenu().size());
-    System.out.println("结束");
-  }*/
 }

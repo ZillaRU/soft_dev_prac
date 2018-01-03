@@ -2,6 +2,7 @@ package com.len.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.len.base.BaseController;
+import com.len.core.annotation.Log;
 import com.len.entity.SysRole;
 import com.len.entity.SysRoleMenu;
 import com.len.entity.SysRoleUser;
@@ -12,6 +13,7 @@ import com.len.service.RoleService;
 import com.len.service.RoleUserService;
 import com.len.util.BeanUtil;
 import com.len.util.JsonUtil;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +51,7 @@ public class RoleController extends BaseController {
     return "/system/role/roleList";
   }
 
-  //@ApiOperation(value = "/showRoleList", httpMethod = "GET", notes = "展示角色")
+  @ApiOperation(value = "/showRoleList", httpMethod = "GET", notes = "展示角色")
   @GetMapping(value = "showRoleList",produces = "text/json;charset=UTF-8")
   @ResponseBody
   public String showRoleList(SysRole role,Model model,String page,String limit){
@@ -63,8 +65,8 @@ public class RoleController extends BaseController {
     return "/system/role/add-role";
   }
 
-  //@ApiOperation(value = "/addRole", httpMethod = "POST", notes = "添加角色")
-  //@Log(desc = "添加角色")
+  @ApiOperation(value = "/addRole", httpMethod = "POST", notes = "添加角色")
+  @Log(desc = "添加角色")
   @PostMapping(value = "addRole")
   @ResponseBody
   public String addRole(SysRole sysRole,String[] menus){
@@ -98,8 +100,8 @@ public class RoleController extends BaseController {
     return "system/role/update-role";
   }
 
- /* @ApiOperation(value = "/updateRole", httpMethod = "POST", notes = "更新角色")
-  @Log(desc = "更新角色")*/
+  @ApiOperation(value = "/updateRole", httpMethod = "POST", notes = "更新角色")
+  @Log(desc = "更新角色")
   @PostMapping(value = "updateRole")
   @ResponseBody
   public JsonUtil updateUser(SysRole role,String[] menus) {

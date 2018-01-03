@@ -2,10 +2,12 @@ package com.len.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.len.base.BaseController;
+import com.len.core.annotation.Log;
 import com.len.entity.SysMenu;
 import com.len.exception.MyException;
 import com.len.service.MenuService;
 import com.len.util.JsonUtil;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,8 +35,8 @@ public class MenuController extends BaseController{
    * @param model
    * @return
    */
-  /*@ApiOperation(value = "/showMenu", httpMethod = "GET", notes = "展示菜单")
-  @Log(desc = "展示菜单",type = Log.LOG_TYPE.SELECT)*/
+  @ApiOperation(value = "/showMenu", httpMethod = "GET", notes = "展示菜单")
+  @Log(desc = "展示菜单",type = Log.LOG_TYPE.SELECT)
   @GetMapping(value = "showMenu")
   public String showMenu(Model model){
     JSONArray ja=menuService.getMenuJsonList();
@@ -50,13 +52,10 @@ public class MenuController extends BaseController{
     return "/system/menu/add-menu";
   }
 
-  //@ApiOperation(value = "/addMenu", httpMethod = "POST", notes = "添加菜单")
+  @ApiOperation(value = "/addMenu", httpMethod = "POST", notes = "添加菜单")
   @PostMapping(value = "addMenu")
   @ResponseBody
   public JsonUtil  addMenu(SysMenu sysMenu,Model model){
-    if(sysMenu.getMenuType()==2){
-      sysMenu.setMenuType((byte)0);
-    }
     if(StringUtils.isEmpty(sysMenu.getPId())){
       sysMenu.setPId(null);
     }

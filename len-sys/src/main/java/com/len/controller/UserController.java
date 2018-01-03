@@ -1,6 +1,7 @@
 package com.len.controller;
 
 import com.len.base.BaseController;
+import com.len.core.annotation.Log;
 import com.len.entity.SysRoleUser;
 import com.len.entity.SysUser;
 import com.len.exception.MyException;
@@ -9,6 +10,7 @@ import com.len.service.SysUserService;
 import com.len.util.BeanUtil;
 import com.len.util.Checkbox;
 import com.len.util.JsonUtil;
+import io.swagger.annotations.ApiOperation;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -70,8 +72,8 @@ public class UserController  extends BaseController{
     return "/system/user/add-user";
   }
 
- /* @ApiOperation(value = "/addUser", httpMethod = "POST", notes = "添加用户")
-  @Log(desc = "添加用户")*/
+  @ApiOperation(value = "/addUser", httpMethod = "POST", notes = "添加用户")
+  @Log(desc = "添加用户")
   @PostMapping(value = "addUser")
   @ResponseBody
   public String addUser(SysUser user,String[] role) {
@@ -118,8 +120,8 @@ public class UserController  extends BaseController{
     return "system/user/update-user";
   }
 
- /* @ApiOperation(value = "/updateUser", httpMethod = "POST", notes = "更新用户")
-  @Log(desc = "更新用户")*/
+  @ApiOperation(value = "/updateUser", httpMethod = "POST", notes = "更新用户")
+  @Log(desc = "更新用户")
   @PostMapping(value = "updateUser")
   @ResponseBody
   public JsonUtil updateUser(SysUser user,String role[]) {
@@ -153,7 +155,7 @@ public class UserController  extends BaseController{
     return jsonUtil;
   }
 
- // @ApiOperation(value = "/del", httpMethod = "POST", notes = "删除用户")
+ @ApiOperation(value = "/del", httpMethod = "POST", notes = "删除用户")
   @PostMapping(value = "del")
   @ResponseBody
   public String del(String id, boolean flag) {

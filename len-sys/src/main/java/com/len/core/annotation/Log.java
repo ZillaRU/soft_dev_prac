@@ -23,5 +23,5 @@ public @interface Log {
     /**内容*/
     String desc();
     /**类型 curd*/
-    LOG_TYPE type() default LOG_TYPE.ADD;
+    LOG_TYPE type() default LOG_TYPE.ATHOR;
 }
