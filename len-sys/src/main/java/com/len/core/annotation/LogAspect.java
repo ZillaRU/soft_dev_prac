@@ -1,5 +1,6 @@
 package com.len.core.annotation;
 
+import com.alibaba.fastjson.JSON;
 import com.len.base.CurrentUser;
 import com.len.core.shiro.ShiroUtil;
 import com.len.entity.SysLog;
@@ -53,6 +54,17 @@ public class LogAspect {
         log.setCreateTime(new Date());
         log.setType(type.toString());
         log.setText(text);
+
+        Object[] obj= jp.getArgs();
+        StringBuffer buffer=new StringBuffer();
+        if(obj!=null){
+            for(int i=0;i<obj.length;i++){
+                buffer.append("[参数"+(i+1)+":");
+                buffer.append(JSON.toJSONString(obj[i]));
+                buffer.append("]");
+            }
+        }
+        log.setParam(buffer.toString());
         if(currentUser!=null){
             log.setUserName(currentUser.getUsername());
             logMapper.insert(log);

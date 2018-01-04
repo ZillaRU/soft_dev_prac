@@ -7,10 +7,11 @@
     <result column="ip" jdbcType="VARCHAR" property="ip" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="text" jdbcType="VARCHAR" property="text" />
+    <result column="param" jdbcType="VARCHAR" property="param" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_name, ip, type, text, create_time
+    id, user_name, ip, type, text, param, create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,10 +25,11 @@
   </delete>
   <insert id="insert" parameterType="com.len.entity.SysLog">
     insert into sys_log (id, user_name, ip, 
-      type, text, create_time
+      type, text,param,create_time
       )
     values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      #{type,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR},#{param,jdbcType=VARCHAR},
+       #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.len.entity.SysLog">
@@ -47,6 +49,9 @@
       </if>
       <if test="text != null">
         text,
+      </if>
+      <if test="text != null">
+        param,
       </if>
       <if test="createTime != null">
         create_time,
@@ -68,6 +73,9 @@
       <if test="text != null">
         #{text,jdbcType=VARCHAR},
       </if>
+      <if test="param != null">
+        #{param,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -88,6 +96,9 @@
       <if test="text != null">
         text = #{text,jdbcType=VARCHAR},
       </if>
+      <if test="param != null">
+        param = #{param,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -100,6 +111,7 @@
       ip = #{ip,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       text = #{text,jdbcType=VARCHAR},
+      param = #{param,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

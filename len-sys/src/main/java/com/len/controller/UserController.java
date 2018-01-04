@@ -124,7 +124,7 @@ public class UserController  extends BaseController{
   }
 
   @ApiOperation(value = "/updateUser", httpMethod = "POST", notes = "更新用户")
-  @Log(desc = "更新用户")
+  @Log(desc = "更新用户",type = LOG_TYPE.UPDATE)
   @PostMapping(value = "updateUser")
   @ResponseBody
   public JsonUtil updateUser(SysUser user,String role[]) {
