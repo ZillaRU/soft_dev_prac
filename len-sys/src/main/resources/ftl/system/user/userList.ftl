@@ -74,7 +74,7 @@
 </@shiro.hasPermission>
     <@shiro.hasPermission name="user:repass">
     <button class="layui-btn layui-btn-normal" data-type="changePwd">
-      <i class="layui-icon">&#xe605;</i>修改密码
+      <i class="layui-icon">&#xe605;</i>修改密
     </button>
     </@shiro.hasPermission>
   </div>
@@ -124,8 +124,8 @@
         , {field: 'photo', title: '头像', width: '13%', template: '#switchTpl'}
         , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
       ]]
-      , page: true
-      , height: 400
+      , page: true,
+      height: 'full-105'
     });
 
     var $ = layui.$, active = {

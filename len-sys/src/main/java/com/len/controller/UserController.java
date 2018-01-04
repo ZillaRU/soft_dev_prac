@@ -83,6 +83,7 @@ public class UserController  extends BaseController{
       return "获取数据失败";
     }
     if (StringUtils.isBlank(user.getUsername())) {
+
       return "用户名不能为空";
     }
     if (StringUtils.isBlank(user.getPassword())) {
@@ -164,8 +165,10 @@ public class UserController  extends BaseController{
   @ResponseBody
   public String del(String id, boolean flag) {
     if (StringUtils.isEmpty(id)) {
+
       return "获取数据失败";
     }
+
     try {
       SysUser sysUser = userService.selectByPrimaryKey(id);
       if("admin".equals(sysUser.getUsername())){

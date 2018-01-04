@@ -43,6 +43,7 @@ public class DruidConfig {
   @Bean
   @Primary
   public DataSource getDataSource(){
+    System.out.println("-------开始初始化druid------");
     DruidDataSource datasource = new DruidDataSource();
 
     datasource.setUrl(url);
@@ -82,6 +83,7 @@ public class DruidConfig {
     initParameters.put("resetEnable", "false");
     initParameters.put("allow", "");
     servletRegistrationBean.setInitParameters(initParameters);
+    System.out.println("-------结束------");
     return servletRegistrationBean;
   }
 

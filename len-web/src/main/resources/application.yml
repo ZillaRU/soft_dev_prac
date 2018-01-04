@@ -1,16 +1,15 @@
 server:
-  port: 8081
+  port: 8080
 
 logging:
   level: debug
 
 spring:
     freemarker:
-        cache: false
         template-loader-path: classpath:/ftl/
+        prefer-file-system-access: false
 
     datasource:
-        name: test
         url: jdbc:mysql://localhost:3306/lenos?useUnicode=true&characterEncoding=UTF-8
         username: root
         password:
