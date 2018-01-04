@@ -14,6 +14,7 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,8 +30,6 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 @Configuration
 public class ShiroConfig {
 
-  private static Map<String, String> filterMap = new LinkedHashMap<>();
-
   @Bean
   public RetryLimitCredentialsMatcher getRetryLimitCredentialsMatcher(){
     RetryLimitCredentialsMatcher rm=new RetryLimitCredentialsMatcher(getCacheManager(),"5");
@@ -39,7 +38,7 @@ public class ShiroConfig {
     return rm;
 
   }
-  @Bean
+  @Bean(name = "loginRealm")
   public LoginRealm getLoginRealm(){
     LoginRealm realm= new LoginRealm();
     realm.setCredentialsMatcher(getRetryLimitCredentialsMatcher());
@@ -58,18 +57,10 @@ public class ShiroConfig {
     return new LifecycleBeanPostProcessor();
   }
 
-  @Bean
-  public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator(){
-    getLifecycleBeanPostProcessor();
-    DefaultAdvisorAutoProxyCreator dc=new DefaultAdvisorAutoProxyCreator();
-    dc.setProxyTargetClass(true);
-    return dc;
-  }
-
   @Bean(name="securityManager")
-  public DefaultWebSecurityManager getDefaultWebSecurityManager(){
+  public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("loginRealm") LoginRealm loginRealm){
     DefaultWebSecurityManager dwm=new DefaultWebSecurityManager();
-    dwm.setRealm(getLoginRealm());
+    dwm.setRealm(loginRealm);
     dwm.setCacheManager(getCacheManager());
     return dwm;
   }
@@ -90,16 +81,16 @@ public class ShiroConfig {
   }
 
   @Bean(name = "shiroFilter")
-  public ShiroFilterFactoryBean getShiroFilterFactoryBean(){
+  public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager") DefaultWebSecurityManager securityManager){
     ShiroFilterFactoryBean sfb = new ShiroFilterFactoryBean();
-    sfb.setSecurityManager(getDefaultWebSecurityManager());
+    sfb.setSecurityManager(securityManager);
     sfb.setLoginUrl("/login");
     sfb.setUnauthorizedUrl("/goLogin");
     Map<String, Filter> filters=new HashMap<>();
     filters.put("per",getPermissionFilter());
     filters.put("verCode",getVerfityCodeFilter());
     sfb.setFilters(filters);
-
+    Map<String, String> filterMap = new LinkedHashMap<>();
     filterMap.put("/login","verCode,anon");
     //filterMap.put("/login","anon");
     filterMap.put("/getCode","anon");
@@ -119,21 +110,22 @@ public class ShiroConfig {
   }
 
   @Bean
-  public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(){
+  public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(@Qualifier("securityManager") DefaultWebSecurityManager securityManager){
     AuthorizationAttributeSourceAdvisor as=new AuthorizationAttributeSourceAdvisor();
-    as.setSecurityManager(getDefaultWebSecurityManager());
+    as.setSecurityManager(securityManager);
     return as;
   }
-
+/*
   @Bean
   public FilterRegistrationBean delegatingFilterProxy(){
     FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
     DelegatingFilterProxy proxy = new DelegatingFilterProxy();
     proxy.setTargetFilterLifecycle(true);
     proxy.setTargetBeanName("shiroFilter");
+
     filterRegistrationBean.setFilter(proxy);
     return filterRegistrationBean;
-  }
+  }*/
 
 
 }

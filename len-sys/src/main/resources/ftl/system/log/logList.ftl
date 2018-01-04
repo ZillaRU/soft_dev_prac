@@ -17,11 +17,6 @@
   <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/layui/layui.all.js"
           charset="utf-8"></script>
-  <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-  <!--[if lt IE 9]>
-  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
   <style>
     .layui-input {
       height: 30px;
@@ -61,11 +56,11 @@
 </div>
 <div class="layui-col-md12" style="height:40px;margin-top:3px;">
     <div class="layui-btn-group">
-    <shiro.hasPermission name="control:del">
+    <@shiro.hasPermission name="control:del">
         <button class="layui-btn layui-btn-normal" data-type="del">
             <i class="layui-icon">&#xe640;</i>删除
         </button>
-    </shiro.hasPermission>
+    </@shiro.hasPermission>
     </div>
 </div>
 

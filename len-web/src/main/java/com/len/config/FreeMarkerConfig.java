@@ -1,8 +1,12 @@
 package com.len.config;
 
+import com.jagregory.shiro.freemarker.ShiroTags;
 import freemarker.template.TemplateException;
+import freemarker.template.TemplateModelException;
 import java.io.IOException;
 import java.util.Properties;
+import javax.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactory;
@@ -16,6 +20,14 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
  */
 @Configuration
 public class FreeMarkerConfig {
+
+  @Autowired
+  private freemarker.template.Configuration configuration;
+
+  @PostConstruct
+  public void setSharedVariable() throws TemplateModelException {
+    configuration.setSharedVariable("shiro", new ShiroTags());
+  }
 
   @Bean
   public ViewResolver viewResolver() {

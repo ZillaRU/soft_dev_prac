@@ -17,11 +17,6 @@
   <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/layui/layui.all.js"
           charset="utf-8"></script>
-  <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-  <!--[if lt IE 9]>
-  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
   <style>
     .layui-input {
       height: 30px;
@@ -62,34 +57,34 @@
 </div>
 <div class="layui-col-md12" style="height:40px;margin-top:3px;">
   <div class="layui-btn-group">
-    <shiro.hasPermission name="role:add">
+    <@shiro.hasPermission name="role:add">
     <button class="layui-btn layui-btn-normal" data-type="add">
       <i class="layui-icon">&#xe608;</i>新增
     </button>
-    </shiro.hasPermission>
-    <shiro.hasPermission name="role:update">
+    </@shiro.hasPermission>
+    <#--<@shiro.hasPermission name="role:update">-->
     <button class="layui-btn layui-btn-normal" data-type="update">
       <i class="layui-icon">&#xe642;</i>编辑
     </button>
-    </shiro.hasPermission>
-    <shiro.hasPermission name="role:select">
+   <#-- </@shiro.hasPermission>-->
+    <@shiro.hasPermission name="role:select">
     <button class="layui-btn layui-btn-normal" data-type="detail">
       <i class="layui-icon">&#xe605;</i>查看
     </button>
-    </shiro.hasPermission>
+    </@shiro.hasPermission>
   </div>
 </div>
 <table id="roleList" class="layui-hide" lay-filter="user"></table>
 <script type="text/html" id="toolBar">
-  <shiro.hasPermission name="role:add">
+  <@shiro.hasPermission name="role:add">
   <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-  </shiro.hasPermission>
-<shiro.hasPermission name="role:update">
+  </@shiro.hasPermission>
+<@shiro.hasPermission name="role:update">
   <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="edit">编辑</a>
-</shiro.hasPermission>
-<shiro.hasPermission name="role:del">
+</@shiro.hasPermission>
+<@shiro.hasPermission name="role:del">
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</shiro.hasPermission>
+</@shiro.hasPermission>
 </script>
 <script>
   layui.laytpl.toDateString = function(d, format){

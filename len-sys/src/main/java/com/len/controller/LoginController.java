@@ -92,7 +92,7 @@ public class LoginController {
     String msg=null;
     try{
       subject.login(token);
-     subject.hasRole("admin");
+     //subject.hasRole("admin");
       if(subject.isAuthenticated()){
         return "/main/main";
       }

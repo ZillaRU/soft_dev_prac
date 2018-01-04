@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 /**
  * @author zhuxiaomeng
@@ -64,6 +65,11 @@ public class DruidConfig {
     filterRegistrationBean.setFilter(new WebStatFilter());
     filterRegistrationBean.addUrlPatterns("/*");
     filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*");
+    DelegatingFilterProxy proxy = new DelegatingFilterProxy();
+    proxy.setTargetFilterLifecycle(true);
+    proxy.setTargetBeanName("shiroFilter");
+
+    filterRegistrationBean.setFilter(proxy);
     return filterRegistrationBean;
   }
 
