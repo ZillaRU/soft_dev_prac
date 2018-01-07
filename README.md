@@ -1,4 +1,5 @@
 ## 交流群
+* 您有疑问，我们解答，您有建议，我们吸取，您有idea 我们欢迎
 - <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=2c71822be7b8c061087a94647663a742a274626a846b76647743ed556a24cabc"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="开源脚手架lenos交流群" title="开源脚手架lenos交流群"></a>
 
 ## 普通版
