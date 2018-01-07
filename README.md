@@ -27,7 +27,7 @@
 如果您使用 eclipse 需要下载 lombk jar包 手动集成。
 ## 技术
 * jdk：1.8
-* 核心框架：Spring Framework 4.3.8.RELEASE
+* 核心框架：Spring Framework 1.5.9.RELEASE
 * 安全框架：Apache Shiro
 * 数据库连接池：druid
 * 视图框架：spring mvc
