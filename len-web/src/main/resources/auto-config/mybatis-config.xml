@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+  <context id="prod">
+    <!-- RowBounds pagination -->
+    <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+    <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
+    <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+
+    <commentGenerator>
+      <property name="suppressDate" value="true" />
+      <property name="suppressAllComments" value="true" />
+    </commentGenerator>
+
+    <!-- jdbc连接 -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+      connectionURL="jdbc:mysql://localhost:3306/lenos" userId="root"
+      password="" />
+    <!--mode-->
+    <javaModelGenerator targetPackage="com.len.entity"
+      targetProject="len-sys/src/main/java">
+      <property name="enableSubPackages" value="true"/>
+
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+    <!--生成映射文件存放位置-->
+    <sqlMapGenerator targetPackage="com.len.mapper" targetProject="len-sys/src/main/java" >
+      <property name="enableSubPackages" value="true"/>
+    </sqlMapGenerator>
+    <!--生成Dao类存放位置-->
+   <javaClientGenerator targetPackage="com.len.mapper"
+       targetProject="len-sys/src/main/java" type="XMLMAPPER" >
+       <property name="enableSubPackages" value="true"/>
+     </javaClientGenerator>
+<!--生成table 先建表 后生成 勿随意覆盖本身table 避免功能缺失  测试 自己找其他表测试 by zxm-->
+  <!--<table tableName="sys_user" domainObjectName="SysUser"/>-->
+   <!-- <table tableName="sys_job" domainObjectName="SysJob"
+           enableCountByExample="false"
+           enableUpdateByExample="false"
+           enableDeleteByExample="false"
+           enableSelectByExample="false"
+            selectByExampleQueryId="false"
+    />-->
+
+
+  </context>
+</generatorConfiguration>

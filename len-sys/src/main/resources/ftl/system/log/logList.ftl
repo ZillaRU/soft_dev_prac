@@ -123,15 +123,15 @@
       , cols: [[
           {checkbox: true, fixed: true, width: '5%'}
         , {field: 'userName', title: '操作人', width: '10%', sort: true}
-        , {field: 'type', title: '操作类型', width: '5%', sort: true}
+        , {field: 'type', title: '操作类型', width: '10%', sort: true}
         , {field: 'text', title: '描述内容', width: '10%', sort: true}
         , {field: 'param', title: '参数', width: '45%', sort: true}
         , {field: 'createTime', title: '操作时间', width: '10%',templet: '<div>{{ layui.laytpl.toDateString(d.createTime,"yyyy-MM-dd HH:mm:ss") }}</div>'}
-        , {field: 'text', title: '操作', width: '20%', toolbar:'#toolBar'}
+        , {field: 'text', title: '操作', width: '10%', toolbar:'#toolBar'}
 
       ]]
       , page: true
-      , height: 400
+      ,  height: 'full-105'
     });
 
     var $ = layui.$, active = {

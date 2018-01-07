@@ -1,14 +1,13 @@
 <#-- Created by IntelliJ IDEA.
  User: zxm
- Date: 2017/12/19
- Time: 18:00
- To change this template use File | Settings | File Templates.
- 角色管理-->
+ Date: 2017/1/7
+ Time: 11:06
+ To change this template use File | Settings | File Templates.-->
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>角色管理</title>
+  <title>任务管理</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport"
@@ -38,7 +37,7 @@
 <br/>
 <div class="x-nav">
   <div class="select">
-    角色名：
+    任务名称：
     <div class="layui-inline">
       <input class="layui-input" height="20px" id="rolename" autocomplete="off">
     </div>
@@ -57,36 +56,47 @@
 </div>
 <div class="layui-col-md12" style="height:40px;margin-top:3px;">
   <div class="layui-btn-group">
-    <@shiro.hasPermission name="role:add">
+    <@shiro.hasPermission name="job:add">
     <button class="layui-btn layui-btn-normal" data-type="add">
       <i class="layui-icon">&#xe608;</i>新增
     </button>
     </@shiro.hasPermission>
-    <#--<@shiro.hasPermission name="role:update">-->
+    <@shiro.hasPermission name="job:update">
     <button class="layui-btn layui-btn-normal" data-type="update">
       <i class="layui-icon">&#xe642;</i>编辑
     </button>
-   <#-- </@shiro.hasPermission>-->
-    <@shiro.hasPermission name="role:select">
+   </@shiro.hasPermission>
+    <@shiro.hasPermission name="job:select">
     <button class="layui-btn layui-btn-normal" data-type="detail">
       <i class="layui-icon">&#xe605;</i>查看
     </button>
     </@shiro.hasPermission>
   </div>
 </div>
-<table id="roleList" class="layui-hide" lay-filter="user"></table>
+<table id="jobList" class="layui-hide" lay-filter="job"></table>
 <script type="text/html" id="toolBar">
-  <@shiro.hasPermission name="role:add">
+  <@shiro.hasPermission name="job:add">
   <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
   </@shiro.hasPermission>
-<@shiro.hasPermission name="role:update">
+<@shiro.hasPermission name="job:update">
   <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="edit">编辑</a>
 </@shiro.hasPermission>
+  {{#  if(!d.status){ }}
+  <@shiro.hasPermission name="job:start">
+  <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="start">启动</a>
+</@shiro.hasPermission>
+  {{#  } }}
+  {{# if(d.status){ }}
+  <@shiro.hasPermission name="job:end">
+  <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="end">停止</a>
+</@shiro.hasPermission>
+  {{#  } }}
 <@shiro.hasPermission name="role:del">
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </@shiro.hasPermission>
 </script>
 <script>
+  /**前端后期完美后 会进行封装 目前先不处理 精力在后端。。。*/
   layui.laytpl.toDateString = function(d, format){
     var date = new Date(d || new Date())
         ,ymd = [
@@ -132,14 +142,17 @@
     var table = layui.table;
     //方法级渲染
     table.render({
-      id: 'roleList',
-      elem: '#roleList'
-      , url: 'showRoleList'
+      id: 'jobList',
+      elem: '#jobList'
+      , url: 'showJobList'
       , cols: [[
         {checkbox: true, fixed: true, width: '5%'}
-        , {field: 'roleName', title: '角色名称', width: '20%', sort: true}
-        , {field: 'remark', title: '角色描述', width: '20%', sort: true}
-        , {field: 'createDate', title: '创建时间', width: '20%',templet: '<div>{{ layui.laytpl.toDateString(d.createDate,"yyyy-MM-dd") }}</div>'}
+        , {field: 'jobName', title: '任务名称', width: '10%', sort: true}
+        , {field: 'cron', title: '表达式', width: '10%'}
+        , {field: 'clazzPath', title: '任务类', width: '20%', sort: true}
+        , {field: 'status', title: '状态', width: '10%', sort: true}
+        , {field: 'jobDesc', title: '任务描述', width: '10%'}
+        , {field: 'createDate', title: '创建时间', width: '10%',templet: '<div>{{ layui.laytpl.toDateString(d.createDate,"yyyy-MM-dd hh:mm:ss") }}</div>'}
         , {field: 'remark', title: '操作', width: '20%', toolbar: "#toolBar"}
       ]]
       , page: true
@@ -150,7 +163,7 @@
       select: function () {
         var rolename = $('#rolename').val();
         var remark = $('#remark').val();
-        table.reload('roleList', {
+        table.reload('jobList', {
           where: {
             roleName: rolename,
             remark: remark
@@ -160,7 +173,7 @@
       reload:function(){
         $('#rolename').val('');
        $('#remark').val('');
-        table.reload('roleList', {
+        table.reload('jobList', {
           where: {
             roleName: null,
             remark: null
@@ -168,43 +181,64 @@
         });
       },
       add: function () {
-        add('添加角色', 'showAddRole', 700, 450);
+        add('添加任务', 'showAddJob', 700, 450);
       },
       update: function () {
-        var checkStatus = table.checkStatus('roleList')
+        var checkStatus = table.checkStatus('jobList')
             , data = checkStatus.data;
         if (data.length != 1) {
           layer.msg('请选择一行编辑', {icon: 5});
           return false;
         }
-        update('编辑角色', 'updateRole?id=' + data[0].id, 700, 450);
+        if(data[0].status){
+          layer.msg('已经启动任务无法更新,请停止后更新',{icon:5,offset: 'rb',area:['200px','100px'],anim:2});
+          return false;
+        }
+        update('编辑任务', 'updateJob?id=' + data[0].id, 700, 450);
       },
       detail: function () {
-        var checkStatus = table.checkStatus('roleList')
+        var checkStatus = table.checkStatus('jobList')
             , data = checkStatus.data;
         if (data.length != 1) {
           layer.msg('请选择一行查看', {icon: 5});
           return false;
         }
-        detail('查看角色信息', 'updateRole?id=' + data[0].id, 700, 450);
+        detail('查看任务信息', 'updateJob?id=' + data[0].id, 700, 450);
       }
     };
 
     //监听表格复选框选择
-    table.on('checkbox(user)', function (obj) {
+    table.on('checkbox(job)', function (obj) {
       console.log(obj)
     });
     //监听工具条
-    table.on('tool(user)', function (obj) {
+    table.on('tool(job)', function (obj) {
       var data = obj.data;
       if (obj.event === 'detail') {
         detail('编辑角色', 'updateRole?id=' + data.id, 700, 450);
       } else if (obj.event === 'del') {
-        layer.confirm('确定删除角色[<label style="color: #00AA91;">' + data.roleName + '</label>]?', function(){
-          del(data.id);
-        });
+        if(!data.status) {
+          layer.confirm('确定删除任务[<label style="color: #00AA91;">' + data.jobName + '</label>]?',
+              function () {
+                del(data.id);
+              });
+        }else{
+          layer.msg('已经启动任务无法更新,请停止后删除',{icon:5,offset: 'rb',area:['200px','100px'],anim:2});
+        }
       } else if (obj.event === 'edit') {
-        update('编辑角色', 'updateRole?id=' + data.id, 700, 450);
+        if(!data.status){
+          update('编辑任务', 'updateJob?id=' + data.id, 700, 450);
+        }else{
+          layer.msg('已经启动任务无法更新,请停止后更新',{icon:5,offset: 'rb',area:['200px','100px'],anim:2});
+        }
+      } else if(obj.event === 'start'){
+        layer.confirm('确定开启任务[<label style="color: #00AA91;">' + data.jobName + '</label>]?', function(){
+          reqByAjax(data.id,'startJob','jobList');
+        });
+      } else if(obj.event === 'end'){
+        layer.confirm('确定停止任务[<label style="color: #00AA91;">' + data.jobName + '</label>]?', function(){
+          reqByAjax(data.id,'endJob','jobList');
+        });
       }
     });
 
@@ -218,14 +252,34 @@
     });
 
   });
+    function reqByAjax(id,url,tableId){
+    $.ajax({
+      url: url,
+      type: "post",
+      data: {id: id},
+      success: function (d) {
+        if(d.flag){
+          layer.msg(d.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
+          layui.table.reload(tableId);
+        }else{
+          layer.msg(d.msg,{icon:5,offset: 'rb',area:['120px','80px'],anim:2});
+        }
+      }
+    });
+  }
+
   function del(id) {
     $.ajax({
       url: "del",
       type: "post",
       data: {id: id},
-      success: function (msg) {
-        layer.msg(msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
-        layui.table.reload('roleList');
+      success: function (d) {
+        if(d.flag){
+          layer.msg(d.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
+          layui.table.reload('jobList');
+        }else{
+          layer.msg(d.msg,{icon:5,offset: 'rb',area:['120px','80px'],anim:2});
+        }
       }
     });
   }
@@ -316,7 +370,7 @@
     }
     ;
     layer.open({
-      id: 'user-add',
+      id: 'job-add',
       type: 2,
       area: [w + 'px', h + 'px'],
       fix: false,

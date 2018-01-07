@@ -3,6 +3,7 @@ package com.len.controller;
 import com.len.base.BaseController;
 import com.len.core.annotation.Log;
 import com.len.core.annotation.Log.LOG_TYPE;
+import com.len.core.quartz.JobTask;
 import com.len.entity.SysRoleUser;
 import com.len.entity.SysUser;
 import com.len.exception.MyException;
@@ -19,8 +20,6 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,6 +49,10 @@ public class UserController  extends BaseController{
 
   @Autowired
   RoleUserService roleUserService;
+
+  @Autowired
+  JobTask task;
+
   @GetMapping(value = "mainTest")
   public String showTest() {
     return "system/user/mainTest";
@@ -63,7 +66,6 @@ public class UserController  extends BaseController{
   @GetMapping(value = "showUserList")
   @ResponseBody
   public String showUser(Model model, SysUser user, String page, String limit) {
-   // logger.error("show userList");
     return userService.show(user,Integer.valueOf(page),Integer.valueOf(limit));
   }
 
@@ -165,7 +167,6 @@ public class UserController  extends BaseController{
   @ResponseBody
   public String del(String id, boolean flag) {
     if (StringUtils.isEmpty(id)) {
-
       return "获取数据失败";
     }
 
@@ -173,6 +174,12 @@ public class UserController  extends BaseController{
       SysUser sysUser = userService.selectByPrimaryKey(id);
       if("admin".equals(sysUser.getUsername())){
         return "超管无法删除";
+      }
+      SysRoleUser roleUser=new SysRoleUser();
+      roleUser.setUserId(id);
+      int count=roleUserService.selectCountByCondition(roleUser);
+      if(count>0){
+        return "账户已经绑定角色，无法删除";
       }
       if (flag) {
         //逻辑

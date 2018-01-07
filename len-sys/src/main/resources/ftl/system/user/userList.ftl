@@ -74,7 +74,7 @@
 </@shiro.hasPermission>
     <@shiro.hasPermission name="user:repass">
     <button class="layui-btn layui-btn-normal" data-type="changePwd">
-      <i class="layui-icon">&#xe605;</i>修改密
+      <i class="layui-icon">&#xe605;</i>修改密码
     </button>
     </@shiro.hasPermission>
   </div>

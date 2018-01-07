@@ -78,8 +78,8 @@ public class LogAspect {
      */
     @AfterThrowing(value="pointcut()",throwing="e")
     public void afterException(JoinPoint joinPoint,Exception e){
-        System.out.print(e.getMessage());
-        addLog(joinPoint,getDesc(joinPoint)+e.getMessage());
+        System.out.print("-----------afterException:"+e.getMessage());
+       // addLog(joinPoint,getDesc(joinPoint)+e.getMessage());
     }
 
 

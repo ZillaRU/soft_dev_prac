@@ -125,9 +125,10 @@ To change this template use File | Settings | File Templates.-->
       <button  class="layui-btn layui-btn-primary" id="close">
         取消
       </button>
-      </#if>
+
     </div>
   </div>
+  </#if>
   </form>
 </div>
 <script>

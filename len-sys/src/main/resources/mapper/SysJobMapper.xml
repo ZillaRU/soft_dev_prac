@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.SysJobMapper">
+  <resultMap id="BaseResultMap" type="com.len.entity.SysJob">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="job_name" jdbcType="VARCHAR" property="jobName" />
+    <result column="cron" jdbcType="VARCHAR" property="cron" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="clazz_path" jdbcType="VARCHAR" property="clazzPath" />
+    <result column="job_desc" jdbcType="VARCHAR" property="jobDesc" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, job_name, cron, status, clazz_path, job_desc, create_by, create_date, update_by,
+    update_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_job
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_job
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.len.entity.SysJob">
+    <selectKey resultType="String" keyProperty="id" order="BEFORE">
+      select replace(uuid(),'-','') from dual
+    </selectKey>
+    insert into sys_job (id, job_name, cron, 
+      status, clazz_path, job_desc,
+      create_by, create_date, update_by, 
+      update_date)
+    values (#{id,jdbcType=VARCHAR}, #{jobName,jdbcType=VARCHAR}, #{cron,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIT}, #{clazzPath,jdbcType=VARCHAR}, #{jobDesc,jdbcType=VARCHAR},
+      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.len.entity.SysJob">
+    <selectKey resultType="String" keyProperty="id" order="BEFORE">
+      select replace(uuid(),'-','') from dual
+    </selectKey>
+    insert into sys_job
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="jobName != null">
+        job_name,
+      </if>
+      <if test="cron != null">
+        cron,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="clazzPath != null">
+        clazz_path,
+      </if>
+      <if test="jobDesc != null">
+        job_desc,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="jobName != null">
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="cron != null">
+        #{cron,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="clazzPath != null">
+        #{clazzPath,jdbcType=VARCHAR},
+      </if>
+      <if test="jobDesc != null">
+        #{jobDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.len.entity.SysJob">
+    update sys_job
+    <set>
+      <if test="jobName != null">
+        job_name = #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="cron != null">
+        cron = #{cron,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="clazzPath != null">
+        clazz_path = #{clazzPath,jdbcType=VARCHAR},
+      </if>
+      <if test="jobDesc != null">
+        job_desc = #{jobDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.len.entity.SysJob">
+    update sys_job
+    set job_name = #{jobName,jdbcType=VARCHAR},
+      cron = #{cron,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIT},
+      clazz_path = #{clazzPath,jdbcType=VARCHAR},
+      job_desc = #{jobDesc,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByPage" parameterType="com.len.entity.SysJob" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    from sys_job
+    <where>
+      <if test="jobName!=null and jobName!=''"> and job_name like "%" #{job_name} "%"</if>
+      <if test="clazzPath!=null and clazzPath!=''"> and clazz_path like "%" #{clazz_path} "%"</if>
+      <if test="jobDesc!=null and jobDesc!=''"> and job_desc like "%" #{job_desc} "%"</if>
+      <if test="status!=null and status!=''"> and status =#{status}</if>
+    </where>
+  </select>
+
+</mapper>
