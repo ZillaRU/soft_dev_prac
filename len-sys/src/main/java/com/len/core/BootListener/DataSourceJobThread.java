@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2018/1/6.
  * @email 154040976@qq.com
  *
- * 启动数据库中已经设定为 启动状态(status:1)的任务 项目启动时init
+ * 启动数据库中已经设定为 启动状态(status:true)的任务 项目启动时init
  */
 @Configuration
 public class DataSourceJobThread extends Thread {

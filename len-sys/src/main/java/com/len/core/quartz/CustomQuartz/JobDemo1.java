@@ -3,12 +3,12 @@ package com.len.core.quartz.CustomQuartz;
 import com.len.util.SpringUtil;
 import com.len.entity.SysUser;
 import com.len.service.SysUserService;
-import com.len.service.impl.SysUserServiceImpl;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -20,6 +20,8 @@ import org.springframework.context.ApplicationContext;
  */
 public class JobDemo1 implements Job{
 
+  @Autowired
+  SysUserService sys;
 
   @Override
   public void execute(JobExecutionContext context) throws JobExecutionException {
@@ -32,7 +34,8 @@ public class JobDemo1 implements Job{
 
   public void run(){
     ApplicationContext applicationContext=SpringUtil.getApplicationContext();
-    SysUserService sys=SpringUtil.getBean(SysUserServiceImpl.class);
+    //可以 获取
+    //SysUserService sys=SpringUtil.getBean(SysUserServiceImpl.class);
     List<SysUser> userList=sys.selectListByPage(new SysUser());
     System.out.println(userList.get(0).getUsername());;
     System.out.println("JobDemo1：执行完毕=======================");

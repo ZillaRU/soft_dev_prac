@@ -1,6 +1,7 @@
 package com.len.core.quartz;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
@@ -9,14 +10,12 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 public class MySchedulerListener {
       
     @Autowired  
-    MyJobFactory myJobFactory;  
+    MyJobFactory myJobFactory;
 
       
-    @Bean(name ="mySchedulerFactoryBean")
-    public SchedulerFactoryBean mySchedulerFactory() {
-        SchedulerFactoryBean bean = new SchedulerFactoryBean();  
-        bean.setOverwriteExistingJobs(true);  
-        bean.setStartupDelay(1);  
+    @Bean(name ="schedulerFactoryBean")
+    public SchedulerFactoryBean schedulerFactory() {
+        SchedulerFactoryBean bean = new SchedulerFactoryBean();
         bean.setJobFactory(myJobFactory);  
         return bean;  
     }  

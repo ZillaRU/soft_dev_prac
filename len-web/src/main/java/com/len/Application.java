@@ -22,14 +22,7 @@ public class Application {
   public static void main(String[] args) {
     ApplicationContext applicationContext=SpringApplication.run(Application.class,args);
     String[] names = applicationContext.getBeanDefinitionNames();
-    Arrays.asList(names).forEach(name -> System.out.println(name));//打印bean
-   /* SchedulerFactory schedulerFactory = new StdSchedulerFactory();
-    Scheduler scheduler = schedulerFactory.getScheduler();
-    JobDetail jobDetail = JobBuilder.newJob(ScheduledTasks.class).withIdentity("testkey", "testvalue").withDescription("一个测试的类").build();
-    jobDetail.getJobDataMap().put("ConfigurableApplicationContext",applicationContext);//重点是这句话
-    Trigger trigger = TriggerBuilder.newTrigger().startNow().withSchedule(CronScheduleBuilder.cronSchedule("0/1 * * * * ?")).startNow().build();
-    scheduler.scheduleJob(jobDetail,trigger);
-    scheduler.start();*/
+    Arrays.asList(names).forEach(name -> System.out.println(name));//1.8 forEach循环
   }
 
 }

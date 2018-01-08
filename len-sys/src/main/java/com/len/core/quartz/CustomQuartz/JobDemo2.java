@@ -5,7 +5,6 @@ import com.len.service.SysUserService;
 import com.len.service.impl.SysUserServiceImpl;
 import com.len.util.SpringUtil;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
