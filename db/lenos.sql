@@ -2,7 +2,8 @@
 SQLyog Ultimate v12.09 (64 bit)
 MySQL - 5.7.17 : Database - lenos
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -44,7 +45,7 @@ DROP TABLE IF EXISTS `sys_log`;
 
 CREATE TABLE `sys_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(32) NOT NULL,
+  `user_name` varchar(32) NULL,
   `ip` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   `text` varchar(255) DEFAULT NULL,
