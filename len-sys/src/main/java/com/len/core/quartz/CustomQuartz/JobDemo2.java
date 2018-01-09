@@ -1,5 +1,6 @@
 package com.len.core.quartz.CustomQuartz;
 
+import com.len.core.annotation.Log;
 import com.len.entity.SysUser;
 import com.len.service.SysUserService;
 import com.len.service.impl.SysUserServiceImpl;

@@ -60,7 +60,7 @@ public class JobTask {
   /**
    * 开启
    */
-  //@Log(desc = "开启定时任务")
+  @Log(desc = "开启定时任务")
   public boolean startJob(SysJob job) {
     Scheduler scheduler = schedulerFactoryBean.getScheduler();
     try {

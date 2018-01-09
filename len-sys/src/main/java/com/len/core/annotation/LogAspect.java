@@ -9,6 +9,10 @@ import com.len.util.IpUtil;
 import java.lang.reflect.Method;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.UnavailableSecurityManagerException;
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.subject.Subject;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -17,6 +21,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -45,12 +50,15 @@ public class LogAspect {
     }
 
     private void addLog(JoinPoint jp,String text){
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        CurrentUser currentUser= ShiroUtil.getCurrentUse();
-        String ip= IpUtil.getIp(request);
         Log.LOG_TYPE type=getType(jp);
         SysLog log=new SysLog();
-        log.setIp(ip);
+        RequestAttributes requestAttributes=RequestContextHolder.getRequestAttributes();
+        //一些系统监控
+        if(requestAttributes!=null){
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            String ip= IpUtil.getIp(request);
+            log.setIp(ip);
+        }
         log.setCreateTime(new Date());
         log.setType(type.toString());
         log.setText(text);
@@ -65,10 +73,13 @@ public class LogAspect {
             }
         }
         log.setParam(buffer.toString());
-        if(currentUser!=null){
+        try {
+            CurrentUser currentUser = ShiroUtil.getCurrentUse();
             log.setUserName(currentUser.getUsername());
-            logMapper.insert(log);
+        }catch (UnavailableSecurityManagerException e){
+
         }
+        logMapper.insert(log);
     }
 
     /**
@@ -79,7 +90,7 @@ public class LogAspect {
     @AfterThrowing(value="pointcut()",throwing="e")
     public void afterException(JoinPoint joinPoint,Exception e){
         System.out.print("-----------afterException:"+e.getMessage());
-       // addLog(joinPoint,getDesc(joinPoint)+e.getMessage());
+        addLog(joinPoint,getDesc(joinPoint)+e.getMessage());
     }
 
 
