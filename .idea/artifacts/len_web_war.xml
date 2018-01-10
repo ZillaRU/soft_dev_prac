@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="len-web:war">
-    <output-path>$PROJECT_DIR$/len-web/target</output-path>
-    <root id="archive" name="len-web.war">
-      <element id="artifact" artifact-name="len-web:war exploded" />
-    </root>
-  </artifact>
-</component>
