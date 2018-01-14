@@ -53,7 +53,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/plugin/**")
-            .addResourceLocations("classpath:/plugin/");
+        registry.addResourceHandler("/plugin/**","/static/**")
+            .addResourceLocations("classpath:/plugin/","classpath:/static/");
     }
 }

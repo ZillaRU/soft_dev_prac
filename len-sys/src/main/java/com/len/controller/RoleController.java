@@ -17,6 +17,7 @@ import com.len.util.JsonUtil;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +49,7 @@ public class RoleController extends BaseController {
   private RoleMenuService roleMenuService;
 
   @GetMapping(value = "showRole")
+  @RequiresPermissions(value = "role:show")
   public String showRole(Model model){
     return "/system/role/roleList";
   }
@@ -55,6 +57,7 @@ public class RoleController extends BaseController {
   @ApiOperation(value = "/showRoleList", httpMethod = "GET", notes = "展示角色")
   @GetMapping(value = "showRoleList")
   @ResponseBody
+  @RequiresPermissions("role:show")
   public String showRoleList(SysRole role,Model model,String page,String limit){
    return roleService.show(role,Integer.valueOf(page),Integer.valueOf(limit));
   }

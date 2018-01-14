@@ -164,7 +164,7 @@ To change this template use File | Settings | File Templates.-->
             }
         }
         ,permission:function(v){
-            if(type.val()=='1'&&v.trim()==''){
+            if((type.val()=='1'||type.val()=='0')&&v.trim()==''){
                 return '权限不能为空';
             }
         }
@@ -178,7 +178,7 @@ To change this template use File | Settings | File Templates.-->
       }else if(data.value=='1'){//按钮
           dOs('url',true);dOs('pName',false);dOs('permission',false);
       }else if(data.value=='0'){
-          dOs('url',false);dOs('pName',false);dOs('permission',true);
+          dOs('url',false);dOs('pName',false);/*dOs('permission',true);*/
       }
   });
   /**

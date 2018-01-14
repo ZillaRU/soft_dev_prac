@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,17 +55,20 @@ public class UserController  extends BaseController{
   JobTask task;
 
   @GetMapping(value = "mainTest")
+  @RequiresPermissions("user:show")
   public String showTest() {
     return "system/user/mainTest";
   }
 
   @GetMapping(value = "showUser")
+  @RequiresPermissions("user:show")
   public String showUser(Model model) {
     return "/system/user/userList";
   }
 
   @GetMapping(value = "showUserList")
   @ResponseBody
+  @RequiresPermissions("user:show")
   public String showUser(Model model, SysUser user, String page, String limit) {
     return userService.show(user,Integer.valueOf(page),Integer.valueOf(limit));
   }

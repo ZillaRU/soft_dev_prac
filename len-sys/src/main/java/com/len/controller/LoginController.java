@@ -1,6 +1,8 @@
 package com.len.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.len.core.annotation.Log;
 import com.len.core.shiro.LoginRealm;
 import com.len.core.shiro.ShiroUtil;
@@ -11,6 +13,7 @@ import com.len.service.SysUserService;
 import com.len.util.VerifyCodeUtils;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,10 +27,15 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * @author zhuxiaomeng
@@ -164,4 +172,21 @@ public class LoginController {
       e.printStackTrace();
     }
   }
+
+ /* @RequestMapping(value="service/model/{modelId}/save", method = RequestMethod.POST)
+  @ResponseStatus(value = HttpStatus.OK)
+  public void saveModel(@PathVariable String modelId
+      , String name, String description
+      , String json_xml, String svg_xml,HttpServletRequest request, HttpServletResponse response) {
+    Map<String, String[]> map= request.getParameterMap();
+    JSONObject jsonObject=new JSONObject();
+    for(Map.Entry<String,String[]> entry:map.entrySet()){
+      String data=entry.getKey()+(entry.getValue()[0]);
+      jsonObject=JSON.parseObject(data);
+    }
+    name= (String) jsonObject.get("name");
+    description= (String) jsonObject.get("description");
+    json_xml= (String) jsonObject.get("json_xml");
+    svg_xml= (String) jsonObject.get("svg_xml");
+  }*/
 }

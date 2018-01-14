@@ -1,6 +1,8 @@
 server:
   port: 8080
-
+security:
+  basic:
+    enabled: false
 logging:
   level: debug
 
@@ -8,11 +10,13 @@ spring:
     freemarker:
         template-loader-path: classpath:/ftl/
         prefer-file-system-access: false
-
     datasource:
-        url: jdbc:mysql://www.cqwzxt.com:3306/lenos?useUnicode=true&characterEncoding=UTF-8
-        username: lenos
-        password: lenos
+#        url: jdbc:mysql://www.cqwzxt.com:3306/lenos?useUnicode=true&characterEncoding=UTF-8
+#        username: lenos
+#        password: lenos
+        url: jdbc:mysql://localhost:3306/lenos?useUnicode=true&characterEncoding=UTF-8
+        username: root
+        password:
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
@@ -52,3 +56,6 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
+#security:
+#  basic:
+#    enabled: false

@@ -3,16 +3,22 @@ package com.len.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import com.alibaba.druid.support.spring.stat.DruidStatInterceptor;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import javax.sql.DataSource;
+import org.springframework.aop.support.JdkRegexpMethodPointcut;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
@@ -43,7 +49,7 @@ public class DruidConfig {
   @Bean
   @Primary
   public DataSource getDataSource(){
-    System.out.println("-------开始初始化druid------");
+    System.out.println("-------初始化druid------");
     DruidDataSource datasource = new DruidDataSource();
 
     datasource.setUrl(url);
@@ -65,7 +71,7 @@ public class DruidConfig {
     FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
     filterRegistrationBean.setFilter(new WebStatFilter());
     filterRegistrationBean.addUrlPatterns("/*");
-    filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*");
+    filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*,*.html");
     DelegatingFilterProxy proxy = new DelegatingFilterProxy();
     proxy.setTargetFilterLifecycle(true);
     proxy.setTargetBeanName("shiroFilter");
@@ -83,8 +89,21 @@ public class DruidConfig {
     initParameters.put("resetEnable", "false");
     initParameters.put("allow", "");
     servletRegistrationBean.setInitParameters(initParameters);
-    System.out.println("-------结束------");
     return servletRegistrationBean;
   }
+/*
+  @Bean
+  public DruidStatInterceptor getDruidStatInterceptor(){
+    return new DruidStatInterceptor();
+  }
+
+  @Bean
+  @Scope("prototype")
+  public JdkRegexpMethodPointcut getJdkRegexpMethodPointcut(){
+    JdkRegexpMethodPointcut pointcut=new JdkRegexpMethodPointcut();
+    String[] str={"com.len.service.*","com.len.mapper.*"};
+    pointcut.setPatterns(str);
+    return pointcut;
+  }*/
 
 }

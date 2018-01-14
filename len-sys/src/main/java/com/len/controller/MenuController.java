@@ -9,6 +9,7 @@ import com.len.service.MenuService;
 import com.len.util.JsonUtil;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +39,7 @@ public class MenuController extends BaseController{
   @ApiOperation(value = "/showMenu", httpMethod = "GET", notes = "展示菜单")
   @Log(desc = "展示菜单",type = Log.LOG_TYPE.SELECT)
   @GetMapping(value = "showMenu")
+  @RequiresPermissions("menu:show")
   public String showMenu(Model model){
     JSONArray ja=menuService.getMenuJsonList();
     model.addAttribute("menus", ja.toJSONString());
@@ -72,6 +74,9 @@ public class MenuController extends BaseController{
       return jsonUtil;
     }
     try{
+      if(sysMenu.getMenuType()==2){
+        sysMenu.setMenuType((byte)0);
+      }
       menuService.insertSelective(sysMenu);
       jsonUtil.setMsg("添加成功");
     }catch (MyException e){

@@ -14,6 +14,7 @@ import com.len.util.JsonUtil;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,12 +41,14 @@ public class JobController extends BaseController<SysJob> {
   JobTask jobTask;
 
   @GetMapping(value = "showJob")
+  @RequiresPermissions("job:show")
   public String showUser(Model model) {
     return "/system/job/jobList";
   }
 
   @GetMapping(value = "showJobList")
   @ResponseBody
+  @RequiresPermissions("job:show")
   public String showUser(Model model, SysJob job, String page, String limit) {
     return jobService.show(job,Integer.valueOf(page),Integer.valueOf(limit));
   }
