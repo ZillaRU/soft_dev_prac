@@ -18,7 +18,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @EnableWebMvc
 @SpringBootApplication
-@ComponentScan({"com.len","org.activiti"})
 @MapperScan(basePackages = {"com.len.mapper"})
 public class Application {
 
