@@ -172,21 +172,4 @@ public class LoginController {
       e.printStackTrace();
     }
   }
-
- /* @RequestMapping(value="service/model/{modelId}/save", method = RequestMethod.POST)
-  @ResponseStatus(value = HttpStatus.OK)
-  public void saveModel(@PathVariable String modelId
-      , String name, String description
-      , String json_xml, String svg_xml,HttpServletRequest request, HttpServletResponse response) {
-    Map<String, String[]> map= request.getParameterMap();
-    JSONObject jsonObject=new JSONObject();
-    for(Map.Entry<String,String[]> entry:map.entrySet()){
-      String data=entry.getKey()+(entry.getValue()[0]);
-      jsonObject=JSON.parseObject(data);
-    }
-    name= (String) jsonObject.get("name");
-    description= (String) jsonObject.get("description");
-    json_xml= (String) jsonObject.get("json_xml");
-    svg_xml= (String) jsonObject.get("svg_xml");
-  }*/
 }
