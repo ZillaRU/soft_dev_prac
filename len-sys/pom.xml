@@ -23,16 +23,12 @@
         <groupId>com.len</groupId>
         <artifactId>len-core</artifactId>
       </dependency>
-    <dependency>
-      <groupId>cn.lenos</groupId>
-      <artifactId>yunmaozj-common</artifactId>
-      <version>0.0.7</version>
-    </dependency>
-    <dependency>
-      <groupId>com.lenos</groupId>
-      <artifactId>lenos-common</artifactId>
-      <version>0.0.1</version>
-    </dependency>
+    <!--activti 正在开发中-->
+   <!-- <dependency>
+      <groupId>com.len</groupId>
+      <artifactId>len-activiti</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>-->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
