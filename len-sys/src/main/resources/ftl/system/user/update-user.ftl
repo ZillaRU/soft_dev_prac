@@ -69,7 +69,7 @@ To change this template use File | Settings | File Templates.-->
       </label>
       <div class="layui-input-inline">
         <input value="${user.id}" type="hidden" name="id">
-        <input type="text"  id="uname" value="${user.username}" name="username"  lay-verify="username"
+        <input type="text"  id="uname" value="${user.username}" readonly lay-verify="username"
                autocomplete="off" class="layui-input">
       </div>
       <div id="ms" class="layui-form-mid layui-word-aux">
@@ -82,7 +82,7 @@ To change this template use File | Settings | File Templates.-->
         <span class="x-red">*</span>真实姓名
       </label>
       <div class="layui-input-inline">
-        <input type="text" id="realName" value="${user.user.realName}" name="realName" lay-verify="realName"  autocomplete="off" class="layui-input">
+        <input type="text" id="realName" value="${user.realName}" name="realName" lay-verify="realName"  autocomplete="off" class="layui-input">
       </div>
     </div>
       <div class="layui-inline">
