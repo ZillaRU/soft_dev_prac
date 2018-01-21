@@ -21,7 +21,7 @@
 - 登录次数校验，超出定义次数后冻结一段时间账号
 - 系统监控：系统日志、接口api、系统监控、可配置定时任务
 - 前端可配置化定时任务。
-- 采用swagger可视化出实时方法格式以及数据属性，采用阿里drud监控sql。
+- 采用swagger可视化出实时方法格式以及数据属性，采用阿里druid监控sql。
 ## 启动说明
 - db使用mysql，项目数据库在 根目录db文件夹下，
 导入数据库后 设定数据库用户名密码 在文件lenosp\len-web\src\main\resources\application.yml中
