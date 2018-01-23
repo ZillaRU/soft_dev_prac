@@ -1,7 +1,0 @@
-.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_1_4_7_RELEASE.xml
-.idea/
-*.class
-len-web/target/
-len-core/target/
-len-sys/target/
-*.iml
