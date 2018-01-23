@@ -145,6 +145,7 @@ public class RoleController extends BaseController {
   @Log(desc = "删除角色",type = LOG_TYPE.DEL)
   @PostMapping(value = "del")
   @ResponseBody
+  @RequiresPermissions("role:del")
   public String del(String id) {
     if (StringUtils.isEmpty(id)) {
       return "获取数据失败";

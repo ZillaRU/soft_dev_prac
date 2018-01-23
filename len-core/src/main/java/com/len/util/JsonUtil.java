@@ -2,6 +2,7 @@ package com.len.util;
 
 
 import com.alibaba.fastjson.JSONObject;
+import net.minidev.json.JSONUtil;
 
 /**
  * @author zhuxiaomeng
@@ -38,5 +39,21 @@ public class JsonUtil {
 
   public void setJosnObj(JSONObject josnObj) {
     this.josnObj = josnObj;
+  }
+
+  public JsonUtil() {
+  }
+
+  public JsonUtil(boolean flag, String msg) {
+    this.flag = flag;
+    this.msg = msg;
+  }
+
+  /**restful 返回*/
+  public static JsonUtil error(String msg){
+    return new JsonUtil(false,msg);
+  }
+  public  static JsonUtil sucess(String msg){
+    return new JsonUtil(true,msg);
   }
 }

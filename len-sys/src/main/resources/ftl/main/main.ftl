@@ -9,6 +9,11 @@
   <link rel="stylesheet" href="${re.contextPath}/plugin/plugins/font-awesome/css/font-awesome.min.css" media="all" />
   <link rel="stylesheet" href="${re.contextPath}/plugin/build/css/app.css" media="all" />
   <link rel="stylesheet" href="${re.contextPath}/plugin/build/css/themes/default.css" media="all" id="skin" kit-skin />
+  <style>
+    <#--前端无聊美化ing-->
+    .layui-footer{background-color: #2F4056;}
+    .layui-side-scroll{border-right: 3px solid #009688;}
+  </style>
 </head>
 
 <body class="kit-theme">
@@ -16,6 +21,7 @@
   <div class="layui-header">
     <div class="layui-logo">len-脚手架</div>
     <div class="layui-logo kit-logo-mobile"></div>
+    <div class="layui-hide-xs">
     <ul class="layui-nav layui-layout-left kit-nav">
       <li class="layui-nav-item"><a href="javascript:s();">会员管理</a></li>
       <li class="layui-nav-item"><a href="javascript:;">博客管理</a></li>
@@ -29,6 +35,7 @@
         </dl>
       </li>
     </ul>
+    </div>
     <ul class="layui-nav layui-layout-right kit-nav">
       <li class="layui-nav-item">
         <a href="javascript:;">
@@ -100,9 +107,5 @@
 <script src="${re.contextPath}/plugin/plugins/layui/layui.js"></script>
 <script src="${re.contextPath}/plugin/tools/main.js"></script>
 </body>
-<script>
-  function s(){
 
-  }
-</script>
 </html>

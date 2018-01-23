@@ -1,6 +1,10 @@
 package com.len.util;
 
 
+import com.len.base.CurrentUser;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+
 /**
  * @author zhuxiaomeng
  * @date 2017/12/4.
@@ -12,13 +16,13 @@ public class CommonUtil {
 
   /**
    * 获取当前用户
-   * @return
    */
-  /*public static CurrentUser getUser(){
-    Subject subject= SecurityUtils.getSubject();
-    Session session=subject.getSession();
-    return (CurrentUser)session.getAttribute("sys_user");
-  }*/
+  public static CurrentUser getUser() {
+    org.apache.shiro.subject.Subject subject = SecurityUtils.getSubject();
+    Session session = subject.getSession();
+    return (CurrentUser) session.getAttribute("curentUser");
+  }
+}
 
   /**
    * 获取权限
@@ -29,6 +33,7 @@ public class CommonUtil {
     if(user!=null){
 
     }
-  }*/
+  }
 
 }
+*/

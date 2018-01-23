@@ -169,6 +169,7 @@ public class UserController  extends BaseController{
   @ApiOperation(value = "/del", httpMethod = "POST", notes = "删除用户")
   @PostMapping(value = "/del")
   @ResponseBody
+  @RequiresPermissions("user:del")
   public String del(String id, boolean flag) {
     if (StringUtils.isEmpty(id)) {
       return "获取数据失败";
@@ -219,6 +220,7 @@ public class UserController  extends BaseController{
   @Log(desc = "修改密码",type = LOG_TYPE.UPDATE)
   @PostMapping(value = "rePass")
   @ResponseBody
+  @RequiresPermissions("user:repass")
   public  JsonUtil rePass(String id,String pass,String newPwd){
     boolean flag=StringUtils.isEmpty(id)||StringUtils.isEmpty(pass)||StringUtils.isEmpty(newPwd);
     JsonUtil j=new JsonUtil();

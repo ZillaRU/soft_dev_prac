@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 security:
   basic:
     enabled: false
@@ -7,10 +7,7 @@ logging:
   level: debug
 
 spring:
-    freemarker:
-        template-loader-path: classpath:/ftl/
-        prefer-file-system-access: false
-    datasource:
+  datasource:
 #        url: jdbc:mysql://www.cqwzxt.com:3306/lenos?useUnicode=true&characterEncoding=UTF-8
 #        username: lenos
 #        password: lenos
@@ -33,7 +30,7 @@ spring:
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
-    http:
+  http:
       encoding:
         force: true
 
@@ -41,7 +38,8 @@ spring:
 
 mybatis:
     type-aliases-package: com.len.entity
-    mapper-locations: classpath:mapper/*.xml
+    mapper-locations: classpath*:mapper/*.xml
+    check-config-location: true
 
 mapper:
     mappers:

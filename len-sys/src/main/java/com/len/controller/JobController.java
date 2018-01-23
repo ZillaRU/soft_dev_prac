@@ -120,6 +120,7 @@ public class JobController extends BaseController<SysJob> {
   @ApiOperation(value = "/del", httpMethod = "POST", notes = "删除任务")
   @PostMapping(value = "del")
   @ResponseBody
+  @RequiresPermissions("job:del")
   public JsonUtil del(String id){
     JsonUtil j=new JsonUtil();
     j.setFlag(false);
@@ -152,6 +153,7 @@ public class JobController extends BaseController<SysJob> {
   @Log(desc = "启动任务")
   @PostMapping(value = "startJob")
   @ResponseBody
+  @RequiresPermissions("job:start")
   public JsonUtil startJob(String id){
     JsonUtil j=new JsonUtil();
     String msg=null;
@@ -176,6 +178,7 @@ public class JobController extends BaseController<SysJob> {
   @Log(desc = "停止任务")
   @PostMapping(value = "endJob")
   @ResponseBody
+  @RequiresPermissions("job:end")
   public JsonUtil endJob(String id){
     JsonUtil j=new JsonUtil();
     String msg=null;

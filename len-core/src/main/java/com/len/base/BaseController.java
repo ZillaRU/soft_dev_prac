@@ -1,5 +1,6 @@
 package com.len.base;
 
+import com.len.util.JsonUtil;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -56,7 +57,6 @@ public abstract class BaseController<T> {
       return false;
     }
   }
-
 
 
 }
