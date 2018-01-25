@@ -223,9 +223,13 @@
       url: "del",
       type: "post",
       data: {id: id},
-      success: function (msg) {
-        layer.msg(msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
-        layui.table.reload('roleList');
+      success: function (d) {
+        if(d.msg){
+          layer.msg(d.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
+          layui.table.reload('roleList');
+        }else{
+          layer.msg(d.msg,{icon:5,offset: 'rb',area:['120px','80px'],anim:2});
+        }
       }
     });
   }

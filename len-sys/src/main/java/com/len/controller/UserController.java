@@ -84,24 +84,24 @@ public class UserController  extends BaseController{
   @Log(desc = "添加用户")
   @PostMapping(value = "addUser")
   @ResponseBody
-  public String addUser(SysUser user,String[] role) {
+  public JsonUtil addUser(SysUser user,String[] role) {
     if (user == null) {
-      return "获取数据失败";
+      return JsonUtil.error("获取数据失败");
     }
     if (StringUtils.isBlank(user.getUsername())) {
-
-      return "用户名不能为空";
+      return JsonUtil.error("用户名不能为空");
     }
     if (StringUtils.isBlank(user.getPassword())) {
-      return "密码不能为空";
+      return JsonUtil.error("密码不能为空");
     }
     if(role==null){
-      return "请选择角色";
+      return JsonUtil.error("请选择角色");
     }
     int result = userService.checkUser(user.getUsername());
     if (result > 0) {
-      return "用户名已存在";
+      return JsonUtil.error("用户名已存在");
     }
+    JsonUtil j=new JsonUtil();
     try {
       userService.insertSelective(user);
       SysRoleUser sysRoleUser=new SysRoleUser();
@@ -110,10 +110,13 @@ public class UserController  extends BaseController{
         sysRoleUser.setRoleId(r);
         roleUserService.insertSelective(sysRoleUser);
       }
+      j.setMsg("保存成功");
     } catch (MyException e) {
+      j.setMsg("保存失败");
+      j.setFlag(false);
       e.printStackTrace();
     }
-    return "保存成功";
+    return j;
   }
 
   @GetMapping(value = "updateUser")
@@ -170,34 +173,8 @@ public class UserController  extends BaseController{
   @PostMapping(value = "/del")
   @ResponseBody
   @RequiresPermissions("user:del")
-  public String del(String id, boolean flag) {
-    if (StringUtils.isEmpty(id)) {
-      return "获取数据失败";
-    }
-
-    try {
-      SysUser sysUser = userService.selectByPrimaryKey(id);
-      if("admin".equals(sysUser.getUsername())){
-        return "超管无法删除";
-      }
-      SysRoleUser roleUser=new SysRoleUser();
-      roleUser.setUserId(id);
-      int count=roleUserService.selectCountByCondition(roleUser);
-      if(count>0){
-        return "账户已经绑定角色，无法删除";
-      }
-      if (flag) {
-        //逻辑
-        sysUser.setDelFlag(Byte.parseByte("1"));
-        userService.updateByPrimaryKeySelective(sysUser);
-      } else {
-        //物理
-        userService.delById(id);
-      }
-    } catch (MyException e) {
-      e.printStackTrace();
-    }
-    return "删除成功";
+  public JsonUtil del(String id, boolean flag) {
+   return userService.delById(id,flag);
   }
 
   @GetMapping(value = "goRePass")
@@ -213,7 +190,7 @@ public class UserController  extends BaseController{
   /**
    * 修改密码
    * @param id
-   * @param password
+   * @param pass
    * @param newPwd
    * @return
    */

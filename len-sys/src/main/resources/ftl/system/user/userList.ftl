@@ -244,9 +244,13 @@
       url:"del",
       type:"post",
       data:{id:id,flag:flag},async:false,
-      success:function(msg){
-        window.top.layer.msg(msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
-        layui.table.reload('userList');
+      success:function(d){
+        if(d.flag){
+          window.top.layer.msg(d.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
+          layui.table.reload('userList');
+        }else{
+          window.top.layer.msg(d.msg,{icon:5,offset: 'rb',area:['120px','80px'],anim:2});
+        }
       },error:function(){
         alert('error');
       }
@@ -258,7 +262,7 @@
       title = false;
     };
     if (url == null || url == '') {
-      url = "404.html";
+      url = "error/404";
     };
     if (w == null || w == '') {
       w = ($(window).width() * 0.9);

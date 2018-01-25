@@ -5,15 +5,19 @@ import com.len.base.impl.BaseServiceImpl;
 import com.len.entity.SysRole;
 import com.len.entity.SysRoleUser;
 import com.len.entity.SysUser;
+import com.len.exception.MyException;
 import com.len.mapper.SysRoleUserMapper;
 import com.len.mapper.SysUserMapper;
 import com.len.service.RoleService;
+import com.len.service.RoleUserService;
 import com.len.service.SysUserService;
 import com.len.util.Checkbox;
+import com.len.util.JsonUtil;
 import com.len.util.Md5Util;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +34,12 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser,String> implemen
 
   @Autowired
   SysRoleUserMapper sysRoleUserMapper;
+
   @Autowired
   RoleService roleService;
+
+  @Autowired
+  RoleUserService roleUserService;
   @Override
   public BaseMapper<SysUser, String> getMappser() {
     return sysUserMapper;
@@ -105,8 +113,38 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser,String> implemen
   }
 
   @Override
-  public int delById(String id) {
-    return sysUserMapper.delById(id);
+  public JsonUtil delById(String id,boolean flag) {
+    if (StringUtils.isEmpty(id)) {
+      return JsonUtil.error("获取数据失败");
+    }
+    JsonUtil j=null;
+    try {
+      SysUser sysUser = selectByPrimaryKey(id);
+      if("admin".equals(sysUser.getUsername())){
+        return JsonUtil.error("超管无法删除");
+      }
+      SysRoleUser roleUser=new SysRoleUser();
+      roleUser.setUserId(id);
+      int count=roleUserService.selectCountByCondition(roleUser);
+      if(count>0){
+        return JsonUtil.error("账户已经绑定角色，无法删除");
+      }
+      j=new JsonUtil();
+      if (flag) {
+        //逻辑
+        sysUser.setDelFlag(Byte.parseByte("1"));
+        updateByPrimaryKeySelective(sysUser);
+      } else {
+        //物理
+        sysUserMapper.delById(id);
+      }
+      j.setMsg("删除成功");
+    } catch (MyException e) {
+      j.setMsg("删除失败");
+      j.setFlag(false);
+      e.printStackTrace();
+    }
+    return j;
 
   }
 

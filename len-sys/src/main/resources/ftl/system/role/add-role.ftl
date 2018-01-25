@@ -133,12 +133,16 @@ To change this template use File | Settings | File Templates.-->
         type:'post',
         data:data.field,
         async:false, traditional: true,
-        success:function(msg){
-          console.info('msg:'+msg);
+        success:function(d){
+          if(d.flag){
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);
             window.parent.layui.table.reload('roleList');
-          window.top.layer.msg(msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
+            window.top.layer.msg(d.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
+          }else{
+            layer.msg(d.msg,{icon:5,offset: 'rb',area:['120px','80px'],anim:2});
+          }
+
         },error:function(){
           layer.alert("请求失败", {icon: 6},function () {
             var index = parent.layer.getFrameIndex(window.name);

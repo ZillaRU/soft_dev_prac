@@ -73,10 +73,11 @@ public class RoleController extends BaseController {
   @Log(desc = "添加角色")
   @PostMapping(value = "addRole")
   @ResponseBody
-  public String addRole(SysRole sysRole,String[] menus){
+  public JsonUtil addRole(SysRole sysRole,String[] menus){
     if(StringUtils.isEmpty(sysRole.getRoleName())){
-      return "角色名称不能为空";
+      JsonUtil.error("角色名称不能为空");
     }
+    JsonUtil j=new JsonUtil();
     try{
       roleService.insertSelective(sysRole);
       //操作role-menu data
@@ -88,10 +89,13 @@ public class RoleController extends BaseController {
         sysRoleMenu.setMenuId(menu);
         roleMenuService.insert(sysRoleMenu);
       }
+      j.setMsg("保存成功");
     }catch (MyException e){
+      j.setMsg("保存失败");
+      j.setFlag(false);
       e.printStackTrace();
     }
-    return "保存成功";
+    return j;
   }
 
   @GetMapping(value = "updateRole")
@@ -136,6 +140,7 @@ public class RoleController extends BaseController {
       jsonUtil.setFlag(true);
       jsonUtil.setMsg("修改成功");
     } catch (MyException e) {
+      jsonUtil.setMsg("修改失败");
       e.printStackTrace();
     }
     return jsonUtil;
@@ -146,22 +151,26 @@ public class RoleController extends BaseController {
   @PostMapping(value = "del")
   @ResponseBody
   @RequiresPermissions("role:del")
-  public String del(String id) {
+  public JsonUtil del(String id) {
     if (StringUtils.isEmpty(id)) {
-      return "获取数据失败";
+      return JsonUtil.error("获取数据失败");
     }
     SysRoleUser sysRoleUser=new SysRoleUser();
     sysRoleUser.setRoleId(id);
+    JsonUtil j=new JsonUtil();
     try {
      int count= roleUserService.selectCountByCondition(sysRoleUser);
      if(count>0){
-       return "已分配给用户，删除失败";
+       return JsonUtil.error("已分配给用户，删除失败");
      }
         roleService.deleteByPrimaryKey(id);
+     j.setMsg("删除成功");
     } catch (MyException e) {
+      j.setMsg("删除失败");
+      j.setFlag(false);
       e.printStackTrace();
     }
-    return "删除成功";
+    return j;
   }
 
 }

@@ -5,6 +5,7 @@ import com.len.base.BaseService;
 import com.len.entity.SysRoleUser;
 import com.len.entity.SysUser;
 import com.len.util.Checkbox;
+import com.len.util.JsonUtil;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public interface SysUserService extends BaseService<SysUser,String> {
    * @param id
    * @return
    */
-  int delById(String id);
+  JsonUtil delById(String id,boolean flag);
 
   int checkUser(String username);
 
