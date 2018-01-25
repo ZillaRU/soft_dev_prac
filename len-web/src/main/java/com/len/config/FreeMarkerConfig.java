@@ -23,21 +23,21 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 @Configuration
 public class FreeMarkerConfig{
 
-/*
+
   @Bean
   public ViewResolver viewResolver() {
     FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
     resolver.setCache(false);
     resolver.setViewClass(org.springframework.web.servlet.view.freemarker.FreeMarkerView.class);
     resolver.setRequestContextAttribute("re");
-    *//*resolver.setExposeSpringMacroHelpers(true);
+    //resolver.setExposeSpringMacroHelpers(true);
     resolver.setExposeRequestAttributes(true);
-    resolver.setExposeSessionAttributes(true);*//*
+    resolver.setExposeSessionAttributes(true);
     resolver.setSuffix(".ftl");
     resolver.setContentType("text/html; charset=UTF-8");
     return resolver;
   }
-*/
+
 
   @Bean
   public FreeMarkerConfigurer freemarkerConfig() throws IOException, TemplateException {
