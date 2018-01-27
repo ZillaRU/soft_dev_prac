@@ -14,29 +14,15 @@
   <meta name="viewport"
         content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
   <link rel="stylesheet" href="${re.contextPath}/plugin/layui/css/layui.css">
+  <link rel="stylesheet" href="${re.contextPath}/plugin/lenos/main.css">
   <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/layui/layui.all.js"
           charset="utf-8"></script>
-  <style>
-    .layui-input {
-      height: 30px;
-      width: 120px;
-    }
 
-    .x-nav {
-      padding: 0 20px;
-      position: relative;
-      z-index: 99;
-      border-bottom: 1px solid #e5e5e5;
-      height: 32px;
-      overflow: hidden;
-    }
-  </style>
 </head>
 
 <body>
-<br/>
-<div class="x-nav">
+<div class="lenos-search">
   <div class="select">
     用户名：
     <div class="layui-inline">
@@ -48,7 +34,7 @@
     </div>
     <button class="select-on layui-btn layui-btn-sm" data-type="select"><i class="layui-icon"></i>
     </button>
-    <button class="layui-btn layui-btn-sm" id="refresh" style="float: right;"
+    <button class="layui-btn layui-btn-sm icon-position-button" id="refresh" style="float: right;"
             data-type="reload">
       <i class="layui-icon">ဂ</i>
     </button>
@@ -125,7 +111,7 @@
         , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
       ]]
       , page: true,
-      height: 'full-105'
+      height: 'full-83'
     });
 
     var $ = layui.$, active = {

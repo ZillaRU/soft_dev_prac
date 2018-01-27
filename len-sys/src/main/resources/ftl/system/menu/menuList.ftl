@@ -9,19 +9,10 @@
   <meta name="keywords" content="">
   <link href="" rel="stylesheet">
   <link rel="stylesheet" href="${re.contextPath}/plugin/layuitree/layui/css/layui.css">
+  <link rel="stylesheet" href="${re.contextPath}/plugin/lenos/main.css"/>
 </head>
-<style>
-  .x-nav {
-    padding: 3px 20px;
-    position: relative;
-    z-index: 99;
-    border-bottom: 1px solid #e5e5e5;
-    height: 40px;
-    overflow: hidden;
-  }
-</style>
 <body>
-<div  class="x-nav">
+<div  class="layui-col-md13">
     <div class="layui-btn-group">
       <@shiro.hasPermission name="nemu:add">
         <button class="layui-btn layui-btn-normal" data-type="add">
@@ -29,8 +20,8 @@
         </button>
       </@shiro.hasPermission>
     </div>
-    <button class="layui-btn layui-btn-sm" id="refresh" style="float: right;" onclick="javascript:location.replace(location.href);">
-      <i class="layui-icon">ဂ</i>
+    <button class="layui-btn layui-btn-sm icon-position-no-button" id="refresh" style="float: right;" onclick="javascript:location.replace(location.href);">
+      <i class="layui-icon i-icon" style="font-size: 21px">ဂ</i>
     </button>
   </div>
 <div id="menuTree"></div>

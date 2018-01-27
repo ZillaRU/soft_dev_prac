@@ -55,3 +55,34 @@ function postAjaxre(url,data,tableId){
     }
   });
 }
+
+function layerAjax(url,data,tableId){
+  $.ajax({
+    url:url,
+    type:'post',
+    data:data,
+    traditional: true,
+    success:function(d){
+      var index = parent.layer.getFrameIndex(window.name);
+      if(d.flag){
+        parent.layer.close(index);
+        window.parent.layui.table.reload(tableId);
+        window.top.layer.msg(d.msg,{icon:6,offset: 'rb',area:['200px','80px'],anim:2});
+      }else{
+        layer.msg(d.msg,{icon:5});
+      }
+    },error:function(){
+      layer.alert("请求失败", {icon: 6},function () {
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+      });
+    }
+  });
+}
+
+function eleClick(active,ele){
+  $(ele).on('click', function () {
+    var type = $(this).data('type');
+    active[type] ? active[type].call(this) : '';
+  });
+}

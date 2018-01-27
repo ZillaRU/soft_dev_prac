@@ -226,11 +226,6 @@ To change this template use File | Settings | File Templates.-->
      var index = parent.layer.getFrameIndex(window.name);
      parent.layer.close(index);
    });
-   /* form.on('checkbox(check)', function(data){
-      if(data.elem.checked){
-        console.log(data.value);
-      }
-    });*/
     //监听提交
     form.on('submit(add)', function(data){
       var r=document.getElementsByName("role");
@@ -242,7 +237,6 @@ To change this template use File | Settings | File Templates.-->
         }
       }
       data.field.role=role;
-      console.info(data.field.role);
       $.ajax({
         url:'updateUser',
         type:'post',

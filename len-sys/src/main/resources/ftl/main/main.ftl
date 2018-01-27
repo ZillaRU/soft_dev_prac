@@ -93,7 +93,7 @@
   </#if>
 </#macro>
 <@tree data=menu start="start" end="end"/>
-  <div class="layui-body" id="container">
+  <div class="layui-body" <#--style="border:1px solid red;padding-bottom:0;"--> id="container">
     <!-- 内容主体区域 -->
     <div style="padding: 15px;"><i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop">&#xe63e;</i> 请稍等...</div>
   </div>
