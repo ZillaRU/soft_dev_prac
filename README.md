@@ -60,33 +60,33 @@
 * lenos脚手架会一直更新下去，我们的征途是星辰大海
 
 ## 项目图片
-* 登录账号：admin 密码：123456<br>
+* 登录账号：admin 密码：123456   
 ![图片说明](http://ww1.sinaimg.cn/large/0060lm7Tly1fn2bsi2kexj311y0hsdmw.jpg "图片说明")
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c1yaqrjj311y0hvdhj.jpg "图片说明")
-<br>
+   
 * 完全模块化工作流引擎，可视化建立编辑，动态分配节点处理人
 * 监听器监听系统用户、角色实时同步到工作流引擎表
-* 提供请假流程示例<br>
+* 提供请假流程示例   
 ![图片说明](http://ww4.sinaimg.cn/large/0060lm7Tly1fnvohtrdglj311y0gggn2.jpg "图片说明")
 ![图片说明](http://ww3.sinaimg.cn/large/0060lm7Tly1fnvokv38fwj311y0gddgj.jpg "图片说明")
 ![图片说明](http://ww1.sinaimg.cn/large/0060lm7Tly1fnvoo3kn12j311x0flmya.jpg "图片说明")
-<br>
-* 菜单管理分为一级菜单 二级菜单 按钮(也可以是元素)权限<br>
+   
+* 菜单管理分为一级菜单 二级菜单 按钮(也可以是元素)权限   
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c2l057sj311y0hu767.jpg "图片说明")
-<br>
-* 用户可以上传头像<br>
+   
+* 用户可以上传头像   
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c33qyvrj311y0hv40e.jpg "图片说明")
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c3m4b77j311y0hpq4b.jpg "图片说明")
-<br>
+   
 * 自定义定时类，实现Job，前端配置定时类，即可控制任务类，已实现定时类获取spring上下文，
-* 项目启动加载完bean后利用spring boot监听开启一个线程，检测已启动的定时任务，进行开启。<br>
+* 项目启动加载完bean后利用spring boot监听开启一个线程，检测已启动的定时任务，进行开启。   
 ![图片说明](http://ww1.sinaimg.cn/large/0060lm7Tly1fn873a0sqnj311y0gc0tr.jpg "图片说明")
 ![图片说明](http://ww1.sinaimg.cn/large/0060lm7Tly1fn876ntgczj30t707xdgf.jpg "图片说明")
-<br>
+   
 * 日志监控 利用aop 自定义拦截日志持久化到数据库并对数据进行监控<br>
 ![图片说明](http://ww3.sinaimg.cn/large/0060lm7Tly1fn8793d3llj311y0gxq4s.jpg "图片说明")
-<br>
-* 接口<br>
+   
+* 接口   
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c4swdjrj311y0hptam.jpg "图片说明")
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c5ev8tgj30w50e7wfs.jpg "图片说明")
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2dvrcl9lj30wd0e6gmd.jpg "图片说明")
