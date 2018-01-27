@@ -22,11 +22,13 @@
 - **系统监控**：_系统日志、接口api、系统监控、可配置定时任务_
 - 前端可配置化定时任务。
 - 采用swagger可视化出实时方法格式以及数据属性，采用阿里druid监控sql。
-- 工作流程管理：完全实现模块化，实现无侵入。
+- 工作流程管理：完全实现模块化，无侵入。监听用户角色信息到引擎数据表中
 - **流程管理**：动态给发布流程分配角色，无需手动写死，灵活可变
 - **模块列表**：新建、编辑、发布流程，前端实现完全可配置化建立流程图
 - **请假流程**：提供一个请假示例，让您很快熟悉流程
 - **待办任务**：个人需要办理的流程任务
+- 如果不喜欢工作流，可以直接删除 len-activiti模块  
+并在len-web/pom.xml、父 pom.xml 删除依赖以及模块，删除application.java 中对activiti的扫描即可完全删除工作流模块。
 
 ## 更新说明
 - 18/1/28 **添加工作流模块，前端页面优化，更加有线条**
@@ -68,11 +70,13 @@
 * 完全模块化工作流引擎，可视化建立编辑，动态分配节点处理人
 * 监听器监听系统用户、角色实时同步到工作流引擎表
 * 提供请假流程示例   
+  
 ![图片说明](http://ww4.sinaimg.cn/large/0060lm7Tly1fnvohtrdglj311y0gggn2.jpg "图片说明")
 ![图片说明](http://ww3.sinaimg.cn/large/0060lm7Tly1fnvokv38fwj311y0gddgj.jpg "图片说明")
 ![图片说明](http://ww1.sinaimg.cn/large/0060lm7Tly1fnvoo3kn12j311x0flmya.jpg "图片说明")
    
 * 菜单管理分为一级菜单 二级菜单 按钮(也可以是元素)权限   
+  
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c2l057sj311y0hu767.jpg "图片说明")
    
 * 用户可以上传头像   
@@ -91,7 +95,7 @@
 ![图片说明](http://ww3.sinaimg.cn/large/0060lm7Tly1fn8793d3llj311y0gxq4s.jpg "图片说明")
    
 * 接口   
-  
+ 
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c4swdjrj311y0hptam.jpg "图片说明")
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c5ev8tgj30w50e7wfs.jpg "图片说明")
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2dvrcl9lj30wd0e6gmd.jpg "图片说明")
