@@ -49,7 +49,6 @@ public class DruidConfig {
   @Bean
   @Primary
   public DataSource getDataSource(){
-    System.out.println("-------初始化druid------");
     DruidDataSource datasource = new DruidDataSource();
 
     datasource.setUrl(url);
