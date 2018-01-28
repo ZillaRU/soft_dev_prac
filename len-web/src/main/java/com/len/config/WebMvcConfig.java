@@ -55,5 +55,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/plugin/**","/static/**")
             .addResourceLocations("classpath:/plugin/","classpath:/static/");
+        registry.addResourceHandler("/ftl/**").addResourceLocations("classpath:/ftl/");
     }
 }
