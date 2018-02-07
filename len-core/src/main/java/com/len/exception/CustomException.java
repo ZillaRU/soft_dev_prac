@@ -43,7 +43,6 @@ public class CustomException implements HandlerExceptionResolver {
     modelAndView.addObject("message",message);
 
     //指向到错误界面
-    //modelAndView.setViewName("error");
     return mv;
   }
 }
