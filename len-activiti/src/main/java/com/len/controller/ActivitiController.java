@@ -431,7 +431,7 @@ public class ActivitiController extends BaseController {
       }
     JsonUtil j=new JsonUtil();
     try {
-      //repositoryService.deleteModel(id);
+      repositoryService.deleteModel(id);
       j.setMsg("删除成功");
     }catch (MyException e){
       j.setMsg("删除失败");

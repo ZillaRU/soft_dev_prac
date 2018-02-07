@@ -44,6 +44,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -182,6 +183,7 @@ public class UserLeaveController extends BaseController {
     return j;
   }
 
+
   @PostMapping("addLeave")
   @ResponseBody
   public JsonUtil addLeave(Model model,UserLeave userLeave){
@@ -194,9 +196,8 @@ public class UserLeaveController extends BaseController {
     userLeave.setUserId(user.getId());
     userLeave.setUserName(user.getUsername());
     userLeave.setProcessInstanceId("2018");//模拟数据
-    try {
-      leaveService.insertSelective(userLeave);
 
+      leaveService.insertSelective(userLeave);
       Map<String,Object> map=new HashedMap();
       map.put("userLeave",userLeave);
       ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("process_leave",map);
@@ -208,11 +209,6 @@ public class UserLeaveController extends BaseController {
         return JsonUtil.error("未识别key");
       }
       j.setMsg("请假申请成功");
-    }catch (MyException e){
-      j.setMsg("保存失败");
-      j.setFlag(false);
-      e.printStackTrace();
-    }
     return j;
   }
 
