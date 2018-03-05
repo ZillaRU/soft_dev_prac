@@ -31,8 +31,12 @@ public class VerfityCodeFilter extends AccessControlFilter{
         if (verfitiCode == false || !"post".equalsIgnoreCase(httpRequest.getMethod())) {
             return true;
         }
-        //表单提交，校验验证码的正确性
-        String storedCode = getSubject(request, response).getSession().getAttribute("_code").toString();
+      Object code = getSubject(request, response).getSession().getAttribute("_code");
+      String storedCode=null;
+        if(null!=code){
+          storedCode = code.toString();
+        }
+      //表单提交，校验验证码的正确性
         String currentCode = httpRequest.getParameter(jcaptchaParam);
 
         return StringUtils.equalsIgnoreCase(storedCode, currentCode);
