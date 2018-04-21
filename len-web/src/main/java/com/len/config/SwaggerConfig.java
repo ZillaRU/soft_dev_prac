@@ -36,7 +36,7 @@ public class SwaggerConfig  extends WebMvcConfigurerAdapter{
         return new ApiInfoBuilder()
                 .title("Swagger接口列表")
                 .description("接口")
-                .termsOfServiceUrl("http://localhost:8080/swagger-ui.html")
+                .termsOfServiceUrl("http://localhost:8081/swagger-ui.html")
                 .contact(new Contact("zxm","true08.com","154040976@qq.com"))
                 .version("1.1.0")
                 .build();

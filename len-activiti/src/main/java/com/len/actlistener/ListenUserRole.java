@@ -46,7 +46,7 @@ public class ListenUserRole {
    * 明确切入方法的参数
    * @param joinPoint
    */
-  @Around("execution(com.len.util.JsonUtil com.len.controller.UserController.updateUser(..))")
+  @Around("execution(com.len.util.JsonUtil com.len.controller.UserController.updateUser(*,String[]))")
   public Object listenerUserUpdate(ProceedingJoinPoint joinPoint){
     Object o=new Object();
     try{
@@ -72,7 +72,7 @@ public class ListenUserRole {
    * 新增用户监听 同步工作流用户表 环绕注解能得到 插入用户id 啊哈哈
    * @param joinPoint
    */
-  @Around("execution(java.lang.String com.len.controller.UserController.addUser(..))")
+  @Around("execution(com.len.util.JsonUtil com.len.controller.UserController.addUser(*,String[]))")
   public Object  listenerUserInsert(ProceedingJoinPoint joinPoint){
     Object o=new Object();
     try{
@@ -126,7 +126,7 @@ public class ListenUserRole {
       identityService.deleteMembership(user.getId(),roleId);
     }
     //再次关联
-    if(strings!=null){
+    if(!strings.isEmpty()){
       for(String roleId:strings){
         identityService.createMembership(user.getId(),roleId);
       }
@@ -138,7 +138,7 @@ public class ListenUserRole {
 
 
   /**********************角色处理begin***************************/
-  @Around("execution(com.len.util.JsonUtil com.len.controller.RoleController.addRole(..))")
+  @Around("execution(com.len.util.JsonUtil com.len.controller.RoleController.addRole(*,String[]))")
   public Object listenRoleInsert(ProceedingJoinPoint joinPoint){
     Object o=null;
     try{
@@ -156,7 +156,7 @@ public class ListenUserRole {
     return o;
   }
 
-  @Around("execution(com.len.util.JsonUtil com.len.controller.RoleController.updateUser(..))")
+  @Around("execution(com.len.util.JsonUtil com.len.controller.RoleController.updateUser(*,String[]))")
   public Object listenRoleUpdate(ProceedingJoinPoint joinPoint){
     Object o=null;
     try{

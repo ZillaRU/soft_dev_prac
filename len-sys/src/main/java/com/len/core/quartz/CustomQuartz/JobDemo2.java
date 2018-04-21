@@ -1,6 +1,6 @@
 package com.len.core.quartz.CustomQuartz;
 
-import com.len.core.annotation.Log;
+
 import com.len.entity.SysUser;
 import com.len.service.SysUserService;
 import com.len.service.impl.SysUserServiceImpl;
@@ -10,6 +10,8 @@ import java.util.List;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -20,7 +22,7 @@ import org.springframework.context.ApplicationContext;
  * 定时测试类
  */
 public class JobDemo2 implements Job{
-
+  private static  Logger logger= LoggerFactory.getLogger(JobDemo2.class);
 
   @Override
   public void execute(JobExecutionContext context) throws JobExecutionException {
@@ -35,8 +37,7 @@ public class JobDemo2 implements Job{
     ApplicationContext applicationContext=SpringUtil.getApplicationContext();
     SysUserService sys=SpringUtil.getBean(SysUserServiceImpl.class);
     List<SysUser> userList=sys.selectListByPage(new SysUser());
-    System.out.println(userList.get(0).getUsername());;
-    System.out.println("JobDemo2：执行完毕=======================");
-
+    logger.info(userList.get(0).getUsername());
+    logger.info("JobDemo2：执行完毕=======================");
   }
 }

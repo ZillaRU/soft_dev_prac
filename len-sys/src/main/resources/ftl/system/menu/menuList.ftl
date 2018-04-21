@@ -32,6 +32,9 @@
     console.info(nodeId);
     alert(nodeId)
   }
+  function update(nodeId){
+    add('编辑菜单', 'showUpdateMenu?id='+nodeId, 700, 550);
+  }
 
   var layout = [
     { name: '菜单名称', treeNodes: true, headerClass: 'value_col', colClass: 'value_col', style: 'width: 10%'
@@ -66,7 +69,7 @@
       render: function(row) {
         var chil_len=row.children.length;
         var str= '<a class="layui-btn layui-btn-primary layui-btn-xs" onclick="del(\'' + row.id + '\')"><i class="layui-icon">&#xe615;</i> 查看</a>' +
-            '<a class="layui-btn layui-btn-xs  layui-btn-normal" onclick="del(\'' + row.id + '\')"><i class="layui-icon">&#xe642;</i> 编辑</a>'; //列渲染
+            '<a class="layui-btn layui-btn-xs  layui-btn-normal" onclick="update(\'' + row.id + '\')"><i class="layui-icon">&#xe642;</i> 编辑</a>'; //列渲染
         if(chil_len==0){
           str+='<a class="layui-btn layui-btn-danger layui-btn-xs" onclick="del(\'' + row.id + '\')"><i class="layui-icon">&#xe640;</i> 删除</a>';
         }
@@ -85,7 +88,7 @@
     });
     var $ = layui.$, active = {
         add: function () {
-            add('添加菜单', 'showAddMenu', 700, 450);
+            add('添加菜单', 'showAddMenu', 700, 550);
         }
     }
     $('.layui-btn-group .layui-btn').on('click', function () {
@@ -99,7 +102,7 @@
       }
       ;
       if (url == null || url == '') {
-          url = "404.html";
+          url = "/error/404";
       }
       ;
       if (w == null || w == '') {

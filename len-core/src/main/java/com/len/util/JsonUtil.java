@@ -2,7 +2,6 @@ package com.len.util;
 
 
 import com.alibaba.fastjson.JSONObject;
-import net.minidev.json.JSONUtil;
 
 /**
  * @author zhuxiaomeng

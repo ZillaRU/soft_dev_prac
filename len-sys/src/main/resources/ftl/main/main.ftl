@@ -101,7 +101,7 @@
   <div class="layui-footer">
   <!-- 底部固定区域 -->
   2017 &copy;
-  <a target="_blank" href="http://www.true08.com/">true08.com/</a> 由zxm倾心打造的一款快速开发脚手架 <#--技术交流请联系本人-154040976@qq.com-->
+  <a target="_blank" href="https://my.oschina.net/u/3312115/blog">开源中国博客</a> 由zxm倾心打造的一款快速开发脚手架 <#--技术交流请联系本人-154040976@qq.com-->
 </div>
 </div>
 <script src="${re.contextPath}/plugin/plugins/layui/layui.js"></script>

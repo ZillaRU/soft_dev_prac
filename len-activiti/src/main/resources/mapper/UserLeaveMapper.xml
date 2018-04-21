@@ -195,6 +195,7 @@
     SELECT <include refid="Base_Column_List"/>
     from user_leave
     <where>
+      <if test="userId!=null and userId!=''">and user_id=#{userId}</if>
       <if test="beginTime!=null">
         <![CDATA[   and DATE_FORMAT(begin_time, '%Y-%m-%d')>=  DATE_FORMAT(#{beginTime}, '%Y-%m-%d')   ]]>
        </if>

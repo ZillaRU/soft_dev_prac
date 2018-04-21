@@ -12,12 +12,14 @@ import com.len.service.MenuService;
 import com.len.service.SysUserService;
 import com.len.util.VerifyCodeUtils;
 import io.swagger.annotations.ApiOperation;
+
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -46,130 +48,132 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 public class LoginController {
 
-  @Autowired
-  private SysUserService userService;
+    @Autowired
+    private SysUserService userService;
 
-  @Autowired
-  private MenuService menuService;
+    @Autowired
+    private MenuService menuService;
 
-  @GetMapping(value = "")
-  public String loginInit(){
-    return loginCheck();
-  }
-  @GetMapping(value = "goLogin")
-  public String goLogin(Model model,ServletRequest request){
-    Subject sub=SecurityUtils.getSubject();
-    if(sub.isAuthenticated()){
-      return "/main/main";
-    }else{
-      model.addAttribute("message","请重新登录");
-      return "/login";
+    @GetMapping(value = "")
+    public String loginInit() {
+        return loginCheck();
     }
-  }
 
-  @GetMapping(value = "/login")
-  public String loginCheck(){
-   Subject sub=SecurityUtils.getSubject();
-    Boolean flag2=sub.isRemembered();
-    boolean flag=sub.isAuthenticated()||flag2;
-    Session session=sub.getSession();
-    if(flag){
-        return "/main/main";
+    @GetMapping(value = "goLogin")
+    public String goLogin(Model model, ServletRequest request) {
+        Subject sub = SecurityUtils.getSubject();
+        if (sub.isAuthenticated()) {
+            return "/main/main";
+        } else {
+            model.addAttribute("message", "请重新登录");
+            return "/login";
+        }
     }
-    return "/login";
-  }
 
-  /**
-   * 登录动作
-   * @param user
-   * @param model
-   * @param rememberMe
-   * @return
-   */
-  @ApiOperation(value = "/login", httpMethod = "POST", notes = "登录method")
-  @PostMapping(value = "/login")
-  public String login(SysUser user,Model model,String rememberMe,HttpServletRequest request){
-    String codeMsg = (String)request.getAttribute("shiroLoginFailure");
-    if("code.error".equals(codeMsg)){
-      model.addAttribute("message","验证码错误");
-      return "/login";
+    @GetMapping(value = "/login")
+    public String loginCheck() {
+        Subject sub = SecurityUtils.getSubject();
+        Boolean flag2 = sub.isRemembered();
+        boolean flag = sub.isAuthenticated() || flag2;
+        Session session = sub.getSession();
+        if (flag) {
+            return "/main/main";
+        }
+        return "/login";
     }
-    UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername().trim(),
-       user.getPassword());
-    Subject subject = ShiroUtil.getSubject();
-    String msg=null;
-    try{
-      subject.login(token);
-     //subject.hasRole("admin");
-      if(subject.isAuthenticated()){
-        return "/main/main";
-      }
-    }catch (UnknownAccountException e) {
-      msg = "用户名/密码错误";
-    } catch (IncorrectCredentialsException e) {
-      msg = "用户名/密码错误";
-    } catch (ExcessiveAttemptsException e) {
-      msg = "登录失败多次，账户锁定10分钟";
+
+    /**
+     * 登录动作
+     *
+     * @param user
+     * @param model
+     * @param rememberMe
+     * @return
+     */
+    @ApiOperation(value = "/login", httpMethod = "POST", notes = "登录method")
+    @PostMapping(value = "/login")
+    public String login(SysUser user, Model model, String rememberMe, HttpServletRequest request) {
+        String codeMsg = (String) request.getAttribute("shiroLoginFailure");
+        if ("code.error".equals(codeMsg)) {
+            model.addAttribute("message", "验证码错误");
+            return "/login";
+        }
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername().trim(),
+                user.getPassword());
+        Subject subject = ShiroUtil.getSubject();
+        String msg = null;
+        try {
+            subject.login(token);
+            //subject.hasRole("admin");
+            if (subject.isAuthenticated()) {
+                return "/main/main";
+            }
+        } catch (UnknownAccountException e) {
+            msg = "用户名/密码错误";
+        } catch (IncorrectCredentialsException e) {
+            msg = "用户名/密码错误";
+        } catch (ExcessiveAttemptsException e) {
+            msg = "登录失败多次，账户锁定10分钟";
+        }
+        if (msg != null) {
+            model.addAttribute("message", msg);
+        }
+        return "/login";
     }
-    if(msg!=null){
-      model.addAttribute("message",msg);
+
+    @Log(desc = "用户退出平台")
+    @GetMapping(value = "/logout")
+    public String logout() {
+        Subject sub = SecurityUtils.getSubject();
+        sub.logout();
+        return "/login";
     }
-    return "/login";
-  }
 
-  @Log(desc = "用户退出平台")
-  @GetMapping(value = "/logout")
-  public String logout(){
-    Subject sub=SecurityUtils.getSubject();
-    sub.logout();
-    return "/login";
-  }
-
-  /**
-   * 组装菜单json格式
-   * update by 17/12/13
-   * @return
-   */
-  public JSONArray getMenuJson(){
-    List<SysMenu> mList=menuService.getMenuNotSuper();
-    JSONArray jsonArr=new JSONArray();
-    for(SysMenu sysMenu:mList){
-      SysMenu menu=getChild(sysMenu.getId());
-      jsonArr.add(menu);
+    /**
+     * 组装菜单json格式
+     * update by 17/12/13
+     *
+     * @return
+     */
+    public JSONArray getMenuJson() {
+        List<SysMenu> mList = menuService.getMenuNotSuper();
+        JSONArray jsonArr = new JSONArray();
+        for (SysMenu sysMenu : mList) {
+            SysMenu menu = getChild(sysMenu.getId());
+            jsonArr.add(menu);
+        }
+        return jsonArr;
     }
-    return jsonArr;
-  }
 
-  public SysMenu getChild(String id){
-    SysMenu sysMenu=menuService.selectByPrimaryKey(id);
-    List<SysMenu> mList=menuService.getMenuChildren(id);
-    for(SysMenu menu:mList){
-      SysMenu m=getChild(menu.getId());
-      sysMenu.addChild(m);
+    public SysMenu getChild(String id) {
+        SysMenu sysMenu = menuService.selectByPrimaryKey(id);
+        List<SysMenu> mList = menuService.getMenuChildren(id);
+        for (SysMenu menu : mList) {
+            SysMenu m = getChild(menu.getId());
+            sysMenu.addChild(m);
+        }
+        return sysMenu;
     }
-    return sysMenu;
-  }
 
 
+    @GetMapping(value = "/getCode")
+    public void getYzm(HttpServletResponse response, HttpServletRequest request) {
+        try {
+            response.setHeader("Pragma", "No-cache");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setDateHeader("Expires", 0);
+            response.setContentType("image/jpg");
 
-  @GetMapping(value="/getCode")
-  public void getYzm(HttpServletResponse response, HttpServletRequest request){
-    try {
-      response.setHeader("Pragma", "No-cache");
-      response.setHeader("Cache-Control", "no-cache");
-      response.setDateHeader("Expires", 0);
-      response.setContentType("image/jpg");
-
-      //生成随机字串
-      String verifyCode = VerifyCodeUtils.generateVerifyCode(4);
-      //存入会话session
-      HttpSession session = request.getSession(true);
-      session.setAttribute("_code", verifyCode.toLowerCase());
-      //生成图片
-      int w = 146, h = 33;
-      VerifyCodeUtils.outputImage(w, h, response.getOutputStream(), verifyCode);
-    } catch (Exception e) {
-      e.printStackTrace();
+            //生成随机字串
+            String verifyCode = VerifyCodeUtils.generateVerifyCode(4);
+            //存入会话session
+            HttpSession session = request.getSession(true);
+            session.setAttribute("_code", verifyCode.toLowerCase());
+            //生成图片
+            int w = 146, h = 33;
+            VerifyCodeUtils.outputImage(w, h, response.getOutputStream(), verifyCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-  }
 }

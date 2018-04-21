@@ -7,7 +7,6 @@ import com.len.base.BaseController;
 import com.len.base.CurrentUser;
 import com.len.core.shiro.ShiroUtil;
 import com.len.entity.LeaveOpinion;
-import com.len.entity.SysUser;
 import com.len.entity.UserLeave;
 import com.len.exception.MyException;
 import com.len.service.UserLeaveService;
@@ -15,7 +14,6 @@ import com.len.util.BeanUtil;
 import com.len.util.CommonUtil;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -24,27 +22,24 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.engine.IdentityService;
-import org.activiti.engine.ProcessEngineConfiguration;
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
+import org.activiti.engine.*;
+import org.activiti.engine.history.HistoricActivityInstance;
+import org.activiti.engine.history.HistoricDetail;
+import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.history.HistoricVariableUpdate;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import org.activiti.engine.task.TaskInfo;
 import org.activiti.image.ProcessDiagramGenerator;
 import org.activiti.spring.ProcessEngineFactoryBean;
 import org.apache.commons.collections.map.HashedMap;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -83,6 +78,8 @@ public class UserLeaveController extends BaseController {
 
   @Autowired
   ProcessEngineConfiguration processEngineConfiguration;
+
+  private  String leaveOpinionList="leaveOpinionList";
 
 
   @GetMapping(value = "showLeave")
@@ -127,17 +124,30 @@ public class UserLeaveController extends BaseController {
         .processInstanceId(processId).singleResult();
     //保证运行ing
     List<LeaveOpinion> leaveList=null;
+    List<HistoricActivityInstance> historicActivityInstanceList=new ArrayList<>();
     if(instance!=null){
       Task task = this.taskService.createTaskQuery().processInstanceId(processId).singleResult();
       Map<String, Object> variables = taskService.getVariables(task.getId());
-      Object o = variables.get("leaveOpinionList");
+      Object o = variables.get(leaveOpinionList);
       if(o!=null){
-        /**获取历史审核信息*/
+        /*获取历史审核信息*/
         leaveList= ( List<LeaveOpinion>) o;
       }
+    }else{
+        leaveList=new ArrayList<>();
+        List<HistoricDetail> list = historyService.createHistoricDetailQuery().
+                processInstanceId(processId).list();
+        HistoricVariableUpdate variable=null;
+        for(HistoricDetail historicDetail:list){
+            variable= (HistoricVariableUpdate) historicDetail;
+            String variableName = variable.getVariableName();
+            if(leaveOpinionList.equals(variable.getVariableName())){
+                leaveList.clear();
+                leaveList.addAll((List<LeaveOpinion>)variable.getValue());
+            }
+        }
     }
-    String s=JSON.toJSONString(leaveList);
-    model.addAttribute("leaveDetail",JSON.toJSONString(leaveList));
+      model.addAttribute("leaveDetail",JSON.toJSONString(leaveList));
     return "/act/leave/leaveDetail";
   }
 
@@ -189,7 +199,7 @@ public class UserLeaveController extends BaseController {
   public JsonUtil addLeave(Model model,UserLeave userLeave){
     JsonUtil j=new JsonUtil();
     if(userLeave==null){
-      return j.error("获取数据失败");
+      return JsonUtil.error("获取数据失败");
     }
     userLeave.setDays(3);
     CurrentUser user = CommonUtil.getUser();
@@ -273,17 +283,19 @@ public class UserLeaveController extends BaseController {
     map.put("flag",op.isFlag());
     //审批信息叠加
     List<LeaveOpinion> leaveList=new ArrayList<>();
-    Object o = variables.get("leaveOpinionList");
+    Object o = variables.get(leaveOpinionList);
     if(o!=null){
       leaveList= (List<LeaveOpinion>) o;
     }
     leaveList.add(op);
-    map.put("leaveOpinionList",leaveList);
+    map.put(leaveOpinionList,leaveList);
     j.setMsg("审核成功"+(op.isFlag()?"<font style='color:green'>[通过]</font>":"<font style='color:red'>[未通过]</font>"));
     taskService.complete(op.getTaskId(),map);
     return j;
   }
 
+  @Autowired
+  HistoryService historyService;
   /**
    * 追踪图片成图
    * @param request
@@ -295,19 +307,35 @@ public class UserLeaveController extends BaseController {
   public void getProcImage(HttpServletRequest request, HttpServletResponse resp,String processInstanceId)
       throws IOException {
     ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
-    if(processInstance==null){
+    HistoricProcessInstance historicProcessInstance =
+            historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+    String processDefinitionId=null;
+    List<String> executedActivityIdList = new ArrayList<String>();
+    if(processInstance!=null){
+      processDefinitionId=processInstance.getProcessDefinitionId();
+      executedActivityIdList=this.runtimeService.getActiveActivityIds(processInstance.getId());
+    }else if(historicProcessInstance!=null){
+      processDefinitionId=historicProcessInstance.getProcessDefinitionId();
+      List<HistoricActivityInstance> historicActivityInstanceList =
+              historyService.createHistoricActivityInstanceQuery().processInstanceId(processInstanceId).orderByHistoricActivityInstanceId().asc().list();
+      for (HistoricActivityInstance activityInstance : historicActivityInstanceList) {
+        executedActivityIdList.add(activityInstance.getActivityId());
+      }
+    }
+
+    if(StringUtils.isEmpty(processDefinitionId)||executedActivityIdList.isEmpty()){
       return;
     }
-    BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
-    List<String> activeActivityIds = runtimeService.getActiveActivityIds(processInstanceId);
+    BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId);
+    //List<String> activeActivityIds = runtimeService.getActiveActivityIds(processInstanceId);
     processEngineConfiguration = processEngine.getProcessEngineConfiguration();
     Context.setProcessEngineConfiguration((ProcessEngineConfigurationImpl) processEngineConfiguration);
     ProcessDiagramGenerator diagramGenerator = processEngineConfiguration.getProcessDiagramGenerator();
-    List<String> activeIds = this.runtimeService.getActiveActivityIds(processInstance.getId());
+    //List<String> activeIds = this.runtimeService.getActiveActivityIds(processInstance.getId());
 
     InputStream imageStream=diagramGenerator.generateDiagram(
         bpmnModel, "png",
-        activeIds, Collections.<String>emptyList(),
+            executedActivityIdList, Collections.<String>emptyList(),
         processEngine.getProcessEngineConfiguration().getActivityFontName(),
         processEngine.getProcessEngineConfiguration().getLabelFontName(),
         "宋体",

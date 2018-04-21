@@ -38,6 +38,8 @@ public class ActivitiConfig {
         //指定数据库
         processEngineConfiguration.setDatabaseType("mysql");
         processEngineConfiguration.setTransactionManager(transactionManager);
+        //历史变量
+        processEngineConfiguration.setHistory("full");
         //指定字体
         processEngineConfiguration.setActivityFontName("宋体");
         processEngineConfiguration.setAnnotationFontName("宋体");

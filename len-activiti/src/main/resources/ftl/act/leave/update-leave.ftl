@@ -90,7 +90,7 @@ To change this template use File | Settings | File Templates.-->
         ,layer = layui.layer
     ,laydate = layui.laydate;
     var d = new Date();
-    var day=d.getFullYear()+"-"+d.getMonth()+1+'-'+d.getDate();
+    var day=d.getFullYear()+"-"+(parseInt(d.getMonth())+1)+'-'+d.getDate();
     var $ = layui.$, active = {
       close: function () {
         var index = parent.layer.getFrameIndex(window.name);

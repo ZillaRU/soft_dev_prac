@@ -3,9 +3,11 @@ package com.len.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.len.base.BaseController;
 import com.len.core.annotation.Log;
+import com.len.core.annotation.Log.LOG_TYPE;
 import com.len.entity.SysMenu;
 import com.len.exception.MyException;
 import com.len.service.MenuService;
+import com.len.util.BeanUtil;
 import com.len.util.JsonUtil;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -24,8 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @email 154040976@qq.com
  * 菜单
  */
+@RequestMapping("/menu")
 @Controller
-@RequestMapping(value = "/menu")
 public class MenuController extends BaseController{
 
   @Autowired
@@ -54,6 +56,7 @@ public class MenuController extends BaseController{
     return "/system/menu/add-menu";
   }
 
+  @Log(desc = "添加菜单",type = LOG_TYPE.UPDATE)
   @ApiOperation(value = "/addMenu", httpMethod = "POST", notes = "添加菜单")
   @PostMapping(value = "addMenu")
   @ResponseBody
@@ -84,6 +87,30 @@ public class MenuController extends BaseController{
       jsonUtil.setMsg("添加失败");
     }
     return jsonUtil;
+  }
+
+  @GetMapping(value = "showUpdateMenu")
+  public String showUpdateMenu(Model model,String id){
+    SysMenu sysMenu = menuService.selectByPrimaryKey(id);
+    JSONArray ja=menuService.getMenuJsonList();
+    model.addAttribute("menus", ja.toJSONString());
+    model.addAttribute("sysMenu", sysMenu);
+    if(null!=sysMenu.getPId()){
+      SysMenu pSysMenu=menuService.selectByPrimaryKey(sysMenu.getPId());
+      model.addAttribute("pName", pSysMenu.getName());
+    }
+    return "/system/menu/update-menu";
+  }
+
+
+  @Log(desc = "更新菜单",type = LOG_TYPE.ADD)
+  @PostMapping(value = "updateMenu")
+  @ResponseBody
+  public JsonUtil updateMenu(SysMenu sysMenu){
+    SysMenu oldMenu = menuService.selectByPrimaryKey(sysMenu.getId());
+    BeanUtil.copyNotNullBean(sysMenu,oldMenu);
+    menuService.updateByPrimaryKeySelective(oldMenu);
+    return JsonUtil.sucess("保存成功");
   }
 
 }

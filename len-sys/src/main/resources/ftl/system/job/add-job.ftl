@@ -15,8 +15,9 @@ To change this template use File | Settings | File Templates.-->
   <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
   <link rel="stylesheet" href="${re.contextPath}/plugin/layui/css/layui.css">
   <link rel="stylesheet" href="${re.contextPath}/plugin/ztree/css/metroStyle/metroStyle.css">
-  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="${re.contextPath}/plugin/jquery/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/layui/layui.all.js" charset="utf-8"></script>
+  <script type="text/javascript" src="${re.contextPath}/plugin/tools/tool.js"></script>
 </head>
 
 <body>
@@ -125,27 +126,7 @@ To change this template use File | Settings | File Templates.-->
    });
     //监听提交
     form.on('submit(add)', function(data){
-      $.ajax({
-        url:'addJob',
-        type:'post',
-        data:data.field,
-        async:false, traditional: true,
-        success:function(d){
-            var index = parent.layer.getFrameIndex(window.name);
-            if(d.flag){
-              parent.layer.close(index);
-              window.parent.layui.table.reload('jobList');
-              window.top.layer.msg(d.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
-            }else{
-              layer.msg(d.msg,{icon:5});
-            }
-        },error:function(){
-          layer.alert("请求失败", {icon: 6},function () {
-            var index = parent.layer.getFrameIndex(window.name);
-            parent.layer.close(index);
-          });
-        }
-      });
+      layerAjax('addJob', data.field, 'jobList');
       return false;
     });
   });

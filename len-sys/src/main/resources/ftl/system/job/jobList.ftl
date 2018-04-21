@@ -14,7 +14,7 @@
         content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
   <link rel="stylesheet" href="${re.contextPath}/plugin/layui/css/layui.css">
   <link rel="stylesheet" href="${re.contextPath}/plugin/lenos/main.css">
-  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="${re.contextPath}/plugin/jquery/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/layui/layui.all.js"
           charset="utf-8"></script>
 </head>

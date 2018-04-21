@@ -6,9 +6,11 @@ import com.len.core.shiro.ShiroUtil;
 import com.len.entity.SysLog;
 import com.len.mapper.SysLogMapper;
 import com.len.util.IpUtil;
+
 import java.lang.reflect.Method;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.UnavailableSecurityManagerException;
 import org.apache.shiro.mgt.SecurityManager;
@@ -29,7 +31,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @author zhuxiaomeng
  * @date 2017/12/28.
  * @email 154040976@qq.com
- *
+ * <p>
  * 为增删改添加监控
  */
 @Aspect
@@ -45,29 +47,29 @@ public class LogAspect {
     }
 
     @After("pointcut()")
-    public void insertLogSuccess(JoinPoint jp){
-        addLog(jp,getDesc(jp));
+    public void insertLogSuccess(JoinPoint jp) {
+        addLog(jp, getDesc(jp));
     }
 
-    private void addLog(JoinPoint jp,String text){
-        Log.LOG_TYPE type=getType(jp);
-        SysLog log=new SysLog();
-        RequestAttributes requestAttributes=RequestContextHolder.getRequestAttributes();
+    private void addLog(JoinPoint jp, String text) {
+        Log.LOG_TYPE type = getType(jp);
+        SysLog log = new SysLog();
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         //一些系统监控
-        if(requestAttributes!=null){
+        if (requestAttributes != null) {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-            String ip= IpUtil.getIp(request);
+            String ip = IpUtil.getIp(request);
             log.setIp(ip);
         }
         log.setCreateTime(new Date());
         log.setType(type.toString());
         log.setText(text);
 
-        Object[] obj= jp.getArgs();
-        StringBuffer buffer=new StringBuffer();
-        if(obj!=null){
-            for(int i=0;i<obj.length;i++){
-                buffer.append("[参数"+(i+1)+":");
+        Object[] obj = jp.getArgs();
+        StringBuffer buffer = new StringBuffer();
+        if (obj != null) {
+            for (int i = 0; i < obj.length; i++) {
+                buffer.append("[参数" + (i + 1) + ":");
                 buffer.append(JSON.toJSONString(obj[i]));
                 buffer.append("]");
             }
@@ -76,7 +78,7 @@ public class LogAspect {
         try {
             CurrentUser currentUser = ShiroUtil.getCurrentUse();
             log.setUserName(currentUser.getUsername());
-        }catch (UnavailableSecurityManagerException e){
+        } catch (UnavailableSecurityManagerException e) {
 
         }
         logMapper.insert(log);
@@ -84,24 +86,25 @@ public class LogAspect {
 
     /**
      * 记录异常
+     *
      * @param joinPoint
      * @param e
      */
-    @AfterThrowing(value="pointcut()",throwing="e")
-    public void afterException(JoinPoint joinPoint,Exception e){
-        System.out.print("-----------afterException:"+e.getMessage());
-        addLog(joinPoint,getDesc(joinPoint)+e.getMessage());
+    @AfterThrowing(value = "pointcut()", throwing = "e")
+    public void afterException(JoinPoint joinPoint, Exception e) {
+        System.out.print("-----------afterException:" + e.getMessage());
+        addLog(joinPoint, getDesc(joinPoint) + e.getMessage());
     }
 
 
-    private String getDesc(JoinPoint joinPoint){
-        MethodSignature methodName = (MethodSignature)joinPoint.getSignature();
+    private String getDesc(JoinPoint joinPoint) {
+        MethodSignature methodName = (MethodSignature) joinPoint.getSignature();
         Method method = methodName.getMethod();
         return method.getAnnotation(Log.class).desc();
     }
 
-    private Log.LOG_TYPE getType(JoinPoint joinPoint){
-        MethodSignature methodName = (MethodSignature)joinPoint.getSignature();
+    private Log.LOG_TYPE getType(JoinPoint joinPoint) {
+        MethodSignature methodName = (MethodSignature) joinPoint.getSignature();
         Method method = methodName.getMethod();
         return method.getAnnotation(Log.class).type();
     }

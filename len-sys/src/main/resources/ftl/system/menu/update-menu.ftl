@@ -1,6 +1,6 @@
 <#--Created by IntelliJ IDEA.
 User: Administrator
-Date: 2017/12/27
+Date: 2018/3/5
 Time: 12:40
 To change this template use File | Settings | File Templates.-->
 
@@ -32,12 +32,12 @@ To change this template use File | Settings | File Templates.-->
             <label for="menuType" class="layui-form-label">
                 <span class="x-red">*</span>类型
             </label>
-            <div class="layui-input-block" style="width:190px;">
-                <select name="menuType" id="menuType" lay-verify="menuType"  lay-filter="menuType">
+          <div class="layui-input-block" style="width:190px;">
+                <select  disabled id="menuType" lay-verify="menuType"  lay-filter="menuType">
                     <option value=""></option>
-                    <option value="2">一级菜单</option>
-                    <option value="0">二级菜单</option>
-                    <option value="1">按钮</option>
+                    <option <#if (sysMenu.PId)??==null>selected</#if> value="2">一级菜单</option>
+                    <option <#if sysMenu.menuType='0'&&(sysMenu.PId)??>selected</#if> value="0">二级菜单</option>
+                    <option <#if sysMenu.menuType=='1'>selected</#if> value="1">按钮</option>
                 </select>
             </div>
         </div>
@@ -46,8 +46,9 @@ To change this template use File | Settings | File Templates.-->
                 父级菜单
             </label>
             <div class="layui-input-inline">
-                <input type="hidden" name="pId" id="pId">
-                <input type="text" id="pName"  onclick="showTree();"  lay-verify="pName"
+               <#-- <input type="hidden"  id="pId" value="${sysMenu.PId}">-->
+                 <#--保留 但不做更新-->
+                <input type="text" id="pName" disabled value="${pName}" onclick="showTree();"  lay-verify="pName"
                       class="layui-input">
             </div>
             <div id="treeNode"  style="display:none; position: absolute;z-index:1000;background-color: white;">
@@ -59,7 +60,7 @@ To change this template use File | Settings | File Templates.-->
         <span class="x-red">*</span>名称
       </label>
       <div class="layui-input-inline">
-        <input type="text"  id="name" name="name"  lay-verify="name"
+        <input type="text"  value="${sysMenu.name}" id="name" name="name"  lay-verify="name"
                autocomplete="off" class="layui-input">
       </div>
       <div id="ms" class="layui-form-mid layui-word-aux">
@@ -71,7 +72,7 @@ To change this template use File | Settings | File Templates.-->
         url
       </label>
       <div class="layui-input-inline">
-        <input type="text" id="url" name="url" lay-verify="url"  autocomplete="off" class="layui-input">
+        <input type="text"  value="${sysMenu.url}" id="url" name="url" lay-verify="url"  autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
@@ -80,29 +81,29 @@ To change this template use File | Settings | File Templates.-->
         <span class="x-red">*</span>权限
       </label>
       <div class="layui-input-inline">
-        <input type="text" id="permission" name="permission"  lay-verify="permission"
+        <input type="text"  value="${sysMenu.permission}" id="permission" name="permission"  lay-verify="permission"
                autocomplete="off" class="layui-input">
       </div>
     </div>
-      <div class="layui-form-item">
-        <label for="icon" class="layui-form-label">
-          <span class="x-red">*</span>图标
-        </label>
-        <div class="layui-input-inline">
-          <div style="margin-left: 20px;margin-top:5px">
-            <ul>
-              <li style="display: inline-block;width: 50px;" id="menu-icon"><i class="layui-icon" id="icon"  style="font-size: 25px;"></i></li>
-              <li style="display: inline-block;"><i class="layui-btn layui-btn-primary layui-btn-sm" id="select_icon">选择图标</i></li>
+    <div class="layui-form-item">
+                <label for="icon" class="layui-form-label">
+                  <span class="x-red">*</span>图标
+                </label>
+                <div class="layui-input-inline">
+                  <div style="margin-left: 20px;margin-top:5px">
+                    <ul>
+                      <li style="display: inline-block;width: 50px;" id="menu-icon"><i class="layui-icon" id="icon"  style="font-size: 25px;">${sysMenu.icon}</i></li>
+                      <li style="display: inline-block;"><i class="layui-btn layui-btn-primary layui-btn-sm" id="select_icon">选择图标</i></li>
             </ul>
           </div>
         </div>
-      </div>
+    </div>
     <div class="layui-form-item">
         <label for="orderNum" class="layui-form-label">
           <span class="x-red">*</span>序号
         </label>
         <div class="layui-input-inline">
-          <input type="orderNum" id="orderNum" name="orderNum"  lay-verify="orderNum"
+          <input type="text" id="orderNum" value="${sysMenu.orderNum}" name="orderNum"  lay-verify="orderNum"
                  autocomplete="off" class="layui-input">
         </div>
     </div>
@@ -113,7 +114,7 @@ To change this template use File | Settings | File Templates.-->
   position: fixed;bottom: 1px;margin-left:-20px;">
     <div class="layui-form-item" style=" float: right;margin-right: 30px;margin-top: 8px">
       <button  class="layui-btn layui-btn-normal" lay-filter="add" lay-submit="">
-        增加
+        更新
       </button>
       <button  class="layui-btn layui-btn-primary" id="close">
         取消
@@ -150,6 +151,7 @@ To change this template use File | Settings | File Templates.-->
         content: '/plugin/html/icon.html'
       });
     });
+
     //自定义验证规则
       var type=$('#menuType');
     form.verify({
@@ -216,13 +218,13 @@ To change this template use File | Settings | File Templates.-->
     //监听提交
     form.on('submit(add)', function(data){
       data.field['icon']=$('#icon').text();
+      data.field['id']='${sysMenu.id}';
       $.ajax({
-        url:'addMenu',
+        url:'updateMenu',
         type:'post',
         data:data.field,
         async:false, dataType: "json", traditional: true,
         success:function(data){
-          console.info(data.msg);
           var index = parent.layer.getFrameIndex(window.name);
           window.top.layer.msg(data.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
           parent.layer.close(index);

@@ -15,7 +15,7 @@ To change this template use File | Settings | File Templates.-->
   <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
   <link rel="stylesheet" href="${re.contextPath}/plugin/layui/css/layui.css">
   <link rel="stylesheet" href="${re.contextPath}/plugin/ztree/css/metroStyle/metroStyle.css">
-  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="${re.contextPath}/plugin/jquery/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/layui/layui.all.js" charset="utf-8"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/tools/tool.js" charset="utf-8"></script>
 </head>
@@ -86,7 +86,8 @@ To change this template use File | Settings | File Templates.-->
         ,layer = layui.layer
     ,laydate = layui.laydate;
     var d = new Date();
-    var day=d.getFullYear()+"-"+d.getMonth()+1+'-'+d.getDate();
+    var day=d.getFullYear()+"-"+(parseInt(d.getMonth())+1)+'-'+d.getDate();
+    console.log(day);
     var $ = layui.$, active = {
       close: function () {
         var index = parent.layer.getFrameIndex(window.name);

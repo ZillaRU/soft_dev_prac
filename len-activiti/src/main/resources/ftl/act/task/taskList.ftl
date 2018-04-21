@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="${re.contextPath}/plugin/layui/css/layui.css">
   <link rel="stylesheet" href="${re.contextPath}/plugin/lenos/main.css">
   <script type="text/javascript" src="${re.contextPath}/plugin/tools/tool.js"></script>
-  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="${re.contextPath}/plugin/jquery/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/layui/layui.all.js"
           charset="utf-8"></script>
 </head>
@@ -48,6 +48,7 @@
   {{# }else{ }}
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="handle"><i class="layui-icon">&#xe640;</i>办理</a>
   {{# } }}
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="leaveDetail"><i class="layui-icon">&#xe640;</i>查看详情</a>
 </script>
 <script>
   layui.laytpl.toDateString = function(d, format){
@@ -156,6 +157,18 @@
         popup('办理','agent/'+data.id,700,500,'task-agent');
       }else if(obj.event === 'update'){
         popup('编辑','updateLeave/'+data.id,700,500,'task-update');
+      }else if(obj.event==='leaveDetail'){
+          layer.open({
+              id: 'leave-detail',
+              type: 2,
+              area: [ '880px', '400px'],
+              fix: false,
+              maxmin: true,
+              shadeClose: false,
+              shade: 0.4,
+              title: '审核详情',
+              content: "/leave/leaveDetail?processId="+data.processInstanceId
+          });
       }
     });
 

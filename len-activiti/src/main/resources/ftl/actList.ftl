@@ -15,7 +15,7 @@
         content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
   <link rel="stylesheet" href="${re.contextPath}/plugin/layui/css/layui.css">
   <link rel="stylesheet" href="${re.contextPath}/plugin/lenos/main.css">
-  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="${re.contextPath}/plugin/jquery/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/layui/layui.all.js"
           charset="utf-8"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/tools/tool.js" charset="utf-8"></script>
@@ -109,8 +109,8 @@
         , {field: 'id', title: '编号', width: '15%', sort: true}
         , {field: 'name', title: '流程名称', width: '10%', sort: true}
         , {field: 'key', title: 'key', width: '12%', sort: true}
-        , {field: 'deploymentId', title: '部署id', width: '10%', sort: true}
-        , {field: 'diagramResourceName', title: '流程图资源', width: '20%', sort: true}
+        , {field: 'deploymentId', title: '部署id', width: '5%', sort: true}
+        , {field: 'diagramResourceName', title: '流程图资源', width: '15%', sort: true}
         , {field: 'category', title: '版本', width: '15%', sort: true}
         , {field: 'resourceName', title: '资源名称', width: '10%', sort: true}
         , {field: 'text', title: '操作', width: '10%', toolbar:'#toolBar'}

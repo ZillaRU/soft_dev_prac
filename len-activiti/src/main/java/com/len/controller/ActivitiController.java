@@ -272,10 +272,6 @@ public class ActivitiController extends BaseController {
       String convertToXML = new String(bpmnBytes);
 
       System.out.println(convertToXML);
-      /*String str="d:\\"+processName;
-      FileOutputStream stream=new FileOutputStream(str);
-      stream.write(bpmnBytes);
-      stream.close();*/
       Deployment deployment = repositoryService.createDeployment()
           .name(modelData.getName())
           .addString(processName, new String(bpmnBytes, "UTF-8"))
