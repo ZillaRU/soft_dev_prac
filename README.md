@@ -9,7 +9,7 @@
 - 地址：[lenos](https://gitee.com/bweird/lenos) 
 
 ## 项目说明
-- lenos(p为spring boot版本扩展名)一款快速开发模块化脚手架，采用spring boot+spring+SpringMvc+mybatis+shiro+swagger+ehcache+quartz+freemarker+layui技术开发；实现功能有系统模块：菜单管理、用户管理、角色管理，系统监控：系统日志、接口api、sql监控。本项目会一直维护并集成新的技术，给您的开发节约时间成本，本项目拥有非boot版本，本项目也为纪念逝去的2017年那次某软件公司尴尬的面试，也是总结之作。
+- lenos(p为spring boot版本扩展名)一款快速开发模块化脚手架，采用spring boot+spring+SpringMvc+mybatis+shiro+swagger+ehcache+quartz+freemarker+layui技术开发；实现功能有系统模块：菜单管理、用户管理、角色管理，系统监控：系统日志、接口api、sql监控。本项目会一直维护并集成新的技术，给您的开发节约时间成本，本项目拥有非boot版本。
 ## 未来蓝图
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fnw762j02vj30rs0vtjt7.jpg "图片说明")
 
