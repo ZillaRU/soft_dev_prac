@@ -47,9 +47,8 @@ public class ListenUserRole {
    * @param joinPoint
    */
   @Around("execution(com.len.util.JsonUtil com.len.controller.UserController.updateUser(*,String[]))")
-  public Object listenerUserUpdate(ProceedingJoinPoint joinPoint){
+  public Object listenerUserUpdate(ProceedingJoinPoint joinPoint) throws Throwable{
     Object o=new Object();
-    try{
       //更新前拿到用户-角色数据
       SysRoleUser sysRoleUser =new SysRoleUser();
       Object[] args = joinPoint.getArgs();
@@ -62,9 +61,6 @@ public class ListenUserRole {
       if(jsonUtil.isFlag()){
         changeUser(args,strings);
       }
-    }catch (Throwable  e){
-      e.printStackTrace();
-    }
     return o;
   }
 
@@ -73,9 +69,8 @@ public class ListenUserRole {
    * @param joinPoint
    */
   @Around("execution(com.len.util.JsonUtil com.len.controller.UserController.addUser(*,String[]))")
-  public Object  listenerUserInsert(ProceedingJoinPoint joinPoint){
+  public Object  listenerUserInsert(ProceedingJoinPoint joinPoint) throws Throwable{
     Object o=new Object();
-    try{
       o = joinPoint.proceed(joinPoint.getArgs());
       Object[] args = joinPoint.getArgs();
       if(args.length==2){
@@ -84,26 +79,18 @@ public class ListenUserRole {
           changeUser(args, Arrays.asList((String[]) args[1]));
         }
       }
-    }catch (Throwable  e){
-      e.printStackTrace();
-    }
     return o;
   }
 
   @Around("execution(com.len.util.JsonUtil com.len.controller.UserController.del(..))")
-  public Object listenDelUser(ProceedingJoinPoint point){
+  public Object listenDelUser(ProceedingJoinPoint point) throws Throwable{
     Object o=new Object();
-    try{
       o = point.proceed(point.getArgs());
       JsonUtil util= (JsonUtil) o;
       if(util.isFlag()){
         Object[] args = point.getArgs();
         identityService.deleteUser((String) args[0]);
       }
-
-    }catch (Throwable  e){
-      e.printStackTrace();
-    }
     return o;
   }
 
@@ -139,9 +126,8 @@ public class ListenUserRole {
 
   /**********************角色处理begin***************************/
   @Around("execution(com.len.util.JsonUtil com.len.controller.RoleController.addRole(*,String[]))")
-  public Object listenRoleInsert(ProceedingJoinPoint joinPoint){
+  public Object listenRoleInsert(ProceedingJoinPoint joinPoint)throws Throwable{
     Object o=null;
-    try{
       o=joinPoint.proceed(joinPoint.getArgs());
       JsonUtil j=(JsonUtil)o;
       if(j.isFlag()){
@@ -150,16 +136,12 @@ public class ListenUserRole {
           changeRole(args);
         }
       }
-    }catch (Throwable throwable){
-
-    }
     return o;
   }
 
   @Around("execution(com.len.util.JsonUtil com.len.controller.RoleController.updateUser(*,String[]))")
-  public Object listenRoleUpdate(ProceedingJoinPoint joinPoint){
+  public Object listenRoleUpdate(ProceedingJoinPoint joinPoint) throws Throwable{
     Object o=null;
-    try{
       o=joinPoint.proceed(joinPoint.getArgs());
       Object[] args = joinPoint.getArgs();
       if(args.length==2){
@@ -167,26 +149,19 @@ public class ListenUserRole {
           changeRole(args);
         }
       }
-    }catch (Throwable throwable){
 
-    }
     return o;
   }
 
   @Around("execution(com.len.util.JsonUtil com.len.controller.RoleController.del(..))")
-  public Object listenDelRole(ProceedingJoinPoint point){
+  public Object listenDelRole(ProceedingJoinPoint point) throws  Throwable{
     Object o=new Object();
-    try{
       o = point.proceed(point.getArgs());
       JsonUtil util= (JsonUtil) o;
       if(util.isFlag()){
         Object[] args = point.getArgs();
         identityService.deleteGroup((String) args[0]);
       }
-
-    }catch (Throwable  e){
-      e.printStackTrace();
-    }
     return o;
   }
 

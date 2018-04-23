@@ -76,7 +76,7 @@
     layer = layui.layer;
     var msg='${message}';
     if(msg.trim()!=""){
-        layer.msg(msg, {icon: 5,anim:6});
+        layer.msg(msg, {icon: 5,anim:6,offset: 't'});
     }
       $("#code").click(function(){
           var url = "/getCode?"+new Date().getTime();

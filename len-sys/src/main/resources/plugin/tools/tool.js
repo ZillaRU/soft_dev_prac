@@ -71,8 +71,8 @@ function layerAjax(url,data,tableId){
       }else{
         layer.msg(d.msg,{icon:5});
       }
-    },error:function(){
-      layer.alert("请求失败", {icon: 6},function () {
+    },error:function(e){
+      layer.alert("发生错误", {icon: 6},function () {
         var index = parent.layer.getFrameIndex(window.name);
         parent.layer.close(index);
       });

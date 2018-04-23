@@ -15,15 +15,16 @@ import com.len.util.JsonUtil;
 import com.len.util.Md5Util;
 import io.swagger.annotations.ApiOperation;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.*;
 import java.util.List;
+import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -232,6 +233,8 @@ public class UserController extends BaseController {
         return j;
     }
 
+    @Value("${imagePath}")
+    private String imagePath;
     /**
      * 头像上传 目前首先相对路径
      */
@@ -240,30 +243,17 @@ public class UserController extends BaseController {
     public JsonUtil imgUpload(HttpServletRequest req, @RequestParam("file") MultipartFile file,
                               ModelMap model) {
         JsonUtil j = new JsonUtil();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat sdf1 = new SimpleDateFormat("hhmmss");
-
-        String fileName = sdf1.format(new Date()) + file.getOriginalFilename();
-        String objPath =
-                req.getSession().getServletContext().getRealPath("image/") + sdf.format(new Date())
-                        .toString();
-        File targetFile1 = new File(objPath, fileName);
-        File file2 = new File(objPath);
-        if (!file2.exists()) {
-            file2.mkdirs();
-        }
-        if (!targetFile1.exists()) {
-            targetFile1.mkdirs();
-        }
-
+        String imageName=file.getOriginalFilename();
+        imageName= UUID.randomUUID()+imageName.substring(imageName.indexOf("."),imageName.length());
+        File file2 = new File(imagePath+"\\"+imageName);
         try {
-            file.transferTo(targetFile1);
-        } catch (Exception e) {
+            FileUtils.copyInputStreamToFile(file.getInputStream(), file2);
+        } catch (IOException e) {
             j.setFlag(false);
             j.setMsg("上传失败");
             e.printStackTrace();
         }
-        j.setMsg("image/" + sdf.format(new Date()).toString() + "/" + req.getContextPath() + fileName);
+        j.setMsg(imageName);
         return j;
     }
 

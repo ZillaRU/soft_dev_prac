@@ -7,11 +7,14 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.len.core.annotation.LogAspect;
 import com.len.freemarker.MyFreemarkerConfig;
 import freemarker.template.TemplateException;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -31,18 +34,21 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
  * @author zhuxiaomeng
  * @date 2018/1/1.
  * @email 154040976@qq.com
- *spring shiro
+ * spring shiro
  */
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
+    @Value("${imagePath}")
+    private String imagePath;
+    @Value("${filePath}")
+    private String filePath;
 
     @Bean
     public HttpMessageConverter<String> responseBodyConverter() {
         StringHttpMessageConverter converter = new StringHttpMessageConverter(Charset.forName("UTF-8"));
         return converter;
     }
-
 
 
     @Override
@@ -53,8 +59,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/plugin/**","/static/**")
-            .addResourceLocations("classpath:/plugin/","classpath:/static/");
+        registry.addResourceHandler("/plugin/**", "/static/**")
+                .addResourceLocations("classpath:/plugin/", "classpath:/static/");
         registry.addResourceHandler("/ftl/**").addResourceLocations("classpath:/ftl/");
+        registry.addResourceHandler("/images/**").addResourceLocations("file:"+imagePath);
+        registry.addResourceHandler("/file/**").addResourceLocations("file:"+imagePath);
     }
 }

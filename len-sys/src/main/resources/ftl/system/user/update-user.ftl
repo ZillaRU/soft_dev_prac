@@ -54,7 +54,7 @@ To change this template use File | Settings | File Templates.-->
       <div class="layui-input-inline">
 
           <div  id="demo2" style="margin-top: 20px;margin-left: 50px">
-            <img src="${re.contextPath}/${user.photo!"plugin/x-admin/images/bg.png"}" width="100px" height="100px" class="layui-upload-img layui-circle">
+            <img src="/images/${re.contextPath}/${user.photo}" width="100px" height="100px" class="layui-upload-img layui-circle">
           </div>
 
       </div>
@@ -189,6 +189,7 @@ To change this template use File | Settings | File Templates.-->
        if(!res.flag){
          layer.msg(res.msg,{icon: 5,anim: 6});
        }else{
+           console.log(res);
          $("#photo").val(res.msg);
          console.info($('#photo').val());
        }
