@@ -32,7 +32,8 @@ public class ShiroConfig {
 
   @Bean
   public RetryLimitCredentialsMatcher getRetryLimitCredentialsMatcher(){
-    RetryLimitCredentialsMatcher rm=new RetryLimitCredentialsMatcher(getCacheManager(),"5");
+//    RetryLimitCredentialsMatcher rm = new RetryLimitCredentialsMatcher(getCacheManager(),2);
+    RetryLimitCredentialsMatcher rm = new RetryLimitCredentialsMatcher(getCacheManager());
     rm.setHashAlgorithmName("md5");
     rm.setHashIterations(4);
     return rm;
