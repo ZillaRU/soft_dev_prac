@@ -1,5 +1,5 @@
 ## 团队成员 
-[zhong](https://gitee.com/guokeyunman) [sunhaoyuan](https://gitee.com/ys.re)
+[一枚码农](https://gitee.com/bweird) [zhong](https://gitee.com/guokeyunman) [sunhaoyuan](https://gitee.com/ys.re)
 ## lenos收录到layui官方2018年度最佳案例名单中
 ![图片说明](http://ww4.sinaimg.cn/large/0060lm7Tly1fnjfv8d366j310x0hsjwr.jpg "图片说明")
 
