@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -23,10 +24,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactory;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
@@ -64,5 +69,25 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/ftl/**").addResourceLocations("classpath:/ftl/");
         registry.addResourceHandler("/images/**").addResourceLocations("file:"+imagePath);
         registry.addResourceHandler("/file/**").addResourceLocations("file:"+imagePath);
+    }
+
+    /*保留国际化*/
+    @Bean
+    public LocaleChangeInterceptor interceptor() {
+        LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
+        interceptor.setParamName("lang");
+        return interceptor;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(interceptor());
+    }
+
+    @Bean
+    public LocaleResolver resolver(){
+        SessionLocaleResolver resolver=new SessionLocaleResolver();
+        resolver.setDefaultLocale(Locale.US);
+        return resolver;
     }
 }

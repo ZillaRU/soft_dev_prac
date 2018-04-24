@@ -90,7 +90,7 @@ public class DruidConfig {
     servletRegistrationBean.setInitParameters(initParameters);
     return servletRegistrationBean;
   }
-/*
+
   @Bean
   public DruidStatInterceptor getDruidStatInterceptor(){
     return new DruidStatInterceptor();
@@ -103,6 +103,6 @@ public class DruidConfig {
     String[] str={"com.len.service.*","com.len.mapper.*"};
     pointcut.setPatterns(str);
     return pointcut;
-  }*/
+  }
 
 }
