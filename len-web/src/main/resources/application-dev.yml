@@ -1,0 +1,59 @@
+server:
+  port: 8081
+security:
+  basic:
+    enabled: false
+spring:
+  datasource:
+        url: jdbc:mysql://localhost:3306/lenos?useUnicode=true&characterEncoding=UTF-8
+        username: root
+        password: 123456
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+  http:
+      encoding:
+        force: true
+
+
+mybatis:
+    type-aliases-package: com.len.entity
+    mapper-locations: classpath*:mapper/*.xml
+    check-config-location: true
+
+mapper:
+    mappers:
+        - com.len.base.BaseMapper
+    not-empty: false
+    identity: MYSQL
+
+
+# PageHelperConfig 可以替代此方案
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+logging:
+  level:
+      com.len.mapper: debug
+#security:
+#  basic:
+#    enabled: false
+
+filePath: G\os\file\
+
+imagePath: G:\os\image\
