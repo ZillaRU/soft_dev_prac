@@ -27,7 +27,11 @@ spring:
   http:
       encoding:
         force: true
-
+  boot:
+    admin:
+      client:
+        prefer-ip: true
+      url: http://localhost:8082
 
 mybatis:
     type-aliases-package: com.len.entity
@@ -57,3 +61,7 @@ logging:
 filePath: G\os\file\
 
 imagePath: G:\os\image\
+
+management:
+  security:
+    enabled: false
