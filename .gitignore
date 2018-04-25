@@ -23,4 +23,7 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
+
+### IDEA ###
 .idea

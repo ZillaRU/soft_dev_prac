@@ -13,6 +13,12 @@
       </map>
     </option>
   </component>
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/len-activiti" />
+    <file type="web" url="file://$PROJECT_DIR$/len-core" />
+    <file type="web" url="file://$PROJECT_DIR$/len-sys" />
+    <file type="web" url="file://$PROJECT_DIR$/len-web" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
