@@ -98,7 +98,7 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu,String> implements 
         if(o1.getOrderNum()>o2.getOrderNum()){
           return 1;
         }
-        if(o1.getOrderNum()==o2.getOrderNum()){
+        if(o1.getOrderNum().equals(o2.getOrderNum())){
           return 0;
         }
         return -1;

@@ -113,7 +113,7 @@ public class BaseProcessDefinitionDiagramLayoutResource {
     JsonNode pdrJSON = getProcessDefinitionResponse(processDefinition);
 
     if (pdrJSON != null) {
-      responseJSON.put("processDefinition", pdrJSON);
+      responseJSON.set("processDefinition", pdrJSON);
     }
 
     // Highlighted activities
@@ -131,8 +131,8 @@ public class BaseProcessDefinitionDiagramLayoutResource {
       for (String flow : highLightedFlows)
         flowsArray.add(flow);
 
-      responseJSON.put("highLightedActivities", activityArray);
-      responseJSON.put("highLightedFlows", flowsArray);
+      responseJSON.set("highLightedActivities", activityArray);
+      responseJSON.set("highLightedFlows", flowsArray);
     }
 
     // Pool shape, if process is participant in collaboration
@@ -151,7 +151,7 @@ public class BaseProcessDefinitionDiagramLayoutResource {
       participantProcessJSON.put("width", pProc.getWidth());
       participantProcessJSON.put("height", pProc.getHeight());
 
-      responseJSON.put("participantProcess", participantProcessJSON);
+      responseJSON.set("participantProcess", participantProcessJSON);
     }
 
     // Draw lanes
@@ -179,7 +179,7 @@ public class BaseProcessDefinitionDiagramLayoutResource {
             for (String flowNodeId : flowNodeIds) {
               flowNodeIdsArray.add(flowNodeId);
             }
-            laneJSON.put("flowNodeIds", flowNodeIdsArray);
+            laneJSON.set("flowNodeIds", flowNodeIdsArray);
 
             laneArray.add(laneJSON);
           }
@@ -191,13 +191,13 @@ public class BaseProcessDefinitionDiagramLayoutResource {
         } else {
           laneSetJSON.put("name", "");
         }
-        laneSetJSON.put("lanes", laneArray);
+        laneSetJSON.set("lanes", laneArray);
 
         laneSetArray.add(laneSetJSON);
       }
 
       if (laneSetArray.size() > 0)
-        responseJSON.put("laneSets", laneSetArray);
+        responseJSON.set("laneSets", laneSetArray);
     }
 
     ArrayNode sequenceFlowArray = new ObjectMapper().createArrayNode();
@@ -210,8 +210,8 @@ public class BaseProcessDefinitionDiagramLayoutResource {
           processInstance, highLightedFlows, subProcessInstanceMap);
     }
 
-    responseJSON.put("activities", activityArray);
-    responseJSON.put("sequenceFlows", sequenceFlowArray);
+    responseJSON.set("activities", activityArray);
+    responseJSON.set("sequenceFlows", sequenceFlowArray);
 
     return responseJSON;
   }
@@ -311,8 +311,8 @@ public class BaseProcessDefinitionDiagramLayoutResource {
       if (isHighLighted)
         flowJSON.put("isHighLighted", isHighLighted);
       
-      flowJSON.put("xPointArray", xPointArray);
-      flowJSON.put("yPointArray", yPointArray);
+      flowJSON.set("xPointArray", xPointArray);
+      flowJSON.set("yPointArray", yPointArray);
 
       sequenceFlowArray.add(flowJSON);
     }
@@ -356,7 +356,7 @@ public class BaseProcessDefinitionDiagramLayoutResource {
             timerDeclarationArray.add(timerDeclarationJSON);
           }
         if (timerDeclarationArray.size() > 0)
-          propertiesJSON.put(key, timerDeclarationArray);
+          propertiesJSON.set(key, timerDeclarationArray);
         // TODO: implement getting description
       } else if ("eventDefinitions".equals(key)) {
         ArrayList<EventSubscriptionDeclaration> eventDefinitions = (ArrayList<EventSubscriptionDeclaration>) properties.get(key);
@@ -378,7 +378,7 @@ public class BaseProcessDefinitionDiagramLayoutResource {
         }
 
         if (eventDefinitionsArray.size() > 0)
-          propertiesJSON.put(key, eventDefinitionsArray);
+          propertiesJSON.set(key, eventDefinitionsArray);
         
       // TODO: implement it
       } else if ("errorEventDefinitions".equals(key)) {
@@ -402,7 +402,7 @@ public class BaseProcessDefinitionDiagramLayoutResource {
         }
 
         if (errorEventDefinitionsArray.size() > 0)
-          propertiesJSON.put(key, errorEventDefinitionsArray);
+          propertiesJSON.set(key, errorEventDefinitionsArray);
       }
 
     }
@@ -452,19 +452,19 @@ public class BaseProcessDefinitionDiagramLayoutResource {
         }
 
         if (processInstanceArray.size() > 0) {
-          propertiesJSON.put("processDefinitons", processInstanceArray);
+          propertiesJSON.set("processDefinitons", processInstanceArray);
         }
       }
     }
 
     activityJSON.put("activityId", activity.getId());
-    activityJSON.put("properties", propertiesJSON);
+    activityJSON.set("properties", propertiesJSON);
     if (multiInstance != null)
       activityJSON.put("multiInstance", multiInstance);
     if (collapsed)
       activityJSON.put("collapsed", collapsed);
     if (nestedActivityArray.size() > 0)
-      activityJSON.put("nestedActivities", nestedActivityArray);
+      activityJSON.set("nestedActivities", nestedActivityArray);
     if (isInterrupting != null)
       activityJSON.put("isInterrupting", isInterrupting);
     

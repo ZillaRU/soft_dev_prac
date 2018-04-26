@@ -1,11 +1,9 @@
 package com.len.base;
 
-import com.len.util.JsonUtil;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +13,8 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
+
+import com.google.common.collect.Maps;
 
 /**
  * @author zhuxiaomeng
@@ -34,7 +34,7 @@ public abstract class BaseController<T> {
   @ExceptionHandler({ UnauthorizedException.class, AuthorizationException.class })
   public String authorizationException(HttpServletRequest request, HttpServletResponse response) {
     if (isAjaxRequest(request)) {
-      Map<String,Object> map = new HashMap<>();
+      Map<String,Object> map = Maps.newHashMap();
       map.put("code", "-998");
       map.put("message", "无权限");
      //response.gets

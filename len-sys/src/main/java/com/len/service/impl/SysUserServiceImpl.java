@@ -15,7 +15,6 @@ import com.len.util.Checkbox;
 import com.len.util.JsonUtil;
 import com.len.util.Md5Util;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,7 +116,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser,String> implemen
     if (StringUtils.isEmpty(id)) {
       return JsonUtil.error("获取数据失败");
     }
-    JsonUtil j=null;
+    JsonUtil j=new JsonUtil();
     try {
       SysUser sysUser = selectByPrimaryKey(id);
       if("admin".equals(sysUser.getUsername())){
@@ -129,7 +128,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser,String> implemen
       if(count>0){
         return JsonUtil.error("账户已经绑定角色，无法删除");
       }
-      j=new JsonUtil();
       if (flag) {
         //逻辑
         sysUser.setDelFlag(Byte.parseByte("1"));

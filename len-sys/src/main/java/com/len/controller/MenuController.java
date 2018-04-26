@@ -61,6 +61,12 @@ public class MenuController extends BaseController{
   @PostMapping(value = "addMenu")
   @ResponseBody
   public JsonUtil  addMenu(SysMenu sysMenu,Model model){
+	  JsonUtil jsonUtil=new JsonUtil();
+	    jsonUtil.setFlag(false);
+	  if(sysMenu==null){
+	      jsonUtil.setMsg("获取数据失败");
+	      return jsonUtil;
+	    }
     if(StringUtils.isEmpty(sysMenu.getPId())){
       sysMenu.setPId(null);
     }
@@ -70,12 +76,7 @@ public class MenuController extends BaseController{
     if(StringUtils.isEmpty(sysMenu.getPermission())){
       sysMenu.setPermission(null);
     }
-    JsonUtil jsonUtil=new JsonUtil();
-    jsonUtil.setFlag(false);
-    if(sysMenu==null){
-      jsonUtil.setMsg("获取数据失败");
-      return jsonUtil;
-    }
+    
     try{
       if(sysMenu.getMenuType()==2){
         sysMenu.setMenuType((byte)0);

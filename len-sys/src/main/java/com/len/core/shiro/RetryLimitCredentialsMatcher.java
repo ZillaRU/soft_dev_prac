@@ -10,6 +10,8 @@ import org.apache.shiro.cache.CacheManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.hutool.core.util.StrUtil;
+
 /** 
  * 验证器，增加了登录次数校验功能
  * 限制尝试登陆次数,防止暴力破解
@@ -20,8 +22,6 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
     private Cache<String, AtomicInteger> loginRetryCache;
   
     private int maxRetryCount = 5;
-  
-    private String loginRetryCacheName;
   
     public void setMaxRetryCount(int maxRetryCount) {  
         this.maxRetryCount = maxRetryCount;  
@@ -50,7 +50,7 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
         log.info("retryCount:{}, username:{}",retryCount,username);
         if (retryCount.incrementAndGet() > this.maxRetryCount) {
             log.warn("username: {} tried to login more than {} times in perid", username,this.maxRetryCount);
-            throw new ExcessiveAttemptsException(String.format("username: {} tried to login more than {} times in perid", username,this.maxRetryCount));
+            throw new ExcessiveAttemptsException(StrUtil.format("username: {} tried to login more than {} times in perid", username,this.maxRetryCount));
         }
         boolean matches = super.doCredentialsMatch(token, info);
 

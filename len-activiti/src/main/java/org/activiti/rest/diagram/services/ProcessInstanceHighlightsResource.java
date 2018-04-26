@@ -80,8 +80,8 @@ public class ProcessInstanceHighlightsResource {
 		  e.printStackTrace();
 		}
 		
-		responseJSON.put("activities", activitiesArray);
-		responseJSON.put("flows", flowsArray);
+		responseJSON.set("activities", activitiesArray);
+		responseJSON.set("flows", flowsArray);
 		
 		return responseJSON;
 	}
