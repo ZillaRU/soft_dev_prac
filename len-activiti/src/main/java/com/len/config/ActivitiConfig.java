@@ -1,7 +1,9 @@
 package com.len.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.sql.DataSource;
+
 import org.activiti.engine.DynamicBpmnService;
 import org.activiti.engine.FormService;
 import org.activiti.engine.HistoryService;
@@ -28,9 +30,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class ActivitiConfig {
 
-    /**spring 集成 activiti*/
+    /**
+     * spring 集成 activiti
+     */
     @Bean
-    public ProcessEngineConfiguration processEngineConfiguration(DataSource dataSource, PlatformTransactionManager transactionManager){
+    public ProcessEngineConfiguration processEngineConfiguration(DataSource dataSource, PlatformTransactionManager transactionManager) {
         SpringProcessEngineConfiguration processEngineConfiguration = new SpringProcessEngineConfiguration();
         processEngineConfiguration.setDataSource(dataSource);
         //表不存在创建表
@@ -50,54 +54,54 @@ public class ActivitiConfig {
 
     //流程引擎，与spring整合使用factoryBean
     @Bean
-    public ProcessEngineFactoryBean processEngine(ProcessEngineConfiguration processEngineConfiguration){
+    public ProcessEngineFactoryBean processEngine(ProcessEngineConfiguration processEngineConfiguration) {
         ProcessEngineFactoryBean processEngineFactoryBean = new ProcessEngineFactoryBean();
         processEngineFactoryBean.setProcessEngineConfiguration((ProcessEngineConfigurationImpl) processEngineConfiguration);
         return processEngineFactoryBean;
     }
 
     @Bean
-    public RepositoryService repositoryService(ProcessEngine processEngine){
+    public RepositoryService repositoryService(ProcessEngine processEngine) {
         return processEngine.getRepositoryService();
     }
 
     @Bean
-    public RuntimeService runtimeService(ProcessEngine processEngine){
+    public RuntimeService runtimeService(ProcessEngine processEngine) {
         return processEngine.getRuntimeService();
     }
 
     @Bean
-    public TaskService taskService(ProcessEngine processEngine){
+    public TaskService taskService(ProcessEngine processEngine) {
         return processEngine.getTaskService();
     }
 
     @Bean
-    public HistoryService historyService(ProcessEngine processEngine){
+    public HistoryService historyService(ProcessEngine processEngine) {
         return processEngine.getHistoryService();
     }
 
     @Bean
-    public FormService formService(ProcessEngine processEngine){
+    public FormService formService(ProcessEngine processEngine) {
         return processEngine.getFormService();
     }
 
     @Bean
-    public IdentityService identityService(ProcessEngine processEngine){
+    public IdentityService identityService(ProcessEngine processEngine) {
         return processEngine.getIdentityService();
     }
 
     @Bean
-    public ManagementService managementService(ProcessEngine processEngine){
+    public ManagementService managementService(ProcessEngine processEngine) {
         return processEngine.getManagementService();
     }
 
     @Bean
-    public DynamicBpmnService dynamicBpmnService(ProcessEngine processEngine){
+    public DynamicBpmnService dynamicBpmnService(ProcessEngine processEngine) {
         return processEngine.getDynamicBpmnService();
     }
 
     @Bean
-    public ObjectMapper objectMapper(){
+    public ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
 }
