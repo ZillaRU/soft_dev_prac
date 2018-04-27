@@ -106,7 +106,7 @@ public class LoginController {
             subject.login(token);
             //subject.hasRole("admin");
             if (subject.isAuthenticated()) {
-                return "/main/main";
+                return "redirect:/main";
             }
         } catch (UnknownAccountException e) {
             msg = "用户名/密码错误";
@@ -121,6 +121,10 @@ public class LoginController {
         return "/login";
     }
 
+    @GetMapping("/main")
+    public String main(){
+        return "main/main";
+    }
     @Log(desc = "用户退出平台")
     @GetMapping(value = "/logout")
     public String logout() {
