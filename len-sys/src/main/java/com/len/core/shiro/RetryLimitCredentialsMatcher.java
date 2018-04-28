@@ -26,6 +26,8 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
     public void setMaxRetryCount(int maxRetryCount) {
         this.maxRetryCount = maxRetryCount;
     }
+    public RetryLimitCredentialsMatcher(){
+    }
 
     /**
      *
