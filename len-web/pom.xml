@@ -11,14 +11,9 @@
   <artifactId>len-web</artifactId>
   <name>len-web Maven Webapp</name>
   <url>http://maven.apache.org</url>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
 
   <dependencies>
-    <dependency>
-      <groupId>de.codecentric</groupId>
-      <artifactId>spring-boot-admin-starter-client</artifactId>
-      <version>1.5.0</version>
-    </dependency>
 
     <!--生成代码插件-->
     <dependency>
@@ -51,13 +46,25 @@
         <plugin>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
-        </plugin>
+          <configuration>
+            <fork>true</fork>
+            <mainClass>com.len.Application</mainClass>
+            <layout>ZIP</layout>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
+  </plugin>
         <!--<plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <version>2.6</version>
         </plugin>-->
-      </plugins>
 
+      </plugins>
   </build>
 </project>

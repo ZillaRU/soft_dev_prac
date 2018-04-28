@@ -12,19 +12,19 @@ import org.slf4j.LoggerFactory;
 
 import cn.hutool.core.util.StrUtil;
 
-/** 
+/**
  * 验证器，增加了登录次数校验功能
  * 限制尝试登陆次数,防止暴力破解
- */  
-public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {  
+ */
+public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
     private static final Logger log = LoggerFactory.getLogger(RetryLimitCredentialsMatcher.class);
 
     private Cache<String, AtomicInteger> loginRetryCache;
-  
+
     private int maxRetryCount = 5;
-  
-    public void setMaxRetryCount(int maxRetryCount) {  
-        this.maxRetryCount = maxRetryCount;  
+
+    public void setMaxRetryCount(int maxRetryCount) {
+        this.maxRetryCount = maxRetryCount;
     }
 
     /**
@@ -34,17 +34,17 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
      */
     public RetryLimitCredentialsMatcher(CacheManager cacheManager,int maxRetryCount) {
         this.maxRetryCount = maxRetryCount;
-        loginRetryCache = cacheManager.getCache("loginRetryCache");//尝试获取cache,没有则新建
+        loginRetryCache = cacheManager.getCache(String.valueOf(maxRetryCount));//尝试获取cache,没有则新建
     }
 
     public RetryLimitCredentialsMatcher(CacheManager cacheManager){
         this(cacheManager,5);
     }
 
-    @Override  
+    @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
-        String username = (String) token.getPrincipal();  
-        //retry count + 1  
+        String username = (String) token.getPrincipal();
+        //retry count + 1
         AtomicInteger retryCount = loginRetryCache.get(username) == null
                 ? new AtomicInteger(0) : loginRetryCache.get(username);
         log.info("retryCount:{}, username:{}",retryCount,username);
@@ -61,5 +61,5 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
             log.info(String.valueOf(retryCount.get()));
         }
         return matches;
-    }  
+    }
 }  

@@ -273,7 +273,11 @@
       </exclusions>
     </dependency>
 
-
+    <dependency>
+      <groupId>de.codecentric</groupId>
+      <artifactId>spring-boot-admin-starter-client</artifactId>
+      <version>1.5.7</version>
+    </dependency>
 
 
   </dependencies>
@@ -332,14 +336,14 @@
           </execution>
         </executions>
       </plugin>-->
-      <plugin>
+      <!--<plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.4.2</version>
         <configuration>
           <skipTests>true</skipTests>
         </configuration>
-      </plugin>
+      </plugin>-->
     </plugins>
   </build>
  <!-- <repositories>

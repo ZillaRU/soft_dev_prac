@@ -10,7 +10,6 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>len-activiti</artifactId>
-  <packaging>war</packaging>
 
   <name>len-activiti</name>
   <url>http://maven.apache.org</url>
@@ -73,5 +72,24 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**.*</include>
+          <include>**/*.*</include>
+          <include>**/*/*.*</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
 
 </project>
