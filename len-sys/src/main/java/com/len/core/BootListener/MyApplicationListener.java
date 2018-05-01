@@ -1,7 +1,7 @@
 package com.len.core.BootListener;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
 
-    Logger logger = LoggerFactory.getLogger(MyApplicationListener.class);
+    Logger logger = LogManager.getLogger(MyApplicationListener.class);
 
 
     @Override

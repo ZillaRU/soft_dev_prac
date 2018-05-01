@@ -8,8 +8,8 @@ import com.len.service.RoleService;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,7 +23,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DataSourceJobThread extends Thread {
 
-    private static final Logger log = LoggerFactory.getLogger(DataSourceJobThread.class);
+    private static Logger log = LogManager.getLogger(DataSourceJobThread.class);
+
     @Autowired
     RoleService roleService;
 

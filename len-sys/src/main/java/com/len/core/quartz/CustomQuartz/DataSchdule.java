@@ -1,30 +1,56 @@
 package com.len.core.quartz.CustomQuartz;
 
-import java.io.IOException;
+import java.io.*;
+
+import com.len.core.annotation.Log;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
 /**
  * @author zhuxiaomeng
  * @date 2018/1/29.
  * @email 154040976@qq.com
- *
+ * <p>
  * 定时还原数据库数据
  */
 
 @Component
 public class DataSchdule {
 
-    //@Scheduled(cron="0/5 * *  * * ? ")
-    public static void restData() throws IOException, InterruptedException {
-        String sqlPath =  "G:\\os\\sql\\lenos_test.sql";  // SQL文件路径
-        String[] execCMD = new String[]{"mysql", "lenos_test", "-u" + "root", "-p" , "-e source", sqlPath};
-        Process process = Runtime.getRuntime().exec(execCMD);
+    private static Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
-        int processComplete = process.waitFor();
-        if (processComplete == 0) {
-            System.out.println("还原成功.");
-        } else {
-            throw new RuntimeException("还原数据库失败.");
+   // @Scheduled(cron = "0 0/5 * * * ? ")
+    @Log(type = Log.LOG_TYPE.UPDATE,desc = "定时还原数据库")
+    public static void restData() throws IOException, InterruptedException {
+        // SQL文件路径
+        try {
+            Runtime rt = Runtime.getRuntime();
+            String sqlPath = "G:\\os\\sql\\lenos_test.sql";
+            Process process = rt
+                    .exec("D:\\java\\mysql-5.7.21-winx64\\mysql-5.7.21-winx64\\bin\\mysql.exe -hlocalhost -uroot -ppassword --default-character-set=utf8 "
+                            + "lenos_test");
+            OutputStream outputStream = process.getOutputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    new FileInputStream(sqlPath), "utf-8"));
+            String str = null;
+            StringBuffer sb = new StringBuffer();
+            while ((str = br.readLine()) != null) {
+                sb.append(str + "\r\n");
+            }
+            str = sb.toString();
+            OutputStreamWriter writer = new OutputStreamWriter(outputStream,
+                    "utf-8");
+            writer.write(str);
+            writer.flush();
+            outputStream.close();
+            br.close();
+            writer.close();
+            logger.info("数据库还原成功");
+        } catch (IOException e) {
+            logger.error("数据库还原失败");
+            e.printStackTrace();
         }
     }
 }

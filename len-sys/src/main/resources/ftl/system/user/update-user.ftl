@@ -103,7 +103,7 @@ To change this template use File | Settings | File Templates.-->
       <div class="layui-input-block">
         <input type="email" id="email" value="${user.email}" style="width: 93%" name="email"  lay-verify="email"
                autocomplete="off" class="layui-input">
-        <input id="photo" name="photo" type="hidden">
+        <input id="photo" value="${user.photo}" name="photo" type="hidden">
       </div>
     </div>
       <div class="layui-form-item">

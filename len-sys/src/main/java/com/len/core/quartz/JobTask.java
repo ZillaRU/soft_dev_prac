@@ -6,6 +6,8 @@ import com.len.entity.SysJob;
 import java.util.Date;
 import java.util.HashSet;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
 import org.quartz.JobBuilder;
@@ -16,8 +18,6 @@ import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class JobTask {
 
-  private static final Logger log = LoggerFactory.getLogger(JobTask.class);
+  private static Logger log = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
   @Autowired
   SchedulerFactoryBean schedulerFactoryBean;

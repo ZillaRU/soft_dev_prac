@@ -1,14 +1,15 @@
 package com.len.core.shiro;
 
 import java.util.concurrent.atomic.AtomicInteger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import cn.hutool.core.util.StrUtil;
 
@@ -17,7 +18,8 @@ import cn.hutool.core.util.StrUtil;
  * 限制尝试登陆次数,防止暴力破解
  */
 public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
-    private static final Logger log = LoggerFactory.getLogger(RetryLimitCredentialsMatcher.class);
+
+    private static Logger log = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
     private Cache<String, AtomicInteger> loginRetryCache;
 
