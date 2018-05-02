@@ -34,16 +34,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-log4j2</artifactId>
-    </dependency>
-
-      <dependency>
-          <groupId>com.fasterxml.jackson.dataformat</groupId>
-          <artifactId>jackson-dataformat-yaml</artifactId>
-      </dependency>
-
-    <dependency>
       <groupId>com.len</groupId>
       <artifactId>len-core</artifactId>
     </dependency>
