@@ -55,13 +55,18 @@ pagehelper:
 logging:
   level:
       com.len.mapper: debug
+  config: classpath:log4j2.yml
 #security:
 #  basic:
 #    enabled: false
 
-filePath: G\os\file\
+#filePath: G\os\file\
+#
+#imagePath: G:\os\image\
 
-imagePath: G:\os\image\
+filePath: \file\
+
+imagePath: \image\
 
 management:
   security:
