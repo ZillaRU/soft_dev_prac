@@ -25,15 +25,29 @@ public class FreeMarkerConfig{
 
 
   @Bean
-  public ViewResolver viewResolver() {
+  public ViewResolver viewResolverFtl() {
     FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
     resolver.setCache(false);
     resolver.setViewClass(org.springframework.web.servlet.view.freemarker.FreeMarkerView.class);
     resolver.setRequestContextAttribute("re");
-    //resolver.setExposeSpringMacroHelpers(true);
     resolver.setExposeRequestAttributes(true);
     resolver.setExposeSessionAttributes(true);
     resolver.setSuffix(".ftl");
+    resolver.setContentType("text/html; charset=UTF-8");
+    resolver.setOrder(0);
+    return resolver;
+  }
+
+  @Bean
+  public ViewResolver viewResolverHtml() {
+    FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
+    resolver.setCache(false);
+    resolver.setViewClass(org.springframework.web.servlet.view.freemarker.FreeMarkerView.class);
+    resolver.setRequestContextAttribute("re");
+    resolver.setExposeRequestAttributes(true);
+    resolver.setExposeSessionAttributes(true);
+    resolver.setOrder(1);
+    resolver.setSuffix(".html");
     resolver.setContentType("text/html; charset=UTF-8");
     return resolver;
   }
