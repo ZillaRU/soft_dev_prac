@@ -32,3 +32,4 @@
 *.log
 logs/*
 */logs/*
+image/*
