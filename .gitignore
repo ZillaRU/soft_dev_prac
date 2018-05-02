@@ -26,6 +26,9 @@
 
 
 ### IDEA ###
+.idea/
+*/target/*
 *.iml
-.idea
-target
+*.log
+logs/*
+*/logs/*
