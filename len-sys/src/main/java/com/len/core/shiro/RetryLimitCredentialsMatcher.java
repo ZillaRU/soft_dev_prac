@@ -2,6 +2,7 @@ package com.len.core.shiro;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -17,9 +18,8 @@ import cn.hutool.core.util.StrUtil;
  * 验证器，增加了登录次数校验功能
  * 限制尝试登陆次数,防止暴力破解
  */
+@Slf4j
 public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
-
-    private static Logger log = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
     private Cache<String, AtomicInteger> loginRetryCache;
 

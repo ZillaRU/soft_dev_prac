@@ -1,5 +1,6 @@
 package com.len.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeansException;
@@ -18,9 +19,8 @@ import org.springframework.context.annotation.Configuration;
  * 之所以用z开头是因为 初始化有顺序
  */
 @Configuration
+@Slf4j
 public class ZBeanFactory implements BeanPostProcessor {
-
-    private static final Logger log = LogManager.getLogger(ZBeanFactory.class);
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName)

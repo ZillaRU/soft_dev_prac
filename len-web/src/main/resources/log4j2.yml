@@ -4,7 +4,8 @@ Configuration:
   Properties: # 定义变量
     Property:
       - name: log.path
-        value: G:\os\logs
+#        value: G:\os\logs
+        value: /logs
       - name: project.name
         value: lenos-log
 
@@ -13,7 +14,7 @@ Configuration:
       name: CONSOLE
       target: SYSTEM_OUT
       ThresholdFilter:
-        level: trace
+        level: error
         onMatch: ACCEPT
         onMismatch: DENY
       PatternLayout:
@@ -35,7 +36,7 @@ Configuration:
 
   Loggers:
     Root:
-      level: info
+      level: error
       AppenderRef:
         - ref: CONSOLE
         - ref: ROLLING_FILE

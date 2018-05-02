@@ -8,6 +8,7 @@ import com.len.util.SpringUtil;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.quartz.Job;
@@ -22,9 +23,8 @@ import org.springframework.context.ApplicationContext;
  *
  * 定时测试类
  */
+@Slf4j
 public class JobDemo2 implements Job{
-
-  private static Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
   @Override
   public void execute(JobExecutionContext context) throws JobExecutionException {
@@ -39,7 +39,7 @@ public class JobDemo2 implements Job{
     ApplicationContext applicationContext=SpringUtil.getApplicationContext();
     SysUserService sys=SpringUtil.getBean(SysUserServiceImpl.class);
     List<SysUser> userList=sys.selectListByPage(new SysUser());
-    logger.info(userList.get(0).getUsername());
-    logger.info("JobDemo2：执行完毕=======================");
+    log.info(userList.get(0).getUsername());
+    log.info("JobDemo2：执行完毕=======================");
   }
 }

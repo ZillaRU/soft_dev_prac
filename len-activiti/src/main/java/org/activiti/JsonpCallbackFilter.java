@@ -13,13 +13,14 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @WebFilter("/service/*")
+@Slf4j
 public class JsonpCallbackFilter implements Filter {
-
-    private static Logger log = LoggerFactory.getLogger(JsonpCallbackFilter.class);
 
     public void init(FilterConfig fConfig) throws ServletException {
     }

@@ -6,6 +6,8 @@ import com.len.service.SysUserService;
 import java.io.IOException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authz.AuthorizationFilter;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @email 154040976@qq.com
  * 拦截器 校验用户是否已授权 未授权返回到登录界面
  */
+@Slf4j
 public class PermissionFilter extends AuthorizationFilter {
 
   @Autowired
@@ -34,6 +37,7 @@ public class PermissionFilter extends AuthorizationFilter {
     Subject sub = getSubject(servletRequest, servletResponse);
     Session session= sub.getSession();
     CurrentUser user= (CurrentUser) session.getAttribute("curentUser");
+    log.info("user:{}",user);
     if(user==null) {
       return false;
     }

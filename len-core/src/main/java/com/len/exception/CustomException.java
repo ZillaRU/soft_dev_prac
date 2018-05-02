@@ -2,9 +2,9 @@ package com.len.exception;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.UnauthorizedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,8 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
  * @date 2017/12/8.
  * @email 154040976@qq.com
  */
+@Slf4j
 public class CustomException implements HandlerExceptionResolver {
-  private static Logger log= LoggerFactory.getLogger(CustomException.class);
 
   @Override
   public ModelAndView resolveException(HttpServletRequest httpServletRequest,
