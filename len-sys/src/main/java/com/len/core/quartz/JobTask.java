@@ -5,6 +5,8 @@ import com.len.core.annotation.Log.LOG_TYPE;
 import com.len.entity.SysJob;
 import java.util.Date;
 import java.util.HashSet;
+
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,9 +34,8 @@ import org.springframework.stereotype.Service;
  * 任务名称 默认为 SysJob 类 id
  */
 @Service
+@Slf4j
 public class JobTask {
-
-  private static Logger log = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
   @Autowired
   SchedulerFactoryBean schedulerFactoryBean;

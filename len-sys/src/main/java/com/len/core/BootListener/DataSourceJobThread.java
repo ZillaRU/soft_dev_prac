@@ -8,6 +8,7 @@ import com.len.service.RoleService;
 
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,8 @@ import org.springframework.context.annotation.Configuration;
  * 启动数据库中已经设定为 启动状态(status:true)的任务 项目启动时init
  */
 @Configuration
+@Slf4j
 public class DataSourceJobThread extends Thread {
-
-    private static Logger log = LogManager.getLogger(DataSourceJobThread.class);
 
     @Autowired
     RoleService roleService;

@@ -1,10 +1,10 @@
 Configuration:
-  status: info
+  status: warn
 
   Properties: # 定义变量
     Property:
       - name: log.path
-        value: G:\os\logs
+        value: ./logs
       - name: project.name
         value: lenos-log
 
@@ -13,7 +13,7 @@ Configuration:
       name: CONSOLE
       target: SYSTEM_OUT
       ThresholdFilter:
-        level: trace
+        level: info
         onMatch: ACCEPT
         onMismatch: DENY
       PatternLayout:

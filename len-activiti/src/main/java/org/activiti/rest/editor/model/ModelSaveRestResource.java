@@ -20,6 +20,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.RepositoryService;
@@ -45,9 +46,8 @@ import com.alibaba.fastjson.JSONObject;
  */
 @RestController
 @RequestMapping("service")
+@Slf4j
 public class ModelSaveRestResource implements ModelDataJsonConstants {
-  
-  protected static final Logger LOGGER = LoggerFactory.getLogger(ModelSaveRestResource.class);
 
   @Autowired
   private RepositoryService repositoryService;
@@ -96,7 +96,7 @@ public class ModelSaveRestResource implements ModelDataJsonConstants {
       outStream.close();
       
     } catch (Exception e) {
-      LOGGER.error("Error saving model", e);
+      log.error("Error saving model", e);
       throw new ActivitiException("Error saving model", e);
     }
   }

@@ -12,6 +12,7 @@ import com.len.util.ReType;
 
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,8 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping(value = "/log")
+@Slf4j
 public class LogController extends BaseController {
-    private static final Logger logger = Logger.getLogger(LogController.class);
     @Autowired
     private SysLogMapper logMapper;
 
@@ -56,7 +57,7 @@ public class LogController extends BaseController {
         try {
             tList = logMapper.selectListByPage(sysLog);
         } catch (MyException e) {
-            logger.error("class:LogController ->method:showLog->message:" + e.getMessage());
+            log.error("class:LogController ->method:showLog->message:" + e.getMessage());
             e.printStackTrace();
         }
         ReType reType = new ReType(tPage.getTotal(), tList);
@@ -80,7 +81,7 @@ public class LogController extends BaseController {
             }
         } catch (MyException e) {
             msg = "删除失败";
-            logger.error(msg + e.getMessage());
+            log.error(msg + e.getMessage());
         }
         j.setMsg(msg);
         return j;

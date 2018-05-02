@@ -8,6 +8,7 @@ import com.len.base.BaseService;
 import com.len.base.CurrentUser;
 import com.len.exception.MyException;
 import com.len.util.ReType;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.shiro.SecurityUtils;
 
@@ -21,9 +22,10 @@ import java.util.List;
  * @date 2017/12/13.
  * @email 154040976@qq.com
  */
+@Slf4j
 public abstract class BaseServiceImpl<T, E extends Serializable> implements BaseService<T, E> {
 
-    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(BaseServiceImpl.class);
+//    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(BaseServiceImpl.class);
 
     public abstract BaseMapper<T, E> getMappser();
 
@@ -116,7 +118,8 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
         try {
             tList = getMappser().selectListByPage(t);
         } catch (MyException e) {
-            logger.error("class:BaseServiceImpl ->method:show->message:" + e.getMessage());
+//            logger.error("class:BaseServiceImpl ->method:show->message:" + e.getMessage());
+            log.error("class:BaseServiceImpl ->method:show->message:" + e.getMessage());
             e.printStackTrace();
         }
         ReType reType = new ReType(tPage.getTotal(), tList);

@@ -3,6 +3,7 @@ package com.len.core.quartz.CustomQuartz;
 import java.io.*;
 
 import com.len.core.annotation.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,9 +18,8 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
+@Slf4j
 public class DataSchdule {
-
-    private static Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
    // @Scheduled(cron = "0 0/5 * * * ? ")
     @Log(type = Log.LOG_TYPE.UPDATE,desc = "定时还原数据库")
@@ -47,9 +47,9 @@ public class DataSchdule {
             outputStream.close();
             br.close();
             writer.close();
-            logger.info("数据库还原成功");
+            log.info("数据库还原成功");
         } catch (IOException e) {
-            logger.error("数据库还原失败");
+            log.error("数据库还原失败");
             e.printStackTrace();
         }
     }
