@@ -37,39 +37,25 @@
 </div>
 <div class="layui-col-md12" style="height:40px;margin-top:3px;">
   <div class="layui-btn-group">
-      <@shiro.hasPermission name="user:select">
       <button class="layui-btn layui-btn-normal" data-type="add">
       <i class="layui-icon">&#xe608;</i>新增
     </button>
-      </@shiro.hasPermission>
-    <@shiro.hasPermission name="user:select">
     <button class="layui-btn layui-btn-normal" data-type="update">
       <i class="layui-icon">&#xe642;</i>编辑
     </button>
-    </@shiro.hasPermission>
-<@shiro.hasPermission name="user:del">
     <button class="layui-btn layui-btn-normal" data-type="detail">
       <i class="layui-icon">&#xe605;</i>查看
     </button>
-</@shiro.hasPermission>
-    <@shiro.hasPermission name="user:repass">
     <button class="layui-btn layui-btn-normal" data-type="changePwd">
       <i class="layui-icon">&#xe605;</i>修改密码
     </button>
-    </@shiro.hasPermission>
   </div>
 </div>
 <table id="userList" class="layui-hide" lay-filter="user"></table>
 <script type="text/html" id="barDemo">
-<@shiro.hasPermission name="user:select">
   <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-</@shiro.hasPermission>
-<@shiro.hasPermission name="user:update">
   <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="edit">编辑</a>
-</@shiro.hasPermission>
-<@shiro.hasPermission name="user:del">
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</@shiro.hasPermission>
 </script>
 <script type="text/html" id="switchTpl">
   <input type="checkbox" name="sex" lay-skin="switch" lay-text="女|男" lay-filter="sexDemo">
