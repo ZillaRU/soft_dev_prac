@@ -7,6 +7,8 @@ public class BlogArticle {
 
     private String title;
 
+    private Integer readQuantity;
+
     private Date gmtCreated;
 
     private Date gmtModified;
@@ -31,6 +33,14 @@ public class BlogArticle {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public Integer getReadQuantity() {
+        return readQuantity;
+    }
+
+    public void setReadQuantity(Integer readQuantity) {
+        this.readQuantity = readQuantity;
     }
 
     public Date getGmtCreated() {

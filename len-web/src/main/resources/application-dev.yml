@@ -4,6 +4,9 @@ security:
   basic:
     enabled: false
 spring:
+  devtools:
+      restart:
+        enabled: true
   datasource:
         url: jdbc:mysql://localhost:3306/lenos?useUnicode=true&characterEncoding=UTF-8
         username: root

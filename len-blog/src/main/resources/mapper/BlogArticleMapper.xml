@@ -4,6 +4,292 @@
   <resultMap id="BaseResultMap" type="com.len.model.BlogArticle">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="read_quantity" jdbcType="INTEGER" property="readQuantity" />
+    <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.len.model.BlogArticle">
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="content_md" jdbcType="LONGVARCHAR" property="contentMd" />
+    <result column="content_html" jdbcType="LONGVARCHAR" property="contentHtml" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, read_quantity, gmt_created, gmt_modified
+  </sql>
+  <sql id="Blob_Column_List">
+    description, content_md, content_html
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog_art
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from blog_art
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.len.model.BlogArticle">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+      SELECT REPLACE(UUID(),'-','') AS ID FROM DUAL
+    </selectKey>
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into blog_art (title, read_quantity, gmt_created, 
+      gmt_modified, description, content_md, 
+      content_html)
+    values (#{title,jdbcType=VARCHAR}, #{readQuantity,jdbcType=INTEGER}, #{gmtCreated,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{description,jdbcType=LONGVARCHAR}, #{contentMd,jdbcType=LONGVARCHAR}, 
+      #{contentHtml,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.len.model.BlogArticle">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+      SELECT REPLACE(UUID(),'-','') AS ID FROM DUAL
+    </selectKey>
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into blog_art
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="readQuantity != null">
+        read_quantity,
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="contentMd != null">
+        content_md,
+      </if>
+      <if test="contentHtml != null">
+        content_html,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="readQuantity != null">
+        #{readQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreated != null">
+        #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contentMd != null">
+        #{contentMd,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contentHtml != null">
+        #{contentHtml,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.len.model.BlogArticle">
+    update blog_art
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="readQuantity != null">
+        read_quantity = #{readQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contentMd != null">
+        content_md = #{contentMd,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contentHtml != null">
+        content_html = #{contentHtml,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.len.model.BlogArticle">
+    update blog_art
+    set title = #{title,jdbcType=VARCHAR},
+      read_quantity = #{readQuantity,jdbcType=INTEGER},
+      gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=LONGVARCHAR},
+      content_md = #{contentMd,jdbcType=LONGVARCHAR},
+      content_html = #{contentHtml,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.len.model.BlogArticle">
+    update blog_art
+    set title = #{title,jdbcType=VARCHAR},
+      read_quantity = #{readQuantity,jdbcType=INTEGER},
+      gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.len.model.BlogArticle">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="read_quantity" jdbcType="INTEGER" property="readQuantity" />
+    <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.len.model.BlogArticle">
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="content_md" jdbcType="LONGVARCHAR" property="contentMd" />
+    <result column="content_html" jdbcType="LONGVARCHAR" property="contentHtml" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, read_quantity, gmt_created, gmt_modified
+  </sql>
+  <sql id="Blob_Column_List">
+    description, content_md, content_html
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog_art
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from blog_art
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.len.model.BlogArticle">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into blog_art (id, title, read_quantity, 
+      gmt_created, gmt_modified, description, 
+      content_md, content_html)
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{readQuantity,jdbcType=INTEGER}, 
+      #{gmtCreated,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{description,jdbcType=LONGVARCHAR}, 
+      #{contentMd,jdbcType=LONGVARCHAR}, #{contentHtml,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.len.model.BlogArticle">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into blog_art
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="title != null">
+        title,
+      </if>
+      <if test="readQuantity != null">
+        read_quantity,
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="contentMd != null">
+        content_md,
+      </if>
+      <if test="contentHtml != null">
+        content_html,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=VARCHAR},
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="readQuantity != null">
+        #{readQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreated != null">
+        #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contentMd != null">
+        #{contentMd,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contentHtml != null">
+        #{contentHtml,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.len.model.BlogArticle">
+    update blog_art
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="readQuantity != null">
+        read_quantity = #{readQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contentMd != null">
+        content_md = #{contentMd,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contentHtml != null">
+        content_html = #{contentHtml,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.len.model.BlogArticle">
+    update blog_art
+    set title = #{title,jdbcType=VARCHAR},
+      read_quantity = #{readQuantity,jdbcType=INTEGER},
+      gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=LONGVARCHAR},
+      content_md = #{contentMd,jdbcType=LONGVARCHAR},
+      content_html = #{contentHtml,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.len.model.BlogArticle">
+    update blog_art
+    set title = #{title,jdbcType=VARCHAR},
+      read_quantity = #{readQuantity,jdbcType=INTEGER},
+      gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.len.model.BlogArticle">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
