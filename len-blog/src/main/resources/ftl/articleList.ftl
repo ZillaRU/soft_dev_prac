@@ -74,21 +74,12 @@
     table.render({
       id: 'userList',
       elem: '#userList'
-      , url: 'showUserList'
+      , url: '/article/showArticleList'
       , cols: [[
         {checkbox: true, fixed: true, width: '5%'}
-        , {
-          field: 'username',
-          title: '用户名',
-          width: '10%',
-          sort: true,
-          style: 'background-color: #009688; color: #fff;'
-        }
-        , {field: 'age', title: '年龄', width: '17%', sort: true}
-        , {field: 'realName', title: '真实姓名', width: '20%'}
-        , {field: 'email', title: '邮箱', width: '13%'}
-        , {field: 'photo', title: '头像', width: '13%', template: '#switchTpl'}
-        , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
+        , {field: 'title',title: '标题',width: '10%'}
+        , {field: 'description', title: '提要', width: '17%'}
+        // , {field: '', title: '真实姓名', width: '20%'}
       ]]
       , page: true,
       height: 'full-83'

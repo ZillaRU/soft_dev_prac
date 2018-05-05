@@ -24,7 +24,7 @@
     <div class="layui-hide-xs">
     <ul class="layui-nav layui-layout-left kit-nav">
       <li class="layui-nav-item"><a href="javascript:s();">会员管理</a></li>
-      <li class="layui-nav-item"><a href="javascript:;">博客管理</a></li>
+        <li class="layui-nav-item"><a href="javascript:;" kit-target data-options="{url:'/article/articleList',icon:'&#xe658;',title:'文章管理',id:'966'}">文章管理</a></li>
       <#--<li class="layui-nav-item"><a href="javascript:;" id="pay"><i class="fa fa-gratipay" aria-hidden="true"></i> 捐赠我</a></li>-->
       <li class="layui-nav-item">
         <a href="javascript:;">其它系统</a>

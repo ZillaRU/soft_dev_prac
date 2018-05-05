@@ -14,6 +14,14 @@
   <sql id="Base_Column_List">
     id, title, description, content_md, content_html, read_quantity, gmt_created, gmt_modified
   </sql>
+  <select id="selectListByPage" parameterType="com.len.model.BlogArticle" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    from blog_art
+    <where>
+      <if test="title!=null and title!=''"> and title like "%" #{title} "%"</if>
+      <if test="description!=null and description!=''"> and description like "%" #{description} "%"</if>
+    </where>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
