@@ -23,6 +23,6 @@ public class ArticleServiceImpl extends BaseServiceImpl<BlogArticle, String> imp
 
     @Override
     public BaseMapper<BlogArticle, String> getMappser() {
-        return null;
+        return mapper;
     }
 }
