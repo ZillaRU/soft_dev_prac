@@ -7,17 +7,17 @@ public class BlogArticle {
 
     private String title;
 
-    private Integer readQuantity;
-
-    private Date gmtCreated;
-
-    private Date gmtModified;
-
     private String description;
 
     private String contentMd;
 
     private String contentHtml;
+
+    private Integer readQuantity;
+
+    private Date gmtCreated;
+
+    private Date gmtModified;
 
     public String getId() {
         return id;
@@ -33,30 +33,6 @@ public class BlogArticle {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
-    }
-
-    public Integer getReadQuantity() {
-        return readQuantity;
-    }
-
-    public void setReadQuantity(Integer readQuantity) {
-        this.readQuantity = readQuantity;
-    }
-
-    public Date getGmtCreated() {
-        return gmtCreated;
-    }
-
-    public void setGmtCreated(Date gmtCreated) {
-        this.gmtCreated = gmtCreated;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
     }
 
     public String getDescription() {
@@ -81,5 +57,29 @@ public class BlogArticle {
 
     public void setContentHtml(String contentHtml) {
         this.contentHtml = contentHtml == null ? null : contentHtml.trim();
+    }
+
+    public Integer getReadQuantity() {
+        return readQuantity;
+    }
+
+    public void setReadQuantity(Integer readQuantity) {
+        this.readQuantity = readQuantity;
+    }
+
+    public Date getGmtCreated() {
+        return gmtCreated;
+    }
+
+    public void setGmtCreated(Date gmtCreated) {
+        this.gmtCreated = gmtCreated;
+    }
+
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 }

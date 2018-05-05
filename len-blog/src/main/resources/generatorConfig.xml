@@ -6,6 +6,10 @@
 <generatorConfiguration>
     <!--<classPathEntry location="/Program Files/IBM/SQLLIB/java/db2java.zip" />-->
 
+    <!--<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">-->
+        <!--SELECT REPLACE(UUID(),'-','') AS ID FROM DUAL-->
+    <!--</selectKey>-->
+
     <context id="MySQLTables" targetRuntime="MyBatis3">
         <commentGenerator>
             <property name="suppressAllComments" value="true"/>
@@ -33,7 +37,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="blog_art" domainObjectName="BlogArticle" modelType="flat" enableSelectByExample="false"
+        <table tableName="blog_art" domainObjectName="BlogArticle" modelType="conditional" enableSelectByExample="false"
                enableCountByExample="false" enableDeleteByExample="false" enableUpdateByExample="false">
             <generatedKey column="ID" sqlStatement="MySQL" identity="true"/>
         </table>
