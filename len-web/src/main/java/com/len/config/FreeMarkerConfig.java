@@ -1,20 +1,15 @@
 package com.len.config;
 
-import com.jagregory.shiro.freemarker.ShiroTags;
 import freemarker.template.TemplateException;
-import freemarker.template.TemplateModelException;
-import java.io.IOException;
-import java.util.Properties;
-import javax.annotation.PostConstruct;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactory;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
+
+import java.io.IOException;
+import java.util.Properties;
 /**
  * @author zhuxiaomeng
  * @date 2018/1/2.
@@ -33,7 +28,7 @@ public class FreeMarkerConfig{
     resolver.setExposeRequestAttributes(true);
     resolver.setExposeSessionAttributes(true);
     resolver.setSuffix(".ftl");
-    resolver.setContentType("text/html; charset=UTF-8");
+    resolver.setContentType("text/html;charset=UTF-8");
     resolver.setOrder(0);
     return resolver;
   }
@@ -48,7 +43,7 @@ public class FreeMarkerConfig{
     resolver.setExposeSessionAttributes(true);
     resolver.setOrder(1);
     resolver.setSuffix(".html");
-    resolver.setContentType("text/html; charset=UTF-8");
+    resolver.setContentType("text/html;charset=UTF-8");
     return resolver;
   }
 
