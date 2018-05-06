@@ -14,7 +14,7 @@
 - 地址：[lenos](https://gitee.com/bweird/lenos) 
 
 ## 项目说明
-- lenos(p为spring boot版本扩展名)一款快速开发模块化脚手架，采用spring boot+spring+SpringMvc+mybatis+shiro+swagger+ehcache+quartz+freemarker+layui技术开发；实现功能有系统模块：菜单管理、用户管理、角色管理，系统监控：系统日志、接口api、sql监控。本项目会一直维护并集成新的技术，给您的开发节约时间成本，本项目拥有非boot版本。
+- lenos(p为spring boot版本扩展名)一款快速开发模块化脚手架，采用spring boot 2.0.1+spring+SpringMvc+mybatis+shiro+swagger+ehcache+quartz+freemarker+layui技术开发；实现功能有系统模块：菜单管理、用户管理、角色管理，系统监控：系统日志、接口api、sql监控。本项目会一直维护并集成新的技术，给您的开发节约时间成本，本项目拥有非boot版本。
 ## 未来蓝图
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fnw762j02vj30rs0vtjt7.jpg "图片说明")
 
@@ -66,7 +66,7 @@ java -jar len-web.jar
 
 ## 技术
 * jdk：1.8
-* 核心框架：Spring Framework 1.5.9.RELEASE
+* 核心框架：spring boot 2.0.1.RELEASE
 * 安全框架：Apache Shiro
 * 工作流引擎：Activiti
 * 数据库连接池：druid
