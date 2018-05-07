@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
@@ -41,13 +43,16 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         converters.add(responseBodyConverter());
     }
 
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/META-INF/resources/").setCachePeriod(0);
         registry.addResourceHandler("/plugin/**", "/static/**")
                 .addResourceLocations("classpath:/plugin/", "classpath:/static/");
         registry.addResourceHandler("/ftl/**").addResourceLocations("classpath:/ftl/");
-        registry.addResourceHandler("/images/**").addResourceLocations("file:"+imagePath);
-        registry.addResourceHandler("/file/**").addResourceLocations("file:"+imagePath);
+        registry.addResourceHandler("/images/**").addResourceLocations("file:" + imagePath);
+        registry.addResourceHandler("/file/**").addResourceLocations("file:" + imagePath);
+        super.addResourceHandlers(registry);
     }
 
     /*保留国际化*/
@@ -64,8 +69,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     }
 
     @Bean
-    public LocaleResolver resolver(){
-        SessionLocaleResolver resolver=new SessionLocaleResolver();
+    public LocaleResolver resolver() {
+        SessionLocaleResolver resolver = new SessionLocaleResolver();
         resolver.setDefaultLocale(Locale.US);
         return resolver;
     }

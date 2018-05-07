@@ -38,7 +38,6 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.image.ProcessDiagramGenerator;
 import org.activiti.spring.ProcessEngineFactoryBean;
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -211,7 +210,7 @@ public class UserLeaveController extends BaseController {
         userLeave.setProcessInstanceId("2018");//模拟数据
 
         leaveService.insertSelective(userLeave);
-        Map<String, Object> map = new HashedMap();
+        Map<String, Object> map = new HashMap<>();
         map.put("userLeave", userLeave);
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("process_leave", map);
         userLeave.setProcessInstanceId(processInstance.getId());
