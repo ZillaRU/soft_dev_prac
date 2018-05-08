@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.servlet.Filter;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
+import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -59,7 +60,7 @@ public class ShiroConfig {
   }
 
   @Bean(name="securityManager")
-  public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("loginRealm") LoginRealm loginRealm){
+  public SecurityManager getSecurityManager(@Qualifier("loginRealm") LoginRealm loginRealm){
     DefaultWebSecurityManager dwm=new DefaultWebSecurityManager();
     dwm.setRealm(loginRealm);
     dwm.setCacheManager(getCacheManager());
@@ -82,7 +83,7 @@ public class ShiroConfig {
   }
 
   @Bean(name = "shiroFilter")
-  public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager") DefaultWebSecurityManager securityManager){
+  public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager") SecurityManager securityManager){
     ShiroFilterFactoryBean sfb = new ShiroFilterFactoryBean();
     sfb.setSecurityManager(securityManager);
     sfb.setLoginUrl("/login");
@@ -111,7 +112,7 @@ public class ShiroConfig {
   }
 
   @Bean
-  public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(@Qualifier("securityManager") DefaultWebSecurityManager securityManager){
+  public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(@Qualifier("securityManager") SecurityManager securityManager){
     AuthorizationAttributeSourceAdvisor as=new AuthorizationAttributeSourceAdvisor();
     as.setSecurityManager(securityManager);
     return as;
