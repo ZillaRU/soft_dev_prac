@@ -25,9 +25,9 @@ import java.util.Locale;
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 
-    @Value("${imagePath}")
+    @Value("${lenosp.imagePath}")
     private String imagePath;
-    @Value("${filePath}")
+    @Value("${lenosp.uploadPath}")
     private String filePath;
 
     @Bean

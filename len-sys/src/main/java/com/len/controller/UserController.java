@@ -9,10 +9,7 @@ import com.len.entity.SysUser;
 import com.len.exception.MyException;
 import com.len.service.RoleUserService;
 import com.len.service.SysUserService;
-import com.len.util.BeanUtil;
-import com.len.util.Checkbox;
-import com.len.util.JsonUtil;
-import com.len.util.Md5Util;
+import com.len.util.*;
 import io.swagger.annotations.ApiOperation;
 
 import java.io.*;
@@ -233,8 +230,9 @@ public class UserController extends BaseController {
         return j;
     }
 
-    @Value("${imagePath}")
-    private String imagePath;
+    @Autowired
+    UploadUtil uploadUtil;
+
     /**
      * 头像上传 目前首先相对路径
      */
@@ -242,18 +240,10 @@ public class UserController extends BaseController {
     @ResponseBody
     public JsonUtil imgUpload(HttpServletRequest req, @RequestParam("file") MultipartFile file,
                               ModelMap model) {
+        uploadUtil.setMultipartFile(file);
+        String fileName=uploadUtil.upload();
         JsonUtil j = new JsonUtil();
-        String imageName=file.getOriginalFilename();
-        imageName= UUID.randomUUID()+imageName.substring(imageName.indexOf("."),imageName.length());
-        File file2 = new File(imagePath+"\\"+imageName);
-        try {
-            FileUtils.copyInputStreamToFile(file.getInputStream(), file2);
-        } catch (IOException e) {
-            j.setFlag(false);
-            j.setMsg("上传失败");
-            e.printStackTrace();
-        }
-        j.setMsg(imageName);
+        j.setMsg(fileName);
         return j;
     }
 
