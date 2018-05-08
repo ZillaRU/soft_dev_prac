@@ -9,6 +9,7 @@ import com.len.service.MenuService;
 import com.len.service.SysUserService;
 import com.len.util.VerifyCodeUtils;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -35,6 +36,7 @@ import java.util.List;
  * 登录、退出页面
  */
 @Controller
+@Slf4j
 public class LoginController {
 
     @Autowired
@@ -160,6 +162,7 @@ public class LoginController {
 
             //生成随机字串
             String verifyCode = VerifyCodeUtils.generateVerifyCode(4);
+            log.info("verifyCode:{}",verifyCode);
             //存入会话session
             HttpSession session = request.getSession(true);
             session.setAttribute("_code", verifyCode.toLowerCase());
