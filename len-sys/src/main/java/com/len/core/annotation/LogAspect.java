@@ -23,6 +23,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -70,7 +71,17 @@ public class LogAspect {
         if (obj != null) {
             for (int i = 0; i < obj.length; i++) {
                 buffer.append("[参数" + (i + 1) + ":");
-                buffer.append(JSON.toJSONString(obj[i]));
+                Object o = obj[i];
+                if(o instanceof Model){
+                    continue;
+                }
+                String parameter=null;
+                try {
+                    parameter=JSON.toJSONString(o);
+                }catch (Exception e){
+                    continue;
+                }
+                buffer.append(parameter);
                 buffer.append("]");
             }
         }
