@@ -9,7 +9,6 @@ import com.len.base.CurrentUser;
 import com.len.exception.MyException;
 import com.len.util.ReType;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.LogManager;
 import org.apache.shiro.SecurityUtils;
 
 import java.io.Serializable;
@@ -26,6 +25,17 @@ import java.util.List;
 public abstract class BaseServiceImpl<T, E extends Serializable> implements BaseService<T, E> {
 
 //    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(BaseServiceImpl.class);
+
+    /**
+     * general field(通用字段)
+     */
+    private static final String CREATE_BY = "createBy";
+
+    private static final String CREATE_DATE = "createDate";
+
+    private static final String UPDATE_BY = "updateBy";
+
+    private static final String UPDATE_DATE = "updateDate";
 
     public abstract BaseMapper<T, E> getMappser();
 
@@ -51,22 +61,23 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
         CurrentUser currentUser = (CurrentUser) SecurityUtils.getSubject().getSession().getAttribute("curentUser");
         //统一处理公共字段
         Class<?> clazz = record.getClass();
+        String currentBy, currentDate;
         try {
             if (flag) {
-                Field field = clazz.getDeclaredField("createBy");
-                field.setAccessible(true);
-                field.set(record, currentUser.getId());
-                Field fieldDate = clazz.getDeclaredField("createDate");
-                fieldDate.setAccessible(true);
-                fieldDate.set(record, new Date());
+                currentBy = CREATE_BY;
+                currentDate = CREATE_DATE;
             } else {
-                Field field = clazz.getDeclaredField("updateBy");
-                field.setAccessible(true);
-                field.set(record, currentUser.getId());
-                Field fieldDate = clazz.getDeclaredField("updateDate");
-                fieldDate.setAccessible(true);
-                fieldDate.set(record, new Date());
+                currentBy = UPDATE_BY;
+                currentDate = UPDATE_DATE;
+
             }
+            Field field = clazz.getDeclaredField(currentBy);
+            field.setAccessible(true);
+            field.set(record, currentUser.getId());
+            Field fieldDate = clazz.getDeclaredField(currentDate);
+            fieldDate.setAccessible(true);
+            fieldDate.set(record, new Date());
+
         } catch (NoSuchFieldException e) {
             //无此字段
         } catch (IllegalAccessException e) {
