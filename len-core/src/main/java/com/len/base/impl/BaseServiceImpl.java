@@ -59,20 +59,20 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
         CurrentUser currentUser = (CurrentUser) SecurityUtils.getSubject().getSession().getAttribute("curentUser");
         //统一处理公共字段
         Class<?> clazz = record.getClass();
-        String createBy, createDate;
+        String operator, operateDate;
         try {
             if (flag) {
-                createBy = CREATE_BY;
-                createDate = CREATE_DATE;
+                operator = CREATE_BY;
+                operateDate = CREATE_DATE;
             } else {
-                createBy = UPDATE_BY;
-                createDate = UPDATE_DATE;
+                operator = UPDATE_BY;
+                operateDate = UPDATE_DATE;
 
             }
-            Field field = clazz.getDeclaredField(createBy);
+            Field field = clazz.getDeclaredField(operator);
             field.setAccessible(true);
             field.set(record, currentUser.getId());
-            Field fieldDate = clazz.getDeclaredField(createDate);
+            Field fieldDate = clazz.getDeclaredField(operateDate);
             fieldDate.setAccessible(true);
             fieldDate.set(record, new Date());
 
