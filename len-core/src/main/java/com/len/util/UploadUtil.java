@@ -88,7 +88,7 @@ public class UploadUtil {
         String filename=curr;
         //image 情况
         curr = StringUtils.isEmpty(imagePath) || index == -1 ?
-                uploadPath + "\\" + curr : imagePath + "\\" + curr;
+                uploadPath + File.separator + curr : imagePath +File.separator  + curr;
         currentFile = new File(curr);
 
         return filename;
