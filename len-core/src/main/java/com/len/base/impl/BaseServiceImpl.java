@@ -24,8 +24,6 @@ import java.util.List;
 @Slf4j
 public abstract class BaseServiceImpl<T, E extends Serializable> implements BaseService<T, E> {
 
-//    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(BaseServiceImpl.class);
-
     /**
      * general field(通用字段)
      */
@@ -61,20 +59,20 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
         CurrentUser currentUser = (CurrentUser) SecurityUtils.getSubject().getSession().getAttribute("curentUser");
         //统一处理公共字段
         Class<?> clazz = record.getClass();
-        String currentBy, currentDate;
+        String operator, operateDate;
         try {
             if (flag) {
-                currentBy = CREATE_BY;
-                currentDate = CREATE_DATE;
+                operator = CREATE_BY;
+                operateDate = CREATE_DATE;
             } else {
-                currentBy = UPDATE_BY;
-                currentDate = UPDATE_DATE;
+                operator = UPDATE_BY;
+                operateDate = UPDATE_DATE;
 
             }
-            Field field = clazz.getDeclaredField(currentBy);
+            Field field = clazz.getDeclaredField(operator);
             field.setAccessible(true);
             field.set(record, currentUser.getId());
-            Field fieldDate = clazz.getDeclaredField(currentDate);
+            Field fieldDate = clazz.getDeclaredField(operateDate);
             fieldDate.setAccessible(true);
             fieldDate.set(record, new Date());
 
