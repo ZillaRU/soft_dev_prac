@@ -2004,3 +2004,45 @@ CREATE TABLE `user_leave` (
 -- Records of user_leave
 -- ----------------------------
 INSERT INTO `user_leave` VALUES ('503022b1457711e8bcf1309c2315f9aa', 'a4a743bffe9711e7b472201a068c6482', 'zxm', '2018-04-21 00:00:00', '2018-04-24 00:00:00', '请假去旅游', '3', '175049', null, '2018-04-21 23:18:46', 'a4a743bffe9711e7b472201a068c6482', '2018-04-21 23:20:25', 'a4a743bffe9711e7b472201a068c6482');
+
+-- ----------------------------
+-- Table structure for sys_dict_item
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dict_item`;
+CREATE TABLE `sys_dict_item` (
+  `id` varchar(32) NOT NULL,
+  `sequence` int(11) NOT NULL COMMENT '序号',
+  `value` varchar(100) NOT NULL COMMENT '值',
+  `description` varchar(100) NOT NULL COMMENT '描述',
+  `type_id` varchar(32) NOT NULL COMMENT '字典id外检',
+  `create_by` varchar(32) DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  `update_by` varchar(32) DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  `del_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除标识',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典子表';
+
+-- ----------------------------
+-- Records of sys_dict_item
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for sys_dict_type
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dict_type`;
+CREATE TABLE `sys_dict_type` (
+  `id` varchar(32) NOT NULL,
+  `code` varchar(255) NOT NULL COMMENT '编码',
+  `del_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除标识',
+  `text` varchar(255) NOT NULL COMMENT '字典名称',
+  `create_by` varchar(32) DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `update_by` varchar(32) DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典主表';
+
+-- ----------------------------
+-- Records of sys_dict_type
+-- ----------------------------
