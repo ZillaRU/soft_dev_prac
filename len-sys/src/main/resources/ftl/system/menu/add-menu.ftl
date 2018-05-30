@@ -103,7 +103,7 @@ To change this template use File | Settings | File Templates.-->
         </label>
         <div class="layui-input-inline">
           <input type="orderNum" id="orderNum" name="orderNum"  lay-verify="orderNum"
-                 autocomplete="off" class="layui-input">
+                 autocomplete="off" class="layui-input" maxlength="4">
         </div>
     </div>
       <div style="height: 60px"></div>

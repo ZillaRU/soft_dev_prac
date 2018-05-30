@@ -4,10 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.len.validator.group.AddGroup;
+import com.len.validator.group.UpdateGroup;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
@@ -16,12 +22,14 @@ import lombok.ToString;
 public class SysMenu implements Serializable {
     private String id;
 
+    @NotEmpty(message = "菜单名称不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String name;
 
     private String pId;
 
     private String url;
 
+    @Length(min = 1,max = 4, message = "序号长度不对")
     private Integer orderNum;
 
     private String icon;
