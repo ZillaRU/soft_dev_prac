@@ -7,7 +7,7 @@
 ![图片说明](http://ww4.sinaimg.cn/large/0060lm7Tly1fnjfv8d366j310x0hsjwr.jpg "图片说明")
 
 ## 交流群
-* lenos开源脚手架群① 137738503(满) lenos开源脚手架群② 137179893 您有疑问，我们解答，您有建议，我们吸取，您有idea 我们欢迎
+* lenos开源脚手架群① 137738503(即将满) lenos开源脚手架群② 137179893 您有疑问，我们解答，您有建议，我们吸取，您有idea 我们欢迎
 - 群①<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=2c71822be7b8c061087a94647663a742a274626a846b76647743ed556a24cabc"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="开源脚手架lenos交流群" title="开源脚手架lenos交流群①"></a>
 
 - 群②<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=b5806230055c3c1690f140826ee53c634c41ca90e0c401aaa73f02b1f59328c5"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="lenos开源交流群②" title="lenos开源交流群②"></a>
