@@ -240,8 +240,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public JsonUtil imgUpload(HttpServletRequest req, @RequestParam("file") MultipartFile file,
                               ModelMap model) {
-        uploadUtil.setMultipartFile(file);
-        String fileName=uploadUtil.upload();
+        String fileName=uploadUtil.upload(file);
         JsonUtil j = new JsonUtil();
         j.setMsg(fileName);
         return j;

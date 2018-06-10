@@ -1,6 +1,7 @@
 package com.len.util;
 
 import com.len.exception.MyException;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.io.FileUtils;
@@ -26,11 +27,6 @@ import java.util.UUID;
 public class UploadUtil {
 
     /**
-     * 上传请求资源
-     */
-    private MultipartFile multipartFile = null;
-
-    /**
      * 按照当日创建文件夹
      */
     @Value("${lenosp.isDayType}")
@@ -46,27 +42,22 @@ public class UploadUtil {
 
     public static final String IMAGE_SUFFIX = "bmp,jpg,png,gif,jpeg";
 
-    private File currentFile;
-
-    public UploadUtil(MultipartFile multipartFile) {
-        this.multipartFile = multipartFile;
-    }
 
     public UploadUtil() {
     }
 
-    public String upload() {
-        if (isNull()) {
+    public String upload(MultipartFile multipartFile) {
+        if (isNull(multipartFile)) {
             throw new MyException("上传数据/地址获取异常");
         }
 
-        String fileName = fileNameStyle();
+        LoadType loadType = fileNameStyle(multipartFile);
         try {
-            FileUtils.copyInputStreamToFile(multipartFile.getInputStream(), currentFile);
+            FileUtils.copyInputStreamToFile(multipartFile.getInputStream(), loadType.getCurrentFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return fileName;
+        return loadType.getFileName();
     }
 
     /**
@@ -74,7 +65,7 @@ public class UploadUtil {
      *
      * @return
      */
-    public String fileNameStyle() {
+    public LoadType fileNameStyle(MultipartFile multipartFile) {
         String curr = multipartFile.getOriginalFilename();
         int suffixLen = curr.lastIndexOf(".");
         if (suffixLen == -1) {
@@ -85,21 +76,26 @@ public class UploadUtil {
                 suffix.replace(".", ""));
 
         curr = UUID.randomUUID() + suffix;
-        String filename=curr;
+        LoadType loadType = new LoadType();
+        loadType.setFileName(curr);
         //image 情况
         curr = StringUtils.isEmpty(imagePath) || index == -1 ?
-                uploadPath + File.separator + curr : imagePath +File.separator  + curr;
-        currentFile = new File(curr);
-
-        return filename;
+                uploadPath + File.separator + curr : imagePath + File.separator + curr;
+        loadType.setCurrentFile(new File(curr));
+        return loadType;
     }
 
-    private boolean isNull() {
+    private boolean isNull(MultipartFile multipartFile) {
         if (null != multipartFile) {
             return false;
         }
         return true;
     }
 
+}
 
+@Data
+class LoadType {
+    private String fileName;
+    private File currentFile;
 }
