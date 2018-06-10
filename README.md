@@ -124,7 +124,7 @@ java -jar len-web.jar
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c5ev8tgj30w50e7wfs.jpg "图片说明")
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2dvrcl9lj30wd0e6gmd.jpg "图片说明")
 
-由于群成员满员，众筹升级群人数上限，感谢以下lenos群网友的捐助，以下为捐助名单(qq昵称，账号，顺序随机)：
+由于群成员满员，众筹升级群人数上限，十分感谢以下lenos群网友的捐助和支持，以下为捐助名单(qq昵称，账号，顺序随机)：
 ```
 我有一块大腹肌(18****256) 35.54元
 江湖百晓生 (26****417) 5元
