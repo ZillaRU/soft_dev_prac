@@ -32,9 +32,6 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.len.entity.SysRole">
-    <selectKey resultType="String" keyProperty="id" order="BEFORE">
-      select replace(uuid(),"-","") from dual
-    </selectKey>
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -121,8 +118,8 @@
     SELECT <include refid="Base_Column_List"/>
     from sys_role
     <where>
-      <if test="roleName!=null and roleName!=''">and role_name like "%" #{roleName} "%"</if>
-      <if test="remark!=null and remark!=''">and remark like "%" #{remark} "%"</if>
+      <if test="roleName!=null and roleName!=''">and role_name like '%${roleName}%'</if>
+      <if test="remark!=null and remark!=''">and remark like '%${remark}%'</if>
     </where>
     order by create_date desc
   </select>

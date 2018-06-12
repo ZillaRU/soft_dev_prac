@@ -28,9 +28,6 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.len.entity.SysJob">
-    <selectKey resultType="String" keyProperty="id" order="BEFORE">
-      select replace(uuid(),'-','') from dual
-    </selectKey>
     insert into sys_job (id, job_name, cron, 
       status, clazz_path, job_desc,
       create_by, create_date, update_by, 
@@ -41,9 +38,6 @@
       #{updateDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.len.entity.SysJob">
-    <selectKey resultType="String" keyProperty="id" order="BEFORE">
-      select replace(uuid(),'-','') from dual
-    </selectKey>
     insert into sys_job
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -160,9 +154,9 @@
     SELECT <include refid="Base_Column_List"/>
     from sys_job
     <where>
-      <if test="jobName!=null and jobName!=''"> and job_name like "%" #{job_name} "%"</if>
-      <if test="clazzPath!=null and clazzPath!=''"> and clazz_path like "%" #{clazz_path} "%"</if>
-      <if test="jobDesc!=null and jobDesc!=''"> and job_desc like "%" #{job_desc} "%"</if>
+      <if test="jobName!=null and jobName!=''"> and job_name like '%${job_name}%'</if>
+      <if test="clazzPath!=null and clazzPath!=''"> and clazz_path like '%${clazz_path}%'</if>
+      <if test="jobDesc!=null and jobDesc!=''"> and job_desc like '%${job_desc}%'</if>
       <if test="status!=null and status!=''"> and status =#{status}</if>
     </where>
   </select>

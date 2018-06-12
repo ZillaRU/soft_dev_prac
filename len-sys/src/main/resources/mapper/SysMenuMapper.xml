@@ -49,9 +49,6 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.len.entity.SysMenu">
-    <selectKey  order="BEFORE" keyProperty="id" resultType="java.lang.String">
-      select replace(uuid(),'-','') from dual
-    </selectKey>
     insert into sys_menu (id, name, p_id, 
       url, order_num, icon, 
       create_by, create_date, update_by, 
@@ -64,9 +61,6 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.len.entity.SysMenu">
-    <selectKey  order="BEFORE" keyProperty="id" resultType="java.lang.String">
-      select replace(uuid(),'-','') from dual
-    </selectKey>
     insert into sys_menu
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

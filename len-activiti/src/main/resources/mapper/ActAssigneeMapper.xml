@@ -27,9 +27,6 @@
     where sid = #{sid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.len.entity.ActAssignee">
-    <selectKey resultType="String" keyProperty="id" order="BEFORE">
-      select replace(uuid(),"-","") from dual
-    </selectKey>
     insert into act_assignee (id, sid, assignee, 
       role_id, assignee_type, activti_name
       )
@@ -38,9 +35,6 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.len.entity.ActAssignee">
-    <selectKey resultType="String" keyProperty="id" order="BEFORE">
-      select replace(uuid(),"-","") from dual
-    </selectKey>
     insert into act_assignee
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

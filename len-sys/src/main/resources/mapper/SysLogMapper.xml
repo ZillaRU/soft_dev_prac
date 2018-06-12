@@ -24,10 +24,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.len.entity.SysLog">
-    insert into sys_log (id, user_name, ip, 
+    insert into sys_log (user_name, ip,
       type, text,param,create_time
       )
-    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+    values (#{userName,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR},
       #{type,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR},#{param,jdbcType=VARCHAR},
        #{createTime,jdbcType=TIMESTAMP}
       )
@@ -35,9 +35,6 @@
   <insert id="insertSelective" parameterType="com.len.entity.SysLog">
     insert into sys_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="userName != null">
         user_name,
       </if>
@@ -58,9 +55,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
       </if>
@@ -120,8 +114,8 @@
     SELECT <include refid="Base_Column_List"/>
     from sys_log
     <where>
-      <if test="userName!=null and userName!=''"> and user_name like "%" #{userName} "%"</if>
-      <if test="type!=null and type!=''"> and type like "%" #{type} "%"</if>
+      <if test="userName!=null and userName!=''"> and user_name like '%${userName}%'</if>
+      <if test="type!=null and type!=''"> and type like '%${type}%'</if>
     </where>
     ORDER  BY create_time desc
   </select>

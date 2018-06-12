@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author zhuxiaomeng
@@ -34,6 +35,11 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
     private static final String UPDATE_BY = "updateBy";
 
     private static final String UPDATE_DATE = "updateDate";
+
+    //系统默认 id 如果主键为其他字段 则需要自己手动 生成 写入 id
+    private static final String ID = "id";
+
+    private static final String STR = "java.lang.String";
 
     public abstract BaseMapper<T, E> getMappser();
 
@@ -62,12 +68,21 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
         String operator, operateDate;
         try {
             if (flag) {
+                //添加 id uuid支持
+                Field idField = clazz.getDeclaredField(ID);
+                idField.setAccessible(true);
+                Object o = idField.get(record);
+                Class<?> type = idField.getType();
+                String name = type.getName();
+                if ((o == null) && STR.equals(name)) {
+                    //已经有值的情况下 不覆盖
+                    idField.set(record, UUID.randomUUID().toString().replace("-", "").toLowerCase());
+                }
                 operator = CREATE_BY;
                 operateDate = CREATE_DATE;
             } else {
                 operator = UPDATE_BY;
                 operateDate = UPDATE_DATE;
-
             }
             Field field = clazz.getDeclaredField(operator);
             field.setAccessible(true);

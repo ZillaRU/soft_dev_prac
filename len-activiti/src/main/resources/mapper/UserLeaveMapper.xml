@@ -31,9 +31,6 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.len.entity.UserLeave">
-    <selectKey resultType="String" keyProperty="id" order="BEFORE">
-      select replace(uuid(),"-","") from dual
-    </selectKey>
     insert into user_leave (id, user_id, user_name, 
       begin_time, end_time, reason, 
       days, process_instance_Id, status, 
@@ -46,9 +43,6 @@
       #{updateBy,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.len.entity.UserLeave">
-    <selectKey resultType="String" keyProperty="id" order="BEFORE">
-      select replace(uuid(),"-","") from dual
-    </selectKey>
     insert into user_leave
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
