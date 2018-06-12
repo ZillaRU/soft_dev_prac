@@ -1,16 +1,15 @@
 ## 团队成员 
 [一枚码农](https://gitee.com/bweird)   [JamesZBL](https://gitee.com/zbl1996)    [zhong](https://gitee.com/guokeyunman) [sunhaoyuan](https://gitee.com/ys.re)
 ## 演示地址
-[www.lenosp.cn](http://www.lenosp.cn)  admin 123456
+[www.lenosp.cn](http://211.159.219.111)  admin 123456
 
 ## lenos收录到layui官方2018年度最佳案例名单中
 ![图片说明](http://ww4.sinaimg.cn/large/0060lm7Tly1fnjfv8d366j310x0hsjwr.jpg "图片说明")
 
 ## 交流群
-* lenos开源脚手架群① 137738503(即将满) lenos开源脚手架群② 137179893 您有疑问，我们解答，您有建议，我们吸取，您有idea 我们欢迎
-- 群①<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=2c71822be7b8c061087a94647663a742a274626a846b76647743ed556a24cabc"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="开源脚手架lenos交流群" title="开源脚手架lenos交流群①"></a>
+* lenos开源脚手架群① 137738503 您有疑问，我们解答，您有建议，我们吸取，您有idea 我们欢迎
+- 群<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=2c71822be7b8c061087a94647663a742a274626a846b76647743ed556a24cabc"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="开源脚手架lenos交流群" title="开源脚手架lenos交流群①"></a>
 
-- 群②<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=b5806230055c3c1690f140826ee53c634c41ca90e0c401aaa73f02b1f59328c5"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="lenos开源交流群②" title="lenos开源交流群②"></a>
 
 ## 普通版
 - 地址：[lenos](https://gitee.com/bweird/lenos) 
@@ -123,3 +122,32 @@ java -jar len-web.jar
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c4swdjrj311y0hptam.jpg "图片说明")
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c5ev8tgj30w50e7wfs.jpg "图片说明")
 ![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2dvrcl9lj30wd0e6gmd.jpg "图片说明")
+
+由于群成员满员，众筹升级群人数上限，十分感谢以下lenos群网友的捐助和支持，以下为捐助名单(qq昵称，账号，顺序随机)：
+```
+我有一块大腹肌(18****256) 35.54元
+江湖百晓生 (26****417) 5元
+有道(10*****838) 1.5元
+24岁程序员不想加班(10*****286) 0.56元
+水兮若龙(73****965) 1元
+旭阳(13*****126) 6.6元
+你是一个人物(32*****869) 1元
+笨蛋~猪头]_[(23*****266) 0.45元
+人丑脾气坏(35****702) 0.5元
+襄州绿毛龟(18****933) 0.5元
+小码*(53****051) 0.5元
+AspectJ(13*****013) 0.5元
+不以物喜，不以己悲 (11*****011) 0.5元
+Lotus(37****374) 0.5元
+书山有路(50****945) 0.5元
+欧阳(24****748) 0.5元
+π(12*****085) 0.5元
+laughing(89****060)0.5元
+十八画生(10*****400) 0.5元
+YS.RE(27****583) 0.5元
+小翼(40****384) 20元
+远方(16*****408) 1元
+像我这样的人(41****236) 0.46元
+磊哥(87****537) 12元
+tj(64****183) 20元
+```
