@@ -44,6 +44,8 @@
 - 18/4/21 **增加菜单编辑、选择图标功能，前端js封装，修复工作流程现存bug**
 - 18/4/23 **修复头像上传**
 - 18/5/06 **升级spring boot 到2.0.1**
+- 18/6/12 **增加sqlserver支持，脚本在db文件夹下，
+只需要在application.yml 切换下active 即可切换数据源**
 ## 头像说明
 ```
 修改 application.yml imagePath 路径 把image文件夹图片赋值进路径，即可正常展示头像
