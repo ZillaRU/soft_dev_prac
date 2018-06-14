@@ -44,10 +44,12 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser,String> implemen
     return sysUserMapper;
   }
 
+
   @Override
   public SysUser login(String username) {
     return sysUserMapper.login(username);
   }
+
 
 
   @Override
