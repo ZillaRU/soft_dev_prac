@@ -138,7 +138,7 @@
           layer.msg('请选择一个流程', {icon: 5});
           return false;
         }
-        assignee(data[0].deploymentId);
+        assignee(data[0].id,data[0].deploymentId);
       }
       ,reload:function(){
         $('#deploymentId').val('');
@@ -194,7 +194,7 @@
    * 流程绑定节点
    * @param id
    */
-  function assignee(id){
+  function assignee(id,deploymentId){
     var index =
         layer.open({
           id: 'assignee',
@@ -205,7 +205,7 @@
           shadeClose: false,
           shade: 0.4,
           title: '设置流程节点',
-          content: 'goAssignee/'+id
+          content: 'goAssignee/'+deploymentId
         });
     layer.full(index);
   }

@@ -37,11 +37,10 @@ import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.Group;
 import org.activiti.engine.identity.User;
-import org.activiti.engine.impl.RepositoryServiceImpl;
 import org.activiti.engine.impl.persistence.entity.GroupEntity;
-import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.persistence.entity.UserEntity;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.repository.Deployment;
@@ -74,28 +73,31 @@ import java.util.Map;
 public class ActivitiController extends BaseController {
 
     @Autowired
-    RepositoryService repositoryService;
+    private RepositoryService repositoryService;
 
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
     @Autowired
-    RuntimeService runtimeService;
+    private RuntimeService runtimeService;
 
     @Autowired
-    IdentityService identityService;
+    private IdentityService identityService;
 
     @Autowired
-    SysUserService userService;
+    private SysUserService userService;
 
     @Autowired
-    RoleService roleService;
+    private RoleService roleService;
 
     @Autowired
-    RoleUserService roleUserService;
+    private RoleUserService roleUserService;
 
     @Autowired
-    ActAssigneeService actAssigneeService;
+    private ActAssigneeService actAssigneeService;
+
+    @Autowired
+    private TaskService taskService;
 
 
     /**
@@ -288,14 +290,6 @@ public class ActivitiController extends BaseController {
         return j;
     }
 
-    public List<ActivityImpl> getActivityList(String deploymentId) {
-        org.activiti.engine.repository.ProcessDefinition processDefinition = repositoryService
-                .createProcessDefinitionQuery().deploymentId(deploymentId).singleResult();
-        ProcessDefinitionEntity processDefinitionEntity = (ProcessDefinitionEntity) ((RepositoryServiceImpl) repositoryService)
-                .getDeployedProcessDefinition(processDefinition.getId());
-        return processDefinitionEntity.getActivities();
-
-    }
 
     /**
      * 根据流程部署id获取节点并且传到前端
@@ -304,16 +298,13 @@ public class ActivitiController extends BaseController {
      * @param model
      * @return
      */
-    @GetMapping("goAssignee/{id}")
-    public String goAssignee(@PathVariable("id") String deploymentId,
+    @GetMapping("goAssignee/{deploymentId}")
+    public String goAssignee(@PathVariable("deploymentId") String deploymentId,
                              org.springframework.ui.Model model) {
-
         /**根据流程实例id查询出所有流程节点*/
-        List<ActivityImpl> activityList = getActivityList(deploymentId);
-
+        List<ActivityImpl> activityList = actAssigneeService.getActivityList(deploymentId);
         /**角色和节点关系封装成list*/
         List<SysRole> roleList = roleService.selectListByPage(new SysRole());
-        List<Checkbox> checkboxes = new ArrayList<>();
         Checkbox checkbox = null;
         Map<String, Object> map = null;
         List<Map<String, Object>> mapList = new ArrayList<>();
@@ -399,7 +390,7 @@ public class ActivitiController extends BaseController {
     public JsonUtil delDeploy(org.springframework.ui.Model model, String id) {
         JsonUtil j = new JsonUtil();
         try {
-            List<ActivityImpl> activityList = getActivityList(id);
+            List<ActivityImpl> activityList = actAssigneeService.getActivityList(id);
             for (ActivityImpl activity : activityList) {
                 String nodeId = activity.getId();
                 if (StringUtils.isEmpty(nodeId) || "start".equals(nodeId) || "end".equals(nodeId)) {
