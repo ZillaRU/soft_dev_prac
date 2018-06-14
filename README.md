@@ -98,7 +98,7 @@ java -jar len-web.jar
   
 ![图片说明](http://ww4.sinaimg.cn/large/0060lm7Tly1fnvohtrdglj311y0gggn2.jpg "图片说明")
 ![图片说明](http://ww3.sinaimg.cn/large/0060lm7Tly1fnvokv38fwj311y0gddgj.jpg "图片说明")
-![图片说明](http://ww1.sinaimg.cn/large/0060lm7Tly1fnvoo3kn12j311x0flmya.jpg "图片说明")
+![图片说明](http://wx1.sinaimg.cn/mw690/0060lm7Tly1fsb5rlll3uj31hb0pgq5y.jpg "图片说明")
    
 * 菜单管理分为一级菜单 二级菜单 按钮(也可以是元素)权限   
   
