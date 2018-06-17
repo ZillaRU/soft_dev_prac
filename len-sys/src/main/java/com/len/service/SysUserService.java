@@ -25,6 +25,7 @@ public interface SysUserService extends BaseService<SysUser,String> {
    * @param
    * @return
    */
+  @Override
   List<SysUser> selectListByPage(SysUser sysUser);
 
   int count();

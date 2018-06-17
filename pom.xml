@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.len</groupId>
@@ -40,10 +40,10 @@
       <optional>true</optional>
     </dependency>
 
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-      </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -58,6 +58,18 @@
       <groupId>org.mybatis.spring.boot</groupId>
       <artifactId>mybatis-spring-boot-starter</artifactId>
       <version>1.3.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>tk.mybatis</groupId>
+      <artifactId>mapper-spring-boot-starter</artifactId>
+      <version>2.0.3-beta1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>tk.mybatis</groupId>
+      <artifactId>mapper</artifactId>
+      <version>4.0.0</version>
     </dependency>
 
     <dependency>
@@ -116,6 +128,14 @@
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis-spring</artifactId>
       <version>1.3.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mybatis.generator</groupId>
+      <artifactId>mybatis-generator-core</artifactId>
+      <version>1.3.2</version>
+      <scope>compile</scope>
+      <optional>true</optional>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper -->
@@ -263,12 +283,12 @@
       <artifactId>spring-context-support</artifactId>
     </dependency>
 
-   <!-- &lt;!&ndash; https://mvnrepository.com/artifact/org.quartz-scheduler/quartz &ndash;&gt;
-    <dependency>
-      <groupId>org.quartz-scheduler</groupId>
-      <artifactId>quartz</artifactId>
-      <version>1.8.6</version>
-    </dependency>-->
+    <!-- &lt;!&ndash; https://mvnrepository.com/artifact/org.quartz-scheduler/quartz &ndash;&gt;
+     <dependency>
+       <groupId>org.quartz-scheduler</groupId>
+       <artifactId>quartz</artifactId>
+       <version>1.8.6</version>
+     </dependency>-->
     <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
     <dependency>
       <groupId>org.quartz-scheduler</groupId>
@@ -276,9 +296,9 @@
       <version>2.3.0</version>
     </dependency>
     <dependency>
-        <groupId>cn.hutool</groupId>
-        <artifactId>hutool-core</artifactId>
-        <version>4.0.12</version>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-core</artifactId>
+      <version>4.0.12</version>
     </dependency>
     <dependency>
       <groupId>org.hibernate.validator</groupId>
@@ -290,14 +310,14 @@
       <artifactId>validation-api</artifactId>
       <version>2.0.1.Final</version>
     </dependency>
-    
 
 
-<!--
-    <dependency>
-    <groupId>org.liquibase</groupId>
-    <artifactId>liquibase-core</artifactId>
-  </dependency>-->
+
+    <!--
+        <dependency>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-core</artifactId>
+      </dependency>-->
 
     <dependency>
       <groupId>org.apache.shiro</groupId>
@@ -312,11 +332,11 @@
       </exclusions>
     </dependency>
 
-   <!-- <dependency>
-      <groupId>de.codecentric</groupId>
-      <artifactId>spring-boot-admin-starter-client</artifactId>
-      <version>1.5.7</version>
-    </dependency>-->
+    <!-- <dependency>
+       <groupId>de.codecentric</groupId>
+       <artifactId>spring-boot-admin-starter-client</artifactId>
+       <version>1.5.7</version>
+     </dependency>-->
 
 
   </dependencies>
@@ -388,19 +408,41 @@
           <skipTests>true</skipTests>
         </configuration>
       </plugin>-->
+      <plugin>
+        <groupId>org.mybatis.generator</groupId>
+        <artifactId>mybatis-generator-maven-plugin</artifactId>
+        <version>1.3.6</version>
+        <configuration>
+          <configurationFile><!--${basedir}-->len-web/src/main/resources/auto-config/mybatis-config.xml</configurationFile>
+          <overwrite>true</overwrite>
+          <verbose>true</verbose>
+        </configuration>
+       <!-- <dependencies>
+          <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper</artifactId>
+            <version>4.0.0</version>
+          </dependency>
+        </dependencies>-->
+      </plugin>
     </plugins>
   </build>
- <!-- <repositories>
-    <repository>
-      <id>lenos</id>
-      <name>项目仓库</name>
-      <url>http://www.cqwzxt.com:9934/nexus/content/repositories/lenos/</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>-->
+  <!-- <repositories>
+     <repository>
+       <id>lenos</id>
+       <name>项目仓库</name>
+       <url>http://www.cqwzxt.com:9934/nexus/content/repositories/lenos/</url>
+       <releases>
+         <enabled>true</enabled>
+       </releases>
+       <snapshots>
+         <enabled>true</enabled>
+       </snapshots>
+     </repository>
+   </repositories>-->
 </project>
