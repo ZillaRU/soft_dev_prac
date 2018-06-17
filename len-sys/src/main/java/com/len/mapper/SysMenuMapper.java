@@ -2,29 +2,14 @@ package com.len.mapper;
 
 import com.len.base.BaseMapper;
 import com.len.entity.SysMenu;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import tk.mybatis.mapper.common.Mapper;
+
+import java.util.List;
 
 public interface SysMenuMapper extends BaseMapper<SysMenu,String> {
 
-    @Override
-    int deleteByPrimaryKey(String id);
-
-    @Override
-    int insert(SysMenu record);
-
-    @Override
-    int insertSelective(SysMenu record);
-
-    @Override
-    SysMenu selectByPrimaryKey(String id);
-
-    @Override
-    int updateByPrimaryKeySelective(SysMenu record);
-
-    @Override
-    int updateByPrimaryKey(SysMenu record);
-        /**获取元节点*/
+    /**获取元节点*/
     List<SysMenu> getMenuNotSuper();
 
     /**
@@ -41,5 +26,4 @@ public interface SysMenuMapper extends BaseMapper<SysMenu,String> {
      * @return
      */
     List<SysMenu> getUserMenu(@Param("id") String id);
-
 }

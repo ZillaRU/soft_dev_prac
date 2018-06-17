@@ -41,7 +41,29 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
 
     private static final String STR = "java.lang.String";
 
+
     public abstract BaseMapper<T, E> getMappser();
+
+
+    @Override
+    public List<T> select(T t) {
+        return getMappser().select(t);
+    }
+
+    @Override
+    public List<T> selectAll() {
+        return getMappser().selectAll();
+    }
+
+    @Override
+    public List<T> selectByIds(String ids) {
+        return getMappser().selectByIds(ids);
+    }
+
+    @Override
+    public int selectCount(T t) {
+        return getMappser().selectCount(t);
+    }
 
     @Override
     public int deleteByPrimaryKey(E id) {
@@ -125,6 +147,46 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
     @Override
     public List<T> selectListByPage(T record) {
         return getMappser().selectListByPage(record);
+    }
+
+    @Override
+    public int deleteByPrimaryKey(Object o) {
+        return getMappser().deleteByPrimaryKey(o);
+    }
+
+    @Override
+    public int delete(T t) {
+        return getMappser().delete(t);
+    }
+
+    @Override
+    public boolean existsWithPrimaryKey(Object o) {
+        return getMappser().existsWithPrimaryKey(o);
+    }
+
+    @Override
+    public T selectByPrimaryKey(Object o) {
+        return getMappser().selectByPrimaryKey(o);
+    }
+
+    @Override
+    public T selectOne(T t) {
+        return getMappser().selectOne(t);
+    }
+
+    @Override
+    public int deleteByIds(String s) {
+        return getMappser().deleteByIds(s);
+    }
+
+    @Override
+    public int insertList(List<T> list) {
+        return getMappser().insertList(list);
+    }
+
+    @Override
+    public int insertUseGeneratedKeys(T t) {
+        return getMappser().insertUseGeneratedKeys(t);
     }
 
     /**

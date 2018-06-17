@@ -1,17 +1,44 @@
 package com.len.entity;
 
-import java.io.Serializable;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Getter
-@Setter
-@ToString
-public class SysRoleUser implements Serializable {
+@Table(name = "sys_role_user")
+public class SysRoleUser {
+    @Id
+    @Column(name = "user_id")
     private String userId;
 
+    @Id
+    @Column(name = "role_id")
     private String roleId;
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * @return user_id
+     */
+    public String getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId
+     */
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
+    }
+
+    /**
+     * @return role_id
+     */
+    public String getRoleId() {
+        return roleId;
+    }
+
+    /**
+     * @param roleId
+     */
+    public void setRoleId(String roleId) {
+        this.roleId = roleId == null ? null : roleId.trim();
+    }
 }

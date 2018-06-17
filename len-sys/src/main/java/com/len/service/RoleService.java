@@ -29,5 +29,6 @@ public interface RoleService extends BaseService<SysRole,String> {
   @Override
   int updateByPrimaryKey(SysRole record);
 
+  @Override
   List<SysRole> selectListByPage(SysRole sysRole);
 }
