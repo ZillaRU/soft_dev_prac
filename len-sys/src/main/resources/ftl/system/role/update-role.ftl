@@ -25,6 +25,14 @@ To change this template use File | Settings | File Templates.-->
           charset="utf-8"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/tools/tool.js"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/tools/update-setting.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var flag='${detail}';
+            if(flag){
+                $("form").disable();
+            }
+        });
+    </script>
   <script type="text/javascript">
     var setting = {
       check: {
@@ -159,7 +167,6 @@ To change this template use File | Settings | File Templates.-->
       return false;
     });
   });
-  Detail();
 </script>
 </body>
 

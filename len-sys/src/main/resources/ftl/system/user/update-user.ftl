@@ -18,6 +18,15 @@ To change this template use File | Settings | File Templates.-->
   <script type="text/javascript" src="${re.contextPath}/plugin/layui/layui.all.js" charset="utf-8"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/tools/tool.js"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/tools/update-setting.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var flag='${detail}';
+      if(flag){
+        $("form").disable();
+      }
+    });
+  </script>
+
 </head>
 
 <body>
@@ -116,7 +125,6 @@ To change this template use File | Settings | File Templates.-->
   </form>
 </div>
 <script>
-    Detail();
   var flag,msg;
   $(function(){
     var name='${user.username}';
