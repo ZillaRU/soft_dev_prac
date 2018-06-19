@@ -24,23 +24,7 @@ To change this template use File | Settings | File Templates.-->
   <script type="text/javascript" src="${re.contextPath}/plugin/ztree/js/jquery.ztree.excheck.js"
           charset="utf-8"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/tools/tool.js"></script>
-  <script type="text/javascript">
-    (function ($) {
-      $.fn.disable = function () {
-        return $(this).find("*").each(function () {
-          $(this).attr("disabled", "disabled");
-        });
-      }
-    })(jQuery);
-  </script>
-  <script type="text/javascript">
-    $(document).ready(function () {
-      var flag = '${detail}';
-      if (flag) {
-        $("form").disable();
-      }
-    });
-  </script>
+  <script type="text/javascript" src="${re.contextPath}/plugin/tools/update-setting.js"></script>
   <script type="text/javascript">
     var setting = {
       check: {
@@ -175,6 +159,7 @@ To change this template use File | Settings | File Templates.-->
       return false;
     });
   });
+  Detail();
 </script>
 </body>
 

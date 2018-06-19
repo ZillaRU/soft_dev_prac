@@ -10,6 +10,7 @@
   <link href="" rel="stylesheet">
   <link rel="stylesheet" href="${re.contextPath}/plugin/layuitree/layui/css/layui.css">
   <link rel="stylesheet" href="${re.contextPath}/plugin/lenos/main.css"/>
+    <script type="text/javascript" src="${re.contextPath}/plugin/jquery/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 <div  class="layui-col-md13">
@@ -28,11 +29,17 @@
 </body>
 <script type="text/javascript" src="${re.contextPath}/plugin/layuitree/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript">
-  function del(nodeId) {
+  function select(nodeId) {
     console.info(nodeId);
     alert(nodeId)
   }
+  function del(nodeId) {
+      layer.confirm('确定删除?', function(){
+          delMenu(nodeId);
+      });
+  }
   function update(nodeId){
+      console.log(nodeId);
     add('编辑菜单', 'showUpdateMenu?id='+nodeId, 700, 550);
   }
 
@@ -68,7 +75,7 @@
       style: 'width: 20%',
       render: function(row) {
         var chil_len=row.children.length;
-        var str= '<a class="layui-btn layui-btn-primary layui-btn-xs" onclick="del(\'' + row.id + '\')"><i class="layui-icon">&#xe615;</i> 查看</a>' +
+        var str= '<a class="layui-btn layui-btn-primary layui-btn-xs" onclick="select(\'' + row.id + '\')"><i class="layui-icon">&#xe615;</i> 查看</a>' +
             '<a class="layui-btn layui-btn-xs  layui-btn-normal" onclick="update(\'' + row.id + '\')"><i class="layui-icon">&#xe642;</i> 编辑</a>'; //列渲染
         if(chil_len==0){
           str+='<a class="layui-btn layui-btn-danger layui-btn-xs" onclick="del(\'' + row.id + '\')"><i class="layui-icon">&#xe640;</i> 删除</a>';
@@ -123,6 +130,21 @@
           shade: 0.4,
           title: title,
           content: url
+      });
+  }
+  function delMenu(id) {
+      $.ajax({
+          url: "menu-del",
+          type: "post",
+          data: {id: id},
+          success: function (d) {
+              if(d.msg){
+                  location.replace(location.href);
+                  parent.layer.msg(d.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
+              }else{
+                  parent.layer.msg(d.msg,{icon:5,offset: 'rb',area:['120px','80px'],anim:2});
+              }
+          }
       });
   }
 </script>

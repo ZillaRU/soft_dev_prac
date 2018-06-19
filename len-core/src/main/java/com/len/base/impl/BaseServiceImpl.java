@@ -65,7 +65,7 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
         return getMappser().selectCount(t);
     }
 
-    @Override
+
     public int deleteByPrimaryKey(E id) {
         return getMappser().deleteByPrimaryKey(id);
     }
@@ -127,10 +127,6 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
         return getMappser().insertSelective(record);
     }
 
-    @Override
-    public T selectByPrimaryKey(E id) {
-        return getMappser().selectByPrimaryKey(id);
-    }
 
     @Override
     public int updateByPrimaryKeySelective(T record) {

@@ -10,7 +10,7 @@ public class SysRoleMenu {
     @Column(name = "role_id")
     private String roleId;
 
-    @Id
+
     @Column(name = "menu_id")
     private String menuId;
 

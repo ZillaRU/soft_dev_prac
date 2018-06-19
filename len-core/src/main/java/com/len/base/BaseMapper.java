@@ -10,11 +10,11 @@ import java.util.List;
  * @author zhuxiaomeng
  * @date 2017/12/12.
  * @email 154040976@qq.com
- *  mapper封装 crud
+ * mapper封装 crud
  */
-public interface BaseMapper<T,E extends Serializable> extends tk.mybatis.mapper.common.BaseMapper<T>,MySqlMapper<T>, IdsMapper<T> {
-/*
-    *//**
+public interface BaseMapper<T, E extends Serializable> extends tk.mybatis.mapper.common.BaseMapper<T>, MySqlMapper<T>, IdsMapper<T> {
+    /*
+     *//**
      * 根据id删除
      * @param id
      * @return
@@ -56,15 +56,16 @@ public interface BaseMapper<T,E extends Serializable> extends tk.mybatis.mapper.
      *//*
     int updateByPrimaryKey(T record);
 
-    *//**
+    */
+
+    /**
      * 查询
+     *
      * @param record
      * @return
      */
 
-    public T selectByPrimaryKey(E id);
 
-    public int deleteByPrimaryKey(E id);
 
     List<T> selectListByPage(T record);
 }

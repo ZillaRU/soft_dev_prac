@@ -17,12 +17,8 @@ public interface MenuService extends BaseService<SysMenu,String> {
   @Override
   int insert(SysMenu menu);
 
-  @Override
-  SysMenu selectByPrimaryKey(String id);
 
   List<SysMenu> getMenuChildren(String id);
-
-  public JSONArray getMenuJson(String roleId);
 
   public JSONArray getMenuJsonList();
 

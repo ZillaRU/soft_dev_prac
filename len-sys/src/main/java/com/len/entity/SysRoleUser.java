@@ -10,7 +10,7 @@ public class SysRoleUser {
     @Column(name = "user_id")
     private String userId;
 
-    @Id
+
     @Column(name = "role_id")
     private String roleId;
 

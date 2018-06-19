@@ -177,7 +177,7 @@
 
     //监听表格复选框选择
     table.on('checkbox(user)', function (obj) {
-      console.log(obj)
+      //console.log(obj)
     });
     //监听工具条
     table.on('tool(user)', function (obj) {

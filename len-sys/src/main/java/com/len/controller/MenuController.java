@@ -5,8 +5,10 @@ import com.len.base.BaseController;
 import com.len.core.annotation.Log;
 import com.len.core.annotation.Log.LOG_TYPE;
 import com.len.entity.SysMenu;
+import com.len.entity.SysRoleMenu;
 import com.len.exception.MyException;
 import com.len.service.MenuService;
+import com.len.service.RoleMenuService;
 import com.len.util.BeanUtil;
 import com.len.util.JsonUtil;
 import io.swagger.annotations.ApiOperation;
@@ -15,10 +17,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author zhuxiaomeng
@@ -32,6 +31,9 @@ public class MenuController extends BaseController {
 
     @Autowired
     private MenuService menuService;
+
+    @Autowired
+    private RoleMenuService roleMenuService;
 
     /**
      * 展示tree
@@ -51,7 +53,6 @@ public class MenuController extends BaseController {
     @GetMapping(value = "showAddMenu")
     public String addMenu(Model model) {
         JSONArray ja = menuService.getMenuJsonList();
-        System.out.print(ja.toJSONString());
         model.addAttribute("menus", ja.toJSONString());
         return "/system/menu/add-menu";
     }
@@ -112,6 +113,42 @@ public class MenuController extends BaseController {
         BeanUtil.copyNotNullBean(sysMenu, oldMenu);
         menuService.updateByPrimaryKeySelective(oldMenu);
         return JsonUtil.sucess("保存成功");
+    }
+
+    @Log(desc = "删除菜单", type = LOG_TYPE.DEL)
+    @PostMapping("/menu-del")
+    @ResponseBody
+    public JsonUtil del(String id) {
+        JsonUtil json = new JsonUtil();
+        json.setFlag(false);
+        if (StringUtils.isEmpty(id)) {
+            json.setMsg("获取数据失败,请刷新重试!");
+            return json;
+        }
+        SysRoleMenu sysRoleMenu = new SysRoleMenu();
+        sysRoleMenu.setMenuId(id);
+        int count = roleMenuService.selectCount(sysRoleMenu);
+        //存在角色绑定不能删除
+        if (count > 0) {
+            json.setMsg("本菜单存在绑定角色,请先解除绑定!");
+            return json;
+        }
+        //存在下级菜单 不能解除
+        SysMenu sysMenu = new SysMenu();
+        sysMenu.setPId(id);
+        if (menuService.selectCount(sysMenu) > 0) {
+            json.setMsg("存在子菜单,请先删除子菜单!");
+            return json;
+        }
+        boolean isDel = menuService.deleteByPrimaryKey(id) > 0;
+        if (isDel) {
+            json.setMsg("删除成功");
+            json.setFlag(true);
+        } else {
+            json.setMsg("删除失败");
+        }
+        return json;
+
     }
 
 }

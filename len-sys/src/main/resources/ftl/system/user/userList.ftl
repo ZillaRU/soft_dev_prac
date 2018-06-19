@@ -18,6 +18,7 @@
   <script type="text/javascript" src="${re.contextPath}/plugin/jquery/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/layui/layui.all.js"
           charset="utf-8"></script>
+    <script type="text/javascript" src="${re.contextPath}/plugin/tools/tool.js"></script>
 
 </head>
 
@@ -181,9 +182,9 @@
         layer.confirm('确定删除用户[<label style="color: #00AA91;">' + data.username + '</label>]?', {
           btn: ['逻辑删除', '物理删除']
         }, function () {
-          del(data.id, true);
+            toolDelByFlag(data.id,'userList',true);
         }, function () {
-          del(data.id, false);
+            toolDelByFlag(data.id,'userList',false);
         });
       } else if (obj.event === 'edit') {
         update('编辑用户', 'updateUser?id=' + data.id, 700, 450);
@@ -225,25 +226,7 @@
       content: url,
     });
   }
-  function del(id, flag) {
-    $.ajax({
-      url:"del",
-      type:"post",
-      data:{id:id,flag:flag},async:false,
-      success:function(d){
-        if(d.flag){
-          window.top.layer.msg(d.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
-          layui.table.reload('userList');
-        }else{
-          window.top.layer.msg(d.msg,{icon:5,offset: 'rb',area:['120px','80px'],anim:2});
-        }
-      },error:function(){
-        alert('error');
-      }
-    });
-  }
   function detail(title, url, w, h) {
-    var number = 1;
     if (title == null || title == '') {
       title = false;
     };

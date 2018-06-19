@@ -56,11 +56,6 @@ public interface BaseService<T, E extends Serializable> extends BaseMapper<T, E>
 
 
   List<T> selectListByPage(T record);*/
-    @Override
-    public T selectByPrimaryKey(E id);
-
-    @Override
-    public int deleteByPrimaryKey(E id);
 
     public String show(T t, int page, int limit);
 
