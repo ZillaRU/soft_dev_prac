@@ -5,26 +5,22 @@ function popup(title, url, w, h,id) {
   if (title == null || title == '') {
     title = false;
   }
-  ;
   if (url == null || url == '') {
     url = "error/404";
   }
-  ;
   if (w == null || w == '') {
     w = ($(window).width() * 0.9);
   }
-  ;
   if (h == null || h == '') {
     h = ($(window).height() - 50);
   }
-  ;
   layer.open({
     id: id,
     type: 2,
     area: [w + 'px', h + 'px'],
     fix: false,
     maxmin: true,
-    shadeClose: false,
+    shadeClose: true,
     shade: 0.4,
     title: title,
     content: url
@@ -85,4 +81,29 @@ function eleClick(active,ele){
     var type = $(this).data('type');
     active[type] ? active[type].call(this) : '';
   });
+}
+
+function toolDelByFlag(id,list, flag) {
+  var data={id:id};
+  if(flag!=null){
+    data.flag=flag;
+  }
+    $.ajax({
+        url:"del",
+        type:"post",
+        data:data,
+        success:function(d){
+            if(d.flag){
+                window.top.layer.msg(d.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
+                layui.table.reload(list);
+            }else{
+                window.top.layer.msg(d.msg,{icon:5,offset: 'rb',area:['120px','80px'],anim:2});
+            }
+        },error:function(){
+            alert('error');
+        }
+    });
+}
+function toolDel(id, list) {
+    toolDelByFlag(id,list,null);
 }

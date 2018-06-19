@@ -24,7 +24,7 @@
   <div class="select">
     任务名称：
     <div class="layui-inline">
-      <input class="layui-input" height="20px" id="rolename" autocomplete="off">
+      <input class="layui-input" height="20px" id="jobName" autocomplete="off">
     </div>
     描述：
     <div class="layui-inline">
@@ -146,22 +146,22 @@
 
     var $ = layui.$, active = {
       select: function () {
-        var rolename = $('#rolename').val();
+        var jobName = $('#jobName').val();
         var remark = $('#remark').val();
         table.reload('jobList', {
           where: {
-            roleName: rolename,
-            remark: remark
+              jobName: jobName,
+              jobDesc: remark
           }
         });
       },
       reload:function(){
-        $('#rolename').val('');
+        $('#jobName').val('');
        $('#remark').val('');
         table.reload('jobList', {
           where: {
-            roleName: null,
-            remark: null
+              jobName: null,
+              jobDesc: null
           }
         });
       },
@@ -191,16 +191,11 @@
         detail('查看任务信息', 'updateJob?id=' + data[0].id, 700, 450);
       }
     };
-
-    //监听表格复选框选择
-    table.on('checkbox(job)', function (obj) {
-      console.log(obj)
-    });
     //监听工具条
     table.on('tool(job)', function (obj) {
       var data = obj.data;
       if (obj.event === 'detail') {
-        detail('编辑角色', 'updateRole?id=' + data.id, 700, 450);
+        detail('编辑角色', 'updateJob?id=' + data.id, 700, 450);
       } else if (obj.event === 'del') {
         if(!data.status) {
           layer.confirm('确定删除任务[<label style="color: #00AA91;">' + data.jobName + '</label>]?',
@@ -269,23 +264,18 @@
     });
   }
   function detail(title, url, w, h) {
-    var number = 1;
     if (title == null || title == '') {
       title = false;
     }
-    ;
     if (url == null || url == '') {
-      url = "404.html";
+      url = "error/404";
     }
-    ;
     if (w == null || w == '') {
       w = ($(window).width() * 0.9);
     }
-    ;
     if (h == null || h == '') {
       h = ($(window).height() - 50);
     }
-    ;
     layer.open({
       id: 'user-detail',
       type: 2,
@@ -307,7 +297,7 @@
       title = false;
     }
     if (url == null || url == '') {
-      url = "404.html";
+      url = "error/404";
     }
     if (w == null || w == '') {
       w = ($(window).width() * 0.9);
@@ -341,19 +331,15 @@
     if (title == null || title == '') {
       title = false;
     }
-    ;
     if (url == null || url == '') {
-      url = "404.html";
+      url = "error/404";
     }
-    ;
     if (w == null || w == '') {
       w = ($(window).width() * 0.9);
     }
-    ;
     if (h == null || h == '') {
       h = ($(window).height() - 50);
     }
-    ;
     layer.open({
       id: 'job-add',
       type: 2,

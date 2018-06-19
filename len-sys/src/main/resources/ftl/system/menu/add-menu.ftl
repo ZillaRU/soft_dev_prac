@@ -47,7 +47,7 @@ To change this template use File | Settings | File Templates.-->
             </label>
             <div class="layui-input-inline">
                 <input type="hidden" name="pId" id="pId">
-                <input type="text" id="pName"  onclick="showTree();"  lay-verify="pName"
+                <input type="text" autocomplete="off" id="pName"  onclick="showTree();"  lay-verify="pName"
                       class="layui-input">
             </div>
             <div id="treeNode"  style="display:none; position: absolute;z-index:1000;background-color: white;">

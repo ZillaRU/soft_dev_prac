@@ -21,9 +21,9 @@
     SELECT *
     from sys_job
     <where>
-      <if test="jobName!=null and jobName!=''"> and job_name like '%${job_name}%'</if>
-      <if test="clazzPath!=null and clazzPath!=''"> and clazz_path like '%${clazz_path}%'</if>
-      <if test="jobDesc!=null and jobDesc!=''"> and job_desc like '%${job_desc}%'</if>
+      <if test="jobName!=null and jobName!=''"> and job_name like '%${jobName}%'</if>
+      <if test="clazzPath!=null and clazzPath!=''"> and clazz_path like '%${clazzPath}%'</if>
+      <if test="jobDesc!=null and jobDesc!=''"> and job_desc like '%${jobDesc}%'</if>
       <if test="status!=null and status!=''"> and status =#{status}</if>
     </where>
   </select>

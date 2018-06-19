@@ -1,5 +1,7 @@
 package com.len.entity;
 
+import com.len.validator.group.AddGroup;
+import com.len.validator.group.UpdateGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -8,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Table(name = "sys_job")
@@ -22,12 +25,14 @@ public class SysJob {
     /**
      * 描述任务
      */
+    @NotEmpty(message = "任务描述不能为空", groups = {AddGroup.class, UpdateGroup.class})
     @Column(name = "job_name")
     private String jobName;
 
     /**
      * 任务表达式
      */
+    @NotEmpty(message = "表达式不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String cron;
 
     /**
@@ -38,6 +43,7 @@ public class SysJob {
     /**
      * 任务执行方法
      */
+    @NotEmpty(message = "执行方法不能未空", groups = {AddGroup.class, UpdateGroup.class})
     @Column(name = "clazz_path")
     private String clazzPath;
 

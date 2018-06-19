@@ -8,7 +8,6 @@ import com.len.entity.SysRoleMenu;
 import com.len.mapper.SysMenuMapper;
 import com.len.mapper.SysRoleMenuMapper;
 import com.len.service.MenuService;
-import com.len.service.SysUserService;
 import com.len.util.TreeUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author zhuxiaomeng
@@ -28,9 +28,6 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
 
     @Autowired
     private SysMenuMapper menuDao;
-
-    @Autowired
-    private SysUserService userService;
 
     @Autowired
     private SysRoleMenuMapper roleMenuMapper;
@@ -50,58 +47,55 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
         return menuDao.insert(menu);
     }
 
-    @Override
-    public SysMenu selectByPrimaryKey(String id) {
-        return menuDao.selectByPrimaryKey(id);
-    }
 
     @Override
     public List<SysMenu> getMenuChildren(String id) {
         return menuDao.getMenuChildren(id);
     }
 
-    @Override
-    public JSONArray getMenuJson(String roleId) {
-        List<SysMenu> mList = menuDao.getMenuNotSuper();
-        JSONArray jsonArr = new JSONArray();
-        int pNum = 1000, num = 0;
-        for (SysMenu sysMenu : mList) {
-            SysMenu menu = getChild(sysMenu.getId(), true, pNum, num);
-            jsonArr.add(menu);
-            pNum += 1000;
+    public SysMenu child(SysMenu sysMenu, List<SysMenu> sysMenus, Integer pNum, Integer num) {
+        List<SysMenu> childSysMenu = sysMenus.stream().filter(s ->
+                s.getPId().equals(sysMenu.getId())).collect(Collectors.toList());
+        sysMenus.removeAll(childSysMenu);
+        SysMenu m;
+        for (SysMenu menu : childSysMenu) {
+            ++num;
+            m = child(menu, sysMenus, pNum, num);
+            sysMenu.addChild(menu);
         }
-        return jsonArr;
+        return sysMenu;
     }
 
     @Override
     public JSONArray getMenuJsonList() {
-        List<SysMenu> mList = menuDao.getMenuNotSuper();
+        List<SysMenu> sysMenus = selectAll();
+        List<SysMenu> supers = sysMenus.stream().filter(sysMenu ->
+                StringUtils.isEmpty(sysMenu.getPId()))
+                .collect(Collectors.toList());
+        sysMenus.removeAll(supers);
+        supers.sort(Comparator.comparingInt(SysMenu::getOrderNum));
         JSONArray jsonArr = new JSONArray();
-        for (SysMenu sysMenu : mList) {
-            SysMenu menu = getChild(sysMenu.getId(), false, 0, 0);
-            jsonArr.add(menu);
+        for (SysMenu sysMenu : supers) {
+            SysMenu child = child(sysMenu, sysMenus, 0, 0);
+            jsonArr.add(child);
         }
         return jsonArr;
     }
 
     @Override
     public JSONArray getMenuJsonByUser(List<SysMenu> menuList) {
-        //List<SysMenu> menuListOne=new ArrayList<>();//获取第一级别
         JSONArray jsonArr = new JSONArray();
-        Collections.sort(menuList, new Comparator<SysMenu>() {
-            @Override
-            public int compare(SysMenu o1, SysMenu o2) {
-                if (o1.getOrderNum() == null || o2.getOrderNum() == null) {
-                    return -1;
-                }
-                if (o1.getOrderNum() > o2.getOrderNum()) {
-                    return 1;
-                }
-                if (o1.getOrderNum().equals(o2.getOrderNum())) {
-                    return 0;
-                }
+        Collections.sort(menuList, (o1, o2) -> {
+            if (o1.getOrderNum() == null || o2.getOrderNum() == null) {
                 return -1;
             }
+            if (o1.getOrderNum() > o2.getOrderNum()) {
+                return 1;
+            }
+            if (o1.getOrderNum().equals(o2.getOrderNum())) {
+                return 0;
+            }
+            return -1;
         });
         int pNum = 1000;
         for (SysMenu menu : menuList) {
@@ -132,38 +126,19 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
         return menuDao.getMenuChildrenAll(id);
     }
 
-    /**
-     * @param id   父菜单id
-     * @param flag true 获取非按钮菜单 false 获取包括按钮在内菜单 用于nemuList展示
-     * @param pNum 用户控制侧拉不重复id tab 父循环+1000
-     * @param num  用户控制侧拉不重复id tab 最终效果 1001 10002 2001 2002
-     * @return
-     */
-    public SysMenu getChild(String id, boolean flag, int pNum, int num) {
-        SysMenu sysMenu = menuDao.selectByPrimaryKey(id);
-        List<SysMenu> mList = null;
-        if (flag) {
-            mList = menuDao.getMenuChildren(id);
-        } else {
-            mList = menuDao.getMenuChildrenAll(id);
-        }
-        for (SysMenu menu : mList) {
-            ++num;
-            SysMenu m = getChild(menu.getId(), flag, pNum, num);
-            if (flag)
-                m.setNum(pNum + num);
-            sysMenu.addChild(m);
-        }
-        return sysMenu;
-    }
 
     @Override
     public JSONArray getTreeUtil(String roleId) {
         TreeUtil treeUtil = null;
-        List<SysMenu> mList = menuDao.getMenuNotSuper();
+        List<SysMenu> sysMenus = selectAll();
+        List<SysMenu> supers = sysMenus.stream().filter(sysMenu ->
+                StringUtils.isEmpty(sysMenu.getPId()))
+                .collect(Collectors.toList());
+        sysMenus.removeAll(supers);
+        supers.sort(Comparator.comparingInt(SysMenu::getOrderNum));
         JSONArray jsonArr = new JSONArray();
-        for (SysMenu sysMenu : mList) {
-            treeUtil = getChildByTree(sysMenu.getId(), false, 0, null, roleId);
+        for (SysMenu sysMenu : supers) {
+            treeUtil = getChildByTree(sysMenu, sysMenus, 0, null, roleId);
             jsonArr.add(treeUtil);
         }
         return jsonArr;
@@ -175,15 +150,11 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
         return menuDao.getUserMenu(id);
     }
 
-    public TreeUtil getChildByTree(String id, boolean flag, int layer, String pId, String roleId) {
+    public TreeUtil getChildByTree(SysMenu sysMenu, List<SysMenu> sysMenus, int layer, String pId, String roleId) {
         layer++;
-        SysMenu sysMenu = menuDao.selectByPrimaryKey(id);
-        List<SysMenu> mList = null;
-        if (flag) {
-            mList = menuDao.getMenuChildren(id);
-        } else {
-            mList = menuDao.getMenuChildrenAll(id);
-        }
+        List<SysMenu> childSysMenu = sysMenus.stream().filter(s ->
+                s.getPId().equals(sysMenu.getId())).collect(Collectors.toList());
+        sysMenus.removeAll(childSysMenu);
         TreeUtil treeUtil = new TreeUtil();
         treeUtil.setId(sysMenu.getId());
         treeUtil.setName(sysMenu.getName());
@@ -198,8 +169,8 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
             if (count > 0)
                 treeUtil.setChecked(true);
         }
-        for (SysMenu menu : mList) {
-            TreeUtil m = getChildByTree(menu.getId(), flag, layer, menu.getId(), roleId);
+        for (SysMenu menu : childSysMenu) {
+            TreeUtil m = getChildByTree(menu, sysMenus, layer, menu.getId(), roleId);
             treeUtil.getChildren().add(m);
         }
         return treeUtil;

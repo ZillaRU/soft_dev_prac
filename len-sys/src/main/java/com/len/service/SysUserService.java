@@ -17,7 +17,7 @@ public interface SysUserService extends BaseService<SysUser,String> {
 
   SysUser login(String username);
 
-  @Override
+
   SysUser selectByPrimaryKey(String id);
 
   /**
@@ -47,6 +47,7 @@ public interface SysUserService extends BaseService<SysUser,String> {
   int checkUser(String username);
 
 
+  @Override
   int updateByPrimaryKey(SysUser sysUser);
 
   List<SysRoleUser> selectByCondition(SysRoleUser sysRoleUser);

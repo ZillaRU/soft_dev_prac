@@ -1,13 +1,17 @@
 package com.len.entity;
 
+import com.len.validator.group.AddGroup;
+import com.len.validator.group.UpdateGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +25,7 @@ public class SysMenu {
     @GeneratedValue(generator = "JDBC")
     private String id;
 
+    @NotEmpty(message = "菜单名称不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String name;
 
     @Column(name = "p_id")
@@ -31,6 +36,7 @@ public class SysMenu {
     /**
      * 排序字段
      */
+    @Length(min = 1,max = 4, message = "序号长度不对")
     @Column(name = "order_num")
     private Integer orderNum;
 
