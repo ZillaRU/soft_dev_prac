@@ -20,6 +20,14 @@ To change this template use File | Settings | File Templates.-->
   <script type="text/javascript" src="${re.contextPath}/plugin/tools/tool.js"></script>
   <script type="text/javascript" src="${re.contextPath}/plugin/tools/update-setting.js"></script>
 </head>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var flag='${detail}';
+        if(flag){
+            $("form").disable();
+        }
+    });
+</script>
 <body>
 <div class="x-body">
   <form class="layui-form layui-form-pane" style="margin-left: 20px;">
@@ -132,7 +140,6 @@ To change this template use File | Settings | File Templates.-->
       return false;
     });
   });
-    Detail();
 </script>
 </body>
 
