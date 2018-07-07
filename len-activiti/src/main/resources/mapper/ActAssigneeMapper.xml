@@ -17,4 +17,18 @@
     delete from act_assignee
     where sid = #{sid,jdbcType=VARCHAR}
   </delete>
+
+  <select id="selectListByPage" parameterType="com.len.entity.ActAssignee" resultMap="BaseResultMap">
+    SELECT *
+    from act_assignee
+    <!--<where>
+      <if test="userId!=null and userId!=''">and user_id=#{userId}</if>
+      <if test="beginTime!=null">
+        <![CDATA[   and DATE_FORMAT(begin_time, '%Y-%m-%d')>=  DATE_FORMAT(#{beginTime}, '%Y-%m-%d')   ]]>
+      </if>
+      <if test="endTime!=null">
+        <![CDATA[  and DATE_FORMAT(end_time, '%Y-%m-%d') <= DATE_FORMAT(#{endTime}, '%Y-%m-%d')    ]]>
+      </if>
+    </where>-->
+  </select>
 </mapper>

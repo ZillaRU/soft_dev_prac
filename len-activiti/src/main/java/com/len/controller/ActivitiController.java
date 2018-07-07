@@ -318,7 +318,7 @@ public class ActivitiController extends BaseController {
             }
             //节点id 、name、节点目前关联的角色 封装成进map
             String nodeId = activiti.getId();
-            assigneeList = actAssigneeService.selectListByPage(new ActAssignee(nodeId));
+            assigneeList = actAssigneeService.select(new ActAssignee(nodeId));
             List<String> strings = new ArrayList<>();
             assigneeList.forEach(actAssignee1 -> strings.add(actAssignee1.getRoleId()));
             map.put("id", nodeId);
