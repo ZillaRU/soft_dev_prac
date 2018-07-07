@@ -1,12 +1,13 @@
 package com.len.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
 @Table(name = "user_leave")
-public class UserLeave {
+public class UserLeave implements Serializable {
     @Id
     @GeneratedValue(generator = "JDBC")
     private String id;
@@ -45,6 +46,7 @@ public class UserLeave {
     private String updateBy;
 
     //***实时节点信息
+    @Transient
     private String taskName;
 
     public String getTaskName() {
