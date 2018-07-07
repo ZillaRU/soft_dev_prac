@@ -193,7 +193,7 @@ public class ActivitiController extends BaseController {
      */
     @GetMapping(value = "showAct")
     @ResponseBody
-    public String showAct(org.springframework.ui.Model model, ProcessDefinition definition,
+    public ReType showAct(org.springframework.ui.Model model, ProcessDefinition definition,
                           String page, String limit) {
         ProcessDefinitionQuery processDefinitionQuery = repositoryService
                 .createProcessDefinitionQuery();
@@ -212,8 +212,7 @@ public class ActivitiController extends BaseController {
         List<ProcessDefinition> list = new ArrayList<>();
         processDefinitionList
                 .forEach(processDefinition -> list.add(new ProcessDefinition(processDefinition)));
-        ReType reType = new ReType(count, list);
-        return JSON.toJSONString(reType);
+        return new ReType(count, list);
     }
 
 
@@ -227,7 +226,7 @@ public class ActivitiController extends BaseController {
      */
     @GetMapping(value = "showAm")
     @ResponseBody
-    public String showModel(org.springframework.ui.Model model, ActModel actModel, String page,
+    public ReType showModel(org.springframework.ui.Model model, ActModel actModel, String page,
                             String limit) {
         ModelQuery modelQuery = repositoryService.createModelQuery();
         if (actModel != null) {
@@ -243,8 +242,7 @@ public class ActivitiController extends BaseController {
         long count = repositoryService.createModelQuery().count();
         List<ActModel> list = new ArrayList<>();
         models.forEach(mo -> list.add(new ActModel(mo)));
-        ReType reType = new ReType(count, list);
-        return JSON.toJSONString(reType);
+        return new ReType(count, list);
     }
 
     /**

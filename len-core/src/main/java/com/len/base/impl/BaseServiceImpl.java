@@ -194,7 +194,7 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
      * @return
      */
     @Override
-    public String show(T t, int page, int limit) {
+    public ReType show(T t, int page, int limit) {
         List<T> tList = null;
         Page<T> tPage = PageHelper.startPage(page, limit);
         try {
@@ -205,7 +205,7 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
             e.printStackTrace();
         }
         ReType reType = new ReType(tPage.getTotal(), tList);
-        return JSON.toJSONString(reType);
+        return reType;
     }
 
 }

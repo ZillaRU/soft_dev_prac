@@ -51,7 +51,7 @@ public class LogController extends BaseController {
      */
     @GetMapping(value = "showLogList")
     @ResponseBody
-    public String showLog(SysLog sysLog, String page, String limit) {
+    public ReType showLog(SysLog sysLog, String page, String limit) {
         List<SysLog> tList = null;
         Page<SysLog> tPage = PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
         try {
@@ -60,8 +60,7 @@ public class LogController extends BaseController {
             log.error("class:LogController ->method:showLog->message:" + e.getMessage());
             e.printStackTrace();
         }
-        ReType reType = new ReType(tPage.getTotal(), tList);
-        return JSON.toJSONString(reType);
+        return new ReType(tPage.getTotal(), tList);
     }
 
     /**

@@ -105,7 +105,7 @@ public class UserLeaveController extends BaseController {
 
     @GetMapping(value = "showLeaveList")
     @ResponseBody
-    public String showLeaveList(Model model, UserLeave userLeave, String page, String limit) {
+    public ReType showLeaveList(Model model, UserLeave userLeave, String page, String limit) {
         String userId = CommonUtil.getUser().getId();
         userLeave.setUserId(userId);
         List<UserLeave> tList = null;
@@ -124,8 +124,7 @@ public class UserLeaveController extends BaseController {
         } catch (MyException e) {
             e.printStackTrace();
         }
-        ReType reType = new ReType(tPage.getTotal(), tList);
-        return JSON.toJSONString(reType);
+        return new ReType(tPage.getTotal(), tList);
     }
 
     /**

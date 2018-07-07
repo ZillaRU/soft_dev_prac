@@ -1,5 +1,7 @@
 package com.len.base;
 
+import com.len.util.ReType;
+
 import java.io.Serializable;
 
 /**
@@ -57,6 +59,6 @@ public interface BaseService<T, E extends Serializable> extends BaseMapper<T, E>
 
   List<T> selectListByPage(T record);*/
 
-    public String show(T t, int page, int limit);
+    public ReType show(T t, int page, int limit);
 
 }
