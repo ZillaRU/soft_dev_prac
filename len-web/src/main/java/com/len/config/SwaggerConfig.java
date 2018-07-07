@@ -34,7 +34,7 @@ public class SwaggerConfig {
                 .title("Swagger接口列表")
                 .description("接口")
                 .termsOfServiceUrl("http://localhost:8081/swagger-ui.html")
-                .contact(new Contact("zxm", "211.159.219.111", "154040976@qq.com"))
+                .contact(new Contact("zxm", "http://www.lenosp.cn", "154040976@qq.com"))
                 .version("1.1.0")
                 .build();
     }

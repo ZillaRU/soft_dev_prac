@@ -69,7 +69,7 @@ public class UserController extends BaseController {
     @GetMapping(value = "showUserList")
     @ResponseBody
     @RequiresPermissions("user:show")
-    public String showUser(Model model, SysUser user, String page, String limit) {
+    public ReType showUser(Model model, SysUser user, String page, String limit) {
         return userService.show(user, Integer.valueOf(page), Integer.valueOf(limit));
     }
 

@@ -14,6 +14,7 @@ import com.len.service.RoleService;
 import com.len.service.RoleUserService;
 import com.len.util.BeanUtil;
 import com.len.util.JsonUtil;
+import com.len.util.ReType;
 import io.swagger.annotations.ApiOperation;
 
 import java.util.List;
@@ -60,7 +61,7 @@ public class RoleController extends BaseController {
     @GetMapping(value = "showRoleList")
     @ResponseBody
     @RequiresPermissions("role:show")
-    public String showRoleList(SysRole role, Model model, String page, String limit) {
+    public ReType showRoleList(SysRole role, Model model, String page, String limit) {
         return roleService.show(role, Integer.valueOf(page), Integer.valueOf(limit));
     }
 

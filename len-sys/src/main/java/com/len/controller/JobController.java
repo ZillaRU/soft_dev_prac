@@ -11,6 +11,7 @@ import com.len.service.JobService;
 import com.len.util.BeanUtil;
 import com.len.util.Checkbox;
 import com.len.util.JsonUtil;
+import com.len.util.ReType;
 import io.swagger.annotations.ApiOperation;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public class JobController extends BaseController<SysJob> {
     @GetMapping(value = "showJobList")
     @ResponseBody
     @RequiresPermissions("job:show")
-    public String showUser(Model model, SysJob job, String page, String limit) {
+    public ReType showUser(Model model, SysJob job, String page, String limit) {
         return jobService.show(job, Integer.valueOf(page), Integer.valueOf(limit));
     }
 
