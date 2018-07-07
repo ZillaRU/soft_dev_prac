@@ -38,7 +38,7 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
      */
     public RetryLimitCredentialsMatcher(CacheManager cacheManager,int maxRetryCount) {
         this.maxRetryCount = maxRetryCount;
-        loginRetryCache = cacheManager.getCache(String.valueOf(maxRetryCount));//尝试获取cache,没有则新建
+        this.loginRetryCache = cacheManager.getCache("loginRetryCache");
     }
 
     public RetryLimitCredentialsMatcher(CacheManager cacheManager){
