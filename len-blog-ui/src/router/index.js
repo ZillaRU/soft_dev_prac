@@ -14,7 +14,7 @@ export default new Router({
       component: HelloWorld
     },
     {
-      path:'/home/',
+      path:'/home/:id',
       component:Home,
       children:[
         {

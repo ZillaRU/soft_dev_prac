@@ -1,12 +1,11 @@
 package com.len.controller;
 
-import com.len.model.BlogArticle;
-import com.len.service.ArticleService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 文章管理（后台）
@@ -15,12 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @email 1146556298@qq.com
  * @date 2018-05-05
  */
-@Controller
-@RequestMapping("/article")
+@RestController
+@RequestMapping("/blog")
 public class ArticleController {
 
-    @Autowired
-    private ArticleService service;
 
     @GetMapping("/articleList")
     public String articleListPage() {
@@ -30,9 +27,13 @@ public class ArticleController {
     /**
      * 文章列表
      */
-    @ResponseBody
-    @GetMapping("/showArticleList")
-    public String showArticles(BlogArticle article, String page, String limit) {
-        return service.show(article, Integer.valueOf(page), Integer.valueOf(limit));
+    @GetMapping("/header")
+    public List<String> showArticles() {
+        List<String> list = new ArrayList<>(4);
+        list.add("java");
+        list.add("架构");
+        list.add("Linux");
+        list.add("其他");
+        return list;
     }
 }

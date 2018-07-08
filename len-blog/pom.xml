@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>len-blog</artifactId>
-    <build>
+   <!-- <build>
         <plugins>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
@@ -38,5 +38,5 @@
                 </dependencies>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 </project>
