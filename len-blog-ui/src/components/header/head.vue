@@ -7,10 +7,12 @@
       <Col :xs="24" :sm="18" :lg="14">
         <Menu mode="horizontal" :theme="theme1" active-name="1">
           <MenuItem name="1">
-            <div  @click="toIndex">
-            <Icon type="ios-paper"></Icon>
-            java
-            </div>
+            <router-link to="/blogHead">
+              <div>
+                <Icon type="ios-paper"></Icon>
+                java
+              </div>
+            </router-link>
           </MenuItem>
           <MenuItem name="2">
             <Icon type="ios-people"></Icon>

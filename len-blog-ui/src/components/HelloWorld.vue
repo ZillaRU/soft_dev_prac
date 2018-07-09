@@ -13,11 +13,10 @@
     </Header>-->
     <blogHead></blogHead>
 
-
   <div class="cont">
     <div class="content clearfix">
       <div class="left">
-        <ul>
+      <!--  <ul>
 
           <li class="one">
             <Card style="height: 200px">
@@ -33,18 +32,6 @@
           </li>
 
 
-          <li class="one">
-            <Card style="height: 200px">
-              <div @click="detail">
-            <h3>lenos快速开发脚手架</h3>
-              </div>
-            <p class="time">作者：<span>zxm</span> • 2017-10-31 10:05:47</p>
-            <p class="cot">lenos快速开发脚手架</p>
-            <div class="pic">
-              <img src="../assets/aa.jpeg"/>
-            </div>
-            </Card>
-          </li>
 
           <li class="one">
             <Card style="height: 200px">
@@ -59,7 +46,20 @@
             </Card>
           </li>
 
-        </ul>
+          <li class="one">
+            <Card style="height: 200px">
+              <div @click="detail">
+            <h3>lenos快速开发脚手架</h3>
+              </div>
+            <p class="time">作者：<span>zxm</span> • 2017-10-31 10:05:47</p>
+            <p class="cot">lenos快速开发脚手架</p>
+            <div class="pic">
+              <img src="../assets/aa.jpeg"/>
+            </div>
+            </Card>
+          </li>
+
+        </ul>-->
         <Page :total="40" size="small" show-total></Page>
       </div>
       <blogRight></blogRight>

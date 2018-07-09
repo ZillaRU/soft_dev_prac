@@ -1,13 +1,28 @@
 <template>
   <div id="app">
-   <!-- <img src="./assets/logo.png">-->
+    <Layout>
+    <!--header begin-->
+    <blogHead></blogHead>
+    <!--header end-->
+
+    <!--context begin-->
     <router-view/>
+    <!--context end-->
+
+    </Layout>
   </div>
 </template>
 
 <script>
+  import blogHead from "./components/header/head"
+
+
 export default {
-  name: 'App'
+  components:{blogHead},
+  name: 'App',
+  data(){
+    return {}
+  }
 }
 </script>
 

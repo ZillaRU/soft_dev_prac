@@ -3,13 +3,15 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Home from '@/components/home'
 import Person from '@/components/person'
+import Detail from '@/components/detail/detail-context'
 
 Vue.use(Router)
 
 export default new Router({
+
   routes: [
     {
-      path: '/',
+      path: '/index',
       name: 'HelloWorld',
       component: HelloWorld
     },
@@ -22,6 +24,11 @@ export default new Router({
           component: Person
         }
       ]
-    }
+    },{
+      path:'/detail/:id',
+      name:'Detail',
+      component:Detail
+    },
+
   ]
 })
