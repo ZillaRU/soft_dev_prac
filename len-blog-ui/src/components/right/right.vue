@@ -1,5 +1,5 @@
 <template>
-  <div id="right">
+  <div id="blog-right">
     <div class="c-right">
       <ul>
         <li>
@@ -24,11 +24,12 @@
           </Tabs>
         </li>
         <li class="two">
-          <Tabs value="name1">
-            <TabPane label="推荐" name="name1">
-              <Carousel autoplay
-                        autoplay-speed="4000"
-                        v-model="value1" loop>
+          <Tabs value="name2">
+            <TabPane label="推荐" name="name2">
+              <Carousel autoplay v-model="value1"
+                        :autoplay-speed="speed"
+
+                        loop>
                 <CarouselItem>
                   <div class="demo-carousel">1</div>
                 </CarouselItem>
@@ -43,9 +44,9 @@
                 </CarouselItem>
               </Carousel>
 
-              <Button @click="start">Start</Button>
+             <!-- <Button @click="start">Start</Button>
               <Button @click="finish">Finish</Button>
-              <Button @click="error">Error</Button>
+              <Button @click="error">Error</Button>-->
             </TabPane>
           </Tabs>
         </li>
@@ -62,7 +63,24 @@
 
 <script>
     export default {
-        name: "right"
+        name: "blog-right",
+      data(){
+          return {
+            value1:1,
+            speed:4000,
+          }
+      },
+      methods:{
+        start () {
+          this.$Loading.start();
+        },
+        finish () {
+          this.$Loading.finish();
+        },
+        error () {
+          this.$Loading.error();
+        }
+      }
     }
 </script>
 

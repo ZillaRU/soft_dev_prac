@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import context from '@/components/context'
 import Home from '@/components/home'
 import Person from '@/components/person'
 import Detail from '@/components/detail/detail-context'
@@ -11,9 +11,9 @@ export default new Router({
 
   routes: [
     {
-      path: '/index',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/',
+      name: 'context',
+      component: context
     },
     {
       path:'/home/:id',

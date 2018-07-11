@@ -37,7 +37,8 @@
         name: "head",
       data(){
         return {
-          a:1
+          a:1,
+          theme1: 'light'
         }
       },
       methods:{
