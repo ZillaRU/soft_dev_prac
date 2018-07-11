@@ -38,7 +38,7 @@ export default new Router({
               </pre>
             </li>
             <li>
-              <h3>2、爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你</h3>
+              <h3>2、作者是怎么炼成的</h3>
               <pre>
 routes: [
 {
@@ -49,7 +49,7 @@ component: HelloWorld
               </pre>
             </li>
             <li>
-              <h3>3、爱你呦！！我爱你呦！！</h3>
+              <h3>3、作者是怎么炼成的！！作者是怎么炼成的！！</h3>
               <pre>
 path:'/home/:id',
  component:Home,
