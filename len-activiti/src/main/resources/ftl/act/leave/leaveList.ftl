@@ -174,17 +174,17 @@
       if (obj.event === 'start') {
         start(data.key);
       }else if(obj.event === 'getProcImage'){
-        var url='getProcImage?processInstanceId='+data.processInstanceId+'';
+//        var url='getProcImage?processInstanceId='+data.processInstanceId+'';
         layer.open({
           id: 'leave-image',
-          type: 1,
+          type: 2,
           area: [ '880px', '400px'],
           fix: false,
           maxmin: true,
           shadeClose: false,
           shade: 0.4,
           title: '流程图',
-          content: "<img src='"+url+"'/>"
+            content: '${re.contextPath}/leave/shinePics/' + data.processInstanceId
         });
       }else if(obj.event==='leaveDetail'){
         layer.open({

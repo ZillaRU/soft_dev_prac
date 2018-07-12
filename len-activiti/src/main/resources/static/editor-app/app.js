@@ -28,7 +28,8 @@ var activitiModeler = angular.module('activitiModeler', [
   'ngGrid',
   'ngAnimate',
   'pascalprecht.translate',
-  'duScroll'
+  'duScroll',
+    'tm.pagination'
 ]);
 
 var activitiModule = activitiModeler;

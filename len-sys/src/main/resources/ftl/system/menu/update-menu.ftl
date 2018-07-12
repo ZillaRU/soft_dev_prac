@@ -148,7 +148,7 @@ To change this template use File | Settings | File Templates.-->
         shade: 0.4,
         zIndex: layer.zIndex,
         title: '图标',
-        content: '/plugin/html/icon.html'
+        content: '../plugin/html/icon.html'
       });
     });
 

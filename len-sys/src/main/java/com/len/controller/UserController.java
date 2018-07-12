@@ -1,5 +1,7 @@
 package com.len.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.len.base.BaseController;
 import com.len.core.annotation.Log;
 import com.len.core.annotation.Log.LOG_TYPE;
@@ -72,6 +74,20 @@ public class UserController extends BaseController {
     public ReType showUser(Model model, SysUser user, String page, String limit) {
         return userService.show(user, Integer.valueOf(page), Integer.valueOf(limit));
     }
+
+    @ApiOperation(value = "/listByRoleId", httpMethod = "GET", notes = "展示角色")
+    @GetMapping(value = "listByRoleId")
+    @ResponseBody
+    @RequiresPermissions("user:show")
+    public String showUser(Model model, String roleId,int page, int limit) {
+        JSONObject returnValue = new JSONObject();
+        List<SysUser> users = userService.getUserByRoleId(roleId,page,limit);
+        int counts =  userService.countUserByRoleId(roleId,page,limit);
+        returnValue.put("users",users);
+        returnValue.put("totals",counts);
+        return JSON.toJSONString(returnValue);
+    }
+
 
     @GetMapping(value = "showAddUser")
     public String goAddUser(Model model) {

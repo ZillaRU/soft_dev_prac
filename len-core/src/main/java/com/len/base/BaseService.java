@@ -61,4 +61,5 @@ public interface BaseService<T, E extends Serializable> extends BaseMapper<T, E>
 
     public ReType show(T t, int page, int limit);
 
+    public String showAll(T t);
 }

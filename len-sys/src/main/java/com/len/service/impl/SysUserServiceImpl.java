@@ -15,7 +15,10 @@ import com.len.util.Checkbox;
 import com.len.util.JsonUtil;
 import com.len.util.Md5Util;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -179,5 +182,25 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser,String> implemen
   @Override
   public int rePass(SysUser user) {
     return sysUserMapper.rePass(user);
+  }
+
+  @Override
+  public List<SysUser> getUserByRoleId(String roleId,int page,int limit)
+  {
+    Map map = new HashMap<>();
+    map.put("roleId",roleId);
+    map.put("page",(page-1)*limit );
+    map.put("limit",limit);
+    return sysUserMapper.getUserByRoleId(map);
+  }
+
+  @Override
+  public int countUserByRoleId(String roleId,int page,int limit)
+  {
+    Map map = new HashMap<>();
+    map.put("roleId",roleId);
+    map.put("page",(page-1)*limit );
+    map.put("limit",limit);
+    return sysUserMapper.countUserByRoleId(map);
   }
 }

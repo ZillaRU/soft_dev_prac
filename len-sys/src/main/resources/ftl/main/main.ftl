@@ -53,14 +53,14 @@
       <li class="layui-nav-item">
         <a href="javascript:;">
         <#assign currentUser = Session["curentUser"]>
-          <img src="/images/${currentUser.photo}" class="layui-nav-img">${currentUser.username}
+          <img src="${re.contextPath}/images/${currentUser.photo}" class="layui-nav-img">${currentUser.username}
         </a>
         <dl class="layui-nav-child">
           <dd><a href="javascript:;" kit-target data-options="{url:'basic.html',icon:'&#xe658;',title:'基本资料',id:'966'}"><span>基本资料</span></a></dd>
           <dd><a href="javascript:;">安全设置</a></dd>
         </dl>
       </li>
-      <li class="layui-nav-item"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a></li>
+      <li class="layui-nav-item"><a href="logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a></li>
     </ul>
   </div>
 

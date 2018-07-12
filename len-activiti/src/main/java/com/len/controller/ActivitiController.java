@@ -193,7 +193,7 @@ public class ActivitiController extends BaseController {
      */
     @GetMapping(value = "showAct")
     @ResponseBody
-    public ReType showAct(org.springframework.ui.Model model, ProcessDefinition definition,
+    public String showAct(org.springframework.ui.Model model, ProcessDefinition definition,
                           String page, String limit) {
         ProcessDefinitionQuery processDefinitionQuery = repositoryService
                 .createProcessDefinitionQuery();
@@ -212,7 +212,8 @@ public class ActivitiController extends BaseController {
         List<ProcessDefinition> list = new ArrayList<>();
         processDefinitionList
                 .forEach(processDefinition -> list.add(new ProcessDefinition(processDefinition)));
-        return new ReType(count, list);
+        ReType reType = new ReType(count, list);
+        return JSON.toJSONString(reType);
     }
 
 
@@ -226,7 +227,7 @@ public class ActivitiController extends BaseController {
      */
     @GetMapping(value = "showAm")
     @ResponseBody
-    public ReType showModel(org.springframework.ui.Model model, ActModel actModel, String page,
+    public String showModel(org.springframework.ui.Model model, ActModel actModel, String page,
                             String limit) {
         ModelQuery modelQuery = repositoryService.createModelQuery();
         if (actModel != null) {
@@ -242,7 +243,8 @@ public class ActivitiController extends BaseController {
         long count = repositoryService.createModelQuery().count();
         List<ActModel> list = new ArrayList<>();
         models.forEach(mo -> list.add(new ActModel(mo)));
-        return new ReType(count, list);
+        ReType reType = new ReType(count, list);
+        return JSON.toJSONString(reType);
     }
 
     /**
@@ -316,7 +318,7 @@ public class ActivitiController extends BaseController {
             }
             //节点id 、name、节点目前关联的角色 封装成进map
             String nodeId = activiti.getId();
-            assigneeList = actAssigneeService.select(new ActAssignee(nodeId));
+            assigneeList = actAssigneeService.selectListByPage(new ActAssignee(nodeId));
             List<String> strings = new ArrayList<>();
             assigneeList.forEach(actAssignee1 -> strings.add(actAssignee1.getRoleId()));
             map.put("id", nodeId);

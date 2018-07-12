@@ -43,7 +43,7 @@ public class Task {
 
   private String userName;
   private String reason;
-
+  private String urlpath;
   public Task() {
   }
   public Task(org.activiti.engine.task.Task t) {

@@ -23,13 +23,13 @@
     <div class="message">len-脚手架</div>
     <div id="darkbannerwrap"></div>
 
-    <form method="post" action="/login" class="layui-form" >
+    <form method="post" action="${re.contextPath}/login" class="layui-form" >
         <input name="username" placeholder="用户名" autocomplete="off"  type="text" lay-verify="username" class="layui-input" >
         <hr class="hr15">
         <input name="password" lay-verify="password" placeholder="密码" autocomplete="off"  type="password" class="layui-input">
         <hr class="hr15">
         <div  class="layui-inline">
-            <label class="layui-form-label" style="width:40px;padding: 9px 0px;">验证码:</label>
+            <label class="layui-form-label" style="width:40px;padding: 9px 0px;">验证码&nbsp;</label>
                <div class="layui-input-inline">
                      <input type="text" name="code" style="width:150px;height:35px;" autocomplete="off" lay-verify="code"   class="layui-input">
               </div>
@@ -79,7 +79,7 @@
         layer.msg(msg, {icon: 5,anim:6,offset: 't'});
     }
       $("#code").click(function(){
-          var url = "/getCode?"+new Date().getTime();
+          var url = "${re.contextPath}/getCode?"+new Date().getTime();
           this.src = url;
       }).click().show();
     $('#code').on('mouseover',function(){
