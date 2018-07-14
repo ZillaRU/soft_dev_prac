@@ -22,8 +22,9 @@ To change this template use File | Settings | File Templates.-->
 
 <body>
 <div class="x-body">
+
     <div style="width:100%; height:320px;overflow: hidden;">
-        <iframe style="width:100%;height:100%;border: none;" src="${re.contextPath}/${leaveUrl}"></iframe>
+        <iframe style="width:100%;height:100%;border: none;" src="${leaveUrl}"></iframe>
     </div>
 
   <form class="layui-form layui-form-pane" style="margin-left: 20px;">
