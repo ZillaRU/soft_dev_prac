@@ -184,7 +184,7 @@
           shadeClose: false,
           shade: 0.4,
           title: '流程图',
-            content: '${re.contextPath}/leave/shinePics/' + data.processInstanceId
+            content: '/leave/shinePics/' + data.processInstanceId
         });
       }else if(obj.event==='leaveDetail'){
         layer.open({

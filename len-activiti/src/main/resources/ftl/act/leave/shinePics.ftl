@@ -23,7 +23,7 @@ To change this template use File | Settings | File Templates.-->
 <body>
 <div class="x-body">
   <form class="layui-form layui-form-pane" style="margin-left: 20px;">
-    <div style="width:100%;height:400px;overflow: auto;">
+    <div id="image" style="width:100%;height:100%;overflow: auto;">
     <div class="layui-form-item">
         <image id="showImages1" style="display: none;"></image>
         <image id="showImages2"></image>
@@ -33,6 +33,7 @@ To change this template use File | Settings | File Templates.-->
 </div>
 <script>
     var countNum = 0;
+    // $('#image').css('height',document.body.offsetHeight);
   layui.use(['form','layer'], function(){
     $ = layui.jquery;
     //执行AJAX 获取数据
