@@ -120,7 +120,6 @@ public class ShiroConfig {
     as.setSecurityManager(securityManager);
     return as;
   }
-
   @Bean
   public DefaultWebSessionManager defaultWebSessionManager() {
     DefaultWebSessionManager defaultWebSessionManager = new DefaultWebSessionManager();
