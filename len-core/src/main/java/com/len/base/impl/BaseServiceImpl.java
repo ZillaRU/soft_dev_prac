@@ -145,6 +145,46 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
         return getMappser().selectListByPage(record);
     }
 
+    @Override
+    public int deleteByPrimaryKey(Object o) {
+        return getMappser().deleteByPrimaryKey(o);
+    }
+
+    @Override
+    public int delete(T t) {
+        return getMappser().delete(t);
+    }
+
+    @Override
+    public boolean existsWithPrimaryKey(Object o) {
+        return getMappser().existsWithPrimaryKey(o);
+    }
+
+    @Override
+    public T selectByPrimaryKey(Object o) {
+        return getMappser().selectByPrimaryKey(o);
+    }
+
+    @Override
+    public T selectOne(T t) {
+        return getMappser().selectOne(t);
+    }
+
+    @Override
+    public int deleteByIds(String s) {
+        return getMappser().deleteByIds(s);
+    }
+
+    @Override
+    public int insertList(List<T> list) {
+        return getMappser().insertList(list);
+    }
+
+    @Override
+    public int insertUseGeneratedKeys(T t) {
+        return getMappser().insertUseGeneratedKeys(t);
+    }
+
     /**
      * 公共展示类
      *
