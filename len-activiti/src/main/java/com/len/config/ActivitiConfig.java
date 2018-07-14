@@ -15,6 +15,8 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
+import org.activiti.image.HMProcessDiagramGenerator;
+import org.activiti.image.impl.DefaultProcessDiagramGenerator;
 import org.activiti.spring.ProcessEngineFactoryBean;
 import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,6 +54,8 @@ public class ActivitiConfig {
         processEngineConfiguration.setActivityFontName("宋体");
         processEngineConfiguration.setAnnotationFontName("宋体");
         processEngineConfiguration.setLabelFontName("宋体");
+
+        processEngineConfiguration.setProcessDiagramGenerator(new DefaultProcessDiagramGenerator());
 
         return processEngineConfiguration;
     }

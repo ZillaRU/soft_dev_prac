@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Tijs Rademakers
  */
 @RestController
-@RequestMapping("service")
+@RequestMapping("/service")
 @Slf4j
 public class ModelEditorJsonRestResource implements ModelDataJsonConstants {
   

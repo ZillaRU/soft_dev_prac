@@ -156,7 +156,7 @@
       if (obj.event === 'handle') {
         popup('办理','agent/'+data.id,700,500,'task-agent');
       }else if(obj.event === 'update'){
-        popup('编辑','updateLeave/'+data.id,700,500,'task-update');
+        popup('编辑','${re.contextPath}/leave/updateLeave/'+data.id,700,500,'task-update');
       }else if(obj.event==='leaveDetail'){
           layer.open({
               id: 'leave-detail',
@@ -167,7 +167,7 @@
               shadeClose: false,
               shade: 0.4,
               title: '审核详情',
-              content: "/leave/leaveDetail?processId="+data.processInstanceId
+              content: "leaveDetail?processId="+data.processInstanceId
           });
       }
     });

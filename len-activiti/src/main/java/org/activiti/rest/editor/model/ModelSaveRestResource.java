@@ -45,7 +45,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author Tijs Rademakers
  */
 @RestController
-@RequestMapping("service")
+@RequestMapping("/service")
 @Slf4j
 public class ModelSaveRestResource implements ModelDataJsonConstants {
 

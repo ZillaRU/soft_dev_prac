@@ -65,6 +65,15 @@ public class RoleController extends BaseController {
         return roleService.show(role, Integer.valueOf(page), Integer.valueOf(limit));
     }
 
+    @ApiOperation(value = "/showaLLRoleList", httpMethod = "GET", notes = "展示角色")
+    @GetMapping(value = "showaLLRoleList")
+    @ResponseBody
+    @RequiresPermissions("role:show")
+    public String showRoleList(SysRole role, Model model) {
+        return roleService.showAll(role);
+    }
+
+
     @GetMapping(value = "showAddRole")
     public String goAddRole(Model model) {
         JSONArray jsonArray = menuService.getTreeUtil(null);

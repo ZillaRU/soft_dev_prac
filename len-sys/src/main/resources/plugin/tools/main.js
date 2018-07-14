@@ -5,7 +5,7 @@
 /**框架*/
 var message;
 layui.config({
-  base: '/plugin/build/js/',
+  base: 'plugin/build/js/',
   version: '1.0.1'
 }).use(['app', 'message'], function() {
   var app = layui.app,

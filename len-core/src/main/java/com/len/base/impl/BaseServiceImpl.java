@@ -1,5 +1,6 @@
 package com.len.base.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.len.base.BaseMapper;
@@ -144,46 +145,6 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
         return getMappser().selectListByPage(record);
     }
 
-    @Override
-    public int deleteByPrimaryKey(Object o) {
-        return getMappser().deleteByPrimaryKey(o);
-    }
-
-    @Override
-    public int delete(T t) {
-        return getMappser().delete(t);
-    }
-
-    @Override
-    public boolean existsWithPrimaryKey(Object o) {
-        return getMappser().existsWithPrimaryKey(o);
-    }
-
-    @Override
-    public T selectByPrimaryKey(Object o) {
-        return getMappser().selectByPrimaryKey(o);
-    }
-
-    @Override
-    public T selectOne(T t) {
-        return getMappser().selectOne(t);
-    }
-
-    @Override
-    public int deleteByIds(String s) {
-        return getMappser().deleteByIds(s);
-    }
-
-    @Override
-    public int insertList(List<T> list) {
-        return getMappser().insertList(list);
-    }
-
-    @Override
-    public int insertUseGeneratedKeys(T t) {
-        return getMappser().insertUseGeneratedKeys(t);
-    }
-
     /**
      * 公共展示类
      *
@@ -203,6 +164,21 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
             e.printStackTrace();
         }
         return new ReType(tPage.getTotal(), tList);
+    }
+
+    @Override
+    public String showAll(T t)
+    {
+        List<T> tList = null;
+        try {
+            tList = getMappser().selectListByPage(t);
+        } catch (MyException e) {
+//            logger.error("class:BaseServiceImpl ->method:show->message:" + e.getMessage());
+            log.error("class:BaseServiceImpl ->method:show->message:" + e.getMessage());
+            e.printStackTrace();
+        }
+//        ReType reType = new ReType(  tList);
+        return JSON.toJSONString(tList);
     }
 
 }
