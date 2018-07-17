@@ -1,11 +1,11 @@
 <template>
   <div id="head">
-    <Row class-name="title-row">
-      <Col :xs="24" :sm="4" :lg="10">
+    <Row class-name="title-row" align="middle" justify="center">
+      <Col :xs="24" :sm="4" :lg="8">
         <Icon type="ios-flame" size="50" />
       </Col>
-      <Col :xs="24" :sm="18" :lg="14">
-        <Menu mode="horizontal" :theme="theme1" active-name="1">
+      <Col :xs="24" :sm="14" :lg="10">
+        <Menu  class="aa" mode="horizontal" theme="light" active-name="1">
           <MenuItem name="1">
             <router-link to="/blogHead">
               <div>
@@ -27,6 +27,11 @@
             其他
           </MenuItem>
         </Menu>
+      </Col>
+      <Col :xs="24" :sm="4" :lg="6">
+        <div style="margin-top: 15px">
+        <Button type="ghost">登录</Button>
+        </div>
       </Col>
     </Row>
   </div>
