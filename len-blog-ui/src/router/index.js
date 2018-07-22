@@ -16,6 +16,11 @@ export default new Router({
       component: context
     },
     {
+      path: '/:id',
+      name: 'detail',
+      component: context
+    },
+    {
       path:'/home/:id',
       component:Home,
       children:[
