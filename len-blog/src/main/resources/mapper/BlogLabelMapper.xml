@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.BlogLabelMapper">
+  <resultMap id="BaseResultMap" type="com.len.entity.BlogLabel">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="label_code" jdbcType="VARCHAR" property="labelCode" />
+    <result column="label_name" jdbcType="VARCHAR" property="labelName" />
+  </resultMap>
+
+  <insert id="insertList">
+    insert blog_label(id,label_code,label_name) values
+    <foreach collection="list" item="label"  separator=",">
+      (
+      #{label.id},#{label.labelCode},#{label.labelName}
+      )
+    </foreach>
+  </insert>
+</mapper>
