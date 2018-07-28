@@ -26,22 +26,22 @@
                     password="123456" />
     <!--mode-->
     <javaModelGenerator targetPackage="com.len.entity"
-                        targetProject="len-activiti/src/main/java">
+                        targetProject="len-blog/src/main/java">
       <property name="enableSubPackages" value="true"/>
 
       <property name="trimStrings" value="true" />
     </javaModelGenerator>
     <!--生成映射文件存放位置-->
-    <sqlMapGenerator targetPackage="com.len.mapper" targetProject="len-activiti/src/main/java" >
+    <sqlMapGenerator targetPackage="com.len.mapper" targetProject="len-blog/src/main/java" >
       <property name="enableSubPackages" value="true"/>
     </sqlMapGenerator>
     <!--生成Dao类存放位置-->
     <javaClientGenerator targetPackage="com.len.mapper"
-                         targetProject="len-activiti/src/main/java" type="XMLMAPPER" >
+                         targetProject="len-blog/src/main/java" type="XMLMAPPER" >
       <property name="enableSubPackages" value="true"/>
     </javaClientGenerator>
     <!--生成table 先建表 后生成 勿随意覆盖本身table 避免功能缺失  测试 自己找其他表测试 by zxm-->
-    <table tableName="act_assignee" domainObjectName="ActAssignee">
+    <table tableName="blog_label" domainObjectName="BlogLabel">
       <generatedKey column="id" sqlStatement="JDBC"/>
     </table>
     <!-- enableCountByExample="false"

@@ -52,6 +52,11 @@ public class LoginRealm extends AuthorizingRealm{
   @Autowired
   private RoleMenuService roleMenuService;
 
+ /* @Override
+  public boolean supports(AuthenticationToken token) {
+    return super.supports(token);
+  }*/
+
   /**
    * 获取认证
    * @param principalCollection

@@ -49,3 +49,5 @@ image/*
 *.ntvs*
 *.njsproj
 *.sln
+
+*auto-config/*

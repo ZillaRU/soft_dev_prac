@@ -316,6 +316,14 @@
       <version>2.0.1.Final</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/com.auth0/java-jwt -->
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>java-jwt</artifactId>
+      <version>3.4.0</version>
+    </dependency>
+
+
 
 
     <!--
