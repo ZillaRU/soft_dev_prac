@@ -27,7 +27,7 @@ public class LabelController extends BaseController {
     @Autowired
     private BlogLabelService blogLabelService;
 
-    private static String[] color = {"green", "red", "yellow", "blue"};
+    private static String[] color = {"primary", "success", "error", "warning"};
 
     /**
      * 获取标签 后期增加规则 颜色后期处理成浅色 好看
