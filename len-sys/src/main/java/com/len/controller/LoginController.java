@@ -7,6 +7,7 @@ import com.len.entity.SysMenu;
 import com.len.entity.SysUser;
 import com.len.service.MenuService;
 import com.len.service.SysUserService;
+import com.len.util.CustomUsernamePasswordToken;
 import com.len.util.VerifyCodeUtils;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,6 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,24 +84,49 @@ public class LoginController {
     @ApiOperation(value = "/login", httpMethod = "POST", notes = "登录method")
     @PostMapping(value = "/login")
     public String login(SysUser user, Model model, String rememberMe, HttpServletRequest request) {
-        String codeMsg = (String) request.getAttribute("shiroLoginFailure");
+        /*String codeMsg = (String) request.getAttribute("shiroLoginFailure");
         if ("code.error".equals(codeMsg)) {
             model.addAttribute("message", "验证码错误");
             return "/login";
-        }
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername().trim(),
-                user.getPassword());
+        }*/
+        CustomUsernamePasswordToken token = new CustomUsernamePasswordToken(user.getUsername().trim(),
+                user.getPassword(), "UserLogin");
         Subject subject = ShiroUtil.getSubject();
         String msg = null;
         try {
             subject.login(token);
-            //subject.hasRole("admin");
             if (subject.isAuthenticated()) {
                 return "redirect:/main";
             }
-        } catch (UnknownAccountException e) {
+        } catch (UnknownAccountException | IncorrectCredentialsException e) {
             msg = "用户名/密码错误";
-        } catch (IncorrectCredentialsException e) {
+        } catch (ExcessiveAttemptsException e) {
+            msg = "登录失败多次，账户锁定10分钟";
+        }
+        if (msg != null) {
+            model.addAttribute("message", msg);
+        }
+        return "/login";
+    }
+
+    @ApiOperation(value = "/blogLogin", httpMethod = "POST", notes = "登录method")
+    @PostMapping(value = "/blogLogin")
+    public String blogLogin(SysUser user, Model model, String rememberMe, HttpServletRequest request) {
+        /*String codeMsg = (String) request.getAttribute("shiroLoginFailure");
+        if ("code.error".equals(codeMsg)) {
+            model.addAttribute("message", "验证码错误");
+            return "/login";
+        }*/
+        CustomUsernamePasswordToken token = new CustomUsernamePasswordToken(user.getUsername().trim(),
+                user.getPassword(), "BlogLogin");
+        Subject subject = ShiroUtil.getSubject();
+        String msg = null;
+        try {
+            subject.login(token);
+            if (subject.isAuthenticated()) {
+                return "redirect:/main";
+            }
+        } catch (UnknownAccountException | IncorrectCredentialsException e) {
             msg = "用户名/密码错误";
         } catch (ExcessiveAttemptsException e) {
             msg = "登录失败多次，账户锁定10分钟";
@@ -113,7 +138,7 @@ public class LoginController {
     }
 
     @GetMapping("/main")
-    public String main(){
+    public String main() {
         return "main/main";
     }
 
@@ -162,7 +187,7 @@ public class LoginController {
 
             //生成随机字串
             String verifyCode = VerifyCodeUtils.generateVerifyCode(4);
-            log.info("verifyCode:{}",verifyCode);
+            log.info("verifyCode:{}", verifyCode);
             //存入会话session
             HttpSession session = request.getSession(true);
             session.setAttribute("_code", verifyCode.toLowerCase());

@@ -11,17 +11,8 @@ import com.len.service.MenuService;
 import com.len.service.RoleMenuService;
 import com.len.service.RoleUserService;
 import com.len.service.SysUserService;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -33,13 +24,17 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 /**
  * @author zhuxiaomeng
  * @date 2017/12/4.
  * @email 154040976@qq.com
  */
 @Service
-public class LoginRealm extends AuthorizingRealm  {
+public class BlogRealm extends AuthorizingRealm {
 
   @Autowired
   private SysUserService userService;
