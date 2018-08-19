@@ -6,6 +6,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.len.base.BaseController;
 import com.len.entity.BlogLabel;
 import com.len.service.BlogLabelService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +37,7 @@ public class LabelController extends BaseController {
      * @return
      */
     @GetMapping("/getLabel")
+    @RequiresRoles("admin")
     public JSONArray label() {
         List<BlogLabel> blogLabels = blogLabelService.selectAll();
         JSONArray array = JSONArray.parseArray(JSON.toJSONString(blogLabels));

@@ -1,15 +1,24 @@
 package com.len.controller;
 
+import com.len.entity.SysRole;
+import com.len.entity.SysRoleUser;
 import com.len.entity.SysUser;
+import com.len.service.RoleService;
+import com.len.service.RoleUserService;
 import com.len.service.SysUserService;
 import com.len.util.JWTUtil;
+import com.len.util.JsonUtil;
 import com.len.util.Md5Util;
-import org.apache.shiro.authz.UnauthorizedException;
+import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import tk.mybatis.mapper.entity.Condition;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author zhuxiaomeng
@@ -17,23 +26,48 @@ import org.springframework.web.bind.annotation.RestController;
  * @email 154040976@qq.com
  */
 @RestController
-@RequestMapping("/blog")
+@RequestMapping("/")
 public class SignController {
 
     @Autowired
     private SysUserService sysUserService;
 
-    @PostMapping("/login")
-    public String login(@RequestParam("username") String username,
-                              @RequestParam("password") String password) {
-        SysUser user=new SysUser();
-        user.setUsername(username);
-        SysUser sysUser=sysUserService.selectOne(user);
-        String pass = Md5Util.getMD5(password, username);
-        if (sysUser.getPassword().equals(pass)) {
-            return JWTUtil.sign(username, password);
-        } else {
-            throw new UnauthorizedException();
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private RoleUserService roleUserService;
+
+    @ApiOperation(value = "/blogLogin", httpMethod = "POST", notes = "登录method")
+    @PostMapping(value = "/blogLogin")
+    public JsonUtil blogLogin(SysUser user) {
+        String pass = user.getPassword();
+        user.setPassword(null);
+        SysUser sysUser = sysUserService.selectOne(user);
+        if (sysUser == null) {
+            throw new UnknownAccountException("用户名或密码错误");
         }
+        String md5 = Md5Util.getMD5(pass, sysUser.getUsername());
+        if (!md5.equals(sysUser.getPassword())) {
+            throw new UnknownAccountException("用户名或密码错误");
+        }
+
+        Condition condition = new Condition(SysRoleUser.class);
+        condition.createCriteria().andEqualTo("userId", user.getId());
+        List<SysRoleUser> sysRoleUsers = roleUserService.selectByExample(condition);
+        List<String> roleList = sysRoleUsers
+                .stream()
+                .map(SysRoleUser::getRoleId)
+                .collect(Collectors.toList());
+
+        condition = new Condition(SysRole.class);
+        condition.createCriteria().andIn("id", roleList);
+        List<SysRole> sysRoles = roleService.selectByExample(condition);
+        List<String> roleNames = sysRoles
+                .stream()
+                .map(SysRole::getRoleName)
+                .collect(Collectors.toList());
+
+        return new JsonUtil(true, JWTUtil.sign(sysUser.getUsername(), roleNames, sysUser.getPassword()), 200);
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
  * @email 154040976@qq.com
  * mapper封装 crud
  */
-public interface BaseMapper<T, E extends Serializable> extends tk.mybatis.mapper.common.BaseMapper<T>, MySqlMapper<T>, IdsMapper<T> {
+public interface BaseMapper<T, E extends Serializable> extends tk.mybatis.mapper.common.Mapper<T>, MySqlMapper<T>, IdsMapper<T> {
     /*
      *//**
      * 根据id删除

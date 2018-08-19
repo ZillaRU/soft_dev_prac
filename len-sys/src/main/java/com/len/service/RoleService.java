@@ -12,6 +12,7 @@ import java.util.List;
 public interface RoleService extends BaseService<SysRole,String> {
 
 
+  @Override
   int deleteByPrimaryKey(String id);
 
   @Override

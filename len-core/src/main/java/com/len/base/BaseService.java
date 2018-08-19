@@ -1,8 +1,10 @@
 package com.len.base;
 
 import com.len.util.ReType;
+import org.apache.ibatis.session.RowBounds;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author zhuxiaomeng
@@ -10,54 +12,60 @@ import java.io.Serializable;
  * @email 154040976@qq.com
  * 通用service层
  */
-public interface BaseService<T, E extends Serializable> extends BaseMapper<T, E> {
-    /**
-     * 根据id删除
-     * @param id
-     * @return
-     *//*
-  int deleteByPrimaryKey(E id);
+public interface BaseService<T, E extends Serializable> {
 
-  *//**
-     * 插入
-     * @param record
-     * @return
-     *//*
-  int insert(T record);
+    public List<T> select(T t);
 
-  *//**
-     *插入非空字段
-     * @param record
-     * @return
-     *//*
-  int insertSelective(T record);
+    public List<T> selectAll();
 
-  *//**
-     * 根据id查询
-     * @param id
-     * @return
-     *//*
-  T selectByPrimaryKey(E id);
+    public List<T> selectByIds(String ids);
 
-  *//**
-     * 更新非空数据
-     * @param record
-     * @return
-     *//*
-  int updateByPrimaryKeySelective(T record);
+    public int selectCount(T t);
 
-  */
+    public int deleteByPrimaryKey(E id);
 
-    /**
-     * 更新
-     *
-     * @param record
-     * @return
-     *//*
-  int updateByPrimaryKey(T record);
+    public int insert(T record);
 
+    public int insertSelective(T record);
 
-  List<T> selectListByPage(T record);*/
+    public int updateByPrimaryKeySelective(T record);
+
+    public int updateByPrimaryKey(T record);
+
+    public List<T> selectListByPage(T record);
+
+    public int deleteByPrimaryKey(Object o);
+
+    public int delete(T t);
+
+    public boolean existsWithPrimaryKey(Object o);
+
+    public T selectByPrimaryKey(Object o);
+
+    public T selectOne(T t);
+
+    public int deleteByIds(String s);
+
+    public int insertList(List<T> list);
+
+    public int insertUseGeneratedKeys(T t);
+
+    public int deleteByExample(Object o);
+
+    public List<T> selectByExample(Object o);
+
+    public int selectCountByExample(Object o);
+
+    public T selectOneByExample(Object o);
+
+    public int updateByExample(T t, Object o);
+
+    public int updateByExampleSelective(T t, Object o);
+
+    public List<T> selectByExampleAndRowBounds(Object o, RowBounds rowBounds);
+
+    public List<T> selectByRowBounds(T t, RowBounds rowBounds);
+
 
     public ReType show(T t, int page, int limit);
 

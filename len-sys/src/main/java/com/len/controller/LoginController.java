@@ -109,34 +109,6 @@ public class LoginController {
         return "/login";
     }
 
-    @ApiOperation(value = "/blogLogin", httpMethod = "POST", notes = "登录method")
-    @PostMapping(value = "/blogLogin")
-    public String blogLogin(SysUser user, Model model, String rememberMe, HttpServletRequest request) {
-        /*String codeMsg = (String) request.getAttribute("shiroLoginFailure");
-        if ("code.error".equals(codeMsg)) {
-            model.addAttribute("message", "验证码错误");
-            return "/login";
-        }*/
-        CustomUsernamePasswordToken token = new CustomUsernamePasswordToken(user.getUsername().trim(),
-                user.getPassword(), "BlogLogin");
-        Subject subject = ShiroUtil.getSubject();
-        String msg = null;
-        try {
-            subject.login(token);
-            if (subject.isAuthenticated()) {
-                return "redirect:/main";
-            }
-        } catch (UnknownAccountException | IncorrectCredentialsException e) {
-            msg = "用户名/密码错误";
-        } catch (ExcessiveAttemptsException e) {
-            msg = "登录失败多次，账户锁定10分钟";
-        }
-        if (msg != null) {
-            model.addAttribute("message", msg);
-        }
-        return "/login";
-    }
-
     @GetMapping("/main")
     public String main() {
         return "main/main";

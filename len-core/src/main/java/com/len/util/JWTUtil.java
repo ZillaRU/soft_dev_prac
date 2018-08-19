@@ -7,6 +7,7 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import java.util.Date;
+import java.util.List;
 
 public class JWTUtil {
 
@@ -34,8 +35,6 @@ public class JWTUtil {
     }
 
     /**
-     * 获得token中的信息无需secret解密也能获得
-     *
      * @return token中包含的用户名
      */
     public static String getUsername(String token) {
@@ -48,18 +47,37 @@ public class JWTUtil {
     }
 
     /**
+     * 获取角色组
+     *
+     * @param token
+     * @return
+     */
+    public static String[] getRoles(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim("roles").asArray(String.class);
+        } catch (JWTDecodeException e) {
+            return null;
+        }
+    }
+
+    /**
      * 生成签名,5min后过期
      *
      * @param username 用户名
      * @param secret   用户的密码
      * @return 加密的token
      */
-    public static String sign(String username, String secret) {
+    public static String sign(String username, List<String> roles, String secret) {
         Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         Algorithm algorithm = Algorithm.HMAC256(secret);
+        String[] roleArr = new String[roles.size()];
+        roleArr = roles.toArray(roleArr);
         // 附带username信息
         return JWT.create()
                 .withClaim("username", username)
+//                .withClaim("roles", role)
+                .withArrayClaim("roles", roleArr)
                 .withExpiresAt(date)
                 .sign(algorithm);
     }

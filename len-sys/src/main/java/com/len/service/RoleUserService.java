@@ -13,6 +13,7 @@ public interface RoleUserService  extends BaseService<SysRoleUser,String>{
 
   int deleteByPrimaryKey(SysRoleUser sysRoleUser);
 
+  @Override
   int insert(SysRoleUser sysRoleUser);
 
   int selectCountByCondition(SysRoleUser sysRoleUser);

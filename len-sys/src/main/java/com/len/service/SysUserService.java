@@ -47,6 +47,7 @@ public interface SysUserService extends BaseService<SysUser,String> {
   int checkUser(String username);
 
 
+
   @Override
   int updateByPrimaryKey(SysUser sysUser);
 
