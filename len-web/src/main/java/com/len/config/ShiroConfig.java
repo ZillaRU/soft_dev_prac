@@ -143,7 +143,8 @@ public class ShiroConfig {
         filterMap.put("/logout", "logout");
         filterMap.put("/plugin/**", "anon");
         filterMap.put("/user/**", "per");
-        filterMap.put("/blog/**", "jwt");
+        filterMap.put("/blog-admin/**", "jwt");
+        filterMap.put("/blog/**","anon");
         filterMap.put("/**", "authc");
         sfb.setFilterChainDefinitionMap(filterMap);
         return sfb;

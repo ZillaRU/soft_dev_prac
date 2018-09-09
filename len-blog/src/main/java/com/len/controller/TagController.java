@@ -4,10 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.len.base.BaseController;
-import com.len.entity.BlogLabel;
-import com.len.service.BlogLabelService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
+import com.len.entity.BlogTag;
+import com.len.service.BlogTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +22,10 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/blog")
-public class LabelController extends BaseController {
+public class TagController extends BaseController {
 
     @Autowired
-    private BlogLabelService blogLabelService;
+    private BlogTagService blogLabelService;
 
     private static String[] color = {"primary", "success", "error", "warning"};
 
@@ -36,10 +34,9 @@ public class LabelController extends BaseController {
      *
      * @return
      */
-    @GetMapping("/getLabel")
-    @RequiresRoles("admin")
+    @GetMapping("/getTag")
     public JSONArray label() {
-        List<BlogLabel> blogLabels = blogLabelService.selectAll();
+        List<BlogTag> blogLabels = blogLabelService.selectAll();
         JSONArray array = JSONArray.parseArray(JSON.toJSONString(blogLabels));
         int i = 0;
         JSONObject object;
