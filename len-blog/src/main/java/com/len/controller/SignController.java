@@ -55,7 +55,7 @@ public class SignController {
         Condition condition = new Condition(SysRoleUser.class);
         condition.createCriteria().andEqualTo("userId", sysUser.getId());
         List<SysRoleUser> sysRoleUsers = roleUserService.selectByExample(condition);
-        if(sysRoleUsers.isEmpty()){
+        if (sysRoleUsers.isEmpty()) {
             throw new UnknownAccountException("权限不足");
         }
         List<String> roleList = sysRoleUsers
@@ -67,7 +67,7 @@ public class SignController {
         condition.createCriteria().andIn("id", roleList);
         List<SysRole> sysRoles = roleService.selectByExample(condition);
         long isBlogAdmin = sysRoles.stream().filter(s -> "blogAdmin".equals(s.getRoleName())).count();
-        if(isBlogAdmin==0){
+        if (isBlogAdmin == 0) {
             throw new UnknownAccountException("权限不足");
         }
         List<String> roleNames = sysRoles
@@ -75,6 +75,6 @@ public class SignController {
                 .map(SysRole::getRoleName)
                 .collect(Collectors.toList());
 
-        return new JsonUtil(true, JWTUtil.sign(sysUser.getUsername(), roleNames, sysUser.getPassword()), 200);
+        return new JsonUtil(true, JWTUtil.sign(sysUser.getUsername(), sysUser.getId(), roleNames, sysUser.getPassword()), 200);
     }
 }

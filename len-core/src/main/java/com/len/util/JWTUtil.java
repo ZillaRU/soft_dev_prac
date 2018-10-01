@@ -65,18 +65,19 @@ public class JWTUtil {
      * 生成签名,5min后过期
      *
      * @param username 用户名
+     * @param userId   用户id
      * @param secret   用户的密码
      * @return 加密的token
      */
-    public static String sign(String username, List<String> roles, String secret) {
+    public static String sign(String username, String userId, List<String> roles, String secret) {
         Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         Algorithm algorithm = Algorithm.HMAC256(secret);
         String[] roleArr = new String[roles.size()];
         roleArr = roles.toArray(roleArr);
         // 附带username信息
         return JWT.create()
+                .withClaim("userId", userId)
                 .withClaim("username", username)
-//                .withClaim("roles", role)
                 .withArrayClaim("roles", roleArr)
                 .withExpiresAt(date)
                 .sign(algorithm);
