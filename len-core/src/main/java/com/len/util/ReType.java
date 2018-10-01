@@ -20,6 +20,8 @@ public class ReType implements Serializable{
   public String msg="";
   /**数据总数*/
   public long count;
+  /**页码*/
+  public long pageNum;
 
   public List<?> data;
 
@@ -28,6 +30,12 @@ public class ReType implements Serializable{
 
   public ReType(long count, List<?> data) {
     this.count = count;
+    this.data = data;
+  }
+
+  public ReType(long count,long pageNum, List<?> data) {
+    this.count = count;
+    this.pageNum=pageNum;
     this.data = data;
   }
 

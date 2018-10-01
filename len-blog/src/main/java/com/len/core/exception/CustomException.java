@@ -16,15 +16,22 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class CustomException {
 
-    /**
-     * 401
-     *
-     * @param e
-     * @return
-     */
+
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler({AuthenticationException.class, UnknownAccountException.class,UnauthorizedException.class})
+    @ExceptionHandler(AuthenticationException.class)
     public JsonUtil getAuthenticationException(AuthenticationException e) {
+        return new JsonUtil(false, e.getMessage(), 401);
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(UnknownAccountException.class)
+    public JsonUtil getUnknownAccountException(UnknownAccountException e) {
+        return new JsonUtil(false, e.getMessage(), 401);
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(UnauthorizedException.class)
+    public JsonUtil getUnauthorizedException(UnauthorizedException e) {
         return new JsonUtil(false, e.getMessage(), 401);
     }
 }

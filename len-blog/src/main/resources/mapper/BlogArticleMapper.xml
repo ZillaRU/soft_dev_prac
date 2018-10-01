@@ -20,11 +20,12 @@
 
 
   <select id="selectListByPage" parameterType="com.len.entity.BlogArticle" resultMap="BaseResultMap">
-    SELECT id,code,category_id,title,read_number,top_num
+    SELECT id,code,category_id,title,read_number,top_num,create_by,create_date,
+    left(content,50) content
     from blog_article
     <where>
-      <if test="title!=null and title!=''"> and job_name like '%${title}%'</if>
-      <if test="content!=null and content!=''"> and clazz_path like '%${content}%'</if>
+      <if test="title!=null and title!=''"> and title like concat(concat('%',#{title}),'%')</if>
+      <if test="content!=null and content!=''"> and content like concat(concat('%',#{content}),'%')</if>
     </where>
     order by read_number asc,create_date desc
   </select>

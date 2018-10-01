@@ -2,11 +2,15 @@ package com.len.core;
 
 import com.len.core.exception.UnauthorizedException;
 import com.len.util.JwtToken;
+import org.apache.shiro.util.StringUtils;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
+import org.apache.shiro.web.util.WebUtils;
 
+import javax.security.auth.Subject;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author zhuxiaomeng
@@ -22,11 +26,12 @@ public class MyBasicHttpAuthenticationFilter extends BasicHttpAuthenticationFilt
                 executeLogin(request, response);
                 return true;
             } catch (Exception e) {
-                throw new UnauthorizedException(e.getMessage());
+               // throw new RuntimeException(e.getMessage());
             }
-        } else {
+        } /*else {
             throw new UnauthorizedException("禁止访问");
-        }
+        }*/
+        return false;
     }
 
     @Override
@@ -43,5 +48,11 @@ public class MyBasicHttpAuthenticationFilter extends BasicHttpAuthenticationFilt
         HttpServletRequest req = (HttpServletRequest) request;
         String authorization = req.getHeader("Authorization");
         return authorization != null;
+    }
+
+    @Override
+    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
+        WebUtils.toHttp(response).sendError(HttpServletResponse.SC_UNAUTHORIZED,"访问被拒绝");
+        return false;
     }
 }

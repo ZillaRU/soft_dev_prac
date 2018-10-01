@@ -10,8 +10,12 @@ import com.len.util.JWTUtil;
 import com.len.util.JsonUtil;
 import com.len.util.Md5Util;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +31,10 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/")
+@Slf4j
 public class SignController {
+
+    private static final String INIT_BLOG_ROLE = "blogAdmin";
 
     @Autowired
     private SysUserService sysUserService;
@@ -38,9 +45,16 @@ public class SignController {
     @Autowired
     private RoleUserService roleUserService;
 
+    @Value("${len-blog.roles}")
+    private List<String> roles;
+
+
     @ApiOperation(value = "/blogLogin", httpMethod = "POST", notes = "登录method")
     @PostMapping(value = "/blogLogin")
     public JsonUtil blogLogin(SysUser user) {
+        if (StringUtils.isEmpty(user.getUsername()) || StringUtils.isEmpty(user.getPassword())) {
+            throw new UnknownAccountException("用户名或密码不能为空");
+        }
         String pass = user.getPassword();
         user.setPassword(null);
         SysUser sysUser = sysUserService.selectOne(user);
@@ -55,6 +69,7 @@ public class SignController {
         Condition condition = new Condition(SysRoleUser.class);
         condition.createCriteria().andEqualTo("userId", sysUser.getId());
         List<SysRoleUser> sysRoleUsers = roleUserService.selectByExample(condition);
+
         if (sysRoleUsers.isEmpty()) {
             throw new UnknownAccountException("权限不足");
         }
@@ -66,7 +81,11 @@ public class SignController {
         condition = new Condition(SysRole.class);
         condition.createCriteria().andIn("id", roleList);
         List<SysRole> sysRoles = roleService.selectByExample(condition);
-        long isBlogAdmin = sysRoles.stream().filter(s -> "blogAdmin".equals(s.getRoleName())).count();
+        if (roles == null || roles.isEmpty()) {
+            log.error("not init blog roles!");
+            roles.add(INIT_BLOG_ROLE);
+        }
+        long isBlogAdmin = sysRoles.stream().filter(s -> roles.contains(s.getRoleName())).count();
         if (isBlogAdmin == 0) {
             throw new UnknownAccountException("权限不足");
         }
