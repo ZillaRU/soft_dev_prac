@@ -6,12 +6,14 @@ import com.len.entity.BlogArticle;
 import com.len.mapper.BlogArticleMapper;
 import com.len.service.BlogArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author zhuxiaomeng
  * @date 2018/9/9.
  * @email 154040976@qq.com
  */
+@Service
 public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String> implements BlogArticleService {
 
     @Autowired
