@@ -11,8 +11,10 @@ import java.util.List;
 
 public class JWTUtil {
 
-    // 过期时间5分钟
-    private static final long EXPIRE_TIME = 5 * 60 * 1000;
+    /**
+     * 过期时间3小时
+     */
+    private static final long EXPIRE_TIME = 3 * 60 * 60 * 1000;
 
     /**
      * 校验token是否正确
@@ -62,7 +64,7 @@ public class JWTUtil {
     }
 
     /**
-     * 生成签名,5min后过期
+     * 生成签名
      *
      * @param username 用户名
      * @param userId   用户id
