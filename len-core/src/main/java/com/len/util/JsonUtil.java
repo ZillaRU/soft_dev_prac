@@ -18,6 +18,7 @@ public class JsonUtil {
     private String msg;
     private JSONObject josnObj;
     private Integer status;
+    private Object data;
 
     public boolean isFlag() {
         return flag;
