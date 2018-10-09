@@ -4,8 +4,12 @@ import com.len.entity.BlogArticle;
 import com.len.service.BlogArticleService;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
+import com.len.util.UploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import tk.mybatis.mapper.entity.Condition;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +30,12 @@ public class BlogAdminController {
 
     @Autowired
     private BlogArticleService articleService;
+
+    @Value("${lenosp.imagePath}")
+    private String imagePath;
+
+    @Autowired
+    private  UploadUtil uploadUtil;
 
     @GetMapping("/article/getList")
     public ReType getArticleList(BlogArticle article, Integer page, Integer limit) {
@@ -54,5 +64,17 @@ public class BlogAdminController {
         return json;
     }
 
-
+    @PostMapping("/article/addImage")
+    public JsonUtil addImage(MultipartHttpServletRequest request) {
+        MultipartFile multipartFile = request.getFile("file");
+        String path = uploadUtil.upload(multipartFile);
+        JsonUtil json = new JsonUtil();
+        StringBuffer requestURL = request.getRequestURL();
+        int serverPort = request.getServerPort();
+        int i = requestURL.indexOf(String.valueOf(serverPort));
+       String url= requestURL.substring(0,i);
+        json.setData(url+String.valueOf(serverPort)+"/img/"+path);
+        json.setFlag(true);
+        return json;
+    }
 }
