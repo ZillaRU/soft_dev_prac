@@ -1,13 +1,24 @@
 package test;
 
 import com.len.Application;
+import com.len.entity.BlogCategory;
+import com.len.entity.BlogTag;
+import com.len.entity.SysUser;
+import com.len.service.ArticleCategoryService;
+import com.len.service.BlogCategoryService;
 import com.len.service.BlogTagService;
+import com.len.service.SysUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * @author zhuxiaomeng
@@ -21,6 +32,18 @@ public class BlogTest {
 
     @Autowired
     private BlogTagService blogLabelService;
+
+    @Autowired
+    private BlogCategoryService categoryService;
+
+    @Autowired
+    private ArticleCategoryService articleCategoryService;
+
+    @Autowired
+    private SysUserService sysUserService;
+
+    @Autowired
+    private BlogTagService tagService;
 
     /**
      * 新建标签数据
@@ -42,5 +65,23 @@ public class BlogTest {
        /* boolean isOk = blogLabelService.insertList(blogLabels) > 0;
         System.out.println("录入数据："+isOk);*/
 
+    }
+
+    @Test
+    public void insertCategory() {
+       /* String[] cate = {"Java", "架构", "Linux", "其他"};
+        List<BlogCategory> categories=new ArrayList<>();
+        for (String aCate : cate) {
+            BlogCategory category = new BlogCategory();
+            category.setId(UUID.randomUUID().toString().replace("-", ""));
+            category.setName(aCate);
+            category.setCode(aCate);
+            category.setCreateDate(new Date());
+            category.setCreateBy("zxm");
+            category.setParentId("0");
+            categories.add(category);
+
+        }
+        categoryService.insertList(categories);*/
     }
 }

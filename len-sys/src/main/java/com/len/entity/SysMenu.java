@@ -22,7 +22,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class SysMenu {
     @Id
-    @GeneratedValue(generator = "JDBC")
+    @Column(name = "id")
     private String id;
 
     @NotEmpty(message = "菜单名称不能为空", groups = {AddGroup.class, UpdateGroup.class})

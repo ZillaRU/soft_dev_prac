@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "blog_article")
 public class BlogArticle {
     @Id
-    @GeneratedValue(generator = "JDBC")
+    @Column(name = "id")
     private String id;
 
     /**

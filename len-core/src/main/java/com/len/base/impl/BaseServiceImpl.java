@@ -72,7 +72,11 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
 
     @Override
     public int insert(T record) {
-        record = addValue(record, true);
+        try {
+            record = addValue(record, true);
+        }catch (Exception e){
+
+        }
         return getMappser().insert(record);
     }
 
@@ -123,20 +127,31 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
 
     @Override
     public int insertSelective(T record) {
-        record = addValue(record, true);
+        try {
+            record = addValue(record, true);
+        }catch (Exception e){
+        }
         return getMappser().insertSelective(record);
     }
 
 
     @Override
     public int updateByPrimaryKeySelective(T record) {
-        record = addValue(record, false);
+        try {
+            record = addValue(record, false);
+        }catch (Exception e){
+
+        }
         return getMappser().updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(T record) {
-        record = addValue(record, false);
+        try {
+            record = addValue(record, false);
+        }catch (Exception e){
+
+        }
         return getMappser().updateByPrimaryKey(record);
     }
 

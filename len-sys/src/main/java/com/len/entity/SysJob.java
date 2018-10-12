@@ -19,7 +19,7 @@ import java.util.Date;
 @EqualsAndHashCode
 public class SysJob {
     @Id
-    @GeneratedValue(generator = "JDBC")
+    @Column(name = "id")
     private String id;
 
     /**

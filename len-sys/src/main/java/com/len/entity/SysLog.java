@@ -9,7 +9,7 @@ import java.util.Date;
 @Table(name = "sys_log")
 public class SysLog {
     @Id
-    @GeneratedValue(generator = "JDBC")
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "user_name")

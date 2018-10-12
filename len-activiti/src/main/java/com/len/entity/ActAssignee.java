@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Table(name = "act_assignee")
 public class ActAssignee {
     @Id
-    @GeneratedValue(generator = "JDBC")
+    @Column(name = "id")
     private String id;
 
     /**

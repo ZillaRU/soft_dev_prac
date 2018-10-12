@@ -1,7 +1,9 @@
 package com.len.controller;
 
 import com.len.entity.BlogArticle;
+import com.len.entity.BlogTag;
 import com.len.service.BlogArticleService;
+import com.len.service.BlogTagService;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
 import com.len.util.UploadUtil;
@@ -14,8 +16,10 @@ import tk.mybatis.mapper.entity.Condition;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author zhuxiaomeng
@@ -37,8 +41,19 @@ public class BlogAdminController {
     @Autowired
     private  UploadUtil uploadUtil;
 
+
+    @Autowired
+    private BlogTagService tagService;
+
     @GetMapping("/article/getList")
     public ReType getArticleList(BlogArticle article, Integer page, Integer limit) {
+        BlogTag tag=new BlogTag();
+        tag.setId(UUID.randomUUID().toString().replace("-", ""));
+        tag.setTagCode("123");
+        tag.setTagName("123");
+        List<BlogTag> tags=new ArrayList<>();
+        tags.add(tag);
+        tagService.insertList(tags);
         return articleService.getList(article, page, limit);
     }
 

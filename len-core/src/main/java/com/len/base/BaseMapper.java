@@ -1,7 +1,6 @@
 package com.len.base;
 
 import tk.mybatis.mapper.common.IdsMapper;
-import tk.mybatis.mapper.common.MySqlMapper;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
  * @email 154040976@qq.com
  * mapper封装 crud
  */
-public interface BaseMapper<T, E extends Serializable> extends tk.mybatis.mapper.common.Mapper<T>, MySqlMapper<T>, IdsMapper<T> {
+public interface BaseMapper<T, E extends Serializable> extends tk.mybatis.mapper.common.Mapper<T>, LenInsertListAndinsertUseGeneratedKeysMapper<T>, IdsMapper<T> {
     /*
      *//**
      * 根据id删除
@@ -64,7 +63,6 @@ public interface BaseMapper<T, E extends Serializable> extends tk.mybatis.mapper
      * @param record
      * @return
      */
-
 
 
     List<T> selectListByPage(T record);

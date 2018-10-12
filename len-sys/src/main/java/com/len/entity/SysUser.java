@@ -17,7 +17,7 @@ import java.util.Date;
 @ToString
 public class SysUser {
     @Id
-    @GeneratedValue(generator = "JDBC")
+    @Column(name = "id")
     private String id;
 
     @NotEmpty(message = "用户名不能为空", groups = {AddGroup.class, UpdateGroup.class})

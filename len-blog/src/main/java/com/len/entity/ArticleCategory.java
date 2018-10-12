@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Table(name = "blog_article_category")
 public class ArticleCategory {
     @Id
-    @GeneratedValue(generator = "JDBC")
+    @Column(name = "id")
     private String id;
 
     /**

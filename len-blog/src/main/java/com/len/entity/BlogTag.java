@@ -1,11 +1,15 @@
 package com.len.entity;
 
+import org.apache.ibatis.type.JdbcType;
+import tk.mybatis.mapper.annotation.ColumnType;
+import tk.mybatis.mapper.annotation.KeySql;
+
 import javax.persistence.*;
 
 @Table(name = "blog_tag")
 public class BlogTag {
     @Id
-    @GeneratedValue(generator = "JDBC")
+    @Column(name = "id")
     private String id;
 
     /**

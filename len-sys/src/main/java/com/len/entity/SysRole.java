@@ -19,7 +19,7 @@ import java.util.Date;
 @EqualsAndHashCode
 public class SysRole {
     @Id
-    @GeneratedValue(generator = "JDBC")
+    @Column(name = "id")
     private String id;
 
     @NotEmpty(message = "角色名称不能为空", groups = {AddGroup.class, UpdateGroup.class})
