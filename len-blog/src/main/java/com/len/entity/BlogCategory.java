@@ -9,6 +9,9 @@ public class BlogCategory {
     @Column(name = "id")
     private String id;
 
+    @Column(name="sequence")
+    private Byte sequence;
+
     /**
      * 搜索code
      */
@@ -49,6 +52,15 @@ public class BlogCategory {
      */
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
+    }
+
+
+    public Byte getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Byte sequence) {
+        this.sequence = sequence;
     }
 
     /**

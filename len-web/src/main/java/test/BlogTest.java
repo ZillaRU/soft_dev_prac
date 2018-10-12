@@ -2,8 +2,6 @@ package test;
 
 import com.len.Application;
 import com.len.entity.BlogCategory;
-import com.len.entity.BlogTag;
-import com.len.entity.SysUser;
 import com.len.service.ArticleCategoryService;
 import com.len.service.BlogCategoryService;
 import com.len.service.BlogTagService;
@@ -69,11 +67,13 @@ public class BlogTest {
 
     @Test
     public void insertCategory() {
-       /* String[] cate = {"Java", "架构", "Linux", "其他"};
-        List<BlogCategory> categories=new ArrayList<>();
+        String[] cate = {"Java", "Linux", "架构", "其他"};
+        List<BlogCategory> categories = new ArrayList<>();
+        int i = 0;
         for (String aCate : cate) {
             BlogCategory category = new BlogCategory();
             category.setId(UUID.randomUUID().toString().replace("-", ""));
+            category.setSequence((byte) ++i);
             category.setName(aCate);
             category.setCode(aCate);
             category.setCreateDate(new Date());
@@ -82,6 +82,6 @@ public class BlogTest {
             categories.add(category);
 
         }
-        categoryService.insertList(categories);*/
+        categoryService.insertList(categories);
     }
 }
