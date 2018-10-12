@@ -1,7 +1,6 @@
 package com.len.controller;
 
 import com.len.entity.BlogArticle;
-import com.len.entity.BlogTag;
 import com.len.service.BlogArticleService;
 import com.len.service.BlogTagService;
 import com.len.util.JsonUtil;
@@ -14,12 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import tk.mybatis.mapper.entity.Condition;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author zhuxiaomeng
@@ -39,7 +33,7 @@ public class BlogAdminController {
     private String imagePath;
 
     @Autowired
-    private  UploadUtil uploadUtil;
+    private UploadUtil uploadUtil;
 
 
     @Autowired
@@ -47,13 +41,6 @@ public class BlogAdminController {
 
     @GetMapping("/article/getList")
     public ReType getArticleList(BlogArticle article, Integer page, Integer limit) {
-        BlogTag tag=new BlogTag();
-        tag.setId(UUID.randomUUID().toString().replace("-", ""));
-        tag.setTagCode("123");
-        tag.setTagName("123");
-        List<BlogTag> tags=new ArrayList<>();
-        tags.add(tag);
-        tagService.insertList(tags);
         return articleService.getList(article, page, limit);
     }
 
@@ -87,8 +74,8 @@ public class BlogAdminController {
         StringBuffer requestURL = request.getRequestURL();
         int serverPort = request.getServerPort();
         int i = requestURL.indexOf(String.valueOf(serverPort));
-       String url= requestURL.substring(0,i);
-        json.setData(url+String.valueOf(serverPort)+"/img/"+path);
+        String url = requestURL.substring(0, i);
+        json.setData(url + String.valueOf(serverPort) + "/img/" + path);
         json.setFlag(true);
         return json;
     }
