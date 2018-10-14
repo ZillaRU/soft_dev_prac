@@ -7,6 +7,6 @@
     -->
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="article_id" jdbcType="VARCHAR" property="articleId" />
-    <result column="tag_id" jdbcType="VARCHAR" property="tagId" />
+    <result column="category_id" jdbcType="VARCHAR" property="categoryId" />
   </resultMap>
 </mapper>

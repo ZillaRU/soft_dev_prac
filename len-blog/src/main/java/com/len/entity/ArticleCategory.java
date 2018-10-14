@@ -1,6 +1,8 @@
 package com.len.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "blog_article_category")
 public class ArticleCategory {
@@ -17,8 +19,8 @@ public class ArticleCategory {
     /**
      * 标签id
      */
-    @Column(name = "tag_id")
-    private String tagId;
+    @Column(name = "category_id")
+    private String categoryId;
 
     /**
      * @return id
@@ -52,21 +54,11 @@ public class ArticleCategory {
         this.articleId = articleId == null ? null : articleId.trim();
     }
 
-    /**
-     * 获取标签id
-     *
-     * @return tag_id - 标签id
-     */
-    public String getTagId() {
-        return tagId;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    /**
-     * 设置标签id
-     *
-     * @param tagId 标签id
-     */
-    public void setTagId(String tagId) {
-        this.tagId = tagId == null ? null : tagId.trim();
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 }

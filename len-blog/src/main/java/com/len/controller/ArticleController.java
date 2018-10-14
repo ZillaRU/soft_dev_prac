@@ -5,9 +5,11 @@ import com.github.pagehelper.PageHelper;
 import com.len.entity.ArticleList;
 import com.len.entity.BlogArticle;
 import com.len.service.BlogArticleService;
+import com.len.util.JsonUtil;
 import com.len.util.ReType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,6 +62,11 @@ public class ArticleController {
                         format.format(s.getCreateDate()), s.getContent())
                 )
         );
-        return new ReType(startPage.getTotal(),startPage.getPageNum(), articleLists);
+        return new ReType(startPage.getTotal(), startPage.getPageNum(), articleLists);
+    }
+
+    @GetMapping("/article/getDetail/{code}")
+    public JsonUtil getDetail(@PathVariable("code") String code) {
+        return articleService.getDetail(code);
     }
 }

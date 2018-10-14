@@ -7,7 +7,6 @@
     -->
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="category_id" jdbcType="VARCHAR" property="categoryId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="read_number" jdbcType="INTEGER" property="readNumber" />
     <result column="top_num" jdbcType="INTEGER" property="topNum" />
@@ -20,7 +19,7 @@
 
 
   <select id="selectListByPage" parameterType="com.len.entity.BlogArticle" resultMap="BaseResultMap">
-    SELECT id,code,category_id,title,read_number,top_num,create_by,create_date,
+    SELECT id,code,title,read_number,top_num,create_by,create_date,
     left(content,50) content
     from blog_article
     <where>

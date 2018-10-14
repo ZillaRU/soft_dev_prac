@@ -1,19 +1,25 @@
 package com.len.controller;
 
+import com.len.entity.ArticleCategory;
 import com.len.entity.BlogArticle;
+import com.len.entity.BlogCategory;
+import com.len.model.VArticle;
+import com.len.service.ArticleCategoryService;
 import com.len.service.BlogArticleService;
+import com.len.service.BlogCategoryService;
 import com.len.service.BlogTagService;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
 import com.len.util.UploadUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import tk.mybatis.mapper.entity.Condition;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * @author zhuxiaomeng
@@ -24,6 +30,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/blog-admin")
+@Slf4j
 public class BlogAdminController {
 
     @Autowired
@@ -39,6 +46,12 @@ public class BlogAdminController {
     @Autowired
     private BlogTagService tagService;
 
+    @Autowired
+    private BlogCategoryService categoryService;
+
+    @Autowired
+    private ArticleCategoryService articleCategoryService;
+
     @GetMapping("/article/getList")
     public ReType getArticleList(BlogArticle article, Integer page, Integer limit) {
         return articleService.getList(article, page, limit);
@@ -52,17 +65,15 @@ public class BlogAdminController {
      */
     @GetMapping("/article/getDetail/{code}")
     public JsonUtil getDetail(@PathVariable("code") String code) {
+        return articleService.getDetail(code);
+    }
+
+    @GetMapping("/article/getCategory")
+    public JsonUtil getCategory() {
         JsonUtil json = new JsonUtil();
-        Condition condition = new Condition(BlogArticle.class);
-        condition.createCriteria().andEqualTo("code", code);
-        List<BlogArticle> articles = articleService.selectByExample(condition);
-        if (articles.isEmpty()) {
-            json.setStatus(404);
-            json.setFlag(false);
-            return json;
-        }
-        json.setData(articles.get(0));
-        json.setFlag(true);
+        List<BlogCategory> categories = categoryService.selectAll();
+        categories.sort(Comparator.comparing(BlogCategory::getSequence));
+        json.setData(categories);
         return json;
     }
 
@@ -78,5 +89,74 @@ public class BlogAdminController {
         json.setData(url + String.valueOf(serverPort) + "/img/" + path);
         json.setFlag(true);
         return json;
+    }
+
+    @PostMapping("/article/add")
+    public JsonUtil addArticle(VArticle article) {
+        JsonUtil json = new JsonUtil();
+        json.setStatus(400);
+        if (article == null) {
+            json.setMsg("数据获取失败");
+            return json;
+        }
+        if (StringUtils.isEmpty(article.getTitle())) {
+            json.setMsg("标题不能为空");
+            return json;
+        }
+        if (StringUtils.isEmpty(article.getContent())) {
+            json.setMsg("内容不能为空");
+            return json;
+        }
+        if (article.getCategory().length == 0) {
+            json.setMsg("类别不能为空");
+            return json;
+        }
+        if (article.getTags().length == 0) {
+            json.setMsg("标签不能为空");
+            return json;
+        }
+
+        String articleId = UUID.randomUUID().toString().replace("-", "");
+        BlogArticle blogArticle = new BlogArticle();
+        blogArticle.setCode(generatorCode());
+        blogArticle.setContent(article.getContent());
+        blogArticle.setReadNumber(0);
+        blogArticle.setTitle(article.getTitle());
+        blogArticle.setTopNum(0);
+        blogArticle.setId(articleId);
+        blogArticle.setCreateDate(new Date());
+        blogArticle.setCreateBy("zxm");
+        articleService.insert(blogArticle);
+
+        List<ArticleCategory> categories = new ArrayList<>();
+        for (String cateId : article.getCategory()) {
+            ArticleCategory articleCategory = new ArticleCategory();
+            articleCategory.setId(UUID.randomUUID().toString().replace("-", ""));
+            articleCategory.setArticleId(articleId);
+            articleCategory.setCategoryId(cateId);
+            categories.add(articleCategory);
+        }
+        articleCategoryService.insertList(categories);
+
+
+        json.setStatus(200);
+        json.setMsg("文章发表成功");
+        return json;
+    }
+
+    private String generatorCode() {
+        Random random = new Random();
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < 8; i++) {
+            result.append(random.nextInt(9) + 1);
+        }
+        BlogArticle article = new BlogArticle();
+        article.setCode(result.toString());
+        BlogArticle blogArticle = articleService.selectOne(article);
+        if (blogArticle == null) {
+            return result.toString();
+        } else {
+            return generatorCode();
+        }
     }
 }

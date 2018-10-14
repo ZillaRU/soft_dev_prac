@@ -2,6 +2,7 @@ package com.len.service;
 
 import com.len.base.BaseService;
 import com.len.entity.BlogArticle;
+import com.len.util.JsonUtil;
 
 /**
  * @author zhuxiaomeng
@@ -9,4 +10,6 @@ import com.len.entity.BlogArticle;
  * @email 154040976@qq.com
  */
 public interface BlogArticleService extends BaseService<BlogArticle, String> {
+
+    public JsonUtil getDetail(String code);
 }

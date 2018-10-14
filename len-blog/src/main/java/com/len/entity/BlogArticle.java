@@ -14,11 +14,6 @@ public class BlogArticle {
      */
     private String code;
 
-    /**
-     * 类别id
-     */
-    @Column(name = "category_id")
-    private String categoryId;
 
     /**
      * 标题
@@ -84,24 +79,6 @@ public class BlogArticle {
      */
     public void setCode(String code) {
         this.code = code == null ? null : code.trim();
-    }
-
-    /**
-     * 获取类别id
-     *
-     * @return category_id - 类别id
-     */
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    /**
-     * 设置类别id
-     *
-     * @param categoryId 类别id
-     */
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId == null ? null : categoryId.trim();
     }
 
     /**
