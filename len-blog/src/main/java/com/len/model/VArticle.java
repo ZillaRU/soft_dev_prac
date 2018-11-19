@@ -2,6 +2,9 @@ package com.len.model;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author zhuxiaomeng
  * @date 2018/10/14.
@@ -14,7 +17,7 @@ public class VArticle {
 
     private String content;
 
-    private String[] category;
+    private List<String> category=new ArrayList<>();
 
-    private String[] tags;
+    private List<String> tags=new ArrayList<>();
 }

@@ -41,7 +41,7 @@
       <property name="enableSubPackages" value="true"/>
     </javaClientGenerator>
     <!--生成table 先建表 后生成 勿随意覆盖本身table 避免功能缺失  测试 自己找其他表测试 by zxm-->
-    <table tableName="blog_label" domainObjectName="BlogLabel">
+    <table tableName="blog_article_tag" domainObjectName="ArticleTag">
       <generatedKey column="id" sqlStatement="JDBC"/>
     </table>
     <!-- enableCountByExample="false"

@@ -1,13 +1,8 @@
 package com.len.controller;
 
-import com.len.entity.ArticleCategory;
-import com.len.entity.BlogArticle;
-import com.len.entity.BlogCategory;
+import com.len.entity.*;
 import com.len.model.VArticle;
-import com.len.service.ArticleCategoryService;
-import com.len.service.BlogArticleService;
-import com.len.service.BlogCategoryService;
-import com.len.service.BlogTagService;
+import com.len.service.*;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
 import com.len.util.UploadUtil;
@@ -15,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -51,6 +47,9 @@ public class BlogAdminController {
 
     @Autowired
     private ArticleCategoryService articleCategoryService;
+
+    @Autowired
+    private ArticleTagService articleTagService;
 
     @GetMapping("/article/getList")
     public ReType getArticleList(BlogArticle article, Integer page, Integer limit) {
@@ -92,6 +91,7 @@ public class BlogAdminController {
     }
 
     @PostMapping("/article/add")
+    @Transactional
     public JsonUtil addArticle(VArticle article) {
         JsonUtil json = new JsonUtil();
         json.setStatus(400);
@@ -107,11 +107,11 @@ public class BlogAdminController {
             json.setMsg("内容不能为空");
             return json;
         }
-        if (article.getCategory().length == 0) {
+        if (article.getCategory().isEmpty()) {
             json.setMsg("类别不能为空");
             return json;
         }
-        if (article.getTags().length == 0) {
+        if (article.getTags().isEmpty()) {
             json.setMsg("标签不能为空");
             return json;
         }
@@ -138,6 +138,35 @@ public class BlogAdminController {
         }
         articleCategoryService.insertList(categories);
 
+        List<ArticleTag> articleTags = new ArrayList<>();
+        List<BlogTag> blogTags = new ArrayList<>();
+        ArticleTag articleTag;
+        BlogTag blogTag;
+        BlogTag oldTag;
+        for (String tag : article.getTags()) {
+            articleTag = new ArticleTag();
+            articleTags.add(articleTag);
+
+            articleTag.setArticleId(articleId);
+
+            blogTag = new BlogTag();
+            blogTag.setTagCode(tag);
+            oldTag = tagService.selectOne(blogTag);
+
+            if (oldTag != null) {
+                articleTag.setTagId(oldTag.getId());
+            } else {
+                blogTags.add(blogTag);
+                String id = UUID.randomUUID().toString().replace("-", "");
+                blogTag.setId(id);
+                blogTag.setTagName(tag);
+                articleTag.setTagId(id);
+            }
+        }
+        articleTagService.insertList(articleTags);
+        if (!blogTags.isEmpty()) {
+            tagService.insertList(blogTags);
+        }
 
         json.setStatus(200);
         json.setMsg("文章发表成功");
