@@ -9,4 +9,16 @@
     <result column="article_id" jdbcType="VARCHAR" property="articleId" />
     <result column="category_id" jdbcType="VARCHAR" property="categoryId" />
   </resultMap>
+  <delete id="delByIds">
+    delete from blog_article_category
+    <where>
+      <if test="ids!=null and ids.size()>0">
+        id in(
+        <foreach collection="ids" separator="," item="id">
+          #{id}
+        </foreach>
+        )
+      </if>
+    </where>
+  </delete>
 </mapper>

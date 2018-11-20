@@ -8,6 +8,8 @@ import com.len.service.ArticleCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author zhuxiaomeng
  * @date 2018/10/11.
@@ -23,5 +25,10 @@ public class ArticleCategoryServiceImpl extends BaseServiceImpl<ArticleCategory,
     @Override
     public BaseMapper<ArticleCategory, String> getMappser() {
         return articleCategoryMapper;
+    }
+
+    @Override
+    public void delByIds(List<String> ids) {
+        articleCategoryMapper.delByIds(ids);
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author zhuxiaomeng
@@ -170,6 +171,103 @@ public class BlogAdminController {
 
         json.setStatus(200);
         json.setMsg("文章发表成功");
+        return json;
+    }
+
+    @PostMapping("/article/update")
+    @Transactional
+    public JsonUtil updateArticle(@RequestBody ArticleDetail detail) {
+        JsonUtil json = new JsonUtil();
+        BlogArticle article = detail.getArticle();
+        json.setFlag(false);
+        json.setStatus(400);
+        if (StringUtils.isBlank(article.getId())) {
+            json.setMsg("数据获取失败");
+            return json;
+        }
+        if (StringUtils.isBlank(article.getTitle())) {
+            json.setMsg("标题不能为空");
+            return json;
+        }
+        if (StringUtils.isBlank(article.getContent())) {
+            json.setMsg("内容不能为空");
+            return json;
+        }
+        List<String> categoryIds = detail.getCategory();
+        if (categoryIds.isEmpty()) {
+            json.setMsg("类别不能为空");
+            return json;
+        }
+        List<String> tags = detail.getTags();
+        if (tags.isEmpty()) {
+            json.setMsg("标签不能为空");
+            return json;
+        }
+        articleService.updateByPrimaryKey(article);
+
+        ArticleTag articleTag = new ArticleTag();
+        articleTag.setArticleId(article.getId());
+        articleTagService.delete(articleTag);
+
+        List<ArticleTag> articleTags = new ArrayList<>();
+        List<BlogTag> blogTags = new ArrayList<>();
+        BlogTag needAddTag;
+        for (String tag : tags) {
+            articleTag = new ArticleTag();
+            articleTags.add(articleTag);
+            articleTag.setArticleId(article.getId());
+            BlogTag blogTag = new BlogTag();
+            blogTag.setTagCode(tag);
+            BlogTag tag1 = tagService.selectOne(blogTag);
+            if (tag1 != null) {
+                articleTag.setTagId(tag1.getId());
+            } else {
+                String tagId = UUID.randomUUID().toString().replace("-", "");
+                articleTag.setTagId(tagId);
+
+                needAddTag = new BlogTag();
+                blogTags.add(needAddTag);
+                needAddTag.setId(tagId);
+                needAddTag.setTagCode(tag);
+                needAddTag.setTagName(tag);
+            }
+        }
+        if (!blogTags.isEmpty()) {
+            tagService.insertList(blogTags);
+        }
+
+        articleTagService.insertList(articleTags);
+        ArticleCategory articleCategory = new ArticleCategory();
+        articleCategory.setArticleId(article.getId());
+        List<ArticleCategory> categories = articleCategoryService.select(articleCategory);
+        if (!categories.isEmpty()) {
+            List<String> cateIds = categories.stream().map(ArticleCategory::getCategoryId)
+                    .collect(Collectors.toList());
+            List<String> collect = cateIds.stream().filter(categoryIds::contains)
+                    .collect(Collectors.toList());
+            categoryIds.removeAll(collect);
+            cateIds.removeAll(collect);
+            if (!cateIds.isEmpty()) {
+                List<String> delCategoryIds = categories.stream().filter(s->cateIds.contains(s.getCategoryId()))
+                        .map(ArticleCategory::getId)
+                        .collect(Collectors.toList());
+                articleCategoryService.delByIds(delCategoryIds);
+            }
+        }
+        if (!categoryIds.isEmpty()) {
+            List<ArticleCategory> articleCategories = new ArrayList<>();
+            ArticleCategory category;
+            for (String ca : categoryIds) {
+                category = new ArticleCategory();
+                articleCategories.add(category);
+                category.setId(UUID.randomUUID().toString().replace("-", ""));
+                category.setArticleId(article.getId());
+                category.setCategoryId(ca);
+            }
+            articleCategoryService.insertList(articleCategories);
+        }
+        json.setStatus(200);
+        json.setMsg("更新成功");
         return json;
     }
 
