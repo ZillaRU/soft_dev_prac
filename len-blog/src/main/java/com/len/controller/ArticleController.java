@@ -2,16 +2,22 @@ package com.len.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.len.entity.ArticleCategory;
 import com.len.entity.ArticleList;
 import com.len.entity.BlogArticle;
+import com.len.entity.BlogCategory;
+import com.len.service.ArticleCategoryService;
 import com.len.service.BlogArticleService;
+import com.len.service.BlogCategoryService;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tk.mybatis.mapper.entity.Condition;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +36,12 @@ public class ArticleController {
 
     @Autowired
     private BlogArticleService articleService;
+
+    @Autowired
+    private ArticleCategoryService articleCategoryService;
+
+    @Autowired
+    private BlogCategoryService categoryService;
 
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -50,10 +62,11 @@ public class ArticleController {
     }
 
     @GetMapping("/article/list")
-    public ReType getList(BlogArticle article, Integer page, Integer limit) {
+    public ReType getList(String code, Integer page, Integer limit) {
         limit = limit > 100 ? 100 : limit;
         Page<Object> startPage = PageHelper.startPage(page, limit);
-        List<BlogArticle> articles = articleService.selectListByPage(article);
+
+        List<BlogArticle> articles = articleService.selectArticle(code);
 
         List<ArticleList> articleLists = new ArrayList<>();
         articles.forEach(s -> articleLists.add(
@@ -62,6 +75,7 @@ public class ArticleController {
                         format.format(s.getCreateDate()), s.getContent())
                 )
         );
+        long total = startPage.getTotal();
         return new ReType(startPage.getTotal(), startPage.getPageNum(), articleLists);
     }
 

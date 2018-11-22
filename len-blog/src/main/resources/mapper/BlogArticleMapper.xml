@@ -28,4 +28,25 @@
     </where>
     order by read_number asc,create_date desc
   </select>
+
+  <select id="selectArticle" resultMap="BaseResultMap">
+      select ba.id,ba.code,ba.title,ba.read_number,ba.top_num,ba.create_by,ba.create_date,
+        left(ba.content,50) content
+      from
+        blog_article ba
+      left JOIN
+        blog_article_category bac
+      on
+        ba.id=bac.article_id
+      LEFT JOIN
+        blog_category bc
+      on
+        bac.category_id=bc.id
+     <where>
+       <if test="code!=null and code!=''">
+         bc.code=#{code}
+       </if>
+     </where>
+    order by ba.top_num desc,ba.create_date desc
+  </select>
 </mapper>

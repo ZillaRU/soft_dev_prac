@@ -78,4 +78,9 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
         json.setFlag(true);
         return json;
     }
+
+    @Override
+    public List<BlogArticle> selectArticle(String code) {
+        return blogArticleMapper.selectArticle(code);
+    }
 }

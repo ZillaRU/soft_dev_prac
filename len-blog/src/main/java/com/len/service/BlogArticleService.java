@@ -4,6 +4,8 @@ import com.len.base.BaseService;
 import com.len.entity.BlogArticle;
 import com.len.util.JsonUtil;
 
+import java.util.List;
+
 /**
  * @author zhuxiaomeng
  * @date 2018/9/9.
@@ -12,4 +14,6 @@ import com.len.util.JsonUtil;
 public interface BlogArticleService extends BaseService<BlogArticle, String> {
 
     public JsonUtil getDetail(String code);
+
+    List<BlogArticle> selectArticle(String code);
 }

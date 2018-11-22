@@ -55,7 +55,6 @@ public class BlogAdminController {
 
     @GetMapping("/article/getList")
     public ReType getArticleList(BlogArticle article, Integer page, Integer limit) {
-        Principal principal = LenUser.getPrincipal();
         return articleService.getList(article, page, limit);
     }
 
