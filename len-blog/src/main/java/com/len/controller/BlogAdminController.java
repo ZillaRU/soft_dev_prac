@@ -1,9 +1,10 @@
 package com.len.controller;
 
+import com.len.core.LenUser;
 import com.len.entity.*;
-import com.len.model.VArticle;
 import com.len.service.*;
 import com.len.util.JsonUtil;
+import com.len.util.Principal;
 import com.len.util.ReType;
 import com.len.util.UploadUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -54,6 +55,7 @@ public class BlogAdminController {
 
     @GetMapping("/article/getList")
     public ReType getArticleList(BlogArticle article, Integer page, Integer limit) {
+        Principal principal = LenUser.getPrincipal();
         return articleService.getList(article, page, limit);
     }
 
@@ -93,9 +95,10 @@ public class BlogAdminController {
 
     @PostMapping("/article/add")
     @Transactional
-    public JsonUtil addArticle(VArticle article) {
+    public JsonUtil addArticle(@RequestBody ArticleDetail detail) {
         JsonUtil json = new JsonUtil();
         json.setStatus(400);
+        BlogArticle article = detail.getArticle();
         if (article == null) {
             json.setMsg("数据获取失败");
             return json;
@@ -108,29 +111,24 @@ public class BlogAdminController {
             json.setMsg("内容不能为空");
             return json;
         }
-        if (article.getCategory().isEmpty()) {
+        if (detail.getCategory().isEmpty()) {
             json.setMsg("类别不能为空");
             return json;
         }
-        if (article.getTags().isEmpty()) {
+        if (detail.getTags().isEmpty()) {
             json.setMsg("标签不能为空");
             return json;
         }
 
         String articleId = UUID.randomUUID().toString().replace("-", "");
-        BlogArticle blogArticle = new BlogArticle();
-        blogArticle.setCode(generatorCode());
-        blogArticle.setContent(article.getContent());
-        blogArticle.setReadNumber(0);
-        blogArticle.setTitle(article.getTitle());
-        blogArticle.setTopNum(0);
-        blogArticle.setId(articleId);
-        blogArticle.setCreateDate(new Date());
-        blogArticle.setCreateBy("zxm");
-        articleService.insert(blogArticle);
+        article.setCode(generatorCode());
+        article.setId(articleId);
+        article.setCreateDate(new Date());
+        article.setCreateBy(LenUser.getPrincipal().getUserId());
+        articleService.insert(article);
 
         List<ArticleCategory> categories = new ArrayList<>();
-        for (String cateId : article.getCategory()) {
+        for (String cateId : detail.getCategory()) {
             ArticleCategory articleCategory = new ArticleCategory();
             articleCategory.setId(UUID.randomUUID().toString().replace("-", ""));
             articleCategory.setArticleId(articleId);
@@ -144,7 +142,7 @@ public class BlogAdminController {
         ArticleTag articleTag;
         BlogTag blogTag;
         BlogTag oldTag;
-        for (String tag : article.getTags()) {
+        for (String tag : detail.getTags()) {
             articleTag = new ArticleTag();
             articleTags.add(articleTag);
 
@@ -203,6 +201,8 @@ public class BlogAdminController {
             json.setMsg("标签不能为空");
             return json;
         }
+        article.setUpdateBy(LenUser.getPrincipal().getUserId());
+        article.setUpdateDate(new Date());
         articleService.updateByPrimaryKey(article);
 
         ArticleTag articleTag = new ArticleTag();
@@ -248,7 +248,7 @@ public class BlogAdminController {
             categoryIds.removeAll(collect);
             cateIds.removeAll(collect);
             if (!cateIds.isEmpty()) {
-                List<String> delCategoryIds = categories.stream().filter(s->cateIds.contains(s.getCategoryId()))
+                List<String> delCategoryIds = categories.stream().filter(s -> cateIds.contains(s.getCategoryId()))
                         .map(ArticleCategory::getId)
                         .collect(Collectors.toList());
                 articleCategoryService.delByIds(delCategoryIds);

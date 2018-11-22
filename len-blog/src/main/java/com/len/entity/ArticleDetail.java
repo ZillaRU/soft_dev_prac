@@ -15,7 +15,7 @@ public class ArticleDetail {
     /**
      * 文章对象
      */
-    BlogArticle article = new BlogArticle();
+    BlogArticle article;
     /**
      * 文章标签
      */

@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +44,28 @@ public class JWTUtil {
         try {
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim("username").asString();
+        } catch (JWTDecodeException e) {
+            return null;
+        }
+    }
+
+    /**
+     * 获取当前用户
+     *
+     * @param token jwt加密信息
+     * @return 解析的当前用户信息
+     */
+    public static Principal getPrincipal(String token) {
+        try {
+            Principal principal = new Principal();
+            DecodedJWT jwt = JWT.decode(token);
+            principal.setUserId(jwt.getClaim("userId").asString());
+            principal.setUserName(jwt.getClaim("username").asString());
+            String[] roleArr = jwt.getClaim("roles").asArray(String.class);
+            if (roleArr != null) {
+                principal.setRoles(Arrays.asList(roleArr));
+            }
+            return principal;
         } catch (JWTDecodeException e) {
             return null;
         }
