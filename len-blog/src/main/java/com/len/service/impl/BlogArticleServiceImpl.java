@@ -83,4 +83,9 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
     public List<BlogArticle> selectArticle(String code) {
         return blogArticleMapper.selectArticle(code);
     }
+
+    @Override
+    public List<BlogArticle> selectArticleByTag(String tagCode) {
+        return blogArticleMapper.selectArticleByTag(tagCode);
+    }
 }

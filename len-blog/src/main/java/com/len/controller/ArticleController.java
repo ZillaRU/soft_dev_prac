@@ -2,22 +2,18 @@ package com.len.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.len.entity.ArticleCategory;
 import com.len.entity.ArticleList;
 import com.len.entity.BlogArticle;
-import com.len.entity.BlogCategory;
 import com.len.service.ArticleCategoryService;
 import com.len.service.BlogArticleService;
 import com.len.service.BlogCategoryService;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tk.mybatis.mapper.entity.Condition;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -82,5 +78,14 @@ public class ArticleController {
     @GetMapping("/article/getDetail/{code}")
     public JsonUtil getDetail(@PathVariable("code") String code) {
         return articleService.getDetail(code);
+    }
+
+    @GetMapping("/article/list/{tagName}")
+    public ReType getArticleByTag(@PathVariable("tagName") String tagName, Integer page, Integer limit) {
+        limit = limit > 100 ? 100 : limit;
+        Page<Object> startPage = PageHelper.startPage(page, limit);
+
+        List<BlogArticle> articles = articleService.selectArticleByTag(tagName);
+        return new ReType(startPage.getTotal(), startPage.getPageNum(), articles);
     }
 }

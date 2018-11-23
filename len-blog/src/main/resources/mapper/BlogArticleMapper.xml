@@ -49,4 +49,21 @@
      </where>
     order by ba.top_num desc,ba.create_date desc
   </select>
+
+  <select id="selectArticleByTag" resultMap="BaseResultMap">
+      select ba.id,ba.code,ba.title,ba.read_number,ba.top_num,ba.create_by,ba.create_date,
+        left(ba.content,50) content
+      from
+        blog_article ba
+      LEFT JOIN
+        blog_article_tag bat
+      on
+        ba.id=bat.article_id
+      LEFT JOIN
+        blog_tag bt
+      on
+        bat.tag_id=bt.id
+      where
+        bt.tag_code=#{tagCode}
+  </select>
 </mapper>
