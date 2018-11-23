@@ -1,18 +1,22 @@
 package com.len.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.len.base.BaseMapper;
 import com.len.base.impl.BaseServiceImpl;
 import com.len.entity.*;
 import com.len.mapper.BlogArticleMapper;
+import com.len.model.SimpleArticle;
 import com.len.service.ArticleCategoryService;
 import com.len.service.ArticleTagService;
 import com.len.service.BlogArticleService;
 import com.len.service.BlogTagService;
+import com.len.util.BeanUtil;
 import com.len.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Condition;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,6 +78,22 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
             detail.setCategory(articleCategories.stream().map(ArticleCategory::getCategoryId)
                     .collect(Collectors.toList()));
         }
+        //上一篇
+        PageHelper.startPage(1, 1);
+        BlogArticle previous = selectPrevious(blogArticle.getCreateDate());
+        if (previous != null) {
+            SimpleArticle simpleArticle = new SimpleArticle();
+            BeanUtil.copyNotNullBean(previous, simpleArticle);
+            detail.setPrevious(simpleArticle);
+        }
+        //下一篇
+        PageHelper.startPage(1, 1);
+        BlogArticle next = selectNext(blogArticle.getCreateDate());
+        if (next != null) {
+            SimpleArticle simpleArticle = new SimpleArticle();
+            BeanUtil.copyNotNullBean(next, simpleArticle);
+            detail.setNext(simpleArticle);
+        }
         json.setData(detail);
         json.setFlag(true);
         return json;
@@ -87,5 +107,15 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
     @Override
     public List<BlogArticle> selectArticleByTag(String tagCode) {
         return blogArticleMapper.selectArticleByTag(tagCode);
+    }
+
+    @Override
+    public BlogArticle selectPrevious(Date date) {
+        return blogArticleMapper.selectPrevious(date);
+    }
+
+    @Override
+    public BlogArticle selectNext(Date date) {
+        return blogArticleMapper.selectNext(date);
     }
 }

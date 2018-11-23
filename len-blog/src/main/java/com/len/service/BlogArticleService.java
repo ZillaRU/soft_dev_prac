@@ -4,6 +4,7 @@ import com.len.base.BaseService;
 import com.len.entity.BlogArticle;
 import com.len.util.JsonUtil;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,4 +19,8 @@ public interface BlogArticleService extends BaseService<BlogArticle, String> {
     List<BlogArticle> selectArticle(String code);
 
     List<BlogArticle> selectArticleByTag(String tagCode);
+
+    BlogArticle selectPrevious(Date date);
+
+    BlogArticle selectNext(Date date);
 }

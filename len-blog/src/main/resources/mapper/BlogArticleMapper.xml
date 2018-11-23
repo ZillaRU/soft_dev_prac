@@ -66,4 +66,30 @@
       where
         bt.tag_code=#{tagCode}
   </select>
+    
+    <select id="selectPrevious" resultMap="BaseResultMap">
+        select
+          id,code,title,read_number,top_num,create_by,create_date,
+          left(content,50) content
+        from
+          blog_article
+        where
+          <if test="createDate!=null">
+              unix_timestamp(create_date) <![CDATA[ > ]]> unix_timestamp(#{createDate})
+          </if>
+        order by create_date asc
+    </select>
+
+    <select id="selectNext" resultMap="BaseResultMap">
+        select
+          id,code,title,read_number,top_num,create_by,create_date,
+          left(content,50) content
+        from
+          blog_article
+        where
+          <if test="createDate!=null">
+              unix_timestamp(create_date) <![CDATA[ < ]]> unix_timestamp(#{createDate})
+          </if>
+        order by create_date desc
+    </select>
 </mapper>

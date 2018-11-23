@@ -1,5 +1,6 @@
 package com.len.entity;
 
+import com.len.model.SimpleArticle;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -25,5 +26,15 @@ public class ArticleDetail {
      * 文章类别
      */
     private List<String> category = new ArrayList<>();
+
+    /**
+     * 上一篇
+     */
+    private SimpleArticle previous;
+
+    /**
+     * 下一篇
+     */
+    private SimpleArticle next;
 
 }
