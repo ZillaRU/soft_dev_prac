@@ -108,7 +108,10 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
         }
         BlogArticle blogArticle = detail.getArticle();
         //点击次数
-        addArticleReadNum(ip, blogArticle.getId());
+        int clickNum = addArticleReadNum(ip, blogArticle.getId());
+        if (clickNum > 0) {
+            blogArticle.setReadNumber(clickNum);
+        }
 
         //上一篇
         PageHelper.startPage(1, 1);
@@ -157,7 +160,7 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
      * @param ip        访问者ip
      * @param articleId 文章id
      */
-    private void addArticleReadNum(String ip, String articleId) {
+    private int addArticleReadNum(String ip, String articleId) {
         String str = ip + "_" + articleId;
         if (!StringUtils.isBlank(str)) {
             if (StringUtils.isEmpty(redisService.get(str))) {
@@ -165,7 +168,9 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
                 BlogArticle article = selectByPrimaryKey(articleId);
                 article.setReadNumber(article.getReadNumber() + 1);
                 updateByPrimaryKey(article);
+                return article.getReadNumber();
             }
         }
+        return -1;
     }
 }

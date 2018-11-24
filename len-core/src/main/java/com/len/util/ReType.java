@@ -3,6 +3,8 @@ package com.len.util;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,7 @@ import java.util.Map;
  * @email 154040976@qq.com
  * 查询返回json格式依照ui默认属性名称
  */
+@Data
 public class ReType implements Serializable{
   /**状态*/
   public int code=0;

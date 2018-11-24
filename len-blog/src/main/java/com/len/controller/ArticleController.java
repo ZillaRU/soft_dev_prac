@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tk.mybatis.mapper.entity.Condition;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
@@ -96,6 +97,14 @@ public class ArticleController {
         return articleService.detail(code, ip);
     }
 
+    /**
+     * 根据标签code获取文章
+     *
+     * @param tagName
+     * @param page
+     * @param limit
+     * @return
+     */
     @GetMapping("/article/list/{tagName}")
     public ReType getArticleByTag(@PathVariable("tagName") String tagName, Integer page, Integer limit) {
         limit = limit > 100 ? 100 : limit;
@@ -103,5 +112,20 @@ public class ArticleController {
 
         List<BlogArticle> articles = articleService.selectArticleByTag(tagName);
         return new ReType(startPage.getTotal(), startPage.getPageNum(), articles);
+    }
+
+    @GetMapping("/article/list/order/read")
+    public ReType getArticleByReadNumber() {
+        Condition condition = new Condition(BlogArticle.class);
+        PageHelper.startPage(1, 5);
+        condition.createCriteria();
+        condition.orderBy("readNumber").desc();
+        List<BlogArticle> articles = articleService.selectByExample(condition);
+        articles.forEach(s -> {
+            s.setContent(null);
+        });
+        ReType reType = new ReType();
+        reType.setData(articles);
+        return reType;
     }
 }

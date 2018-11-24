@@ -65,6 +65,7 @@
         bat.tag_id=bt.id
       where
         bt.tag_code=#{tagCode}
+        order by ba.top_num desc,ba.create_date desc
   </select>
     
     <select id="selectPrevious" resultMap="BaseResultMap">
