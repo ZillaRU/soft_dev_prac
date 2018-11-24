@@ -31,6 +31,9 @@ spring:
       client:
         prefer-ip: true
       url: http://localhost:8082
+  redis:
+      host: 127.0.0.1
+      port: 6379
 
 mybatis:
     type-aliases-package: com.len.entity
@@ -58,3 +61,6 @@ logging:
 filePath: ./file/
 
 imagePath: ./image/
+
+redis:
+  prefix: len_
