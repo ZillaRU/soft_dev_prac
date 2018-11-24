@@ -16,6 +16,8 @@ public interface BlogArticleService extends BaseService<BlogArticle, String> {
 
     public JsonUtil getDetail(String code);
 
+    public JsonUtil detail(String code,String ip);
+
     List<BlogArticle> selectArticle(String code);
 
     List<BlogArticle> selectArticleByTag(String tagCode);

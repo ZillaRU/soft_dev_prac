@@ -6,12 +6,14 @@ import com.len.base.impl.BaseServiceImpl;
 import com.len.entity.*;
 import com.len.mapper.BlogArticleMapper;
 import com.len.model.SimpleArticle;
+import com.len.redis.RedisService;
 import com.len.service.ArticleCategoryService;
 import com.len.service.ArticleTagService;
 import com.len.service.BlogArticleService;
 import com.len.service.BlogTagService;
 import com.len.util.BeanUtil;
 import com.len.util.JsonUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Condition;
@@ -40,21 +42,20 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
     @Autowired
     private BlogTagService tagService;
 
+    @Autowired
+    private RedisService redisService;
+
     @Override
     public BaseMapper<BlogArticle, String> getMappser() {
         return blogArticleMapper;
     }
 
-    @Override
-    public JsonUtil getDetail(String code) {
-        JsonUtil json = new JsonUtil();
+    private ArticleDetail getArticleByCode(String code) {
         Condition condition = new Condition(BlogArticle.class);
         condition.createCriteria().andEqualTo("code", code);
         List<BlogArticle> articles = selectByExample(condition);
         if (articles.isEmpty()) {
-            json.setStatus(404);
-            json.setFlag(false);
-            return json;
+            return null;
         }
         ArticleDetail detail = new ArticleDetail();
         BlogArticle blogArticle = articles.get(0);
@@ -78,6 +79,37 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
             detail.setCategory(articleCategories.stream().map(ArticleCategory::getCategoryId)
                     .collect(Collectors.toList()));
         }
+        return detail;
+    }
+
+    @Override
+    public JsonUtil getDetail(String code) {
+        JsonUtil json = new JsonUtil();
+        ArticleDetail detail = getArticleByCode(code);
+        if (detail == null) {
+            json.setStatus(404);
+            json.setFlag(false);
+            return json;
+        }
+        json.setData(detail);
+        json.setFlag(true);
+        return json;
+
+    }
+
+    @Override
+    public JsonUtil detail(String code, String ip) {
+        JsonUtil json = new JsonUtil();
+        ArticleDetail detail = getArticleByCode(code);
+        if (detail == null) {
+            json.setStatus(404);
+            json.setFlag(false);
+            return json;
+        }
+        BlogArticle blogArticle = detail.getArticle();
+        //点击次数
+        addArticleReadNum(ip, blogArticle.getId());
+
         //上一篇
         PageHelper.startPage(1, 1);
         BlogArticle previous = selectPrevious(blogArticle.getCreateDate());
@@ -117,5 +149,23 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
     @Override
     public BlogArticle selectNext(Date date) {
         return blogArticleMapper.selectNext(date);
+    }
+
+    /**
+     * 半小时增加一次有效点击数
+     *
+     * @param ip        访问者ip
+     * @param articleId 文章id
+     */
+    private void addArticleReadNum(String ip, String articleId) {
+        String str = ip + "_" + articleId;
+        if (!StringUtils.isBlank(str)) {
+            if (StringUtils.isEmpty(redisService.get(str))) {
+                redisService.set(str, "true", 60 * 30L);
+                BlogArticle article = selectByPrimaryKey(articleId);
+                article.setReadNumber(article.getReadNumber() + 1);
+                updateByPrimaryKey(article);
+            }
+        }
     }
 }

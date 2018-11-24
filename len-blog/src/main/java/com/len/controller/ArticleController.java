@@ -7,6 +7,7 @@ import com.len.entity.BlogArticle;
 import com.len.service.ArticleCategoryService;
 import com.len.service.BlogArticleService;
 import com.len.service.BlogCategoryService;
+import com.len.util.IpUtil;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,7 @@ public class ArticleController {
     @Autowired
     private BlogCategoryService categoryService;
 
-    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     @GetMapping("/articleList")
     public String articleListPage() {
@@ -57,6 +59,14 @@ public class ArticleController {
         return list;
     }
 
+    /**
+     * 获取 文章列表
+     *
+     * @param code
+     * @param page
+     * @param limit
+     * @return
+     */
     @GetMapping("/article/list")
     public ReType getList(String code, Integer page, Integer limit) {
         limit = limit > 100 ? 100 : limit;
@@ -71,13 +81,19 @@ public class ArticleController {
                         format.format(s.getCreateDate()), s.getContent())
                 )
         );
-        long total = startPage.getTotal();
         return new ReType(startPage.getTotal(), startPage.getPageNum(), articleLists);
     }
 
+    /**
+     * 根据code获取文章内容
+     *
+     * @param code
+     * @return
+     */
     @GetMapping("/article/getDetail/{code}")
-    public JsonUtil getDetail(@PathVariable("code") String code) {
-        return articleService.getDetail(code);
+    public JsonUtil detail(@PathVariable("code") String code, HttpServletRequest request) {
+        String ip = IpUtil.getIp(request);
+        return articleService.detail(code, ip);
     }
 
     @GetMapping("/article/list/{tagName}")
