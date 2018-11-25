@@ -55,7 +55,8 @@
     </select>
 
     <select id="selectArticleByTag" resultType="com.len.model.Article">
-      selectba.id,ba.code,ba.title,ba.read_number readNumber,
+      select
+      ba.id,ba.code,ba.title,ba.read_number readNumber,
         ba.top_num topNum,ba.create_by createBy,ba.create_date createDate,
         left(ba.content,50) content,su.username createName
       from
