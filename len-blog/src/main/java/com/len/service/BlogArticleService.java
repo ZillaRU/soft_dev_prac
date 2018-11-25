@@ -15,6 +15,8 @@ import java.util.List;
  */
 public interface BlogArticleService extends BaseService<BlogArticle, String> {
 
+    List<Article> indexSelect();
+
     public JsonUtil getDetail(String code);
 
     public JsonUtil detail(String code,String ip);
@@ -26,4 +28,5 @@ public interface BlogArticleService extends BaseService<BlogArticle, String> {
     BlogArticle selectPrevious(Date date);
 
     BlogArticle selectNext(Date date);
+
 }

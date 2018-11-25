@@ -20,6 +20,9 @@ public class Article {
      */
     private String title;
 
+
+    private String firstImg;
+
     /**
      * 阅读次数
      */

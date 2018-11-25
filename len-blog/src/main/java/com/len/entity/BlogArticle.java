@@ -24,6 +24,12 @@ public class BlogArticle {
     private String title;
 
     /**
+     * 列表缩略图
+     */
+    @Column(name="first_img")
+    private String firstImg;
+
+    /**
      * 阅读次数
      */
     @Column(name = "read_number")

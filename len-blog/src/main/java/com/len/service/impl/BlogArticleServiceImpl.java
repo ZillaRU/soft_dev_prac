@@ -74,7 +74,7 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
             if (sysUser != null) {
                 article.setCreateName(sysUser.getUsername());
             }
-        }else{
+        } else {
             article.setCreateName("admin");
         }
 
@@ -97,6 +97,11 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
                     .collect(Collectors.toList()));
         }
         return detail;
+    }
+
+    @Override
+    public List<Article> indexSelect() {
+        return blogArticleMapper.indexSelect();
     }
 
     @Override

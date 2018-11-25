@@ -10,6 +10,7 @@ import com.len.service.BlogCategoryService;
 import com.len.util.IpUtil;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,7 +74,12 @@ public class ArticleController {
         limit = limit > 100 ? 100 : limit;
         Page<Object> startPage = PageHelper.startPage(page, limit);
 
-        List<Article> articles = articleService.selectArticle(code);
+        List<Article> articles;
+        if (!StringUtils.isEmpty(code)) {
+            articles = articleService.selectArticle(code);
+        } else {
+            articles = articleService.indexSelect();
+        }
 
         return new ReType(startPage.getTotal(), startPage.getPageNum(), articles);
     }

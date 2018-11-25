@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface BlogArticleMapper extends BaseMapper<BlogArticle, String> {
 
+    List<Article> indexSelect();
+
     List<Article> selectArticle(@Param("code") String code);
 
     List<Article> selectArticleByTag(@Param("tagCode") String tagCode);

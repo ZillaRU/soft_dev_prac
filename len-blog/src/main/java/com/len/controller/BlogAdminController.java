@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -53,6 +55,10 @@ public class BlogAdminController {
 
     @Autowired
     private ArticleTagService articleTagService;
+
+    private static final Pattern IMG = Pattern.compile("<(img)(.*?)(/>|></img>|>)");
+
+    private static final Pattern SRC = Pattern.compile("src\\s*=\\s*\"?(.*?)(\"|>|\\s+)");
 
     @GetMapping("/article/getList")
     public ReType getArticleList(BlogArticle article, Integer page, Integer limit) {
@@ -126,6 +132,19 @@ public class BlogAdminController {
         article.setCreateDate(new Date());
         article.setCreateBy(LenUser.getPrincipal().getUserId());
         article.setReadNumber(0);
+
+        String content = article.getContent();
+
+        Matcher matcher = IMG.matcher(content);
+        boolean exists = matcher.find();
+        if (exists) {
+            String img = matcher.group();
+            Matcher m = SRC.matcher(img);
+            boolean b = m.find();
+            if (b) {
+                article.setFirstImg(m.group(1));
+            }
+        }
 
         BlogArticle blogArticle = new BlogArticle();
         BeanUtil.copyNotNullBean(article, blogArticle);
@@ -209,8 +228,20 @@ public class BlogAdminController {
         article.setUpdateBy(LenUser.getPrincipal().getUserId());
         article.setUpdateDate(new Date());
 
+        String content = article.getContent();
+
+        Matcher matcher = IMG.matcher(content);
+        boolean exists = matcher.find();
+        if (exists) {
+            String img = matcher.group();
+            Matcher m = SRC.matcher(img);
+            boolean b = m.find();
+            if (b) {
+                article.setFirstImg(m.group(1));
+            }
+        }
         BlogArticle blogArticle = new BlogArticle();
-        BeanUtil.copyNotNullBean(article,blogArticle);
+        BeanUtil.copyNotNullBean(article, blogArticle);
         articleService.updateByPrimaryKey(blogArticle);
 
         ArticleTag articleTag = new ArticleTag();
