@@ -2,8 +2,8 @@ package com.len.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.len.entity.ArticleList;
 import com.len.entity.BlogArticle;
+import com.len.model.Article;
 import com.len.service.ArticleCategoryService;
 import com.len.service.BlogArticleService;
 import com.len.service.BlogCategoryService;
@@ -73,16 +73,9 @@ public class ArticleController {
         limit = limit > 100 ? 100 : limit;
         Page<Object> startPage = PageHelper.startPage(page, limit);
 
-        List<BlogArticle> articles = articleService.selectArticle(code);
+        List<Article> articles = articleService.selectArticle(code);
 
-        List<ArticleList> articleLists = new ArrayList<>();
-        articles.forEach(s -> articleLists.add(
-                new ArticleList(s.getId(), s.getCode(), s.getTitle(),
-                        s.getTopNum(), s.getCreateBy(),
-                        format.format(s.getCreateDate()), s.getContent())
-                )
-        );
-        return new ReType(startPage.getTotal(), startPage.getPageNum(), articleLists);
+        return new ReType(startPage.getTotal(), startPage.getPageNum(), articles);
     }
 
     /**
@@ -110,7 +103,7 @@ public class ArticleController {
         limit = limit > 100 ? 100 : limit;
         Page<Object> startPage = PageHelper.startPage(page, limit);
 
-        List<BlogArticle> articles = articleService.selectArticleByTag(tagName);
+        List<Article> articles = articleService.selectArticleByTag(tagName);
         return new ReType(startPage.getTotal(), startPage.getPageNum(), articles);
     }
 

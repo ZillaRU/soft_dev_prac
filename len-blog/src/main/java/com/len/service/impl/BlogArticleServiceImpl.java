@@ -5,12 +5,10 @@ import com.len.base.BaseMapper;
 import com.len.base.impl.BaseServiceImpl;
 import com.len.entity.*;
 import com.len.mapper.BlogArticleMapper;
+import com.len.model.Article;
 import com.len.model.SimpleArticle;
 import com.len.redis.RedisService;
-import com.len.service.ArticleCategoryService;
-import com.len.service.ArticleTagService;
-import com.len.service.BlogArticleService;
-import com.len.service.BlogTagService;
+import com.len.service.*;
 import com.len.util.BeanUtil;
 import com.len.util.JsonUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -45,6 +43,10 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
     @Autowired
     private RedisService redisService;
 
+    @Autowired
+    private SysUserService sysUserService;
+
+
     @Override
     public BaseMapper<BlogArticle, String> getMappser() {
         return blogArticleMapper;
@@ -52,14 +54,29 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
 
     private ArticleDetail getArticleByCode(String code) {
         Condition condition = new Condition(BlogArticle.class);
-        condition.createCriteria().andEqualTo("code", code);
+        condition.createCriteria().andEqualTo("code", code)
+                .andEqualTo("delFlag", 0);
         List<BlogArticle> articles = selectByExample(condition);
         if (articles.isEmpty()) {
             return null;
         }
         ArticleDetail detail = new ArticleDetail();
         BlogArticle blogArticle = articles.get(0);
-        detail.setArticle(blogArticle);
+
+
+        Article article = new Article();
+        BeanUtil.copyNotNullBean(blogArticle, article);
+        detail.setArticle(article);
+
+        String createBy = blogArticle.getCreateBy();
+        if (!StringUtils.isEmpty(createBy)) {
+            SysUser sysUser = sysUserService.selectByPrimaryKey(createBy);
+            if (sysUser != null) {
+                article.setCreateName(sysUser.getUsername());
+            }
+        }else{
+            article.setCreateName("admin");
+        }
 
         ArticleTag articleTag = new ArticleTag();
         articleTag.setArticleId(blogArticle.getId());
@@ -106,16 +123,16 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
             json.setFlag(false);
             return json;
         }
-        BlogArticle blogArticle = detail.getArticle();
+        Article article = detail.getArticle();
         //点击次数
-        int clickNum = addArticleReadNum(ip, blogArticle.getId());
+        int clickNum = addArticleReadNum(ip, article.getId());
         if (clickNum > 0) {
-            blogArticle.setReadNumber(clickNum);
+            article.setReadNumber(clickNum);
         }
 
         //上一篇
         PageHelper.startPage(1, 1);
-        BlogArticle previous = selectPrevious(blogArticle.getCreateDate());
+        BlogArticle previous = selectPrevious(article.getCreateDate());
         if (previous != null) {
             SimpleArticle simpleArticle = new SimpleArticle();
             BeanUtil.copyNotNullBean(previous, simpleArticle);
@@ -123,7 +140,7 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
         }
         //下一篇
         PageHelper.startPage(1, 1);
-        BlogArticle next = selectNext(blogArticle.getCreateDate());
+        BlogArticle next = selectNext(article.getCreateDate());
         if (next != null) {
             SimpleArticle simpleArticle = new SimpleArticle();
             BeanUtil.copyNotNullBean(next, simpleArticle);
@@ -135,12 +152,12 @@ public class BlogArticleServiceImpl extends BaseServiceImpl<BlogArticle, String>
     }
 
     @Override
-    public List<BlogArticle> selectArticle(String code) {
+    public List<Article> selectArticle(String code) {
         return blogArticleMapper.selectArticle(code);
     }
 
     @Override
-    public List<BlogArticle> selectArticleByTag(String tagCode) {
+    public List<Article> selectArticleByTag(String tagCode) {
         return blogArticleMapper.selectArticleByTag(tagCode);
     }
 

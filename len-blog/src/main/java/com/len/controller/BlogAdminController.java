@@ -2,9 +2,10 @@ package com.len.controller;
 
 import com.len.core.LenUser;
 import com.len.entity.*;
+import com.len.model.Article;
 import com.len.service.*;
+import com.len.util.BeanUtil;
 import com.len.util.JsonUtil;
-import com.len.util.Principal;
 import com.len.util.ReType;
 import com.len.util.UploadUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -97,7 +98,7 @@ public class BlogAdminController {
     public JsonUtil addArticle(@RequestBody ArticleDetail detail) {
         JsonUtil json = new JsonUtil();
         json.setStatus(400);
-        BlogArticle article = detail.getArticle();
+        Article article = detail.getArticle();
         if (article == null) {
             json.setMsg("数据获取失败");
             return json;
@@ -124,7 +125,12 @@ public class BlogAdminController {
         article.setId(articleId);
         article.setCreateDate(new Date());
         article.setCreateBy(LenUser.getPrincipal().getUserId());
-        articleService.insert(article);
+        article.setReadNumber(0);
+
+        BlogArticle blogArticle = new BlogArticle();
+        BeanUtil.copyNotNullBean(article, blogArticle);
+
+        articleService.insert(blogArticle);
 
         List<ArticleCategory> categories = new ArrayList<>();
         for (String cateId : detail.getCategory()) {
@@ -175,7 +181,7 @@ public class BlogAdminController {
     @Transactional
     public JsonUtil updateArticle(@RequestBody ArticleDetail detail) {
         JsonUtil json = new JsonUtil();
-        BlogArticle article = detail.getArticle();
+        Article article = detail.getArticle();
         json.setFlag(false);
         json.setStatus(400);
         if (StringUtils.isBlank(article.getId())) {
@@ -202,7 +208,10 @@ public class BlogAdminController {
         }
         article.setUpdateBy(LenUser.getPrincipal().getUserId());
         article.setUpdateDate(new Date());
-        articleService.updateByPrimaryKey(article);
+
+        BlogArticle blogArticle = new BlogArticle();
+        BeanUtil.copyNotNullBean(article,blogArticle);
+        articleService.updateByPrimaryKey(blogArticle);
 
         ArticleTag articleTag = new ArticleTag();
         articleTag.setArticleId(article.getId());

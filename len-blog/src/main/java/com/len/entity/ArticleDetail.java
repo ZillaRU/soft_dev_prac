@@ -1,5 +1,6 @@
 package com.len.entity;
 
+import com.len.model.Article;
 import com.len.model.SimpleArticle;
 import lombok.Data;
 
@@ -16,7 +17,7 @@ public class ArticleDetail {
     /**
      * 文章对象
      */
-    BlogArticle article;
+    Article article;
     /**
      * 文章标签
      */
