@@ -68,14 +68,22 @@ public class UploadUtil {
     public LoadType fileNameStyle(MultipartFile multipartFile) {
         String curr = multipartFile.getOriginalFilename();
         int suffixLen = curr.lastIndexOf(".");
-        if (suffixLen == -1) {
+        boolean flag=false;
+        int index=-1;
+        if("blob".equals(curr)){
+            flag=true;
+            index=0;
+            curr=UUID.randomUUID() + ".png";
+        } else if (suffixLen == -1) {
             throw new MyException("文件获取异常");
         }
-        String suffix = curr.substring(suffixLen, curr.length());
-        int index = Arrays.binarySearch(IMAGE_SUFFIX.split(","),
-                suffix.replace(".", ""));
+        if(!flag){
+            String suffix = curr.substring(suffixLen, curr.length());
+            index = Arrays.binarySearch(IMAGE_SUFFIX.split(","),
+                    suffix.replace(".", ""));
 
-        curr = UUID.randomUUID() + suffix;
+            curr = UUID.randomUUID() + suffix;
+        }
         LoadType loadType = new LoadType();
         loadType.setFileName(curr);
         //image 情况
