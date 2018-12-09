@@ -122,6 +122,11 @@ public class ArticleController {
         List<BlogArticle> articles = articleService.selectByExample(condition);
         articles.forEach(s -> {
             s.setContent(null);
+            String title = s.getTitle();
+            if (title.length() > 25) {
+                title = title.substring(0, 25) + "...";
+                s.setTitle(title);
+            }
         });
         ReType reType = new ReType();
         reType.setData(articles);
