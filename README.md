@@ -48,6 +48,8 @@
 - 18/6/12 **增加sqlserver支持，脚本在db文件夹下，
 只需要在application.yml 切换下active 即可切换数据源**
 - 18/6/19 **集成丰富持久化插件tkmapper**
+- 18/12/11 **添加博客功能模块，集成redis缓存，
+博客采用vue前后分离基于jwt鉴权，博客单独分离出一个项目**
 ## 头像说明
 ```
 修改 application.yml imagePath 路径 把image文件夹图片赋值进路径，即可正常展示头像
@@ -78,9 +80,10 @@ java -jar len-web.jar
 * 视图框架：spring mvc
 * 持久层框架：MyBatis
 * 模板引擎：freemarker
-* 缓存：ehcache
+* 缓存：redis、ehcache
 * 定时：quartz 2.3.0
 * 前端页面：layui
+* 博客前端：vue、iview
 
 ## ps
 - lenos承诺永久开源，全部免费，无任何收费地方
@@ -90,43 +93,50 @@ java -jar len-web.jar
 
 ## 项目图片
 * 登录账号：admin 密码：123456   
-  
-![图片说明](http://ww1.sinaimg.cn/large/0060lm7Tly1fn2bsi2kexj311y0hsdmw.jpg "图片说明")
-![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c1yaqrjj311y0hvdhj.jpg "图片说明")
+  <table>
+      <tr>
+          <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn2bsi2kexj311y0hsdmw.jpg"/></td>
+          <td><img src="http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c1yaqrjj311y0hvdhj.jpg"/></td>
+      <tr>
+      <tr>
+          <td><img src="https://s1.ax1x.com/2018/12/11/FYdgKK.png"/></td>
+          <td><img src="https://s1.ax1x.com/2018/12/11/FYdzPs.gif"/></td>
+      <tr>
+      <tr>
+          <td><img src="http://ww4.sinaimg.cn/large/0060lm7Tly1fnvohtrdglj311y0gggn2.jpg"/></td>
+          <td><img src="http://ww3.sinaimg.cn/large/0060lm7Tly1fnvokv38fwj311y0gddgj.jpg"/></td>
+      <tr>
+      <tr>
+          <td><img src="https://s1.ax2x.com/2018/07/14/qvSGY.png"/></td>
+          <td><img src="http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c2l057sj311y0hu767.jpg"/></td>
+      <tr>
+      <tr>
+          <td><img src="http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c33qyvrj311y0hv40e.jpg"/></td>
+          <td><img src="http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c3m4b77j311y0hpq4b.jpg"/></td>
+      <tr>
+      <tr>
+          <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn873a0sqnj311y0gc0tr.jpg"/></td>
+          <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn876ntgczj30t707xdgf.jpg"/></td>
+      <tr>
+      <tr>
+          <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn8793d3llj311y0gxq4s.jpg"/></td>
+          <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn2c4swdjrj311y0hptam.jpg"/></td>
+      <tr>
+      <tr>
+          <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn2c5ev8tgj30w50e7wfs.jpg"/></td>
+          <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn2dvrcl9lj30wd0e6gmd.jpg"/></td>
+      <tr>
+      </table>
    
 * 完全模块化工作流引擎，可视化建立编辑，动态分配节点处理人
 * 监听器监听系统用户、角色实时同步到工作流引擎表
 * 提供请假流程示例   
-  
-![图片说明](http://ww4.sinaimg.cn/large/0060lm7Tly1fnvohtrdglj311y0gggn2.jpg "图片说明")
-![图片说明](http://ww3.sinaimg.cn/large/0060lm7Tly1fnvokv38fwj311y0gddgj.jpg "图片说明")
-![图片说明](https://s1.ax2x.com/2018/07/14/qvSGY.png "图片说明")
-   
-* 菜单管理分为一级菜单 二级菜单 按钮(也可以是元素)权限   
-  
-![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c2l057sj311y0hu767.jpg "图片说明")
-   
-* 用户可以上传头像   
-  
-![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c33qyvrj311y0hv40e.jpg "图片说明")
-![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c3m4b77j311y0hpq4b.jpg "图片说明")
-   
+* 菜单管理分为一级菜单 二级菜单 按钮(也可以是元素)权限  
+* 用户可以上传头像 
 * 自定义定时类，实现Job，前端配置定时类，即可控制任务类，已实现定时类获取spring上下文，
-* 项目启动加载完bean后利用spring boot监听开启一个线程，检测已启动的定时任务，进行开启。  
-   
-![图片说明](http://ww1.sinaimg.cn/large/0060lm7Tly1fn873a0sqnj311y0gc0tr.jpg "图片说明")
-![图片说明](http://ww1.sinaimg.cn/large/0060lm7Tly1fn876ntgczj30t707xdgf.jpg "图片说明")
-   
-* 日志监控 利用aop 自定义拦截日志持久化到数据库并对数据进行监控<br>
-  
-![图片说明](http://ww3.sinaimg.cn/large/0060lm7Tly1fn8793d3llj311y0gxq4s.jpg "图片说明")
-   
-* 接口   
- 
-![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c4swdjrj311y0hptam.jpg "图片说明")
-![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c5ev8tgj30w50e7wfs.jpg "图片说明")
-![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fn2dvrcl9lj30wd0e6gmd.jpg "图片说明")
-
+* 项目启动加载完bean后利用spring boot监听开启一个线程，检测已启动的定时任务，进行开启
+* 日志监控 利用aop 自定义拦截日志持久化到数据库并对数据进行监控
+* 接口
 如果对你有帮助，可以打赏请作者喝杯咖啡。
 
 由于群成员满员，众筹升级群人数上限，十分感谢以下lenos群网友的捐助和支持，以下为捐助名单(qq昵称，账号，顺序随机)：
