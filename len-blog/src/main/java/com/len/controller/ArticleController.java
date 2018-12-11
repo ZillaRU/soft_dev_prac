@@ -51,16 +51,6 @@ public class ArticleController {
     }
 
 
-    @GetMapping("/header")
-    public List<String> showArticles() {
-        List<String> list = new ArrayList<>(4);
-        list.add("java");
-        list.add("架构");
-        list.add("Linux");
-        list.add("其他");
-        return list;
-    }
-
     /**
      * 获取 文章列表
      *
