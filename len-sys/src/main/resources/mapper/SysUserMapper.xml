@@ -141,13 +141,9 @@
   </update>
 
 
-  <select id="getUserByRoleId" parameterType="java.util.Map" resultMap="BaseResultMap">
+  <select id="getUserByRoleId" resultMap="BaseResultMap">
     select sysuser.id,sysuser.real_name,sysuser.username from sys_user sysuser inner join sys_role_user roleuser on sysuser.id = roleuser.user_id and roleuser.role_id = #{roleId,jdbcType=VARCHAR}
-    limit #{page},#{limit}
-  </select>
 
-  <select id="countUserByRoleId" parameterType="java.util.Map" resultType="java.lang.Integer">
-    select count(1) from sys_user sysuser inner join sys_role_user roleuser on sysuser.id = roleuser.user_id and roleuser.role_id = #{roleId,jdbcType=VARCHAR}
   </select>
 
 </mapper>

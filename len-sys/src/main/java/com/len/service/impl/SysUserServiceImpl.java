@@ -197,8 +197,53 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
         return checkboxList;
     }
 
-  @Override
-  public int rePass(SysUser user) {
-    return sysUserMapper.rePass(user);
-  }
+    @Override
+    public int rePass(SysUser user) {
+        return sysUserMapper.rePass(user);
+    }
+
+    @Override
+    public List<SysUser> getUserByRoleId(String roleId) {
+        return sysUserMapper.getUserByRoleId(roleId);
+    }
+
+
+
+    @Override
+    public void setMenuAndRoles(String username) {
+        SysUser s = new SysUser();
+        s.setUsername(username);
+        s = this.selectOne(s);
+        CurrentUser currentUser = new CurrentUser(s.getId(), s.getUsername(), s.getAge(), s.getEmail(), s.getPhoto(), s.getRealName());
+        Subject subject = ShiroUtil.getSubject();
+        /*角色权限封装进去*/
+        //根据用户获取菜单
+        Session session = subject.getSession();
+
+        List<SysMenu> menuList = menuService.getUserMenu(s.getId());
+        JSONArray json = menuService.getMenuJsonByUser(menuList);
+        session.setAttribute("menu", json);
+
+
+        List<CurrentMenu> currentMenuList = new ArrayList<>();
+        List<SysRole> roleList = new ArrayList<>();
+        for (SysMenu m : menuList) {
+            CurrentMenu currentMenu = new CurrentMenu();
+            BeanUtil.copyNotNullBean(m, currentMenu);
+            currentMenuList.add(currentMenu);
+            roleList.addAll(m.getRoleList());
+        }
+
+        roleList = new ArrayList<>(new HashSet<>(roleList));
+        List<CurrentRole> currentRoleList = new ArrayList<>();
+
+        for (SysRole r : roleList) {
+            CurrentRole role = new CurrentRole();
+            BeanUtil.copyNotNullBean(r, role);
+            currentRoleList.add(role);
+        }
+        currentUser.setCurrentRoleList(currentRoleList);
+        currentUser.setCurrentMenuList(currentMenuList);
+        session.setAttribute("curentUser", currentUser);
+    }
 }

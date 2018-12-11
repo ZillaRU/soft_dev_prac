@@ -9,6 +9,7 @@ import com.len.base.CurrentUser;
 import com.len.exception.MyException;
 import com.len.util.ReType;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.shiro.SecurityUtils;
 
 import java.io.Serializable;
@@ -66,6 +67,7 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
     }
 
 
+    @Override
     public int deleteByPrimaryKey(E id) {
         return getMappser().deleteByPrimaryKey(id);
     }
@@ -236,4 +238,64 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
         return JSON.toJSONString(tList);
     }
 
+    @Override
+    public ReType getList(T t, int page, int limit) {
+        List<T> tList = null;
+        Page<T> tPage = PageHelper.startPage(page, limit);
+        try {
+            tList = getMappser().selectListByPage(t);
+        } catch (MyException e) {
+            log.error("class:BaseServiceImpl ->method:getList->message:" + e.getMessage());
+            e.printStackTrace();
+        }
+        return new ReType(tPage.getTotal(),tPage.getPageNum(), tList);
+    }
+
+
+    @Override
+    public int deleteByExample(Object o) {
+        return getMappser().deleteByExample(o);
+    }
+
+
+    @Override
+    public List<T> selectByExample(Object o) {
+        return getMappser().selectByExample(o);
+    }
+
+
+    @Override
+    public int selectCountByExample(Object o) {
+        return getMappser().selectCountByExample(o);
+    }
+
+
+    @Override
+    public T selectOneByExample(Object o) {
+        return getMappser().selectOneByExample(o);
+    }
+
+
+    @Override
+    public int updateByExample(T t, Object o) {
+        return getMappser().updateByExample(t,o);
+    }
+
+
+    @Override
+    public int updateByExampleSelective(T t, Object o) {
+        return getMappser().updateByExampleSelective(t,o);
+    }
+
+
+    @Override
+    public List<T> selectByExampleAndRowBounds(Object o, RowBounds rowBounds) {
+        return getMappser().selectByExampleAndRowBounds(o,rowBounds);
+    }
+
+
+    @Override
+    public List<T> selectByRowBounds(T t, RowBounds rowBounds) {
+        return getMappser().selectByRowBounds(t,rowBounds);
+    }
 }

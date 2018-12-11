@@ -63,7 +63,7 @@ public interface SysUserService extends BaseService<SysUser,String> {
   int rePass(SysUser user);
 
 
-  List<SysUser> getUserByRoleId(String roleId,int page,int limit);
+  List<SysUser> getUserByRoleId(String roleId);
 
-  int countUserByRoleId(String roleId,int page,int limit);
+  public void setMenuAndRoles(String username);
 }

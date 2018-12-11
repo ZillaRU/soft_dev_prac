@@ -27,6 +27,5 @@ public interface SysUserMapper extends com.len.base.BaseMapper<SysUser,String> {
      */
     int rePass(SysUser user);
 
-    List<SysUser> getUserByRoleId(Map map);
-    int countUserByRoleId(Map map);
+    List<SysUser> getUserByRoleId(@Param("roleId")String roleId);
 }
