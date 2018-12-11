@@ -2,6 +2,7 @@ package com.len.base;
 
 import java.io.Serializable;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,9 +12,7 @@ import lombok.ToString;
  * @date 2017/12/30.
  * @email 154040976@qq.com
  */
-@Getter
-@Setter
-@ToString
+@Data
 public class CurrentRole implements Serializable {
 
     /**  
@@ -31,5 +30,8 @@ public class CurrentRole implements Serializable {
         this.id = id;
         this.roleName = roleName;
         this.remark = remark;
+    }
+
+    public CurrentRole() {
     }
 }

@@ -57,4 +57,7 @@ public class CurrentMenu implements Serializable {
         this.menuType = menuType;
         this.num = num;
     }
+
+    public CurrentMenu() {
+    }
 }

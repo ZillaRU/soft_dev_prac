@@ -35,12 +35,7 @@ public class RoleServiceImpl extends BaseServiceImpl<SysRole,String> implements 
     record=super.addValue(record,true);
     return roleMapper.insert(record);
   }
-
- /* @Override
-  public int insertSelective(SysRole record) {
-    return roleMapper.insertSelective(record);
-  }*/
-
+  
   @Override
   public SysRole selectByPrimaryKey(String id) {
     return roleMapper.selectByPrimaryKey(id);

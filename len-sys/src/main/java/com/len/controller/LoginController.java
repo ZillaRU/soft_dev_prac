@@ -15,7 +15,6 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,10 +39,10 @@ import java.util.List;
 public class LoginController {
 
     @Autowired
-    private SysUserService userService;
+    private MenuService menuService;
 
     @Autowired
-    private MenuService menuService;
+    SysUserService userService;
 
     @GetMapping(value = "")
     public String loginInit() {
@@ -66,7 +65,6 @@ public class LoginController {
         Subject sub = SecurityUtils.getSubject();
         Boolean flag2 = sub.isRemembered();
         boolean flag = sub.isAuthenticated() || flag2;
-        Session session = sub.getSession();
         if (flag) {
             return "/main/main";
         }
@@ -84,11 +82,11 @@ public class LoginController {
     @ApiOperation(value = "/login", httpMethod = "POST", notes = "登录method")
     @PostMapping(value = "/login")
     public String login(SysUser user, Model model, String rememberMe, HttpServletRequest request) {
-        /*String codeMsg = (String) request.getAttribute("shiroLoginFailure");
+        String codeMsg = (String) request.getAttribute("shiroLoginFailure");
         if ("code.error".equals(codeMsg)) {
             model.addAttribute("message", "验证码错误");
             return "/login";
-        }*/
+        }
         CustomUsernamePasswordToken token = new CustomUsernamePasswordToken(user.getUsername().trim(),
                 user.getPassword(), "UserLogin");
         Subject subject = ShiroUtil.getSubject();
@@ -96,6 +94,8 @@ public class LoginController {
         try {
             subject.login(token);
             if (subject.isAuthenticated()) {
+                userService.setMenuAndRoles(token.getUsername());
+                token.getUsername();
                 return "redirect:/main";
             }
         } catch (UnknownAccountException | IncorrectCredentialsException e) {

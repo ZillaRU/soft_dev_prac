@@ -97,7 +97,7 @@ public class JobTask {
                     .withMisfireHandlingInstructionDoNothing();
             CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerKey)
                     .withDescription(createTime).withSchedule(schedBuilder).build();
-            Class clazz = null;
+
             JobDetail jobDetail = scheduler.getJobDetail(jobKey);
             HashSet<Trigger> triggerSet = new HashSet<>();
             triggerSet.add(trigger);
