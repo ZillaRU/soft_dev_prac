@@ -31,15 +31,6 @@ public class BlogRealm extends AuthorizingRealm {
     @Autowired
     private SysUserService userService;
 
-    @Autowired
-    private MenuService menuService;
-
-    @Autowired
-    private RoleUserService roleUserService;
-
-    @Autowired
-    private RoleMenuService roleMenuService;
-
 
     @Override
     public boolean supports(AuthenticationToken token) {

@@ -26,11 +26,8 @@ public class MyBasicHttpAuthenticationFilter extends BasicHttpAuthenticationFilt
                 executeLogin(request, response);
                 return true;
             } catch (Exception e) {
-               // throw new RuntimeException(e.getMessage());
             }
-        } /*else {
-            throw new UnauthorizedException("禁止访问");
-        }*/
+        }
         return false;
     }
 
