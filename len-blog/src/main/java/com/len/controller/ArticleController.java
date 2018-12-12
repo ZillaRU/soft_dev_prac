@@ -12,10 +12,7 @@ import com.len.util.JsonUtil;
 import com.len.util.ReType;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +27,8 @@ import java.util.List;
  * @email 154040976@qq.com
  * @date 2018-05-05
  */
+
+@CrossOrigin
 @RestController
 @RequestMapping("/blog")
 public class ArticleController {

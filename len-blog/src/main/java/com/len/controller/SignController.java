@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
  * @date 2018/7/25.
  * @email 154040976@qq.com
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/")
 @Slf4j

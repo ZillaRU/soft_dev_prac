@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
  * <p>
  * 博客后台业务管理
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/blog-admin")
 @Slf4j
