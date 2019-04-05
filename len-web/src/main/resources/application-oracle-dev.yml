@@ -1,0 +1,68 @@
+server:
+  port: 8081
+spring:
+  datasource:
+        url: jdbc:oracle:thin:@localhost:1521:orcl
+        username: LEN
+        password: 111111
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+#        由于 maven没有 oracle驱动 所以 驱动放在了 db文件夹下面，支持oracle 11g 以及更高版本 如果对配置有疑问
+#        可以加群 137738503 群里有配置好的源码
+        driver-class-name: oracle.jdbc.driver.OracleDriver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+  http:
+      encoding:
+        force: true
+  boot:
+    admin:
+      client:
+        prefer-ip: true
+      url: http://localhost:8082
+
+mybatis:
+    type-aliases-package: com.len.entity
+    mapper-locations: classpath*:mapper/*.xml
+    check-config-location: true
+
+mapper:
+    mappers:
+        - com.len.base.BaseMapper
+    not-empty: false
+    identity: oracle
+
+
+# PageHelperConfig 可以替代此方案
+pagehelper:
+    helperDialect: oracle
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+lenosp:
+  uploadPath: ./file/
+  isDayType: false
+
+  imagePath: ./image/
+
+logging:
+  file: ./logs/lenosp-log.log
+  level:
+    com.len.mapper: debug
+
+dataType: oracle
+
+redis:
+  prefix: len_
