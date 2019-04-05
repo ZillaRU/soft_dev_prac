@@ -36,7 +36,7 @@ public class PermissionFilter extends AuthorizationFilter {
 
     Subject sub = getSubject(servletRequest, servletResponse);
     Session session= sub.getSession();
-    CurrentUser user= (CurrentUser) session.getAttribute("curentUser");
+    CurrentUser user= (CurrentUser) session.getAttribute("currentPrincipal");
     log.info("user:{}",user);
     if(user==null) {
       return false;

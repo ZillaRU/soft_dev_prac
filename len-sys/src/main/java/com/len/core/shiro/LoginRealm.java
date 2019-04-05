@@ -5,6 +5,7 @@ import com.len.base.CurrentRole;
 import com.len.base.CurrentUser;
 import com.len.entity.SysUser;
 import com.len.service.SysUserService;
+import com.len.util.BeanUtil;
 import com.len.util.JWTUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
@@ -41,18 +42,18 @@ public class LoginRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        String name = (String) principalCollection.getPrimaryPrincipal();
+        CurrentUser user = (CurrentUser) principalCollection.getPrimaryPrincipal();
         Set<String> realmNames = principalCollection.getRealmNames();
         List<String> realmNameList = new ArrayList<>(realmNames);
         if ("BlogLogin".equals(realmNameList.get(0))) {
-            String[] roles = JWTUtil.getRoles(name);
+            String[] roles = JWTUtil.getRoles(user.getUsername());
             assert roles != null;
             for (String role : roles) {
                 info.addRole(role);
             }
         } else {
             //根据用户获取角色 根据角色获取所有按钮权限
-            CurrentUser cUser = (CurrentUser) ShiroUtil.getSession().getAttribute("curentUser");
+            CurrentUser cUser = (CurrentUser) Principal.getSession().getAttribute("currentPrincipal");
             for (CurrentRole cRole : cUser.getCurrentRoleList()) {
                 info.addRole(cRole.getId());
             }
@@ -86,7 +87,11 @@ public class LoginRealm extends AuthorizingRealm {
         if (s == null) {
             throw new UnknownAccountException("账户密码不正确");
         }
+        CurrentUser user=new CurrentUser();
+        BeanUtil.copyNotNullBean(s,user);
+        user.setPassword(null);
+        userService.setMenuAndRoles(username);
         ByteSource byteSource = ByteSource.Util.bytes(username);
-        return new SimpleAuthenticationInfo(username, s.getPassword(), byteSource, getName());
+        return new SimpleAuthenticationInfo(user, s.getPassword(), byteSource, getName());
     }
 }

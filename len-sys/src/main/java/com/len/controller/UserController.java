@@ -171,6 +171,7 @@ public class UserController extends BaseController {
             }
             jsonUtil.setFlag(true);
             jsonUtil.setMsg("修改成功");
+            userService.updateCurrent(user);
         } catch (MyException e) {
             e.printStackTrace();
         }

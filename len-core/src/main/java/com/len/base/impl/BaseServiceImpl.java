@@ -90,7 +90,7 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
      * @return
      */
     public T addValue(T record, boolean flag) {
-        CurrentUser currentUser = (CurrentUser) SecurityUtils.getSubject().getSession().getAttribute("curentUser");
+        CurrentUser currentUser = (CurrentUser) SecurityUtils.getSubject().getSession().getAttribute("currentPrincipal");
         //统一处理公共字段
         Class<?> clazz = record.getClass();
         String operator, operateDate;

@@ -6,7 +6,7 @@ import com.len.base.CurrentMenu;
 import com.len.base.CurrentRole;
 import com.len.base.CurrentUser;
 import com.len.base.impl.BaseServiceImpl;
-import com.len.core.shiro.ShiroUtil;
+import com.len.core.shiro.Principal;
 import com.len.entity.SysMenu;
 import com.len.entity.SysRole;
 import com.len.entity.SysRoleUser;
@@ -25,14 +25,14 @@ import com.len.util.Md5Util;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author zhuxiaomeng
@@ -215,7 +215,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
         s.setUsername(username);
         s = this.selectOne(s);
         CurrentUser currentUser = new CurrentUser(s.getId(), s.getUsername(), s.getAge(), s.getEmail(), s.getPhoto(), s.getRealName());
-        Subject subject = ShiroUtil.getSubject();
+        Subject subject = Principal.getSubject();
         /*角色权限封装进去*/
         //根据用户获取菜单
         Session session = subject.getSession();
@@ -226,7 +226,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 
 
         List<CurrentMenu> currentMenuList = new ArrayList<>();
-        List<SysRole> roleList = new ArrayList<>();
+        Set<SysRole> roleList = new HashSet<>();
         for (SysMenu m : menuList) {
             CurrentMenu currentMenu = new CurrentMenu();
             BeanUtil.copyNotNullBean(m, currentMenu);
@@ -234,7 +234,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
             roleList.addAll(m.getRoleList());
         }
 
-        roleList = new ArrayList<>(new HashSet<>(roleList));
         List<CurrentRole> currentRoleList = new ArrayList<>();
 
         for (SysRole r : roleList) {
@@ -244,6 +243,22 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
         }
         currentUser.setCurrentRoleList(currentRoleList);
         currentUser.setCurrentMenuList(currentMenuList);
-        session.setAttribute("curentUser", currentUser);
+        session.setAttribute("currentPrincipal", currentUser);
+    }
+
+    /**
+     * 更新session头像
+     */
+    @Override
+    public void updateCurrent(SysUser sysUser) {
+        CurrentUser principal = Principal.getPrincipal();
+        if(principal.getId().equals(sysUser.getId())){
+            //当前用户
+            CurrentUser currentUse = Principal.getCurrentUse();
+            Session session=Principal.getSession();
+            currentUse.setPhoto(sysUser.getPhoto());
+            session.setAttribute("currentPrincipal",currentUse);
+
+        }
     }
 }

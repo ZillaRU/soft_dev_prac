@@ -43,9 +43,9 @@
 <div class="layui-col-md12">
     <div class="layui-btn-group">
     <@shiro.hasPermission name="control:del">
-      <button class="layui-btn layui-btn-normal" id="processGroup" data-type="assignee">
+     <#-- <button class="layui-btn layui-btn-normal" id="processGroup" data-type="assignee">
         <i class="layui-icon">&#xe642;</i>节点处理人设置
-      </button>
+      </button>-->
     </@shiro.hasPermission>
     </div>
 </div>
@@ -131,7 +131,7 @@
           }
         });
       }
-      ,assignee:function(){
+      /*,assignee:function(){
         var checkStatus = table.checkStatus('actList')
             , data = checkStatus.data;
         if (data.length !=1) {
@@ -139,7 +139,7 @@
           return false;
         }
         assignee(data[0].id,data[0].deploymentId);
-      }
+      }*/
       ,reload:function(){
         $('#deploymentId').val('');
         $('#name').val('');
@@ -194,7 +194,7 @@
    * 流程绑定节点
    * @param id
    */
-  function assignee(id,deploymentId){
+ /* function assignee(id,deploymentId){
     var index =
         layer.open({
           id: 'assignee',
@@ -208,7 +208,7 @@
           content: 'goAssignee/'+deploymentId
         });
     layer.full(index);
-  }
+  }*/
 
 
 </script>

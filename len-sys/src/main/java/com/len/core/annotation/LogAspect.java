@@ -2,7 +2,7 @@ package com.len.core.annotation;
 
 import com.alibaba.fastjson.JSON;
 import com.len.base.CurrentUser;
-import com.len.core.shiro.ShiroUtil;
+import com.len.core.shiro.Principal;
 import com.len.entity.SysLog;
 import com.len.mapper.SysLogMapper;
 import com.len.util.IpUtil;
@@ -11,10 +11,7 @@ import java.lang.reflect.Method;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.UnavailableSecurityManagerException;
-import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.subject.Subject;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -87,7 +84,7 @@ public class LogAspect {
         }
         log.setParam(buffer.toString());
         try {
-            CurrentUser currentUser = ShiroUtil.getCurrentUse();
+            CurrentUser currentUser = Principal.getCurrentUse();
             log.setUserName(currentUser.getUsername());
         } catch (UnavailableSecurityManagerException e) {
 

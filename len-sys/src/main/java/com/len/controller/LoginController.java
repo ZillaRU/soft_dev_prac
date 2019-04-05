@@ -2,7 +2,7 @@ package com.len.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.len.core.annotation.Log;
-import com.len.core.shiro.ShiroUtil;
+import com.len.core.shiro.Principal;
 import com.len.entity.SysMenu;
 import com.len.entity.SysUser;
 import com.len.service.MenuService;
@@ -89,12 +89,12 @@ public class LoginController {
         }
         CustomUsernamePasswordToken token = new CustomUsernamePasswordToken(user.getUsername().trim(),
                 user.getPassword(), "UserLogin");
-        Subject subject = ShiroUtil.getSubject();
+        Subject subject = Principal.getSubject();
         String msg = null;
         try {
             subject.login(token);
             if (subject.isAuthenticated()) {
-                userService.setMenuAndRoles(token.getUsername());
+                //userService.setMenuAndRoles(token.getUsername());
                 token.getUsername();
                 return "redirect:/main";
             }

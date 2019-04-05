@@ -20,7 +20,7 @@ public class CommonUtil {
   public static CurrentUser getUser() {
     org.apache.shiro.subject.Subject subject = SecurityUtils.getSubject();
     Session session = subject.getSession();
-    return (CurrentUser) session.getAttribute("curentUser");
+    return (CurrentUser) session.getAttribute("currentPrincipal");
   }
 }
 

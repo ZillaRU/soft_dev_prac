@@ -3,11 +3,8 @@ package com.len.core;
 import com.len.base.CurrentMenu;
 import com.len.base.CurrentRole;
 import com.len.base.CurrentUser;
-import com.len.core.shiro.ShiroUtil;
+import com.len.core.shiro.Principal;
 import com.len.entity.SysUser;
-import com.len.service.MenuService;
-import com.len.service.RoleMenuService;
-import com.len.service.RoleUserService;
 import com.len.service.SysUserService;
 import com.len.util.JWTUtil;
 import com.len.util.JwtToken;
@@ -46,10 +43,10 @@ public class BlogRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        String name = (String) principalCollection.getPrimaryPrincipal();
-        JWTUtil.getUsername(name);
+        CurrentUser user = (CurrentUser) principalCollection.getPrimaryPrincipal();
+        JWTUtil.getUsername(user.getUsername());
         //根据用户获取角色 根据角色获取所有按钮权限
-        CurrentUser cUser = (CurrentUser) ShiroUtil.getSession().getAttribute("curentUser");
+        CurrentUser cUser = (CurrentUser) Principal.getSession().getAttribute("currentPrincipal");
         for (CurrentRole cRole : cUser.getCurrentRoleList()) {
             info.addRole(cRole.getId());
         }
