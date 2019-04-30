@@ -1,11 +1,8 @@
 package com.len.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.len.core.annotation.Log;
 import com.len.core.shiro.Principal;
-import com.len.entity.SysMenu;
 import com.len.entity.SysUser;
-import com.len.service.MenuService;
 import com.len.service.SysUserService;
 import com.len.util.CustomUsernamePasswordToken;
 import com.len.util.VerifyCodeUtils;
@@ -22,11 +19,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  * @author zhuxiaomeng
@@ -39,10 +34,8 @@ import java.util.List;
 public class LoginController {
 
     @Autowired
-    private MenuService menuService;
-
-    @Autowired
     SysUserService userService;
+    private static final String CODE_ERROR = "code.error";
 
     @GetMapping(value = "")
     public String loginInit() {
@@ -50,7 +43,7 @@ public class LoginController {
     }
 
     @GetMapping(value = "goLogin")
-    public String goLogin(Model model, ServletRequest request) {
+    public String goLogin(Model model) {
         Subject sub = SecurityUtils.getSubject();
         if (sub.isAuthenticated()) {
             return "/main/main";
@@ -83,7 +76,7 @@ public class LoginController {
     @PostMapping(value = "/login")
     public String login(SysUser user, Model model, String rememberMe, HttpServletRequest request) {
         String codeMsg = (String) request.getAttribute("shiroLoginFailure");
-        if ("code.error".equals(codeMsg)) {
+        if (CODE_ERROR.equals(codeMsg)) {
             model.addAttribute("message", "验证码错误");
             return "/login";
         }
@@ -94,7 +87,6 @@ public class LoginController {
         try {
             subject.login(token);
             if (subject.isAuthenticated()) {
-                //userService.setMenuAndRoles(token.getUsername());
                 token.getUsername();
                 return "redirect:/main";
             }
@@ -120,32 +112,6 @@ public class LoginController {
         Subject sub = SecurityUtils.getSubject();
         sub.logout();
         return "/login";
-    }
-
-    /**
-     * 组装菜单json格式
-     * update by 17/12/13
-     *
-     * @return
-     */
-    public JSONArray getMenuJson() {
-        List<SysMenu> mList = menuService.getMenuNotSuper();
-        JSONArray jsonArr = new JSONArray();
-        for (SysMenu sysMenu : mList) {
-            SysMenu menu = getChild(sysMenu.getId());
-            jsonArr.add(menu);
-        }
-        return jsonArr;
-    }
-
-    public SysMenu getChild(String id) {
-        SysMenu sysMenu = menuService.selectByPrimaryKey(id);
-        List<SysMenu> mList = menuService.getMenuChildren(id);
-        for (SysMenu menu : mList) {
-            SysMenu m = getChild(menu.getId());
-            sysMenu.addChild(m);
-        }
-        return sysMenu;
     }
 
 

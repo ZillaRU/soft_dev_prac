@@ -5,17 +5,11 @@ import com.len.core.annotation.Log;
 import com.len.core.annotation.Log.LOG_TYPE;
 import com.len.core.quartz.JobTask;
 import com.len.entity.SysJob;
-import com.len.entity.SysUser;
 import com.len.exception.MyException;
 import com.len.service.JobService;
-import com.len.util.BeanUtil;
-import com.len.util.Checkbox;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
 import io.swagger.annotations.ApiOperation;
-
-import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,15 +100,11 @@ public class JobController extends BaseController<SysJob> {
             j.setMsg("已经启动任务无法更新,请停止后更新");
             return j;
         }
-        try {
-            SysJob oldJob = jobService.selectByPrimaryKey(job.getId());
-            BeanUtil.copyNotNullBean(job, oldJob);
-            jobService.updateByPrimaryKey(oldJob);
+        if (jobService.updateJob(job)) {
             j.setFlag(true);
-            j.setMsg("修改成功");
-        } catch (MyException e) {
-            j.setMsg("更新失败");
-            e.printStackTrace();
+            j.setData("更新成功");
+        } else {
+            j.setData("更新失败");
         }
         return j;
     }
@@ -125,31 +115,7 @@ public class JobController extends BaseController<SysJob> {
     @ResponseBody
     @RequiresPermissions("job:del")
     public JsonUtil del(String id) {
-        JsonUtil j = new JsonUtil();
-        j.setFlag(false);
-        if (StringUtils.isEmpty(id)) {
-            j.setMsg("获取数据失败");
-            return j;
-        }
-        try {
-            SysJob job = jobService.selectByPrimaryKey(id);
-            boolean flag = jobTask.checkJob(job);
-            if ((flag && !job.getStatus()) || !flag && job.getStatus()) {
-                j.setMsg("您任务表状态和web任务状态不一致,无法删除");
-                return j;
-            }
-            if (flag) {
-                j.setMsg("该任务处于启动中，无法删除");
-                return j;
-            }
-            jobService.deleteByPrimaryKey(id);
-            j.setFlag(true);
-            j.setMsg("任务删除成功");
-        } catch (MyException e) {
-            j.setMsg("任务删除异常");
-            e.printStackTrace();
-        }
-        return j;
+        return jobService.del(id);
     }
 
 
@@ -165,14 +131,10 @@ public class JobController extends BaseController<SysJob> {
             j.setFlag(false);
             return j;
         }
-        try {
-            SysJob job = jobService.selectByPrimaryKey(id);
-            jobTask.startJob(job);
-            job.setStatus(true);
-            jobService.updateByPrimaryKey(job);
+        if (jobService.startJob(id)) {
             msg = "启动成功";
-        } catch (MyException e) {
-            e.printStackTrace();
+        } else {
+            msg = "启动失败";
         }
         j.setMsg(msg);
         return j;
@@ -184,20 +146,16 @@ public class JobController extends BaseController<SysJob> {
     @RequiresPermissions("job:end")
     public JsonUtil endJob(String id) {
         JsonUtil j = new JsonUtil();
-        String msg = null;
+        String msg;
         if (StringUtils.isEmpty(id)) {
             j.setMsg("获取数据失败");
             j.setFlag(false);
             return j;
         }
-        try {
-            SysJob job = jobService.selectByPrimaryKey(id);
-            jobTask.remove(job);
-            job.setStatus(false);
-            jobService.updateByPrimaryKey(job);
+        if (jobService.stopJob(id)) {
             msg = "停止成功";
-        } catch (MyException e) {
-            e.printStackTrace();
+        } else {
+            msg = "停止失败";
         }
         j.setMsg(msg);
         return j;
