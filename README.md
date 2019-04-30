@@ -50,6 +50,7 @@
 - 18/6/19 **集成丰富持久化插件tkmapper**
 - 18/12/11 **添加博客功能模块，集成redis缓存**
 - 19/4/5 **优化shiro配置，增加 oracle支持 群（137738503）里有配置好的源码**
+- 19/4/30 **升级admin监控**
 **博客采用vue前后分离基于jwt鉴权，博客单独分离出一个项目**
 ## 头像说明
 ```
@@ -127,6 +128,9 @@ java -jar len-web.jar
           <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn2c5ev8tgj30w50e7wfs.jpg"/></td>
           <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn2dvrcl9lj30wd0e6gmd.jpg"/></td>
       <tr>
+      <tr>
+        <td><img src="https://s2.ax1x.com/2019/04/30/EG7jMT.png"/></td>
+      </tr>
       </table>
    
 * 完全模块化工作流引擎，可视化建立编辑，动态分配节点处理人
