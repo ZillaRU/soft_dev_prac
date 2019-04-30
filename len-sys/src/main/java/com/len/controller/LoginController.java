@@ -6,6 +6,7 @@ import com.len.entity.SysUser;
 import com.len.service.SysUserService;
 import com.len.util.CustomUsernamePasswordToken;
 import com.len.util.VerifyCodeUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -31,6 +32,7 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 @Slf4j
+@Api(value = "登录业务",description="登录校验处理")
 public class LoginController {
 
     @Autowired

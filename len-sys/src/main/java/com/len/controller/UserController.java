@@ -14,6 +14,7 @@ import com.len.exception.MyException;
 import com.len.service.RoleUserService;
 import com.len.service.SysUserService;
 import com.len.util.*;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -36,6 +37,7 @@ import java.util.List;
 //@Api(value="user")
 @Controller
 @RequestMapping(value = "/user")
+@Api(value = "用户管理",description="用户管理业务")
 public class UserController extends BaseController {
 
     //private static final Logger

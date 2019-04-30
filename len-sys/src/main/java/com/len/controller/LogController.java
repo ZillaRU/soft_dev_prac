@@ -12,6 +12,7 @@ import com.len.util.ReType;
 
 import java.util.List;
 
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/log")
 @Slf4j
+@Api(value = "日志管理",description="操作日志记录")
 public class LogController extends BaseController {
     @Autowired
     private SysLogMapper logMapper;

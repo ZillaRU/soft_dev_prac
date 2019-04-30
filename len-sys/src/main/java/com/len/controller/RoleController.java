@@ -5,16 +5,12 @@ import com.len.base.BaseController;
 import com.len.core.annotation.Log;
 import com.len.core.annotation.Log.LOG_TYPE;
 import com.len.entity.SysRole;
-import com.len.entity.SysRoleMenu;
-import com.len.entity.SysRoleUser;
-import com.len.exception.MyException;
 import com.len.service.MenuService;
 import com.len.service.RoleMenuService;
 import com.len.service.RoleService;
-import com.len.service.RoleUserService;
-import com.len.util.BeanUtil;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -26,8 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-
 /**
  * @author zhuxiaomeng
  * @date 2017/12/19.
@@ -36,13 +30,11 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/role")
+@Api(value = "用户角色管理",description="角色业务处理")
 public class RoleController extends BaseController {
 
     @Autowired
     private RoleService roleService;
-
-    @Autowired
-    private RoleUserService roleUserService;
 
     @Autowired
     private MenuService menuService;
@@ -88,25 +80,7 @@ public class RoleController extends BaseController {
         if (StringUtils.isEmpty(sysRole.getRoleName())) {
             JsonUtil.error("角色名称不能为空");
         }
-        JsonUtil j = new JsonUtil();
-        try {
-            roleService.insertSelective(sysRole);
-            //操作role-menu data
-            SysRoleMenu sysRoleMenu = new SysRoleMenu();
-            sysRoleMenu.setRoleId(sysRole.getId());
-
-            if (menus != null)
-                for (String menu : menus) {
-                    sysRoleMenu.setMenuId(menu);
-                    roleMenuService.insert(sysRoleMenu);
-                }
-            j.setMsg("保存成功");
-        } catch (MyException e) {
-            j.setMsg("保存失败");
-            j.setFlag(false);
-            e.printStackTrace();
-        }
-        return j;
+        return roleService.addRole(sysRole, menus);
     }
 
     @GetMapping(value = "updateRole")
@@ -126,35 +100,10 @@ public class RoleController extends BaseController {
     @PostMapping(value = "updateRole")
     @ResponseBody
     public JsonUtil updateUser(SysRole role, String[] menus) {
-        JsonUtil jsonUtil = new JsonUtil();
-        jsonUtil.setFlag(false);
         if (role == null) {
-            jsonUtil.setMsg("获取数据失败");
-            return jsonUtil;
+            return JsonUtil.error("获取数据失败");
         }
-        try {
-            SysRole oldRole = roleService.selectByPrimaryKey(role.getId());
-            BeanUtil.copyNotNullBean(role, oldRole);
-            roleService.updateByPrimaryKeySelective(oldRole);
-
-            SysRoleMenu sysRoleMenu = new SysRoleMenu();
-            sysRoleMenu.setRoleId(role.getId());
-            List<SysRoleMenu> menuList = roleMenuService.selectByCondition(sysRoleMenu);
-            for (SysRoleMenu sysRoleMenu1 : menuList) {
-                roleMenuService.deleteByPrimaryKey(sysRoleMenu1);
-            }
-            if (menus != null)
-                for (String menu : menus) {
-                    sysRoleMenu.setMenuId(menu);
-                    roleMenuService.insert(sysRoleMenu);
-                }
-            jsonUtil.setFlag(true);
-            jsonUtil.setMsg("修改成功");
-        } catch (MyException e) {
-            jsonUtil.setMsg("修改失败");
-            e.printStackTrace();
-        }
-        return jsonUtil;
+        return roleService.updateUser(role, menus);
     }
 
     @ApiOperation(value = "/del", httpMethod = "POST", notes = "删除角色")
@@ -166,22 +115,7 @@ public class RoleController extends BaseController {
         if (StringUtils.isEmpty(id)) {
             return JsonUtil.error("获取数据失败");
         }
-        SysRoleUser sysRoleUser = new SysRoleUser();
-        sysRoleUser.setRoleId(id);
-        JsonUtil j = new JsonUtil();
-        try {
-            int count = roleUserService.selectCountByCondition(sysRoleUser);
-            if (count > 0) {
-                return JsonUtil.error("已分配给用户，删除失败");
-            }
-            roleService.deleteByPrimaryKey(id);
-            j.setMsg("删除成功");
-        } catch (MyException e) {
-            j.setMsg("删除失败");
-            j.setFlag(false);
-            e.printStackTrace();
-        }
-        return j;
+        return roleService.del(id);
     }
 
 }

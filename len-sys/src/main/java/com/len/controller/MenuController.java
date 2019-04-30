@@ -5,19 +5,21 @@ import com.len.base.BaseController;
 import com.len.core.annotation.Log;
 import com.len.core.annotation.Log.LOG_TYPE;
 import com.len.entity.SysMenu;
-import com.len.entity.SysRoleMenu;
 import com.len.exception.MyException;
 import com.len.service.MenuService;
-import com.len.service.RoleMenuService;
 import com.len.util.BeanUtil;
 import com.len.util.JsonUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author zhuxiaomeng
@@ -27,13 +29,11 @@ import org.springframework.web.bind.annotation.*;
  */
 @RequestMapping("/menu")
 @Controller
+@Api(value = "菜单管理",description="菜单业务处理")
 public class MenuController extends BaseController {
 
     @Autowired
     private MenuService menuService;
-
-    @Autowired
-    private RoleMenuService roleMenuService;
 
     /**
      * 展示tree
@@ -119,36 +119,7 @@ public class MenuController extends BaseController {
     @PostMapping("/menu-del")
     @ResponseBody
     public JsonUtil del(String id) {
-        JsonUtil json = new JsonUtil();
-        json.setFlag(false);
-        if (StringUtils.isEmpty(id)) {
-            json.setMsg("获取数据失败,请刷新重试!");
-            return json;
-        }
-        SysRoleMenu sysRoleMenu = new SysRoleMenu();
-        sysRoleMenu.setMenuId(id);
-        int count = roleMenuService.selectCount(sysRoleMenu);
-        //存在角色绑定不能删除
-        if (count > 0) {
-            json.setMsg("本菜单存在绑定角色,请先解除绑定!");
-            return json;
-        }
-        //存在下级菜单 不能解除
-        SysMenu sysMenu = new SysMenu();
-        sysMenu.setPId(id);
-        if (menuService.selectCount(sysMenu) > 0) {
-            json.setMsg("存在子菜单,请先删除子菜单!");
-            return json;
-        }
-        boolean isDel = menuService.deleteByPrimaryKey(id) > 0;
-        if (isDel) {
-            json.setMsg("删除成功");
-            json.setFlag(true);
-        } else {
-            json.setMsg("删除失败");
-        }
-        return json;
-
+        return menuService.del(id);
     }
 
 }

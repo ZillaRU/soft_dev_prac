@@ -8,6 +8,8 @@ import com.len.entity.SysRoleMenu;
 import com.len.mapper.SysMenuMapper;
 import com.len.mapper.SysRoleMenuMapper;
 import com.len.service.MenuService;
+import com.len.service.RoleMenuService;
+import com.len.util.JsonUtil;
 import com.len.util.TreeUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
 
     @Autowired
     private SysRoleMenuMapper roleMenuMapper;
+
+    @Autowired
+    private RoleMenuService roleMenuService;
 
     @Override
     public BaseMapper<SysMenu, String> getMappser() {
@@ -106,6 +111,39 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
             }
         }
         return jsonArr;
+    }
+
+    @Override
+    public JsonUtil del(String id) {
+        JsonUtil json = new JsonUtil();
+        json.setFlag(false);
+        if (StringUtils.isEmpty(id)) {
+            json.setMsg("获取数据失败,请刷新重试!");
+            return json;
+        }
+        SysRoleMenu sysRoleMenu = new SysRoleMenu();
+        sysRoleMenu.setMenuId(id);
+        int count = roleMenuService.selectCount(sysRoleMenu);
+        //存在角色绑定不能删除
+        if (count > 0) {
+            json.setMsg("本菜单存在绑定角色,请先解除绑定!");
+            return json;
+        }
+        //存在下级菜单 不能解除
+        SysMenu sysMenu = new SysMenu();
+        sysMenu.setPId(id);
+        if (selectCount(sysMenu) > 0) {
+            json.setMsg("存在子菜单,请先删除子菜单!");
+            return json;
+        }
+        boolean isDel = deleteByPrimaryKey(id) > 0;
+        if (isDel) {
+            json.setMsg("删除成功");
+            json.setFlag(true);
+        } else {
+            json.setMsg("删除失败");
+        }
+        return json;
     }
 
     public SysMenu getChilds(SysMenu menu, int pNum, int num, List<SysMenu> menuList) {

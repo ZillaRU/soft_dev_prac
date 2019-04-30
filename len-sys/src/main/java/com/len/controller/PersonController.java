@@ -8,6 +8,7 @@ import com.len.service.SysUserService;
 import com.len.util.BeanUtil;
 import com.len.util.Checkbox;
 import com.len.util.JsonUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/person")
+@Api(value = "个人业务",description="个人业务处理")
 public class PersonController {
 
     @Autowired

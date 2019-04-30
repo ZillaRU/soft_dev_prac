@@ -9,6 +9,7 @@ import com.len.exception.MyException;
 import com.len.service.JobService;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/job")
+@Api(value = "定时任务",description="定时任务")
 public class JobController extends BaseController<SysJob> {
 
     @Autowired
