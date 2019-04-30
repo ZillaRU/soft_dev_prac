@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.9.RELEASE</version>
+        <version>2.0.1.RELEASE</version>
         <relativePath />
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -18,17 +18,7 @@
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server -->
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-server</artifactId>
-            <version>1.5.0</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server-ui -->
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-server-ui</artifactId>
-            <version>1.5.0</version>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -48,6 +38,17 @@
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-parameter-names</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-starter-server -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
     </dependencies>

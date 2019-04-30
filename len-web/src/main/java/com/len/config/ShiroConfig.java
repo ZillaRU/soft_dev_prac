@@ -138,6 +138,8 @@ public class ShiroConfig {
         filterMap.put("/login", "verCode,anon");
         filterMap.put("/blogLogin", "verCode,anon");
         filterMap.put("/getCode", "anon");
+        filterMap.put("/actuator/**", "anon");
+        filterMap.put("/eureka/**", "anon");
         filterMap.put("/img/**", "anon");
         filterMap.put("/logout", "logout");
         filterMap.put("/plugin/**", "anon");
