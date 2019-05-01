@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>len-脚手架</title>
-  <link rel="stylesheet" href="${re.contextPath}/plugin/plugins/layui/css/layui.css" media="all" />
+  <link rel="stylesheet" href="${re.contextPath}/plugin/layui/css/layui.css" media="all" />
   <link rel="stylesheet" href="${re.contextPath}/plugin/plugins/font-awesome/css/font-awesome.min.css" media="all" />
   <link rel="stylesheet" href="${re.contextPath}/plugin/build/css/app.css" media="all" />
   <link rel="stylesheet" href="${re.contextPath}/plugin/build/css/themes/default.css" media="all" id="skin" kit-skin />
@@ -104,7 +104,7 @@
   <a target="_blank" href="https://my.oschina.net/u/3312115/blog">开源中国博客</a> 由zxm倾心打造的一款快速开发脚手架 <#--技术交流请联系本人-154040976@qq.com-->
 </div>
 </div>
-<script src="${re.contextPath}/plugin/plugins/layui/layui.js"></script>
+<script src="${re.contextPath}/plugin/layui/layui.js"></script>
 <script src="${re.contextPath}/plugin/tools/main.js"></script>
 </body>
 
