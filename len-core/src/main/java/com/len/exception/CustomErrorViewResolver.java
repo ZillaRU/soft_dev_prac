@@ -28,9 +28,9 @@ public class CustomErrorViewResolver implements ErrorViewResolver {
         ModelAndView andView = new ModelAndView();
         andView.addObject("message", model.get("message"));
 
-        if ("404".equals(status.value())) {
+        if (status.value() == 404) {
             andView.setViewName(PAGE_404);
-        } else if ("403".equals(status.value())) {
+        } else if (status.value() == 403) {
             andView.setViewName(PAGE_403);
         } else if (isServerError) {
             andView.setViewName(PAGE_500);
