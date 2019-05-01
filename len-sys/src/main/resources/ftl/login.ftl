@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
 
-    <#--<link rel="shortcut icon" href="<%=request.getContextPath()%>/plugin/x-admin/favicon.ico" type="image/x-icon" />-->
     <link rel="stylesheet" href="${re.contextPath}/plugin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${re.contextPath}/plugin/x-admin/css/font.css">
     <link rel="stylesheet" href="${re.contextPath}/plugin/x-admin/css/xadmin.css">

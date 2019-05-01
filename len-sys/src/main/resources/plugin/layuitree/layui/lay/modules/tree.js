@@ -82,7 +82,7 @@ layui.define("jquery", function(e) {
         e.addClass("layui-tree"), 
         o.options.skin && e.addClass("layui-tree-skin-" + o.options.skin), 
         o.treeGird(e), 
-        e.wrapInner('<tbody></tbody'), 
+        e.wrapInner('<tbody></tbody>'),
         e.prepend(tableHeaderStr), 
         e.wrapInner('<table class="layui-table"></table>'), 
         e.wrapInner('<div class="layui-form"></div>'), 
