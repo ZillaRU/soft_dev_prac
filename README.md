@@ -2,7 +2,7 @@
 [一枚码农](https://gitee.com/bweird)   [JamesZBL](https://gitee.com/zbl1996)    [zhong](https://gitee.com/guokeyunman) [sunhaoyuan](https://gitee.com/ys.re)
 ## 演示地址
 
-[www.lenosp.cn](http://www.lenosp.cn)  admin 123456 [博客blog.lenosp.cn](http://blog.lenosp.cn)
+[www.lenosp.cn](http://www.lenosp.cn)  admin 123456 [博客blog.lenosp.cn](http://www.leno.icu)
 
 ## lenos收录到layui官方2018年度最佳案例名单中
 ![图片说明](https://s2.ax1x.com/2019/05/12/Ehye9P.jpg "图片说明")
