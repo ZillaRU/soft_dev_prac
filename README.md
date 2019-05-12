@@ -5,7 +5,7 @@
 [www.lenosp.cn](http://www.lenosp.cn)  admin 123456 [博客blog.lenosp.cn](http://blog.lenosp.cn)
 
 ## lenos收录到layui官方2018年度最佳案例名单中
-![图片说明](http://ww4.sinaimg.cn/large/0060lm7Tly1fnjfv8d366j310x0hsjwr.jpg "图片说明")
+![图片说明](https://s2.ax1x.com/2019/05/12/Ehye9P.jpg "图片说明")
 
 ## 交流群
 * lenos开源脚手架群① 137738503 您有疑问，我们解答，您有建议，我们吸取，您有idea 我们欢迎
@@ -18,7 +18,7 @@
 ## 项目说明
 - lenos(p为spring boot版本扩展名)一款快速开发模块化脚手架，采用spring boot 2.0.1+spring+SpringMvc+mybatis+shiro+swagger+ehcache+quartz+freemarker+layui技术开发；实现功能有系统模块：菜单管理、用户管理、角色管理，系统监控：系统日志、接口api、sql监控。本项目会一直维护并集成新的技术，给您的开发节约时间成本，本项目拥有非boot版本。
 ## 未来蓝图
-![图片说明](http://ww2.sinaimg.cn/large/0060lm7Tly1fnw762j02vj30rs0vtjt7.jpg "图片说明")
+![图片说明](https://s2.ax1x.com/2019/05/12/EhyF7d.jpg "图片说明")
 
 ## 功能说明
 - 项目目前拥有
@@ -97,40 +97,37 @@ java -jar len-web.jar
 * 登录账号：admin 密码：123456   
   <table>
       <tr>
-          <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn2bsi2kexj311y0hsdmw.jpg"/></td>
-          <td><img src="http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c1yaqrjj311y0hvdhj.jpg"/></td>
+          <td><img src="https://s2.ax1x.com/2019/05/12/Ehy9XD.jpg"/></td>
+          <td><img src="https://s2.ax1x.com/2019/05/12/EhyS1K.jpg"/></td>
       <tr>
       <tr>
           <td><img src="https://s1.ax1x.com/2018/12/11/FYdgKK.png"/></td>
           <td><img src="https://s1.ax1x.com/2018/12/11/FYwnR1.gif"/></td>
       <tr>
       <tr>
-          <td><img src="http://ww4.sinaimg.cn/large/0060lm7Tly1fnvohtrdglj311y0gggn2.jpg"/></td>
-          <td><img src="http://ww3.sinaimg.cn/large/0060lm7Tly1fnvokv38fwj311y0gddgj.jpg"/></td>
+          <td><img src="https://s2.ax1x.com/2019/05/12/EhyVht.jpg"/></td>
+          <td><img src="https://s2.ax1x.com/2019/04/30/EG7jMT.png"/></td>
       <tr>
       <tr>
           <td><img src="https://s1.ax2x.com/2018/07/14/qvSGY.png"/></td>
-          <td><img src="http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c2l057sj311y0hu767.jpg"/></td>
+          <td><img src="https://s2.ax1x.com/2019/05/12/Ehy2jO.jpg"/></td>
       <tr>
       <tr>
-          <td><img src="http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c33qyvrj311y0hv40e.jpg"/></td>
-          <td><img src="http://ww2.sinaimg.cn/large/0060lm7Tly1fn2c3m4b77j311y0hpq4b.jpg"/></td>
+          <td><img src="https://s2.ax1x.com/2019/05/12/EhyujS.jpg"/></td>
+          <td><img src="https://s2.ax1x.com/2019/05/12/EhyEtI.jpg"/></td>
       <tr>
       <tr>
-          <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn873a0sqnj311y0gc0tr.jpg"/></td>
-          <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn876ntgczj30t707xdgf.jpg"/></td>
+          <td><img src="https://s2.ax1x.com/2019/05/12/EhyPne.jpg"/></td>
+          <td><img src="https://s2.ax1x.com/2019/05/12/Ehym1f.jpg"/></td>
       <tr>
       <tr>
-          <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn8793d3llj311y0gxq4s.jpg"/></td>
-          <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn2c4swdjrj311y0hptam.jpg"/></td>
+          <td><img src="https://s2.ax1x.com/2019/05/12/Ehync8.jpg"/></td>
+          <td><img src="https://s2.ax1x.com/2019/05/12/EhyAAA.jpg"/></td>
       <tr>
       <tr>
-          <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn2c5ev8tgj30w50e7wfs.jpg"/></td>
-          <td><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fn2dvrcl9lj30wd0e6gmd.jpg"/></td>
+          <td><img src="https://s2.ax1x.com/2019/05/12/Ehyp6O.jpg"/></td>
+          <td><img src="https://s2.ax1x.com/2019/05/12/Ehszp6.jpg"/></td>
       <tr>
-      <tr>
-        <td><img src="https://s2.ax1x.com/2019/04/30/EG7jMT.png"/></td>
-      </tr>
       </table>
    
 * 完全模块化工作流引擎，可视化建立编辑，动态分配节点处理人
