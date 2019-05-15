@@ -13,6 +13,7 @@
 
 
 ## 普通版
+- vue博客 ui：[len-blog-ui](https://gitee.com/bweird/len-blog-ui)
 - 地址：[lenos](https://gitee.com/bweird/lenos) 
 
 ## 项目说明
@@ -51,7 +52,7 @@
 - 18/12/11 **添加博客功能模块，集成redis缓存**
 - 19/4/5 **优化shiro配置，增加 oracle支持 群（137738503）里有配置好的源码**
 - 19/4/30 **升级admin监控**
-**博客采用vue前后分离基于jwt鉴权，博客单独分离出一个项目**
+**博客采用vue前后分离基于jwt鉴权，博客单独分离出一个项目地址:[len-blog-ui](https://gitee.com/bweird/len-blog-ui)**
 ## 头像说明
 ```
 修改 application.yml imagePath 路径 把image文件夹图片赋值进路径，即可正常展示头像
