@@ -208,7 +208,8 @@ public class ActivitiController extends BaseController {
             }
         }
         processDefinitionList = processDefinitionQuery.listPage(Integer.valueOf(limit) * (Integer.valueOf(page) - 1), Integer.valueOf(limit));
-        long count = repositoryService.createDeploymentQuery().count();
+        long count = repositoryService.createProcessDefinitionQuery().count();
+//        long count = repositoryService.createDeploymentQuery().count();
         List<ProcessDefinition> list = new ArrayList<>();
         processDefinitionList
                 .forEach(processDefinition -> list.add(new ProcessDefinition(processDefinition)));
