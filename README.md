@@ -1,5 +1,3 @@
-## 团队成员 
-[一枚码农](https://gitee.com/bweird)   [JamesZBL](https://gitee.com/zbl1996)    [zhong](https://gitee.com/guokeyunman) [sunhaoyuan](https://gitee.com/ys.re)
 ## 演示地址
 
 [www.lenosp.cn](http://www.lenosp.cn)  admin 123456 [博客blog.lenosp.cn](http://www.leno.icu)
