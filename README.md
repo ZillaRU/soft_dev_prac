@@ -1,9 +1,9 @@
 ## 演示地址
 
-[www.lenosp.cn](http://www.lenosp.cn)  admin 123456 [博客blog.lenosp.cn](http://www.leno.icu)
+[www.lenosp.cn](http://www.lenosp.cn)  admin 123456 [博客blog.lenosp.cn](http://blog.lenosp.cn)
 
 ## lenos收录到layui官方2018年度最佳案例名单中
-![图片说明](https://s2.ax1x.com/2019/05/12/Ehye9P.jpg "图片说明")
+![图片说明](https://images.gitee.com/uploads/images/2019/1017/214009_9f295d89_907437.jpeg "图片说明")
 
 ## 交流群
 * lenos开源脚手架群① 137738503 您有疑问，我们解答，您有建议，我们吸取，您有idea 我们欢迎
@@ -17,7 +17,7 @@
 ## 项目说明
 - lenos(p为spring boot版本扩展名)一款快速开发模块化脚手架，采用spring boot 2.0.1+spring+SpringMvc+mybatis+shiro+swagger+ehcache+quartz+freemarker+layui技术开发；实现功能有系统模块：菜单管理、用户管理、角色管理，系统监控：系统日志、接口api、sql监控。本项目会一直维护并集成新的技术，给您的开发节约时间成本，本项目拥有非boot版本。
 ## 未来蓝图
-![图片说明](https://s2.ax1x.com/2019/05/12/EhyF7d.jpg "图片说明")
+![图片说明](https://images.gitee.com/uploads/images/2019/1017/214007_d4b418ac_907437.jpeg "图片说明")
 
 ## 功能说明
 - 项目目前拥有
@@ -96,24 +96,24 @@ java -jar len-web.jar
 * 登录账号：admin 密码：123456   
   <table>
       <tr>
-          <td><img src="https://s2.ax1x.com/2019/05/12/Ehy9XD.jpg"/></td>
-          <td><img src="https://s2.ax1x.com/2019/05/12/EhyS1K.jpg"/></td>
+          <td><img src="https://images.gitee.com/uploads/images/2019/1017/214006_de4b6143_907437.jpeg"/></td>
+          <td><img src="https://images.gitee.com/uploads/images/2019/1017/214007_add596c7_907437.jpeg"/></td>
       <tr>
       <tr>
-          <td><img src="https://s1.ax1x.com/2018/12/11/FYdgKK.png"/></td>
+          <td><img src="https://images.gitee.com/uploads/images/2019/1017/214007_593cd33c_907437.png"/></td>
           <td><img src="https://s1.ax1x.com/2018/12/11/FYwnR1.gif"/></td>
       <tr>
       <tr>
           <td><img src="https://s2.ax1x.com/2019/05/12/EhyVht.jpg"/></td>
-          <td><img src="https://s2.ax1x.com/2019/04/30/EG7jMT.png"/></td>
+          <td><img src="https://images.gitee.com/uploads/images/2019/1017/214012_77513b79_907437.png"/></td>
       <tr>
       <tr>
           <td><img src="https://s1.ax2x.com/2018/07/14/qvSGY.png"/></td>
-          <td><img src="https://s2.ax1x.com/2019/05/12/Ehy2jO.jpg"/></td>
+          <td><img src="https://images.gitee.com/uploads/images/2019/1017/214011_595b1936_907437.jpeg"/></td>
       <tr>
       <tr>
-          <td><img src="https://s2.ax1x.com/2019/05/12/EhyujS.jpg"/></td>
-          <td><img src="https://s2.ax1x.com/2019/05/12/EhyEtI.jpg"/></td>
+          <td><img src="https://images.gitee.com/uploads/images/2019/1017/214012_13919888_907437.jpeg"/></td>
+          <td><img src="https://images.gitee.com/uploads/images/2019/1017/214012_9c5675a5_907437.jpeg"/></td>
       <tr>
       <tr>
           <td><img src="https://s2.ax1x.com/2019/05/12/EhyPne.jpg"/></td>
