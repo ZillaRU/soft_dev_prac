@@ -22,11 +22,6 @@
       <artifactId>mybatis-generator-core</artifactId>
       <version>1.3.5</version>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>org.springframework.boot</groupId>-->
-<!--      <artifactId>spring-boot-starter-web</artifactId>-->
-<!--    </dependency>-->
-
 
     <!-- https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-starter-client -->
     <dependency>
