@@ -70,7 +70,7 @@ CREATE TABLE `act_ge_bytearray` (
   `GENERATED_` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`ID_`),
   KEY `ACT_FK_BYTEARR_DEPL` (`DEPLOYMENT_ID_`),
-  CONSTRAINT `ACT_FK_BYTEARR_DEPL` FOREIGN KEY (`DEPLOYMENT_ID_`) REFERENCES `act_re_deployment` (`ID_`)
+--   CONSTRAINT `ACT_FK_BYTEARR_DEPL1` FOREIGN KEY (`DEPLOYMENT_ID_`) REFERENCES `act_re_deployment` (`ID_`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
