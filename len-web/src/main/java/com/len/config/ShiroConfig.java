@@ -1,7 +1,5 @@
 package com.len.config;
 
-//import com.len.core.BlogRealm;
-//import com.len.core.MyBasicHttpAuthenticationFilter;
 import com.len.core.filter.PermissionFilter;
 import com.len.core.filter.VerfityCodeFilter;
 import com.len.core.shiro.LoginRealm;

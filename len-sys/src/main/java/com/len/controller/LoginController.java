@@ -77,16 +77,19 @@ public class LoginController {
     @ApiOperation(value = "/login", httpMethod = "POST", notes = "登录method")
     @PostMapping(value = "/login")
     public String login(SysUser user, Model model, String rememberMe, HttpServletRequest request) {
+//      验证码判断
         String codeMsg = (String) request.getAttribute("shiroLoginFailure");
         if (CODE_ERROR.equals(codeMsg)) {
             model.addAttribute("message", "验证码错误");
             return "/login";
         }
+//      密码认证令牌
         CustomUsernamePasswordToken token = new CustomUsernamePasswordToken(user.getUsername().trim(),
                 user.getPassword(), "UserLogin");
         Subject subject = Principal.getSubject();
         String msg = null;
         try {
+//          判断登录
             subject.login(token);
             if (subject.isAuthenticated()) {
                 token.getUsername();
