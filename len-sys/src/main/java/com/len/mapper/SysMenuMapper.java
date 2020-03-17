@@ -3,8 +3,6 @@ package com.len.mapper;
 import com.len.base.BaseMapper;
 import com.len.entity.SysMenu;
 import org.apache.ibatis.annotations.Param;
-import tk.mybatis.mapper.common.Mapper;
-
 import java.util.List;
 
 public interface SysMenuMapper extends BaseMapper<SysMenu,String> {

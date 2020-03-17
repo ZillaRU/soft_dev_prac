@@ -65,7 +65,7 @@ public interface SysUserService extends BaseService<SysUser,String> {
 
   List<SysUser> getUserByRoleId(String roleId);
 
-  public void setMenuAndRoles(String username);
+  void setMenuAndRoles(String username);
 
-  public void updateCurrent(SysUser user);
+  void updateCurrent(SysUser user);
 }

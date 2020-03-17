@@ -96,6 +96,7 @@ public class UserController extends BaseController {
     @PostMapping(value = "addUser")
     @ResponseBody
     public JsonUtil addUser(SysUser user, String[] role) {
+        System.out.println("qaqqaq" + user);
         if (user == null) {
             return JsonUtil.error("获取数据失败");
         }

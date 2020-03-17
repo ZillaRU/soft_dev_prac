@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.ProjectInfoMapper">
+    <resultMap id="BaseResultMap" type="com.len.entity.ProjectInfo">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="proj_name" jdbcType="VARCHAR" property="projName" />
+        <result column="proj_no" jdbcType="VARCHAR" property="projNo" />
+        <result column="pm_id" jdbcType="VARCHAR" property="pmId" />
+        <result column="proj_customer" jdbcType="VARCHAR" property="projCustomer" />
+        <result column="proj_state" jdbcType="INTEGER" property="projState" />
+        <result column="start_date" jdbcType="DATE" property="startDate" />
+        <result column="end_date" jdbcType="DATE" property="endDate" />
+        <result column="milestone" jdbcType="VARCHAR" property="milestone" />
+        <result column="proj_tech" jdbcType="VARCHAR" property="projTech" />
+        <result column="proj_domain" jdbcType="VARCHAR" property="projDomain" />
+        <result column="proj_main_func" jdbcType="VARCHAR" property="projMainFunc" />
+    </resultMap>
+
+    <select id="selectByPmId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM project_info where pm_id = #{pm_id}
+    </select>
+
+</mapper>

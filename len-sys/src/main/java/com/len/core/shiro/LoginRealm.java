@@ -6,7 +6,6 @@ import com.len.base.CurrentUser;
 import com.len.entity.SysUser;
 import com.len.service.SysUserService;
 import com.len.util.BeanUtil;
-import com.len.util.JWTUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -16,10 +15,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author zhuxiaomeng
@@ -32,7 +27,6 @@ public class LoginRealm extends AuthorizingRealm {
     @Autowired
     private SysUserService userService;
 
-
     /**
      * 获取授权
      *
@@ -42,28 +36,16 @@ public class LoginRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        CurrentUser user = (CurrentUser) principalCollection.getPrimaryPrincipal();
-        Set<String> realmNames = principalCollection.getRealmNames();
-        List<String> realmNameList = new ArrayList<>(realmNames);
-        if ("BlogLogin".equals(realmNameList.get(0))) {
-            String[] roles = JWTUtil.getRoles(user.getUsername());
-            assert roles != null;
-            for (String role : roles) {
-                info.addRole(role);
-            }
-        } else {
-            //根据用户获取角色 根据角色获取所有按钮权限
-            CurrentUser cUser = (CurrentUser) Principal.getSession().getAttribute("currentPrincipal");
-            for (CurrentRole cRole : cUser.getCurrentRoleList()) {
-                info.addRole(cRole.getId());
-            }
-            for (CurrentMenu cMenu : cUser.getCurrentMenuList()) {
-                if (!StringUtils.isEmpty(cMenu.getPermission())) {
-                    info.addStringPermission(cMenu.getPermission());
-                }
+        //根据用户获取角色 根据角色获取所有按钮权限
+        CurrentUser cUser = (CurrentUser) Principal.getSession().getAttribute("currentPrincipal");
+        for (CurrentRole cRole : cUser.getCurrentRoleList()) {
+            info.addRole(cRole.getId());
+        }
+        for (CurrentMenu cMenu : cUser.getCurrentMenuList()) {
+            if (!StringUtils.isEmpty(cMenu.getPermission())) {
+                info.addStringPermission(cMenu.getPermission());
             }
         }
-
         return info;
     }
 
@@ -87,8 +69,8 @@ public class LoginRealm extends AuthorizingRealm {
         if (s == null) {
             throw new UnknownAccountException("账户密码不正确");
         }
-        CurrentUser user=new CurrentUser();
-        BeanUtil.copyNotNullBean(s,user);
+        CurrentUser user = new CurrentUser();
+        BeanUtil.copyNotNullBean(s, user);
         user.setPassword(null);
         userService.setMenuAndRoles(username);
         ByteSource byteSource = ByteSource.Util.bytes(username);

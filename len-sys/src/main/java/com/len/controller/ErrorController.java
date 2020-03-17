@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/error")
 @Api(value = "异常", description = "异常业务类")
 public class ErrorController {
-
     @GetMapping(value = "404")
     public String pageNotFound() {
         return "error/404";

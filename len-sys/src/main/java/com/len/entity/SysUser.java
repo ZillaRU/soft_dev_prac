@@ -30,6 +30,8 @@ public class SysUser {
 
     private String email;
 
+    private String phone;
+
     private String photo;
 
     @Column(name = "real_name")
@@ -46,6 +48,9 @@ public class SysUser {
 
     @Column(name = "update_date")
     private Date updateDate;
+
+    @Column(name = "chief_id")
+    private String chiefId;
 
     /**
      * 0可用1封禁

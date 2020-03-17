@@ -1,11 +1,8 @@
 package com.len.util;
 
 import org.apache.log4j.Logger;
-import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 

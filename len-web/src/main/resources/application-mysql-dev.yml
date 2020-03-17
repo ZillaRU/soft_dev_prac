@@ -82,5 +82,5 @@ logging:
 
 dataType: mysql
 
-redis:
-  prefix: len_
+#redis:
+#  prefix: len_

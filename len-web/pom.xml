@@ -41,10 +41,6 @@
       <groupId>com.len</groupId>
       <artifactId>len-activiti</artifactId>
     </dependency>
-    <dependency>
-      <groupId>com.len</groupId>
-      <artifactId>len-achit-web</artifactId>
-    </dependency>
   </dependencies>
   <build>
     <finalName>len-web</finalName>

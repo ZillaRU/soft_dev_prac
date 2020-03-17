@@ -65,7 +65,7 @@ import java.util.Map;
  * @author zhuxiaomeng
  * @date 2018/1/13.
  * @email 154040976@qq.com
- * <p>
+ *
  * 流程管理 流程创建、发布 流程节点绑定角色/用户(绑定用户 开始ing)
  */
 @Controller
@@ -209,7 +209,6 @@ public class ActivitiController extends BaseController {
         }
         processDefinitionList = processDefinitionQuery.listPage(Integer.valueOf(limit) * (Integer.valueOf(page) - 1), Integer.valueOf(limit));
         long count = repositoryService.createProcessDefinitionQuery().count();
-//        long count = repositoryService.createDeploymentQuery().count();
         List<ProcessDefinition> list = new ArrayList<>();
         processDefinitionList
                 .forEach(processDefinition -> list.add(new ProcessDefinition(processDefinition)));
