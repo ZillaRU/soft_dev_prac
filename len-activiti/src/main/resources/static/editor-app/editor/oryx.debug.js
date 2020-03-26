@@ -152,36 +152,16 @@ var ERDF = {
 	log: undefined,
 
 	init: function(callback) {
-		
-		// init logging.
-		//ERDF.log = Log4js.getLogger("oryx");
-		//ERDF.log.setLevel(Log4js.Level.ALL);
-		//ERDF.log.addAppender(new ConsoleAppender(ERDF.log, false));
-
-		//if(ERDF.log.isTraceEnabled())
-		//	ERDF.log.trace("ERDF Parser is initialized.");
-
-		// register callbacks and default schemas.
 		ERDF.callback = callback;
 		ERDF.registerSchema('schema', XMLNS.SCHEMA);
 		ERDF.registerSchema('rdfs', XMLNS.RDFS);
 	},
 
 	run: function() {
-
-		//if(ERDF.log.isTraceEnabled())
-		//	ERDF.log.trace("ERDF Parser is running.");
-
-		// do the work.
 		return ERDF._checkProfile() && ERDF.parse();
 	},
 	
 	parse: function() {
-		
-		//(ERDF.log.isDebugEnabled())
-		//	ERDF.log.debug("Begin parsing document metadata.");
-		
-		// time measuring
 		ERDF.__startTime = new Date();
 
 		var bodies = document.getElementsByTagNameNS(XMLNS.XHTML, 'body');
@@ -246,14 +226,6 @@ var ERDF = {
 		if(!depth) depth=0;
 		var id = node.getAttribute('id');
 
-		// some logging.
-		//if(ERDF.log.isTraceEnabled())
-		//	ERDF.log.trace(">".times(depth) + " Parsing " + node.nodeName + " ("+node.nodeType+") for data on " +
-		//		((subject.type == ERDF.RESOURCE) ? ('&lt;' + subject.value + '&gt;') : '') +
-		//		((subject.type == ERDF.LITERAL) ? '"' + subject.value + '"' : ''));
-		
-		/* triple finding! */
-		
 		// in a-tags...
 		if(node.nodeName.endsWith(':a') || node.nodeName == 'a') {
 			var properties = node.getAttribute('rel');

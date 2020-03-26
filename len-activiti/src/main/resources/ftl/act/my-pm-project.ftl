@@ -60,7 +60,7 @@
             elem: '#projList'
             , url: 'showPMprojctList'
             , cols: [[
-                {checkbox: true, fixed: true, width: '5%'}
+                {checkbox: false, fixed: true, width: '5%'}
                 , {
                     field: 'projName',
                     title: '项目名称',
@@ -68,8 +68,8 @@
                     sort: true,
                     style: 'background-color: #009688; color: #fff;'
                 }
-                , {field: 'projNo', title: '编号', width: '10%'}
-                , {field: 'projCustomer', title: '客户代号', width: '10%', sort: true}
+                , {field: 'projNo', title: '编号', width: '10%', sort: true}
+                , {field: 'projCustomer', title: '客户代号', width: '10%'}
                 , {field: 'projState', title: '项目状态', width: '10%'}
                 , {field: 'startDate', title: '预定时间', width: '13%'}
                 , {field: 'endDate', title: '交付日', width: '13%'}

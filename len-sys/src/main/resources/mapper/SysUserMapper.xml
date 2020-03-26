@@ -17,6 +17,7 @@
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
     <result column="chief_id" jdbcType="VARCHAR" property="chiefId" />
     <result column="del_flag" jdbcType="TINYINT" property="delFlag" />
   </resultMap>
@@ -151,7 +152,11 @@
 
 
   <select id="getUserByRoleId" resultMap="BaseResultMap">
-    select sysuser.id,sysuser.real_name,sysuser.username from sys_user sysuser inner join sys_role_user roleuser on sysuser.id = roleuser.user_id and roleuser.role_id = #{roleId,jdbcType=VARCHAR}
+    select sys_user.id,sys_user.real_name,sys_user.username from sys_user sysuser inner join sys_role_user roleuser on sysuser.id = roleuser.user_id and roleuser.role_id = #{roleId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAllNameId" resultMap="BaseResultMap">
+    select sys_user.id,sys_user.real_name,sys_user.department from sys_user
   </select>
 
 </mapper>

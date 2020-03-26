@@ -6,6 +6,7 @@ import com.len.entity.SysRoleUser;
 import com.len.entity.SysUser;
 import com.len.util.Checkbox;
 import com.len.util.JsonUtil;
+
 import java.util.List;
 
 /**
@@ -46,7 +47,7 @@ public interface SysUserService extends BaseService<SysUser,String> {
 
   int checkUser(String username);
 
-
+  List<SysUser> getAllIdName();
 
   @Override
   int updateByPrimaryKey(SysUser sysUser);

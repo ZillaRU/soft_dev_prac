@@ -17,7 +17,6 @@ import java.util.Date;
 @ToString
 public class SysUser {
     @Id
-    @Column(name = "id")
     private String id;
 
     @NotEmpty(message = "用户名不能为空", groups = {AddGroup.class, UpdateGroup.class})
@@ -48,6 +47,8 @@ public class SysUser {
 
     @Column(name = "update_date")
     private Date updateDate;
+
+    private String department;
 
     @Column(name = "chief_id")
     private String chiefId;

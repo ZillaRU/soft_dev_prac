@@ -279,7 +279,7 @@ public class ActivitiController extends BaseController {
             modelData.setDeploymentId(deployment.getId());
             repositoryService.saveModel(modelData);
         } catch (MyException e) {
-            msg = "发布数失败";
+            msg = "发布失败";
             j.setFlag(false);
         } catch (IOException e) {
             e.printStackTrace();

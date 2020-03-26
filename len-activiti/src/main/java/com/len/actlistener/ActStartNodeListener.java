@@ -15,13 +15,7 @@
  */
 package com.len.actlistener;
 
-import com.len.entity.ActAssignee;
 import com.len.entity.BaseTask;
-import com.len.entity.UserLeave;
-import com.len.service.ActAssigneeService;
-import com.len.service.impl.ActAssigneeServiceImpl;
-import com.len.util.AssigneeType;
-import com.len.util.SpringUtil;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.TaskListener;
 

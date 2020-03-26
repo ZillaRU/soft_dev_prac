@@ -17,7 +17,7 @@
 <body>
 <div class="x-body">
     <form class="layui-form layui-form-pane" style="margin-left: 20px;">
-        <div style="width:100%;height:300px;overflow: auto;">
+        <div style="width:100%;height: 90%;overflow: auto;">
             <div class="layui-form-item">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
                     <legend style="font-size:16px;">基本信息</legend>
@@ -34,11 +34,12 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label for="projno" class="layui-form-label" >
+                    <label for="projno" class="layui-form-label">
                         项目编号
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="projNo" name="projNo" autocomplete="off" class="layui-input">
+                        <input type="text" id="projNo" name="projNo"
+                               autocomplete="off" class="layui-input" lay-verify="no_pattern">
                     </div>
                     <label>（格式：YEAR CUST T NO）</label>
                 </div>
@@ -54,12 +55,90 @@
                     </div>
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label for="epg_leader" class="layui-form-label" style="width:130px;padding: 9px 0px;">
+                    <span class="x-red">*EPG Leader</span>
+                </label>
+                <div class="layui-input-inline">
+                    <select id="selectId1" name="epgLeader" lay-search>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="configManager" class="layui-form-label" style="width:130px;padding: 9px 0px;">
+                    <span class="x-red">*配置管理员</span>
+                </label>
+                <div class="layui-input-inline">
+                    <select id="selectId2" name="configManager" lay-search>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="qaManager" class="layui-form-label" style="width:130px;padding: 9px 0px;">
+                    <span class="x-red">*QA</span>
+                </label>
+                <div class="layui-input-inline">
+                    <select id="selectId3" name="qaManager" lay-search>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="startDate" class="layui-form-label" style="width:130px;padding: 9px 0px;">
+                    <span class="x-red">*预定日</span>
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="d1" lay-verify="nnull">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="end_date" class="layui-form-label" style="width:130px;padding: 9px 0px;">
+                    <span class="x-red">*交付日</span>
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="d2" lay-verify="nnull">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="milestone" class="layui-form-label">
+                    <span class="x-red">*</span>里程碑
+                </label>
+                <div class="layui-input-inline">
+                    <textarea type="text" id="milestone" name="milestone" lay-verify="nnull"
+                              autocomplete="off" class="layui-input-block" style="width:400px; height: 150px"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="projTech" class="layui-form-label">
+                    <span class="x-red">*</span>主要技术
+                </label>
+                <div class="layui-input-inline">
+                    <textarea type="text" id="projTech" name="projTech" lay-verify="nnull"
+                              autocomplete="off" class="layui-input-block" style="width:400px; height: 150px"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="projDomain" class="layui-form-label">
+                    <span class="x-red">*</span>领域
+                </label>
+                <div class="layui-input-inline">
+                    <textarea type="text" id="projDomain" name="projDomain" lay-verify="nnull"
+                              autocomplete="off" class="layui-input-block" style="width:400px; height: 150px"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item" style="height: 20%; width: 80%">
+                <label for="projMainFunc" class="layui-form-label">
+                    <span class="x-red">*</span>主要功能
+                </label>
+                <div class="layui-input-inline">
+                    <textarea type="text" id="projMainFunc" name="projMainFunc" lay-verify="nnull"
+                              autocomplete="off" class="layui-input-block" style="width:400px; height: 150px"></textarea>
+                </div>
+            </div>
             <div style="height: 60px"></div>
         </div>
         <div style="width: 100%;height: 55px;background-color: white;border-top:1px solid #e6e6e6;
   position: fixed;bottom: 1px;margin-left:-20px;">
             <div class="layui-form-item" style=" float: right;margin-right: 30px;margin-top: 8px">
-
                 <button class="layui-btn layui-btn-normal" lay-filter="add" lay-submit="">
                     增加
                 </button>
@@ -71,96 +150,57 @@
     </form>
 </div>
 <script>
-    var flag, msg;
-    console.info(flag);
-    $(function () {
-        $('#uname').on("blur", function () {
-            var uname = $('#uname').val();
-            if (uname.match(/[\u4e00-\u9fa5]/)) {
-                return;
-            }
-            if (!/(.+){3,12}$/.test(uname)) {
-                return;
-            }
-            if (uname != '') {
-                $.ajax({
-                    url: 'checkUser?uname=' + uname, async: false, type: 'get', success: function (data) {
-                        console.info(!data.flag);
-                        flag = data.flag;
-                        $('#ms').find('span').remove();
-                        if (!data.flag) {
-                            msg = data.msg;
-                            $('#ms').append("<span style='color: red;'>" + data.msg + "</span>");
-                            // layer.msg(msg,{icon: 5,anim: 6});
-                        } else {
-                            flag = true;
-                            $('#ms').append("<span style='color: green;'>用户名可用</span>");
-                        }
-                    }, beforeSend: function () {
-                        $('#ms').find('span').remove();
-                        $('#ms').append("<span>验证ing</span>");
-                    }
-                });
-            }
-        });
-
-    });
-    layui.use(['form', 'layer', 'upload'], function () {
+    layui.use(['form', 'laydate'], function () {
         $ = layui.jquery;
-        var form = layui.form
-            , layer = layui.layer,
-            upload = layui.upload;
+        var form = layui.form, laydate = layui.laydate;
 
-        upload.render({
-            elem: '#test10'
-            , url: 'upload'
-            , before: function (obj) {
-                //预读，不支持ie8
-                obj.preview(function (index, file, result) {
-                    $('#demo2').find('img').remove();
-                    $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" width="100px" height="100px" class="layui-upload-img layui-circle">');
-                });
-            }, done: function (res) {
-                if (!res.flag) {
-                    layer.msg(res.msg, {icon: 5, anim: 6});
-                } else {
-                    $("#photo").val(res.msg);
-                    console.info($('#photo').val());
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#d1'
+        });
+        laydate.render({
+            elem: '#d2'
+        });
+        $.ajax({
+            url: '/user/showAllUser',
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                // console.info(data['users']);
+                $('#selectId1').empty();
+                $('#selectId2').empty();
+                $('#selectId3').empty();
+                for (var u in data['users']) {
+                    $('#selectId1').append("<option value='" + data['users'][u].id + "'>" + data['users'][u].department + ' ' + data['users'][u].realName + "</option>");
+                    $('#selectId2').append("<option value='" + data['users'][u].id + "'>" + data['users'][u].department + ' ' + data['users'][u].realName + "</option>");
+                    $('#selectId3').append("<option value='" + data['users'][u].id + "'>" + data['users'][u].department + ' ' + data['users'][u].realName + "</option>");
                 }
+                form.render();
             }
         });
+        // window.createSelect = function(selectId1, url, value) {
+        //     $.post(url, function (data) {
+        //         $(selectId1).empty();
+        //         $(selectId1).append("<option value=''> 请选择 </option>");
+        //         for(var u in data) {
+        //             $(selectId1).append("<option value='" + data[u].id + "'>" + data[u].department + data[u].realName + "</option>");
+        //         }
+        //     });
+        //     if(value != undefined && value != null && value!='') {
+        //         $(selectId1).val(value);
+        //     }
+        //     form.render();
+        // };
 
         //自定义验证规则
         form.verify({
-            username: function (value) {
+            nnull: function (value) {
                 if (value.trim() == "") {
-                    return "用户名不能为空";
+                    return "*项 不能为空";
                 }
-                if (value.match(/[\u4e00-\u9fa5]/)) {
-                    return "用户名不能为中文";
-                }
-                if (!/(.+){3,12}$/.test(value)) {
-                    return "用户名必须3到12位";
-                }
-                if (typeof (flag) == 'undefined') {
-                    return "用户名验证ing";
-                }
-                if (!flag) {
-                    return msg;
-                }
-            }
-            , password: [/(.+){6,12}$/, '密码必须6到12位']
-            , repass: function (value) {
-                if ($('#password').val() != $('#l_repass').val()) {
-                    return '两次密码不一致';
-                }
-            }
-            , email: function (value) {
-                if (value != "") {
-                    if (!/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(value)) {
-                        return "邮箱格式不正确";
-                    }
-                }
+            },
+            no_pattern: function (value) {
+                // if(value) 正则匹配项目编号 yyyyccccTxx
             }
         });
 
@@ -168,9 +208,10 @@
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);
         });
+
         //监听提交
         form.on('submit(add)', function (data) {
-            layerAjax('applyProject', data.field, 'jobList');
+            layerAjax('applyProject', data.field, 'projList');
         });
     });
 </script>

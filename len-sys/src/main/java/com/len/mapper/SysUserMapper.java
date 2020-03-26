@@ -20,6 +20,8 @@ public interface SysUserMapper extends com.len.base.BaseMapper<SysUser,String> {
 
     int checkUser(String username);
 
+    List<SysUser> selectAllNameId();
+
     /**
      * 更新密码
      * @param user
@@ -28,4 +30,5 @@ public interface SysUserMapper extends com.len.base.BaseMapper<SysUser,String> {
     int rePass(SysUser user);
 
     List<SysUser> getUserByRoleId(@Param("roleId")String roleId);
+
 }

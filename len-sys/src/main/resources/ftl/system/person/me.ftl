@@ -47,14 +47,20 @@
             </div>
         </div>
         <div class="layui-inline">
+            <label for="department" class="layui-form-label">
+                <span class="x-red">*</span>部门
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="uname" value="${user.department}" readonly class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
             <label for="chief_name" class="layui-form-label">
                 项目上级
             </label>
             <div class="layui-input-inline">
 
-
-
-                <input type="text" id="chief_name" value="${user.chiefId}" readonly
+                <input type="hidden" id="chief_name" value="${user.chiefId}" readonly
                        autocomplete="off" class="layui-input">
             </div>
         </div>

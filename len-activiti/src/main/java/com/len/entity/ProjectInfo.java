@@ -49,4 +49,13 @@ public class ProjectInfo {
 
     @Column(name = "end_date")
     private Date endDate;
+
+    @Column(name = "epg_leader")
+    private String epgLeader;
+
+    @Column(name = "config_manager")
+    private String configManager;
+
+    @Column(name = "qa_manager")
+    private String qaManager;
 }

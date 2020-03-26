@@ -32,23 +32,6 @@ spring:
       client:
         url: http://localhost:8082
 
-
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: "*"
-#  endpoint:
-#      health:
-#        show-details: ALWAYS
-#eureka:
-#  client:
-#    fetch-registry: false
-#    register-with-eureka: false
-#  redis:
-#    host: 127.0.0.1
-#    port: 6379
-
 mybatis:
     type-aliases-package: com.len.entity
     mapper-locations: classpath*:mapper/*.xml
@@ -81,6 +64,3 @@ logging:
     com.len.mapper: debug
 
 dataType: mysql
-
-#redis:
-#  prefix: len_

@@ -31,6 +31,12 @@ public class ReType implements Serializable{
   public ReType() {
   }
 
+  public ReType(List<?> data) {
+    this.count = data.size();
+    this.data = data;
+  }
+
+
   public ReType(long count, List<?> data) {
     this.count = count;
     this.data = data;

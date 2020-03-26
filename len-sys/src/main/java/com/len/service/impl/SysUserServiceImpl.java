@@ -18,14 +18,11 @@ import com.len.service.MenuService;
 import com.len.service.RoleService;
 import com.len.service.RoleUserService;
 import com.len.service.SysUserService;
-import com.len.util.BeanUtil;
-import com.len.util.Checkbox;
-import com.len.util.JsonUtil;
-import com.len.util.Md5Util;
+import com.len.util.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,6 +168,11 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
     @Override
     public int checkUser(String username) {
         return sysUserMapper.checkUser(username);
+    }
+
+    @Override
+    public List<SysUser> getAllIdName() {
+        return sysUserMapper.selectAllNameId();
     }
 
     @Override

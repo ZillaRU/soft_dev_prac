@@ -8,6 +8,7 @@ import com.len.base.BaseController;
 import com.len.core.annotation.Log;
 import com.len.core.annotation.Log.LOG_TYPE;
 import com.len.core.quartz.JobTask;
+import com.len.entity.SysRole;
 import com.len.entity.SysRoleUser;
 import com.len.entity.SysUser;
 import com.len.exception.MyException;
@@ -16,8 +17,10 @@ import com.len.service.SysUserService;
 import com.len.util.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,11 +39,10 @@ import java.util.List;
  */
 //@Api(value="user")
 @Controller
+@Slf4j
 @RequestMapping(value = "/user")
 @Api(value = "用户管理",description="用户管理业务")
 public class UserController extends BaseController {
-
-    //private static final Logger
 
     @Autowired
     SysUserService userService;
@@ -66,8 +68,18 @@ public class UserController extends BaseController {
     @GetMapping(value = "showUserList")
     @ResponseBody
     @RequiresPermissions("user:show")
-    public ReType showUser(Model model, SysUser user, String page, String limit) {
-        return userService.show(user, Integer.valueOf(page), Integer.valueOf(limit));
+    public ReType showUser(Model mol, SysUser user, String page, String limit) {
+        return userService.show(user, Integer.parseInt(page), Integer.parseInt(limit));
+    }
+
+    @RequiresPermissions(value = "user:get")
+    @PostMapping(value = "showAllUser")
+    @ResponseBody
+    public String showAllUser() {
+        JSONObject returnValue = new JSONObject();
+        List<SysUser> users = userService.getAllIdName();
+        returnValue.put("users", users);
+        return JSON.toJSONString(returnValue);
     }
 
     @ApiOperation(value = "/listByRoleId", httpMethod = "GET", notes = "展示角色")
@@ -82,7 +94,6 @@ public class UserController extends BaseController {
         returnValue.put("totals", startPage.getTotal());
         return JSON.toJSONString(returnValue);
     }
-
 
     @GetMapping(value = "showAddUser")
     public String goAddUser(Model model) {
@@ -278,8 +289,5 @@ public class UserController extends BaseController {
         }
         j.setFlag(true);
         return j;
-
     }
-
-
 }
