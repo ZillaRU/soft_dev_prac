@@ -73,4 +73,10 @@ public class ProjectInfoController {
         List<ProjectInfo> list = projectInfoService.selectByPmId(Principal.getPrincipal().getId());
         return new ReType(list.size(), list);
     }
+
+//    @GetMapping("showApprovals")
+//    public String showApprovals(Model model) {
+//
+//    }
+
 }
