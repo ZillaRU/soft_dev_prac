@@ -16,7 +16,7 @@
 
 <body>
 <div class="x-body">
-    <form class="layui-form layui-form-pane" style="margin-left: 20px;">
+    <form class="layui-form layui-form-pane" style="margin-left: 20px;" autocomplete="off">
         <div style="width:100%;height: 90%;overflow: auto;">
             <div class="layui-form-item">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
@@ -28,8 +28,7 @@
                     <span class="x-red">*</span>项目名称
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="projName" name="projName" lay-verify="nnull"
-                           autocomplete="off" class="layui-input">
+                    <input type="text" id="projName" name="projName" lay-verify="nnull" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -38,8 +37,7 @@
                         项目编号
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="projNo" name="projNo"
-                               autocomplete="off" class="layui-input" lay-verify="no_pattern">
+                        <input type="text" id="projNo" name="projNo" class="layui-input" lay-verify="no_pattern">
                     </div>
                     <label>（格式：YEAR CUST T NO）</label>
                 </div>
@@ -50,8 +48,7 @@
                         <span class="x-red">*</span>项目经理
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="realname" value="${user.realName}" readonly
-                               autocomplete="off" class="layui-input">
+                        <input type="text" id="realname" value="${user.realName}" readonly class="layui-input">
                     </div>
                 </div>
             </div>
@@ -104,7 +101,8 @@
                 </label>
                 <div class="layui-input-inline">
                     <textarea type="text" id="milestone" name="milestone" lay-verify="nnull"
-                              autocomplete="off" class="layui-input-block" style="width:400px; height: 150px"></textarea>
+                              autocomplete="off" class="layui-input-block"
+                              style="width:400px; height: 150px"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -113,7 +111,8 @@
                 </label>
                 <div class="layui-input-inline">
                     <textarea type="text" id="projTech" name="projTech" lay-verify="nnull"
-                              autocomplete="off" class="layui-input-block" style="width:400px; height: 150px"></textarea>
+                              class="layui-input-block"
+                              style="width:400px; height: 150px"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -122,7 +121,8 @@
                 </label>
                 <div class="layui-input-inline">
                     <textarea type="text" id="projDomain" name="projDomain" lay-verify="nnull"
-                              autocomplete="off" class="layui-input-block" style="width:400px; height: 150px"></textarea>
+                              class="layui-input-block"
+                              style="width:400px; height: 150px"></textarea>
                 </div>
             </div>
             <div class="layui-form-item" style="height: 20%; width: 80%">
@@ -131,7 +131,8 @@
                 </label>
                 <div class="layui-input-inline">
                     <textarea type="text" id="projMainFunc" name="projMainFunc" lay-verify="nnull"
-                              autocomplete="off" class="layui-input-block" style="width:400px; height: 150px"></textarea>
+                              class="layui-input-block"
+                              style="width:400px; height: 150px"></textarea>
                 </div>
             </div>
             <div style="height: 60px"></div>
@@ -154,13 +155,6 @@
         $ = layui.jquery;
         var form = layui.form, laydate = layui.laydate;
 
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#d1'
-        });
-        laydate.render({
-            elem: '#d2'
-        });
         $.ajax({
             url: '/user/showAllUser',
             type: 'post',
@@ -178,19 +172,34 @@
                 form.render();
             }
         });
-        // window.createSelect = function(selectId1, url, value) {
-        //     $.post(url, function (data) {
-        //         $(selectId1).empty();
-        //         $(selectId1).append("<option value=''> 请选择 </option>");
-        //         for(var u in data) {
-        //             $(selectId1).append("<option value='" + data[u].id + "'>" + data[u].department + data[u].realName + "</option>");
-        //         }
-        //     });
-        //     if(value != undefined && value != null && value!='') {
-        //         $(selectId1).val(value);
-        //     }
-        //     form.render();
-        // };
+
+        //执行一个laydate实例
+        var std = laydate.render({
+            elem: '#d1',
+            min: 0, //new Date(), //.getDate().toLocaleString(),
+            done: function (value, date) {
+                edd.config.min = {
+                    year: date.year,
+                    month: date.month - 1,
+                    date: date.date
+                }; // 开始日选好后，重置结束日的最小日期
+                edd.config.value = {
+                    year: date.year,
+                    month: date.month - 1,
+                    date: date.date
+                }; // 将结束日的初始值设定为开始日
+            }
+        });
+        var edd = laydate.render({
+            elem: '#d2',
+            done: function (value, date) {
+                std.config.max = {
+                    year: date.year,
+                    month: date.month - 1,
+                    date: date.date
+                }; // 结束日选好后，重置开始日的最大日期
+            }
+        });
 
         //自定义验证规则
         form.verify({
