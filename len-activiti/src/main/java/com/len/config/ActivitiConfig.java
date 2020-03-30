@@ -54,9 +54,12 @@ public class ActivitiConfig {
         processEngineConfiguration.setActivityFontName("宋体");
         processEngineConfiguration.setAnnotationFontName("宋体");
         processEngineConfiguration.setLabelFontName("宋体");
-
+        // for MailTask
         processEngineConfiguration.setProcessDiagramGenerator(new DefaultProcessDiagramGenerator());
-
+        processEngineConfiguration.setMailServerHost("smtp.163.com")
+                .setMailServerPort(25)
+                .setMailServerDefaultFrom("achieve_it2020@163.com")
+                .setMailServerPassword("achieveit2020");
         return processEngineConfiguration;
     }
 

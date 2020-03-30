@@ -5,7 +5,7 @@ import com.len.entity.ProjectInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-@Mapper
+//@Mapper
 public interface ProjectInfoMapper extends BaseMapper<ProjectInfo,String> {
     List<ProjectInfo> selectByPmId(String pm_id);
 
@@ -14,14 +14,10 @@ public interface ProjectInfoMapper extends BaseMapper<ProjectInfo,String> {
 //
 //    /* 获取参与的所有项目 */
 //    List<ProjectInfo> getProjByCurrUser(String user_id);
-//
-//    /**
-//     * 根据pm_id获取所有项目
-//     */
-//    List<ProjectInfo> getProjByPm(String pmId);
-//
+
 //    /**
 //     * 根据pm_chief_id获取所有项目
 //     */
 //    List<ProjectInfo> getProjByPmChief(String pmChiefId);
+
 }

@@ -38,7 +38,7 @@
     </div>
 
 </div>
-<table id="projList" class="layui-hide" lay-filter="user"></table>
+<table id="projList" class="layui-hide" lay-filter="proj"></table>
 <script type="text/html" id="barDemo">
     <#--    <@shiro.hasPermission name="user:select">-->
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
@@ -60,7 +60,7 @@
             elem: '#projList'
             , url: 'showPMprojctList'
             , cols: [[
-                {checkbox: false, fixed: true, width: '5%'}
+                {checkbox: true, fixed: true, width: '5%'}
                 , {
                     field: 'projName',
                     title: '项目名称',
@@ -70,9 +70,7 @@
                 }
                 , {field: 'projNo', title: '编号', width: '10%', sort: true}
                 , {field: 'projCustomer', title: '客户代号', width: '10%'}
-                , {field: 'projState', title: '项目状态', width: '10%'}
-                , {field: 'startDate', title: '预定时间', width: '13%'}
-                , {field: 'endDate', title: '交付日', width: '13%'}
+                , {field: 'projMainfunc', title: '主要功能', width: '10%'}
                 , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
             ]],
             height: 'full-83'
@@ -103,19 +101,20 @@
                     layer.msg('请选择一行查看,已选[' + data.length + ']行', {icon: 5});
                     return false;
                 }
-                detail('查看项目信息', 'showProjDetail?id=' + data[0].id, 700, 450);
+                detail('查看项目信息', 'showProjDetail?projId=' + data[0].id, 1100, 600);
             }
         };
 
         //监听表格复选框选择
-        table.on('checkbox(user)', function (obj) {
+        table.on('checkbox(proj)', function (obj) {
             console.log(obj)
         });
         //监听工具条
-        table.on('tool(user)', function (obj) {
+        table.on('tool(proj)', function (obj) {
             var data = obj.data;
             if (obj.event === 'detail') {
-                detail('查看项目信息', 'showProjDetail?id=' + data.id, 700, 450);
+                console.log(data.id);
+                detail('查看项目信息', 'showProjDetail?projId=' + data.id, 1100, 600);
             }
         });
 
@@ -187,17 +186,6 @@
             h = ($(window).height() - 50);
         }
         ;
-        layer.open({
-            id: 'user-add',
-            type: 2,
-            area: [w + 'px', h + 'px'],
-            fix: false,
-            maxmin: true,
-            shadeClose: false,
-            shade: 0.4,
-            title: title,
-            content: url
-        });
     }
 </script>
 </body>

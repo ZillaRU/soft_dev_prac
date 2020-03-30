@@ -53,11 +53,10 @@ public abstract class BaseTask implements Serializable{
     @Column(name = "update_by")
     protected String updateBy;
 
-
-    protected String reason;
-
+//    protected String reason;
 
     //***实时节点信息
+    @Transient
     protected String taskName;
 
 
@@ -95,21 +94,6 @@ public abstract class BaseTask implements Serializable{
      */
     public void setUserName(String userName) {
         this.userName = userName == null ? null : userName.trim();
-    }
-
-
-    /**
-     * @return reason
-     */
-    public String getReason() {
-        return reason;
-    }
-
-    /**
-     * @param reason
-     */
-    public void setReason(String reason) {
-        this.reason = reason == null ? null : reason.trim();
     }
 
     /**

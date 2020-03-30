@@ -7,7 +7,7 @@
         "properties" : [ {
             "id" : "process_id",
             "type" : "String",
-            "title" : "流程名称",
+            "title" : "流程id",
             "value" : "process",
             "description" : "流程的特殊唯一的名称标识",
             "popular" : true

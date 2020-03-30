@@ -1,24 +1,41 @@
 package com.len.entity;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Table(name = "project_info")
-@Data
 @ToString
-public class ProjectInfo {
+public class ProjectInfo extends BaseTask{
     @Id
     @Column(name = "id")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO,generator = "JDBC")
+    protected String id;
 
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Column(name = "user_id")
+    private String userId;
+
+    @Override
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
+    }
     @Column(name = "pm_id")
     private String pmId;
+
+    @Column(name = "pm_name")
+    private String pmName;
 
     @Column(name = "proj_customer")
     private String projCustomer;
@@ -36,26 +53,57 @@ public class ProjectInfo {
     @Column(name = "proj_tech")
     private String projTech;
 
+    @Column(name = "milestone")
     private String milestone;
 
     @Column(name = "proj_domain")
     private String projDomain;
 
     @Column(name = "proj_main_func")
-    private String proMainFunc;
+    private String projMainFunc;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "start_date")
     private Date startDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "end_date")
     private Date endDate;
 
     @Column(name = "epg_leader")
     private String epgLeader;
 
+    @Column(name = "epg_name")
+    private String epgName;
+
     @Column(name = "config_manager")
     private String configManager;
 
+    @Column(name = "conf_name")
+    private String confName;
+
     @Column(name = "qa_manager")
     private String qaManager;
+
+    @Column(name = "qa_name")
+    private String qaName;
+
+    //审核信息
+    private List<Opinion> opinionList=new ArrayList<>();
+
+    public void addOpinion(Opinion Opinion){
+        this.opinionList.add(Opinion);
+    }
+    public void addAllOpinion(List<Opinion> OpinionList){
+        this.opinionList.addAll(OpinionList);
+    }
+
+    public List<Opinion> getOpinionList() {
+        return opinionList;
+    }
+
+    public void setOpinionList(List<Opinion> opinionList) {
+        this.opinionList = opinionList;
+    }
+    
 }

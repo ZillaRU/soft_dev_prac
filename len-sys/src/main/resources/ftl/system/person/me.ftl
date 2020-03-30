@@ -54,16 +54,18 @@
                 <input type="text" id="uname" value="${user.department}" readonly class="layui-input">
             </div>
         </div>
-        <div class="layui-inline">
-            <label for="chief_name" class="layui-form-label">
-                项目上级
-            </label>
-            <div class="layui-input-inline">
 
-                <input type="hidden" id="chief_name" value="${user.chiefId}" readonly
-                       autocomplete="off" class="layui-input">
-            </div>
-        </div>
+<#--        <div class="layui-inline">-->
+<#--            <label for="chief_name" class="layui-form-label">-->
+<#--                上级-->
+<#--            </label>-->
+<#--            <div class="layui-input-inline">-->
+
+<#--                <input type="hidden" id="chief_name" value="${user.chiefId}" readonly-->
+<#--                       autocomplete="off" class="layui-input">-->
+<#--            </div>-->
+<#--        </div>-->
+
     </div>
     <div class="layui-form-item">
         <div class="layui-inline">

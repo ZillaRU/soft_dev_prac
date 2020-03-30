@@ -27,10 +27,10 @@ spring:
   http:
       encoding:
         force: true
-  boot:
-    admin:
-      client:
-        url: http://localhost:8082
+#  boot:
+#    admin:
+#      client:
+#        url: http://localhost:8082
 
 mybatis:
     type-aliases-package: com.len.entity

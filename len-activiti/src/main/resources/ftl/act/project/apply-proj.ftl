@@ -7,7 +7,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
-          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8"/>
     <link rel="stylesheet" href="${re.contextPath}/plugin/layui/css/layui.css">
     <script type="text/javascript" src="${re.contextPath}/plugin/jquery/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="${re.contextPath}/plugin/layui/layui.all.js" charset="utf-8"></script>
@@ -48,7 +48,7 @@
                         <span class="x-red">*</span>项目经理
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="realname" value="${user.realName}" readonly class="layui-input">
+                        <input type="text" name="pmName" value="${user.realName}" readonly class="layui-input">
                     </div>
                 </div>
             </div>
@@ -83,17 +83,23 @@
                 <label for="startDate" class="layui-form-label" style="width:130px;padding: 9px 0px;">
                     <span class="x-red">*预定日</span>
                 </label>
+
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="d1" lay-verify="nnull">
+                    <input type="text"  id="startDate" name="startDate"  lay-verify="nnull"  placeholder="yyyy-MM-dd"
+                           autocomplete="off" class="layui-input">
                 </div>
+
             </div>
             <div class="layui-form-item">
                 <label for="end_date" class="layui-form-label" style="width:130px;padding: 9px 0px;">
                     <span class="x-red">*交付日</span>
                 </label>
+
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="d2" lay-verify="nnull">
+                    <input type="text"  id="endDate" name="endDate"  lay-verify="nnull"  placeholder="yyyy-MM-dd"
+                           autocomplete="off" class="layui-input">
                 </div>
+
             </div>
             <div class="layui-form-item">
                 <label for="milestone" class="layui-form-label">
@@ -160,14 +166,17 @@
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                // console.info(data['users']);
                 $('#selectId1').empty();
                 $('#selectId2').empty();
                 $('#selectId3').empty();
                 for (var u in data['users']) {
-                    $('#selectId1').append("<option value='" + data['users'][u].id + "'>" + data['users'][u].department + ' ' + data['users'][u].realName + "</option>");
-                    $('#selectId2').append("<option value='" + data['users'][u].id + "'>" + data['users'][u].department + ' ' + data['users'][u].realName + "</option>");
-                    $('#selectId3').append("<option value='" + data['users'][u].id + "'>" + data['users'][u].department + ' ' + data['users'][u].realName + "</option>");
+                    var dpmt = data['users'][u].department;
+                    if (dpmt == 'EPG')
+                        $('#selectId1').append("<option value='" + data['users'][u].id + "'>" + dpmt + ' ' + data['users'][u].realName + "</option>");
+                    else if (dpmt == 'CONF')
+                        $('#selectId2').append("<option value='" + data['users'][u].id + "'>" + dpmt + ' ' + data['users'][u].realName + "</option>");
+                    else if (dpmt == 'QA')
+                        $('#selectId3').append("<option value='" + data['users'][u].id + "'>" + dpmt + ' ' + data['users'][u].realName + "</option>");
                 }
                 form.render();
             }
@@ -175,7 +184,7 @@
 
         //执行一个laydate实例
         var std = laydate.render({
-            elem: '#d1',
+            elem: '#startDate',
             min: 0, //new Date(), //.getDate().toLocaleString(),
             done: function (value, date) {
                 edd.config.min = {
@@ -191,7 +200,7 @@
             }
         });
         var edd = laydate.render({
-            elem: '#d2',
+            elem: '#endDate',
             done: function (value, date) {
                 std.config.max = {
                     year: date.year,
@@ -213,15 +222,44 @@
             }
         });
 
-        $('#close').click(function () {
-            var index = parent.layer.getFrameIndex(window.name);
-            parent.layer.close(index);
-        });
-
         //监听提交
         form.on('submit(add)', function (data) {
+            console.log($('#startDate').val() + ' ' + $('#endDate').val());
+            data.field.sd = new Date($('#startDate').val());
+            data.field.ed = $('#endDate').val();
+            // data.field.startDate = new Date($('#startDate').val());
+            // data.field.endDate = $('#endDate').val();
+            data.field.epgName = $("#selectId1 option:selected").text();
+            data.field.confName = $("#selectId2 option:selected").text();
+            data.field.qaName = $("#selectId3 option:selected").text();
             layerAjax('applyProject', data.field, 'projList');
         });
+
+        form.on('submit(add)', function(data){
+            $.ajax({
+                url:'applyProject',
+                type:'post',
+                data:data.field,
+                async:false, traditional: true,
+                success:function(d){
+                    var index = parent.layer.getFrameIndex(window.name);
+                    if(d.flag){
+                        // parent.layer.close(index);
+                        // window.parent.layui.table.reload('projList');
+                        window.top.layer.msg(d.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
+                    }else{
+                        layer.msg(d.msg,{icon:5});
+                    }
+                },error:function(){
+                    layer.alert("请求失败", {icon: 6},function () {
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    });
+                }
+            });
+            return false;
+        });
+
     });
 </script>
 </body>
