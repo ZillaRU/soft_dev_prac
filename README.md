@@ -1,6 +1,5 @@
 ## 项目说明
-### 使用了开源脚手架
-- [lenos](https://gitee.com/bweird/lenos) (p为spring boot版本扩展名)一款快速开发模块化脚手架，采用spring boot 2.0.1+spring+SpringMvc+mybatis+shiro+swagger+ehcache+quartz+freemarker+layui技术开发，集成了Activiti5.22。
+- 使用了开源脚手架[lenos](https://gitee.com/bweird/lenos) (p为spring boot版本扩展名)一款快速开发模块化脚手架，采用spring boot 2.0.1+spring+SpringMvc+mybatis+shiro+swagger+ehcache+quartz+freemarker+layui技术开发，集成了Activiti5.22。
 - 项目部署说明
    - 修改 application.yml imagePath 路径 把image文件夹图片赋值进路径，即可正常展示头像
    - 数据库使用mysql5.6，在云端，项目可直接运行。
