@@ -94,7 +94,7 @@
                     预定日
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="d1" lay-verify="nnull" readonly>
+                    <input type="text" class="layui-input" id="d1" lay-verify="nnull" value="${projectDetail.startDate?string("yyyy-MM-dd")}" readonly>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -102,7 +102,7 @@
                     交付日
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="d1" lay-verify="nnull" readonly>
+                    <input type="text" class="layui-input" id="d1" lay-verify="nnull" value="${projectDetail.endDate?string("yyyy-MM-dd")}" readonly>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -164,12 +164,10 @@
     layui.use(['form', 'laydate'], function () {
         var form = layui.form;
         laydate.render({
-            elem: '#d1',
-            val: new Date(${projectDetail.startDate})
+            elem: '#d1'
         });
         laydate.render({
-            elem: '#d2',
-            value: ${projectDetail.endDate}
+            elem: '#d2'
         });
         form.render();
     });

@@ -52,7 +52,6 @@ public class ProjectInfoController {
     public JsonUtil applyProject(ProjectInfo projectInfo) {
         JsonUtil j = new JsonUtil();
         String msg = "项目信息添加成功";
-        System.out.println(projectInfo.getStartDate() + " " + projectInfo.getEndDate());
         projectInfo.setProjState(0);
         projectInfo.setUserId(projectInfo.getPmId());
         projectInfo.setUserName(projectInfo.getPmName());
@@ -77,11 +76,11 @@ public class ProjectInfoController {
         return "act/project/my-pm-project";
     }
 
-    @ApiOperation(value = "某用户主管的项目", httpMethod = "POST")
+    @ApiOperation(value = "某用户主管的项目", httpMethod = "GET")
     @Log(desc = "主管项目")
     @GetMapping("showPMprojctList")
     @ResponseBody
-    public ReType showPMprojctList(Model model) {
+    public ReType showPMprojctList() {
         List<ProjectInfo> list = projectInfoService.selectByPmId(Principal.getPrincipal().getId());
         return new ReType(list.size(), list);
     }
@@ -94,9 +93,13 @@ public class ProjectInfoController {
         return "act/project/projDetail";
     }
 
-//    @GetMapping("showApprovals")
-//    public String showApprovals(Model model) {
-//
-//    }
+    @GetMapping("showApprovals")
+    public String showApprovals() {
+        return "act/project/approvals";
+    }
 
+    @GetMapping("projFunc")
+    public String setProjFuncs(Model model, String projId){
+        return "act/project/proj-func";
+    }
 }

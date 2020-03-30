@@ -157,9 +157,9 @@
     </form>
 </div>
 <script>
-    layui.use(['form', 'laydate'], function () {
+    layui.use(['form', 'laydate', 'layer'], function () {
         $ = layui.jquery;
-        var form = layui.form, laydate = layui.laydate;
+        var form = layui.form, laydate = layui.laydate, layer = layui.layer;
 
         $.ajax({
             url: '/user/showAllUser',
@@ -224,42 +224,11 @@
 
         //监听提交
         form.on('submit(add)', function (data) {
-            console.log($('#startDate').val() + ' ' + $('#endDate').val());
-            data.field.sd = new Date($('#startDate').val());
-            data.field.ed = $('#endDate').val();
-            // data.field.startDate = new Date($('#startDate').val());
-            // data.field.endDate = $('#endDate').val();
             data.field.epgName = $("#selectId1 option:selected").text();
             data.field.confName = $("#selectId2 option:selected").text();
             data.field.qaName = $("#selectId3 option:selected").text();
             layerAjax('applyProject', data.field, 'projList');
         });
-
-        form.on('submit(add)', function(data){
-            $.ajax({
-                url:'applyProject',
-                type:'post',
-                data:data.field,
-                async:false, traditional: true,
-                success:function(d){
-                    var index = parent.layer.getFrameIndex(window.name);
-                    if(d.flag){
-                        // parent.layer.close(index);
-                        // window.parent.layui.table.reload('projList');
-                        window.top.layer.msg(d.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
-                    }else{
-                        layer.msg(d.msg,{icon:5});
-                    }
-                },error:function(){
-                    layer.alert("请求失败", {icon: 6},function () {
-                        var index = parent.layer.getFrameIndex(window.name);
-                        parent.layer.close(index);
-                    });
-                }
-            });
-            return false;
-        });
-
     });
 </script>
 </body>

@@ -23,26 +23,13 @@
 </head>
 
 <body>
-<div class="lenos-search">
-    <div class="select">
-        项目名称：
-        <div class="layui-inline">
-            <input class="layui-input" height="20px" id="projname" autocomplete="off">
-        </div>
-        <button class="select-on layui-btn layui-btn-sm" data-type="select"><i class="layui-icon"></i>
-        </button>
-        <button class="layui-btn layui-btn-sm icon-position-button" id="refresh" style="float: right;"
-                data-type="reload">
-            <i class="layui-icon">ဂ</i>
-        </button>
-    </div>
-
-</div>
 <table id="projList" class="layui-hide" lay-filter="proj"></table>
 <script type="text/html" id="barDemo">
     <#--    <@shiro.hasPermission name="user:select">-->
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <#--    </@shiro.hasPermission>-->
+    <#--    shiro-->
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="projFuncs">项目功能</a>
 </script>
 <script>
     document.onkeydown = function (e) { // 回车提交表单
@@ -51,7 +38,7 @@
         if (code == 13) {
             $(".select .select-on").click();
         }
-    }
+    };
     layui.use('table', function () {
         var table = layui.table;
         //方法级渲染
@@ -60,7 +47,7 @@
             elem: '#projList'
             , url: 'showPMprojctList'
             , cols: [[
-                {checkbox: true, fixed: true, width: '5%'}
+                {checkbox: false}
                 , {
                     field: 'projName',
                     title: '项目名称',
@@ -70,7 +57,7 @@
                 }
                 , {field: 'projNo', title: '编号', width: '10%', sort: true}
                 , {field: 'projCustomer', title: '客户代号', width: '10%'}
-                , {field: 'projMainfunc', title: '主要功能', width: '10%'}
+                , {field: 'projMainFunc', title: '主要功能', width: '40%'}
                 , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
             ]],
             height: 'full-83'
@@ -102,29 +89,28 @@
                     return false;
                 }
                 detail('查看项目信息', 'showProjDetail?projId=' + data[0].id, 1100, 600);
+            },
+            projFuncs: function () {
+                var checkStatus = table.checkStatus('projList')
+                    , data = checkStatus.data;
+                if (data.length != 1) {
+                    layer.msg('请选择一行操作,已选[' + data.length + ']行', {icon: 5});
+                    return false;
+                }
+                setProjFuncs('项目功能设置', 'projFunc?projId=' + data[0].id, 1100, 600);
             }
         };
 
-        //监听表格复选框选择
-        table.on('checkbox(proj)', function (obj) {
-            console.log(obj)
-        });
         //监听工具条
         table.on('tool(proj)', function (obj) {
             var data = obj.data;
             if (obj.event === 'detail') {
                 console.log(data.id);
                 detail('查看项目信息', 'showProjDetail?projId=' + data.id, 1100, 600);
+            } else if(obj.event === 'projFuncs') {
+                console.log(data.id);
+                detail('项目功能设置', 'projFunc?projId=' + data.id, 1100, 600);
             }
-        });
-
-        $('.layui-col-md12 .layui-btn').on('click', function () {
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
-        $('.select .layui-btn').on('click', function () {
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
         });
 
     });
@@ -133,19 +119,15 @@
         if (title == null || title == '') {
             title = false;
         }
-        ;
         if (url == null || url == '') {
             url = "error/404";
         }
-        ;
         if (w == null || w == '') {
             w = ($(window).width() * 0.9);
         }
-        ;
         if (h == null || h == '') {
             h = ($(window).height() - 50);
         }
-        ;
         layer.open({
             id: 'proj-detail',
             type: 2,
@@ -155,37 +137,36 @@
             shadeClose: true,
             shade: 0.4,
             title: title,
-            content: url + '&detail=true',
+            content: url + '&detail=true'
             // btn:['关闭']
         });
     }
 
-    /*弹出层*/
-    /*
-     参数解释：
-     title   标题
-     url     请求的url
-     id      需要操作的数据id
-     w       弹出层宽度（缺省调默认值）
-     h       弹出层高度（缺省调默认值）
-     */
-    function add(title, url, w, h) {
+    function setProjFuncs(title, url, w, h) {
         if (title == null || title == '') {
             title = false;
         }
-        ;
         if (url == null || url == '') {
-            url = "404.html";
+            url = "error/404";
         }
-        ;
         if (w == null || w == '') {
             w = ($(window).width() * 0.9);
         }
-        ;
         if (h == null || h == '') {
             h = ($(window).height() - 50);
         }
-        ;
+        layer.open({
+            id: 'proj-funcs',
+            type: 2,
+            area: [w + 'px', h + 'px'],
+            fix: false,
+            maxmin: true,
+            shadeClose: true,
+            shade: 0.4,
+            title: title,
+            content: url
+            // btn:['关闭']
+        });
     }
 </script>
 </body>

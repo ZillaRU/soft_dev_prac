@@ -13,6 +13,7 @@ import java.util.List;
 
 @Table(name = "project_info")
 @ToString
+@Data
 public class ProjectInfo extends BaseTask{
     @Id
     @Column(name = "id")
@@ -105,5 +106,4 @@ public class ProjectInfo extends BaseTask{
     public void setOpinionList(List<Opinion> opinionList) {
         this.opinionList = opinionList;
     }
-    
 }
