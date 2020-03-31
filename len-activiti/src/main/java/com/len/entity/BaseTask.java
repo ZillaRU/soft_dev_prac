@@ -53,6 +53,9 @@ public abstract class BaseTask implements Serializable{
     @Column(name = "update_by")
     protected String updateBy;
 
+    @Column(name = "role_id")
+    protected String roleId;
+
 //    protected String reason;
 
     //***实时节点信息
@@ -80,6 +83,10 @@ public abstract class BaseTask implements Serializable{
      */
     public void setUserId(String userId) {
         this.userId = userId == null ? null : userId.trim();
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId == null ? null : roleId.trim();
     }
 
     /**
