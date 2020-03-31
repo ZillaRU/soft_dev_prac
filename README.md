@@ -1,171 +1,88 @@
-## 演示地址
-
-[www.lenosp.cn](http://www.lenosp.cn)  admin 123456 [博客blog.lenosp.cn](http://blog.lenosp.cn)
-
-## lenos收录到layui官方2018年度最佳案例名单中
-![图片说明](https://images.gitee.com/uploads/images/2019/1017/214009_9f295d89_907437.jpeg "图片说明")
-
-## 交流群
-* lenos开源脚手架群① 137738503 您有疑问，我们解答，您有建议，我们吸取，您有idea 我们欢迎
-- 群<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=2c71822be7b8c061087a94647663a742a274626a846b76647743ed556a24cabc"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="开源脚手架lenos交流群" title="开源脚手架lenos交流群①"></a>
+# 配置
+配置文件**application.yml**在![如图，现在选中的是application-mysql-dev](https://upload-images.jianshu.io/upload_images/10854666-c0543524604ae982.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-## 普通版
-- vue博客 ui：[len-blog-ui](https://gitee.com/bweird/len-blog-ui)
-- 地址：[lenos](https://gitee.com/bweird/lenos) 
+![可选的配置文件，用于环境切换（测试、开发、生产）](https://upload-images.jianshu.io/upload_images/10854666-fb8017daed405801.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-## 项目说明
-- lenos(p为spring boot版本扩展名)一款快速开发模块化脚手架，采用spring boot 2.0.1+spring+SpringMvc+mybatis+shiro+swagger+ehcache+quartz+freemarker+layui技术开发；实现功能有系统模块：菜单管理、用户管理、角色管理，系统监控：系统日志、接口api、sql监控。本项目会一直维护并集成新的技术，给您的开发节约时间成本，本项目拥有非boot版本。
-## 未来蓝图
-![图片说明](https://images.gitee.com/uploads/images/2019/1017/214007_d4b418ac_907437.jpeg "图片说明")
-
-## 功能说明
-- 项目目前拥有
-- **系统管理**：_菜单管理、用户管理、角色管理_
-- 统一查询 pagehelper分页，查询调用BaseServiceImpl show model set数据，传入T，配合xml编写，即可自定义查询。
-- 采用shiro技术，可配置化权限管理，精确到按钮(也可以是某一元素)功能分配
-- 登录次数校验，超出定义次数后冻结一段时间账号  
-  
-- **系统监控**：_系统日志、接口api、系统监控、可配置定时任务_
-- 前端可配置化定时任务。
-- 采用swagger可视化出实时方法格式以及数据属性，采用阿里druid监控sql。  
-  
-- **工作流程管理**：完全实现模块化，无侵入。监听用户角色信息到引擎数据表中
-- **流程管理**：动态给发布流程分配角色，无需手动写死，灵活可变
-- **模块列表**：新建、编辑、发布流程，前端实现完全可配置化建立流程图
-- **请假流程**：提供一个请假示例，让您很快熟悉流程
-- **待办任务**：个人需要办理的流程任务  
-  
-- 如果不喜欢工作流，可以直接删除 len-activiti模块  
-并在len-web/pom.xml、父 pom.xml 删除依赖以及模块，删除application.java 中对activiti的扫描即可完全删除工作流模块。
-
-## 更新说明
-- 18/1/28 **添加工作流模块，前端页面优化，更加有线条**
-- 18/4/21 **增加菜单编辑、选择图标功能，前端js封装，修复工作流程现存bug**
-- 18/4/23 **修复头像上传**
-- 18/5/06 **升级spring boot 到2.0.1**
-- 18/6/12 **增加sqlserver支持，脚本在db文件夹下，
-只需要在application.yml 切换下active 即可切换数据源**
-- 18/6/19 **集成丰富持久化插件tkmapper**
-- 18/12/11 **添加博客功能模块，集成redis缓存**
-- 19/4/5 **优化shiro配置，增加 oracle支持 群（137738503）里有配置好的源码**
-- 19/4/30 **升级admin监控**
-**博客采用vue前后分离基于jwt鉴权，博客单独分离出一个项目地址:[len-blog-ui](https://gitee.com/bweird/len-blog-ui)**
-## 头像说明
+可以在配置文件中，设置tomcat的端口（springboot内置了Tomcat），要连接的数据库。
 ```
-修改 application.yml imagePath 路径 把image文件夹图片赋值进路径，即可正常展示头像
+server:
+  port: 8081 #这里写Tomcat端口
+spring:
+  devtools:
+      restart:
+        enabled: true
+  datasource:
+        url: jdbc:mysql://xx.xx.xx.xx:xxxx/DB_NAME?useUnicode=true&characterEncoding=UTF-8
+        username: 用户名
+        password: "密码"
 ```
+目前，最好都从我的数据库（lenos_origin）克隆一个自己的数据库，在自己的上面改，防止乱掉。自己建表时记得`ENGINE=InnoDB DEFAULT CHARSET=utf8;`，尽量少用外键（逻辑上外键可，物理外键尽量少，可以存一些冗余信息，减少query次数还好写，比如某表存了xxxid，还经常需要显示xxx_name，不妨把name也直接存表了）。
 
-## 启动说明
+# lenosp脚手架说明
 
-```bash
-git clone https://gitee.com/bweird/lenosp.git
+*   使用了开源脚手架[lenos](https://gitee.com/bweird/lenos) (p为spring boot版本扩展名)一款快速开发模块化脚手架，采用spring boot 2.0.1+spring+SpringMvc+mybatis+shiro+swagger+ehcache+quartz+freemarker+layui技术开发，集成了Activiti5.22。
+*   项目部署说明
+    *   修改 application.yml imagePath 路径 把image文件夹图片赋值进路径，即可正常展示头像
+    *   数据库使用mysql5.6，在云端，项目可直接运行。
+
+# 启动说明
+
+```source-shell
 mvn clean package
 mvn package
 java -jar len-web.jar
 ```
-- db使用mysql，项目数据库在 根目录db文件夹下，
-导入数据库后 设定数据库用户名密码 在文件lenosp\len-web\src\main\resources\application.yml中
-项目开始会报实体类 get set错误，这是正常的，因为本项目entity使用的是 lombok 大大简化了代码量
-您可以直接运行，项目可以正常启动。
-如何消除？
-如果您使用的为idea 只需要file -> setting->plugins->Browse Repositeories 输入 lombok 集成插件重启idea即可消除错误
-如果您使用 eclipse 需要下载 lombk jar包 手动集成。
 
-## 技术
-* jdk：1.8
-* 核心框架：spring boot 2.0.1.RELEASE
-* 安全框架：Apache Shiro
-* 工作流引擎：Activiti
-* 数据库连接池：druid
-* 视图框架：spring mvc
-* 持久层框架：MyBatis
-* 模板引擎：freemarker
-* 缓存：redis、ehcache
-* 定时：quartz 2.3.0
-* 前端页面：layui
-* 博客前端：vue、iview
+# 技术
 
-## ps
-- lenos承诺永久开源，全部免费，无任何收费地方
-- 如果您喜欢lenos，可以clone下来使用，您的star将是本人前进的动力，本项目无丝毫保留开源，如果您有技术疑问，可以加群交流。
-- 如果lenos对您有一点帮助，您可以点个star，就是对作者最大的支持了。
-* lenos脚手架会一直更新下去，我们的征途是星辰大海
+采用的技术即lenos脚手架集成的部分技术。
 
-## 项目图片
-* 登录账号：admin 密码：123456   
-  <table>
-      <tr>
-          <td><img src="https://images.gitee.com/uploads/images/2019/1017/214006_de4b6143_907437.jpeg"/></td>
-          <td><img src="https://images.gitee.com/uploads/images/2019/1017/214007_add596c7_907437.jpeg"/></td>
-      <tr>
-      <tr>
-          <td><img src="https://images.gitee.com/uploads/images/2019/1017/214007_593cd33c_907437.png"/></td>
-          <td><img src="https://s1.ax1x.com/2018/12/11/FYwnR1.gif"/></td>
-      <tr>
-      <tr>
-          <td><img src="https://s2.ax1x.com/2019/05/12/EhyVht.jpg"/></td>
-          <td><img src="https://images.gitee.com/uploads/images/2019/1017/214012_77513b79_907437.png"/></td>
-      <tr>
-      <tr>
-          <td><img src="https://s1.ax2x.com/2018/07/14/qvSGY.png"/></td>
-          <td><img src="https://images.gitee.com/uploads/images/2019/1017/214011_595b1936_907437.jpeg"/></td>
-      <tr>
-      <tr>
-          <td><img src="https://images.gitee.com/uploads/images/2019/1017/214012_13919888_907437.jpeg"/></td>
-          <td><img src="https://images.gitee.com/uploads/images/2019/1017/214012_9c5675a5_907437.jpeg"/></td>
-      <tr>
-      <tr>
-          <td><img src="https://s2.ax1x.com/2019/05/12/EhyPne.jpg"/></td>
-          <td><img src="https://s2.ax1x.com/2019/05/12/Ehym1f.jpg"/></td>
-      <tr>
-      <tr>
-          <td><img src="https://s2.ax1x.com/2019/05/12/Ehync8.jpg"/></td>
-          <td><img src="https://s2.ax1x.com/2019/05/12/EhyAAA.jpg"/></td>
-      <tr>
-      <tr>
-          <td><img src="https://s2.ax1x.com/2019/05/12/Ehyp6O.jpg"/></td>
-          <td><img src="https://s2.ax1x.com/2019/05/12/Ehszp6.jpg"/></td>
-      <tr>
-      </table>
-   
-* 完全模块化工作流引擎，可视化建立编辑，动态分配节点处理人
-* 监听器监听系统用户、角色实时同步到工作流引擎表
-* 提供请假流程示例   
-* 菜单管理分为一级菜单 二级菜单 按钮(也可以是元素)权限  
-* 用户可以上传头像 
-* 自定义定时类，实现Job，前端配置定时类，即可控制任务类，已实现定时类获取spring上下文，
-* 项目启动加载完bean后利用spring boot监听开启一个线程，检测已启动的定时任务，进行开启
-* 日志监控 利用aop 自定义拦截日志持久化到数据库并对数据进行监控
-* 接口
-如果对你有帮助，可以打赏请作者喝杯咖啡。
+*   jdk：1.8
+*   核心框架：spring boot 2.0.1.RELEASE
+*   安全框架：Apache Shiro（用于用户角色权限控制）
+*   工作流引擎：Activiti5.22
+*   数据库连接池：druid
+*   视图框架：spring mvc
+*   持久层框架：MyBatis
+*   模板引擎：freemarker
+*   缓存：redis、ehcache（目前未使用）
+*   定时：quartz 2.3.0（目前未使用）
+*   前端页面：layui
 
-由于群成员满员，众筹升级群人数上限，十分感谢以下lenos群网友的捐助和支持，以下为捐助名单(qq昵称，账号，顺序随机)：
+# 模块和可参考的内容✨
+典型的springMVC+MyBatis，可以自己查一下。
+- ######注意区分系统内权限和项目内权限。涉及工作范围的疑问*一定要群里说*，私聊可能更乱😂。
+- ######已有的模块：![](https://upload-images.jianshu.io/upload_images/10854666-fc22088c415bccc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+除了负责工作流部分的（这个系统应该仅有立项审批流程用到工作流），**都写在len-web里**就可以了，或者自己开模块，自己开模块可以先写套hello controller，确定能正常工作了再写。
+- **len-activiti** @我
+引入了activiti5.22，数据库里act_开头的23张表都是activiti引擎需要操纵的，通过在这个模块调用activiti的xxxxxService来管理。
+- **len-core** @all 不需要修改，只需要使用
+这里有个通用service层，通用数据库操作增删改都有了，使用只需要`public interface xxxxxService extends BaseService<entity类型,‘主键’类型>`，xxxxxService就可以直接调这些操作了。
+![](https://upload-images.jianshu.io/upload_images/10854666-f75a179e4c69f53b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+- **len-sys** @all 尽量不要修改，只使用
+要修改，先在群里商量。这块主要是系统内的用户，角色，用户-角色，菜单，角色-菜单，菜单和用户系统内的权限挂钩。
+- **len-web** @all 
+     ###### 🏀🏀🏀典型的springMVC+MyBatis，一套大概是：
+     **数据库表 — entity，resource里的mapper**
+     **mapper — service（service的impl）—controller里调service — ftl页面**
+
+#常见操作一览
+- 获取当前用户id和当前用户
 ```
-我有一块大腹肌(18****256) 35.54元
-江湖百晓生 (26****417) 5元
-有道(10*****838) 1.5元
-24岁程序员不想加班(10*****286) 0.56元
-水兮若龙(73****965) 1元
-旭阳(13*****126) 6.6元
-你是一个人物(32*****869) 1元
-笨蛋~猪头]_[(23*****266) 0.45元
-人丑脾气坏(35****702) 0.5元
-襄州绿毛龟(18****933) 0.5元
-小码*(53****051) 0.5元
-AspectJ(13*****013) 0.5元
-不以物喜，不以己悲 (11*****011) 0.5元
-Lotus(37****374) 0.5元
-书山有路(50****945) 0.5元
-欧阳(24****748) 0.5元
-π(12*****085) 0.5元
-laughing(89****060)0.5元
-十八画生(10*****400) 0.5元
-YS.RE(27****583) 0.5元
-小翼(40****384) 20元
-远方(16*****408) 1元
-像我这样的人(41****236) 0.46元
-磊哥(87****537) 12元
-tj(64****183) 20元
-fenghaotong（码云）(83****531) 10元
+String id = Principal.getPrincipal().getId(); // getPrincipal() return type: CurrentUser
+SysUser user = userService.selectByPrimaryKey(id);
 ```
+-  pull、push
+push前需要邀请为collaborator。
+![push前最好在群里说一哈](https://upload-images.jianshu.io/upload_images/10854666-e72011e45815a4be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+- 用IDEA自带/Navicat/Workbench操作数据库很方便，连接信息在前面说过的application.yml
+- shiro拦截（建议先忽略，之后来得及再加，目前只是拦截不登录就访问）
+![shiro配置](https://upload-images.jianshu.io/upload_images/10854666-528ba3dfd45c1f8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+**`filterMap.put("xxxxxxx", "anon");`xxxxxxx是不登录就可访问的url。**
+![](https://upload-images.jianshu.io/upload_images/10854666-dfa01b96a16baef7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![shiro也是一写写一套的= =](https://upload-images.jianshu.io/upload_images/10854666-521efabec6d8ded5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+- [Git在IDEA中的使用（详细图文全解）](https://blog.csdn.net/mucaoyx/article/details/98476174)
+     ######大家各自新建分支，push到分支。merge前一定要检查！！！
