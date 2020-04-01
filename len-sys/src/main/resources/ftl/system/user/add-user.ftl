@@ -58,7 +58,16 @@ To change this template use File | Settings | File Templates.-->
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
-
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label for="department" class="layui-form-label">
+                        <span class="x-red">*</span>部门
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="department" name="department" lay-verify="realName"  autocomplete="off" class="layui-input">
+                    </div>
+                </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">

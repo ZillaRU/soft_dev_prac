@@ -53,33 +53,6 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="epg_leader" class="layui-form-label" style="width:130px;padding: 9px 0px;">
-                    <span class="x-red">*EPG Leader</span>
-                </label>
-                <div class="layui-input-inline">
-                    <select id="selectId1" name="epgLeader" lay-search>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="configManager" class="layui-form-label" style="width:130px;padding: 9px 0px;">
-                    <span class="x-red">*配置管理员</span>
-                </label>
-                <div class="layui-input-inline">
-                    <select id="selectId2" name="configManager" lay-search>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="qaManager" class="layui-form-label" style="width:130px;padding: 9px 0px;">
-                    <span class="x-red">*QA</span>
-                </label>
-                <div class="layui-input-inline">
-                    <select id="selectId3" name="qaManager" lay-search>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-form-item">
                 <label for="startDate" class="layui-form-label" style="width:130px;padding: 9px 0px;">
                     <span class="x-red">*预定日</span>
                 </label>
@@ -161,27 +134,6 @@
         $ = layui.jquery;
         var form = layui.form, laydate = layui.laydate, layer = layui.layer;
 
-        $.ajax({
-            url: '/user/showAllUser',
-            type: 'post',
-            dataType: 'json',
-            success: function (data) {
-                $('#selectId1').empty();
-                $('#selectId2').empty();
-                $('#selectId3').empty();
-                for (var u in data['users']) {
-                    var dpmt = data['users'][u].department;
-                    if (dpmt == 'EPG')
-                        $('#selectId1').append("<option value='" + data['users'][u].id + "'>" + dpmt + ' ' + data['users'][u].realName + "</option>");
-                    else if (dpmt == 'CONF')
-                        $('#selectId2').append("<option value='" + data['users'][u].id + "'>" + dpmt + ' ' + data['users'][u].realName + "</option>");
-                    else if (dpmt == 'QA')
-                        $('#selectId3').append("<option value='" + data['users'][u].id + "'>" + dpmt + ' ' + data['users'][u].realName + "</option>");
-                }
-                form.render();
-            }
-        });
-
         //执行一个laydate实例
         var std = laydate.render({
             elem: '#startDate',
@@ -224,9 +176,6 @@
 
         //监听提交
         form.on('submit(add)', function (data) {
-            data.field.epgName = $("#selectId1 option:selected").text();
-            data.field.confName = $("#selectId2 option:selected").text();
-            data.field.qaName = $("#selectId3 option:selected").text();
             layerAjax('applyProject', data.field, 'projList');
         });
     });

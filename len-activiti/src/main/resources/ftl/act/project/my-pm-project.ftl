@@ -26,10 +26,11 @@
 <table id="projList" class="layui-hide" lay-filter="proj"></table>
 <script type="text/html" id="barDemo">
     <#--    <@shiro.hasPermission name="user:select">-->
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">基本信息</a>
     <#--    </@shiro.hasPermission>-->
     <#--    shiro-->
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="projFuncs">项目功能</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="projFuncs">功能</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="projPerson">人员</a>
 </script>
 <script>
     document.onkeydown = function (e) { // 回车提交表单
@@ -63,44 +64,6 @@
             height: 'full-83'
         });
 
-        var $ = layui.$, active = {
-            select: function () {
-                var projname = $('#projname').val();
-                console.info(projname);
-                table.reload('projList', {
-                    where: {
-                        projName: projname
-                    }
-                });
-            },
-            reload: function () {
-                $('#projname').val('');
-                table.reload('projList', {
-                    where: {
-                        projName: null
-                    }
-                });
-            },
-            detail: function () {
-                var checkStatus = table.checkStatus('projList')
-                    , data = checkStatus.data;
-                if (data.length != 1) {
-                    layer.msg('请选择一行查看,已选[' + data.length + ']行', {icon: 5});
-                    return false;
-                }
-                detail('查看项目信息', 'showProjDetail?projId=' + data[0].id, 1100, 600);
-            },
-            projFuncs: function () {
-                var checkStatus = table.checkStatus('projList')
-                    , data = checkStatus.data;
-                if (data.length != 1) {
-                    layer.msg('请选择一行操作,已选[' + data.length + ']行', {icon: 5});
-                    return false;
-                }
-                setProjFuncs('项目功能设置', 'projFunc?projId=' + data[0].id, 1100, 600);
-            }
-        };
-
         //监听工具条
         table.on('tool(proj)', function (obj) {
             var data = obj.data;
@@ -109,7 +72,11 @@
                 detail('查看项目信息', 'showProjDetail?projId=' + data.id, 1100, 600);
             } else if(obj.event === 'projFuncs') {
                 console.log(data.id);
-                detail('项目功能设置', 'projFunc?projId=' + data.id, 1100, 600);
+                setProjFuncs('项目功能设置', 'projFunc?projId=' + data.id, 1100, 600);
+            } else if(obj.event === 'projPerson') {
+                console.log(data.id);
+                // todo
+                // setProjPerson('项目人员设置', 'projFunc?projId=' + data.id, 1100, 600);
             }
         });
 
@@ -137,7 +104,7 @@
             shadeClose: true,
             shade: 0.4,
             title: title,
-            content: url + '&detail=true'
+            content: url
             // btn:['关闭']
         });
     }
@@ -168,6 +135,33 @@
             // btn:['关闭']
         });
     }
+    // todo
+    // function setProjPerson(title, url, w, h) {
+    //     if (title == null || title == '') {
+    //         title = false;
+    //     }
+    //     if (url == null || url == '') {
+    //         url = "error/404";
+    //     }
+    //     if (w == null || w == '') {
+    //         w = ($(window).width() * 0.9);
+    //     }
+    //     if (h == null || h == '') {
+    //         h = ($(window).height() - 50);
+    //     }
+    //     layer.open({
+    //         id: '',
+    //         type: 2,
+    //         area: [w + 'px', h + 'px'],
+    //         fix: false,
+    //         maxmin: true,
+    //         shadeClose: true,
+    //         shade: 0.4,
+    //         title: title,
+    //         content: url
+    //         // btn:['关闭']
+    //     });
+    // }
 </script>
 </body>
 

@@ -105,7 +105,7 @@
           sort: true,
           style: 'background-color: #009688; color: #fff;'
         }
-        , {field: 'age', title: '年龄', width: '10%', sort: true}
+        , {field: 'department', title: '部门', width: '10%', sort: true}
         , {field: 'realName', title: '真实姓名', width: '10%'}
         , {field: 'email', title: '邮箱', width: '13%'}
         , {field: 'phone', title: '手机', width: '13%' }
