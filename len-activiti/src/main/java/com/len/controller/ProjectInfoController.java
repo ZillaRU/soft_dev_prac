@@ -33,6 +33,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.len.core.annotation.Log;
+import sun.lwawt.macosx.CSystemTray;
 import sun.misc.BASE64Encoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -100,7 +101,7 @@ public class ProjectInfoController {
             projectInfo.setUrlpath("/project/showProjDetail/" + projectInfo.getId());
             map.put("baseTask", projectInfo);
             ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("ProjectApply", map);
-            System.out.println("\n" + processInstance + "\n");
+            System.out.println("\nprocessInstanceId" + processInstance + "\n");
             projectInfo.setProcessInstanceId(processInstance.getId());
             ProjectInfo proj_with_proc = projectInfoService.selectByPrimaryKey(projectInfo.getId());
             BeanUtil.copyNotNullBean(projectInfo, proj_with_proc);
@@ -172,8 +173,8 @@ public class ProjectInfoController {
     }
 
     @GetMapping("/projApprovalProcess")
-    public String showProjProcess(Model model, String processInsId) {
-        model.addAttribute("processInstanceId", processInsId);
+    public String showProjProcess(Model model, String processInstanceId) {
+        model.addAttribute("processInstanceId", processInstanceId);
         return "/act/project/shinePics";
     }
 
@@ -181,12 +182,14 @@ public class ProjectInfoController {
     @ResponseBody
     public String getShineProcImage(HttpServletRequest request, HttpServletResponse resp, String processInstanceId)
             throws IOException {
+        System.out.println("processInstanceId------>"+ processInstanceId);
         JSONObject result = new JSONObject();
         JSONArray shineProImages = new JSONArray();
         BASE64Encoder encoder = new BASE64Encoder();
         InputStream imageStream = generateStream(request, resp, processInstanceId, true);
         if (imageStream != null) {
             String imageCurrentNode = Base64Utils.ioToBase64(imageStream);
+            System.out.println("imageCurrentNode----->" + imageCurrentNode);
             if (StringUtils.isNotBlank(imageCurrentNode)) {
                 shineProImages.add(imageCurrentNode);
             }
@@ -194,6 +197,7 @@ public class ProjectInfoController {
         InputStream imageNoCurrentStream = generateStream(request, resp, processInstanceId, false);
         if (imageNoCurrentStream != null) {
             String imageNoCurrentNode = Base64Utils.ioToBase64(imageNoCurrentStream);
+            System.out.println("imageCurrentNode----->" + imageNoCurrentNode);
             if (StringUtils.isNotBlank(imageNoCurrentNode)) {
                 shineProImages.add(imageNoCurrentNode);
             }
@@ -208,6 +212,7 @@ public class ProjectInfoController {
         ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
         HistoricProcessInstance historicProcessInstance =
                 historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+        System.out.println(processInstance + "----\n"+ processInstanceId+"----\n"+ historicProcessInstance+"---\n");
         String processDefinitionId = null;
         List<String> executedActivityIdList = new ArrayList<String>();
         List<String> currentActivityIdList = new ArrayList<>();
@@ -220,6 +225,7 @@ public class ProjectInfoController {
         }
         if (historicProcessInstance != null) {
             processDefinitionId = historicProcessInstance.getProcessDefinitionId();
+            System.out.println("processDefinitionId----->" + processDefinitionId);
             historicActivityInstanceList =
                     historyService.createHistoricActivityInstanceQuery().processInstanceId(processInstanceId).orderByHistoricActivityInstanceId().asc().list();
             for (HistoricActivityInstance activityInstance : historicActivityInstanceList) {
@@ -228,6 +234,7 @@ public class ProjectInfoController {
         }
 
         if (StringUtils.isEmpty(processDefinitionId) || executedActivityIdList.isEmpty()) {
+            System.out.println("StringUtils.isEmpty(" + processDefinitionId + "\nexecutedActivityIdList" + executedActivityIdList);
             return null;
         }
 

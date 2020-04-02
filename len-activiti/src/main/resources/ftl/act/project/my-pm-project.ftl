@@ -80,7 +80,7 @@
                 // get_detail_layer('项目人员设置', 'projFunc?projId=' + data.id, 1100, 600, "proj_per_layer");
             } else if (obj.event === 'getProc') { // 查看流程现在走到了哪
                 // var url = 'getProc?processInstanceId=' + data.processInstanceId + '';
-                get_detail_layer('审批详情','projApprovalProcess?processInsId=' + data.processInstanceId, 1100, 600, 'proj_approval_proc_layer');
+                get_detail_layer('审批详情','projApprovalProcess?processInstanceId=' + data.processInstanceId, 1100, 600, 'proj_approval_proc_layer');
             }
         });
 
