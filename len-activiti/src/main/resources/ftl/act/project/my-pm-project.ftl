@@ -27,6 +27,7 @@
 <script type="text/html" id="barDemo">
     <#--    <@shiro.hasPermission name="user:select">-->
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">基本信息</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="getProc"><i class="layui-icon">&#xe6b2;</i>审批流程</a>
     <#--    </@shiro.hasPermission>-->
     <#--    shiro-->
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="projFuncs">功能</a>
@@ -69,20 +70,23 @@
             var data = obj.data;
             if (obj.event === 'detail') {
                 console.log(data.id);
-                detail('查看项目信息', 'showProjDetail?projId=' + data.id, 1100, 600);
-            } else if(obj.event === 'projFuncs') {
+                get_detail_layer('查看项目信息', 'showProjDetail?projId=' + data.id, 1100, 600, 'proj_detail_layer');
+            } else if (obj.event === 'projFuncs') {
                 console.log(data.id);
-                setProjFuncs('项目功能设置', 'projFunc?projId=' + data.id, 1100, 600);
-            } else if(obj.event === 'projPerson') {
+                get_detail_layer('项目功能设置', 'projFunc?projId=' + data.id, 1100, 600, 'proj_func_layer');
+            } else if (obj.event === 'projPerson') {
                 console.log(data.id);
                 // todo
-                // setProjPerson('项目人员设置', 'projFunc?projId=' + data.id, 1100, 600);
+                // get_detail_layer('项目人员设置', 'projFunc?projId=' + data.id, 1100, 600, "proj_per_layer");
+            } else if (obj.event === 'getProc') { // 查看流程现在走到了哪
+                // var url = 'getProc?processInstanceId=' + data.processInstanceId + '';
+                get_detail_layer('审批详情','projApprovalProcess?processInsId=' + data.processInstanceId, 1100, 600, 'proj_approval_proc_layer');
             }
         });
 
     });
 
-    function detail(title, url, w, h) {
+    function get_detail_layer(title, url, w, h, layer_id) {
         if (title == null || title == '') {
             title = false;
         }
@@ -96,7 +100,7 @@
             h = ($(window).height() - 50);
         }
         layer.open({
-            id: 'proj-detail',
+            id: layer_id,
             type: 2,
             area: [w + 'px', h + 'px'],
             fix: false,
@@ -108,60 +112,6 @@
             // btn:['关闭']
         });
     }
-
-    function setProjFuncs(title, url, w, h) {
-        if (title == null || title == '') {
-            title = false;
-        }
-        if (url == null || url == '') {
-            url = "error/404";
-        }
-        if (w == null || w == '') {
-            w = ($(window).width() * 0.9);
-        }
-        if (h == null || h == '') {
-            h = ($(window).height() - 50);
-        }
-        layer.open({
-            id: 'proj-funcs',
-            type: 2,
-            area: [w + 'px', h + 'px'],
-            fix: false,
-            maxmin: true,
-            shadeClose: true,
-            shade: 0.4,
-            title: title,
-            content: url
-            // btn:['关闭']
-        });
-    }
-    // todo
-    // function setProjPerson(title, url, w, h) {
-    //     if (title == null || title == '') {
-    //         title = false;
-    //     }
-    //     if (url == null || url == '') {
-    //         url = "error/404";
-    //     }
-    //     if (w == null || w == '') {
-    //         w = ($(window).width() * 0.9);
-    //     }
-    //     if (h == null || h == '') {
-    //         h = ($(window).height() - 50);
-    //     }
-    //     layer.open({
-    //         id: '',
-    //         type: 2,
-    //         area: [w + 'px', h + 'px'],
-    //         fix: false,
-    //         maxmin: true,
-    //         shadeClose: true,
-    //         shade: 0.4,
-    //         title: title,
-    //         content: url
-    //         // btn:['关闭']
-    //     });
-    // }
 </script>
 </body>
 
