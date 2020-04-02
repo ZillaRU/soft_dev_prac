@@ -7,10 +7,8 @@
         <result column="pro_status" jdbcType="VARCHAR" property="proStatus" />
         <result column="pm_id" jdbcType="VARCHAR" property="pmId" />
         <result column="pm_name" jdbcType="VARCHAR" property="pmName" />
-        <result column="dev_group_id" jdbcType="VARCHAR" property="devGroupId" />
         <result column="dev_leader_id" jdbcType="VARCHAR" property="devLeaderId" />
         <result column="dev_leader_name" jdbcType="VARCHAR" property="devLeaderName" />
-        <result column="test_group_id" jdbcType="VARCHAR" property="testGroupId" />
         <result column="test_leader_id" jdbcType="VARCHAR" property="testLeaderId" />
         <result column="test_leader_name" jdbcType="VARCHAR" property="testLeaderName" />
         <result column="config_manager" jdbcType="VARCHAR" property="configManager" />
@@ -22,7 +20,7 @@
     </resultMap>
 
     <select id="selectByPmId" parameterType="java.lang.String" resultMap="BaseResultMap">
-        SELECT * FROM pro_worker_info where pro_id = #{pro_id}
+        SELECT * FROM pro_worker_info where pm_id = #{pm_id}
     </select>
 
 </mapper>

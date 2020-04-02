@@ -34,12 +34,13 @@ public class ProjectWorkerInfoController {
     @Autowired
     private ProjectInfoService projectInfoService;
 
+    @ApiOperation(value = "项目人员信息", httpMethod = "GET")
+    @Log(desc = "当前项目经理管理的项目人员信息")
     @GetMapping("info")
-    public String perWorkerInfo(Model model) {
-        String id = Principal.getPrincipal().getId();
-        SysUser user = userService.selectByPrimaryKey(id);
-        model.addAttribute("user", user);
-        return "act/projectWorker/showWorkerInfo";
+    @ResponseBody
+    public ReType perWorkerInfo() {
+        List<ProjectWorkerInfo> list = projectWorkerInfoService.selectByPmId(Principal.getPrincipal().getId());
+        return new ReType(list.size(), list);
     }
 
     @ApiOperation(value = "项目经理下的管理项目", httpMethod = "GET")

@@ -38,7 +38,7 @@
         </button>
     </div>
 </div>
-<table id="projList" class="layui-hide" lay-filter="proj" ></table>
+<table id="projWorkerList" class="layui-hide" lay-filter="proj" ></table>
 <script type="text/html" id="barDemo">
     <#--    <@shiro.hasPermission name="user:select">-->
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
@@ -58,8 +58,8 @@
         var table = layui.table;
         //方法级渲染
         table.render({
-            id: 'projList',
-            elem: '#projList'
+            id: 'projWorkerList',
+            elem: '#projWorkerList'
             , url: 'showPMprojctList'
             , cols: [[
                 {checkbox: false}
@@ -84,33 +84,33 @@
 
         var $ = layui.$, active = {
             select: function () {
-                var projname = $('#projname').val();
-                console.info(projname);
-                table.reload('projList', {
+                var projworkername = $('#projworkername').val();
+                console.info(proworkerjname);
+                table.reload('projWorkerList', {
                     where: {
                         projName: projname
                     }
                 });
             },
             reload: function () {
-                $('#projname').val('');
-                table.reload('projList', {
+                $('#projworkername').val('');
+                table.reload('projworkerList', {
                     where: {
-                        projName: null
+                        projworkerName: null
                     }
                 });
             },
             detail: function () {
-                var checkStatus = table.checkStatus('projList')
+                var checkStatus = table.checkStatus('projworkerList')
                     , data = checkStatus.data;
                 if (data.length != 1) {
                     layer.msg('请选择一行查看,已选[' + data.length + ']行', {icon: 5});
                     return false;
                 }
-                detail('查看项目信息', 'showProjDetail?projId=' + data[0].id, 1100, 600);
+                detail('查看项目信息', 'showProjWorkerDetail?projId=' + data[0].id, 1100, 600);
             },
             projFuncs: function () {
-                var checkStatus = table.checkStatus('projList')
+                var checkStatus = table.checkStatus('projworkerList')
                     , data = checkStatus.data;
                 if (data.length != 1) {
                     layer.msg('请选择一行操作,已选[' + data.length + ']行', {icon: 5});
