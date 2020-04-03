@@ -113,7 +113,13 @@ public class ProjectInfoController {
             Map<String, Object> vars = new HashMap<>();
             // 获取上级的邮箱
             String chiefId = currUser.getChiefId();
-            String chiefMailAddr = userService.selectByPrimaryKey(chiefId).getEmail();
+            SysUser user = userService.selectByPrimaryKey(chiefId);
+            String chiefMailAddr = "";
+            if (user != null) {
+                chiefMailAddr = user.getEmail();
+            } else {
+                System.out.println("这是脏数据吗？查无此人！");
+            }
             vars.put("chief_mail", chiefMailAddr);
             vars.put("pm_name", currUser.getRealName());
             vars.put("pm_mail", currUser.getEmail());
@@ -121,6 +127,7 @@ public class ProjectInfoController {
             vars.put("epg_mail", userService.getUserByRoleId("f7376c6bc042419491be758ae2683842").get(0).getEmail());
             vars.put("conf_mail", userService.getUserByRoleId("b1e002ad12ff4d2ebb024d74d27af432").get(0).getEmail());
             vars.put("proj_name", projectInfo.getProjName());
+
             taskService.complete(task.getId(), vars);
             // taskService.complete(task.getId());
             task = this.taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
@@ -182,7 +189,7 @@ public class ProjectInfoController {
     @ResponseBody
     public String getShineProcImage(HttpServletRequest request, HttpServletResponse resp, String processInstanceId)
             throws IOException {
-        System.out.println("processInstanceId------>"+ processInstanceId);
+        System.out.println("processInstanceId------>" + processInstanceId);
         JSONObject result = new JSONObject();
         JSONArray shineProImages = new JSONArray();
         BASE64Encoder encoder = new BASE64Encoder();
@@ -212,7 +219,7 @@ public class ProjectInfoController {
         ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
         HistoricProcessInstance historicProcessInstance =
                 historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
-        System.out.println(processInstance + "----\n"+ processInstanceId+"----\n"+ historicProcessInstance+"---\n");
+        System.out.println(processInstance + "----\n" + processInstanceId + "----\n" + historicProcessInstance + "---\n");
         String processDefinitionId = null;
         List<String> executedActivityIdList = new ArrayList<String>();
         List<String> currentActivityIdList = new ArrayList<>();

@@ -25,6 +25,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by liuruijie on 2017/2/20.
@@ -40,7 +45,7 @@ public class ActivitiConfig {
      * spring 集成 activiti
      */
     @Bean
-    public ProcessEngineConfiguration processEngineConfiguration(DataSource dataSource, PlatformTransactionManager transactionManager) {
+    public ProcessEngineConfiguration processEngineConfiguration(DataSource dataSource, PlatformTransactionManager transactionManager) throws IOException {
         SpringProcessEngineConfiguration processEngineConfiguration = new SpringProcessEngineConfiguration();
         processEngineConfiguration.setDataSource(dataSource);
         //表不存在创建表
@@ -56,10 +61,22 @@ public class ActivitiConfig {
         processEngineConfiguration.setLabelFontName("宋体");
         // for MailTask
         processEngineConfiguration.setProcessDiagramGenerator(new DefaultProcessDiagramGenerator());
-        processEngineConfiguration.setMailServerHost("smtp.163.com")
-                .setMailServerPort(25)
-                .setMailServerDefaultFrom("achieve_it2020@163.com")
-                .setMailServerPassword("achieveit2020");
+        BASE64Encoder encoder = new BASE64Encoder();
+        BASE64Decoder decoder = new BASE64Decoder();
+        String s1 = new String(decoder.decodeBuffer(encoder.encode("744346614@qq.com".getBytes())));
+        processEngineConfiguration.setMailServerHost("smtp.qq.com")
+                .setMailServerUseSSL(true)
+                .setMailServerPort(465)
+                .setMailServerDefaultFrom(s1)
+                .setMailServerUsername(s1)
+                .setMailServerPassword(new String(decoder.decodeBuffer(encoder.encode("glgjrrbeslnbbaje".getBytes()))));
+//                .setMailServerPassword("achieveit2020");
+//        processEngineConfiguration.setMailServerHost("smtp.qq.com")
+//                .setMailServerPort(25)
+//                .setMailServerUseSSL(false)
+//                .setMailServerDefaultFrom("744346614@qq.com")
+//                .setMailServerUsername("Achieve_It_Official")
+//                .setMailServerPassword("otudyjhqwrgubchh");
         return processEngineConfiguration;
     }
 
