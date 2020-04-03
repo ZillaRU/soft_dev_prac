@@ -63,14 +63,21 @@ public class ActivitiConfig {
         processEngineConfiguration.setProcessDiagramGenerator(new DefaultProcessDiagramGenerator());
         BASE64Encoder encoder = new BASE64Encoder();
         BASE64Decoder decoder = new BASE64Decoder();
-        String s1 = new String(decoder.decodeBuffer(encoder.encode("744346614@qq.com".getBytes())));
-        processEngineConfiguration.setMailServerHost("smtp.qq.com")
+//        String s1 = new String(decoder.decodeBuffer(encoder.encode("744346614@qq.com".getBytes())));
+//        processEngineConfiguration.setMailServerHost("smtp.qq.com")
+//                .setMailServerUseSSL(true)
+//                .setMailServerPort(465)
+//                .setMailServerDefaultFrom(s1)
+//                .setMailServerUsername(s1)
+//                .setMailServerPassword(new String(decoder.decodeBuffer(encoder.encode("glgjrrbeslnbbaje".getBytes()))));
+        String s1 = new String(decoder.decodeBuffer(encoder.encode("achieve_it2020@163.com".getBytes())));
+        processEngineConfiguration.setMailServerHost("smtp.163.com")
                 .setMailServerUseSSL(true)
                 .setMailServerPort(465)
                 .setMailServerDefaultFrom(s1)
                 .setMailServerUsername(s1)
-                .setMailServerPassword(new String(decoder.decodeBuffer(encoder.encode("glgjrrbeslnbbaje".getBytes()))));
-//                .setMailServerPassword("achieveit2020");
+                .setMailServerPassword(new String(decoder.decodeBuffer(encoder.encode("KZJYANXQYJVUTJJO".getBytes()))));
+
 //        processEngineConfiguration.setMailServerHost("smtp.qq.com")
 //                .setMailServerPort(25)
 //                .setMailServerUseSSL(false)
