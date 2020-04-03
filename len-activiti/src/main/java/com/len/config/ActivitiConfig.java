@@ -69,7 +69,7 @@ public class ActivitiConfig {
 //                .setMailServerPort(465)
 //                .setMailServerDefaultFrom(s1)
 //                .setMailServerUsername(s1)
-//                .setMailServerPassword(new String(decoder.decodeBuffer(encoder.encode("glgjrrbeslnbbaje".getBytes()))));
+//                .setMailServerPassword(new String(decoder.decodeBuffer(encoder.encode("xxxxxxxxxxxxxxxx".getBytes()))));
         String s1 = new String(decoder.decodeBuffer(encoder.encode("achieve_it2020@163.com".getBytes())));
         processEngineConfiguration.setMailServerHost("smtp.163.com")
                 .setMailServerUseSSL(true)
@@ -78,12 +78,6 @@ public class ActivitiConfig {
                 .setMailServerUsername(s1)
                 .setMailServerPassword(new String(decoder.decodeBuffer(encoder.encode("KZJYANXQYJVUTJJO".getBytes()))));
 
-//        processEngineConfiguration.setMailServerHost("smtp.qq.com")
-//                .setMailServerPort(25)
-//                .setMailServerUseSSL(false)
-//                .setMailServerDefaultFrom("744346614@qq.com")
-//                .setMailServerUsername("Achieve_It_Official")
-//                .setMailServerPassword("otudyjhqwrgubchh");
         return processEngineConfiguration;
     }
 
