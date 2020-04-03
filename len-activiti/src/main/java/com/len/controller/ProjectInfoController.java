@@ -189,14 +189,12 @@ public class ProjectInfoController {
     @ResponseBody
     public String getShineProcImage(HttpServletRequest request, HttpServletResponse resp, String processInstanceId)
             throws IOException {
-        System.out.println("processInstanceId------>" + processInstanceId);
         JSONObject result = new JSONObject();
         JSONArray shineProImages = new JSONArray();
         BASE64Encoder encoder = new BASE64Encoder();
         InputStream imageStream = generateStream(request, resp, processInstanceId, true);
         if (imageStream != null) {
             String imageCurrentNode = Base64Utils.ioToBase64(imageStream);
-            System.out.println("imageCurrentNode----->" + imageCurrentNode);
             if (StringUtils.isNotBlank(imageCurrentNode)) {
                 shineProImages.add(imageCurrentNode);
             }
@@ -204,7 +202,6 @@ public class ProjectInfoController {
         InputStream imageNoCurrentStream = generateStream(request, resp, processInstanceId, false);
         if (imageNoCurrentStream != null) {
             String imageNoCurrentNode = Base64Utils.ioToBase64(imageNoCurrentStream);
-            System.out.println("imageCurrentNode----->" + imageNoCurrentNode);
             if (StringUtils.isNotBlank(imageNoCurrentNode)) {
                 shineProImages.add(imageNoCurrentNode);
             }
@@ -232,7 +229,6 @@ public class ProjectInfoController {
         }
         if (historicProcessInstance != null) {
             processDefinitionId = historicProcessInstance.getProcessDefinitionId();
-            System.out.println("processDefinitionId----->" + processDefinitionId);
             historicActivityInstanceList =
                     historyService.createHistoricActivityInstanceQuery().processInstanceId(processInstanceId).orderByHistoricActivityInstanceId().asc().list();
             for (HistoricActivityInstance activityInstance : historicActivityInstanceList) {
@@ -241,7 +237,6 @@ public class ProjectInfoController {
         }
 
         if (StringUtils.isEmpty(processDefinitionId) || executedActivityIdList.isEmpty()) {
-            System.out.println("StringUtils.isEmpty(" + processDefinitionId + "\nexecutedActivityIdList" + executedActivityIdList);
             return null;
         }
 
@@ -319,6 +314,4 @@ public class ProjectInfoController {
         }
         return highFlows;
     }
-
-
 }
