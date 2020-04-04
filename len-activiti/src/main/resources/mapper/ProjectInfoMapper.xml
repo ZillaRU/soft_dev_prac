@@ -8,7 +8,7 @@
         <result column="pm_id" jdbcType="VARCHAR" property="pmId" />
         <result column="pm_name" jdbcType="VARCHAR" property="pmName" />
         <result column="proj_customer" jdbcType="VARCHAR" property="projCustomer" />
-        <result column="proj_state" jdbcType="INTEGER" property="projState" />
+        <result column="proj_state" jdbcType="VARCHAR" property="projState" />
         <result column="start_date" jdbcType="DATE" property="startDate" />
         <result column="end_date" jdbcType="DATE" property="endDate" />
         <result column="milestone" jdbcType="VARCHAR" property="milestone" />

@@ -44,6 +44,16 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
+                    <label for="proj_customer" class="layui-form-label">
+                        客户代号
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="proj_customer" name="projCustomer" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
                     <label for="pm_name" class="layui-form-label">
                         <span class="x-red">*</span>项目经理
                     </label>

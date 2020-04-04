@@ -13,7 +13,6 @@ import org.apache.shiro.session.Session;
  * 管理工具类
  */
 public class CommonUtil {
-
   /**
    * 获取当前用户
    */

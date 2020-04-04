@@ -3,11 +3,9 @@ package com.len.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.len.base.CurrentUser;
 import com.len.core.shiro.Principal;
 import com.len.entity.BaseTask;
 import com.len.entity.ProjectInfo;
-import com.len.entity.SysRoleUser;
 import com.len.entity.SysUser;
 import com.len.exception.MyException;
 import com.len.service.ProjectInfoService;
@@ -31,6 +29,7 @@ import org.activiti.engine.task.Task;
 import org.activiti.image.HMProcessDiagramGenerator;
 import org.activiti.spring.ProcessEngineFactoryBean;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -96,7 +95,7 @@ public class ProjectInfoController {
     public JsonUtil applyProject(ProjectInfo projectInfo) {
         JsonUtil j = new JsonUtil();
         String msg = "项目信息添加成功";
-        projectInfo.setProjState(0);
+        // projectInfo.setProjState("申请立项");
         projectInfo.setUserId(projectInfo.getPmId());
         projectInfo.setUserName(projectInfo.getPmName());
         projectInfo.setPmId(Principal.getPrincipal().getId());
@@ -129,9 +128,9 @@ public class ProjectInfoController {
             vars.put("chief_mail", chiefMailAddr);
             vars.put("pm_name", currUser.getRealName());
             vars.put("pm_mail", currUser.getEmail());
-            vars.put("qa_mail", userService.getUserByRoleId("0d3178de48cb482cb0bb3a9ae9ff3764").get(0).getEmail());
-            vars.put("epg_mail", userService.getUserByRoleId("f7376c6bc042419491be758ae2683842").get(0).getEmail());
-            vars.put("conf_mail", userService.getUserByRoleId("b1e002ad12ff4d2ebb024d74d27af432").get(0).getEmail());
+            vars.put("qa_mail", userService.getUserByRoleId(RoleUtil.QA_LEADER_ROLE_ID).get(0).getEmail());
+            vars.put("epg_mail", userService.getUserByRoleId(RoleUtil.EPG_LEADER_ROLE_ID).get(0).getEmail());
+            vars.put("conf_mail", userService.getUserByRoleId(RoleUtil.CONF_MASTER_ROLE_ID).get(0).getEmail());
             vars.put("proj_name", projectInfo.getProjName());
             System.out.println("task----> " + task);
             taskService.complete(task.getId(), vars);
@@ -152,10 +151,9 @@ public class ProjectInfoController {
     }
 
     @GetMapping("showPMproject")
-    public String showPMproject(Model model) {
+    public String showPMproject() {
         String id = Principal.getPrincipal().getId();
         SysUser user = userService.selectByPrimaryKey(id);
-        model.addAttribute("user", user);
         return "act/project/my-pm-project";
     }
 
@@ -178,14 +176,14 @@ public class ProjectInfoController {
 
     @ApiOperation(value = "审批项目申请页", httpMethod = "GET")
     @GetMapping("showApprovals")
-    public String showApprovals(Model model) {
-        return "act/project/approvals";
+    public String showApprovals() {
+        return "act/project/mytasks";
     }
 
-    @ApiOperation(value = "需要某用户处理的项目", httpMethod = "POST")
+    @ApiOperation(value = "需要某用户处理的项目", httpMethod = "GET")
     @GetMapping("myTasks")
     @ResponseBody
-    public String needMyApprovals() {
+    public String needCheck() {
         String myId = CommonUtil.getUser().getId();
         // refer: https://www.cnblogs.com/jiqiyoudu/p/4704866.html
         List<Task> myActiTasks = taskService.createTaskQuery()

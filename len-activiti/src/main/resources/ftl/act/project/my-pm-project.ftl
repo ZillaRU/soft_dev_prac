@@ -51,11 +51,13 @@
                     sort: true,
                     style: 'background-color: #009688; color: #fff;'
                 }
-                , {field: 'projNo', title: '编号', width: '10%', sort: true}
+                , {field: 'projNo', title: '编号', width: '16%', sort: true}
                 , {field: 'projCustomer', title: '客户代号', width: '10%'}
-                , {field: 'projMainFunc', title: '主要功能', width: '40%'}
+                , {field: 'projMainFunc', title: '主要功能', width: '36%'}
+                , {field: 'projState', title: '状态', width:'10%', value:}
                 , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
-            ]],
+            ]]
+            , page: true,
             height: 'full-83'
         });
 

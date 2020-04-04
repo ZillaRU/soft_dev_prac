@@ -46,6 +46,7 @@ public class LoginRealm extends AuthorizingRealm {
                 info.addStringPermission(cMenu.getPermission());
             }
         }
+        System.out.println(info.getRoles() + "\n" + info.getObjectPermissions());
         return info;
     }
 

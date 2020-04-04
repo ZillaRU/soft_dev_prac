@@ -57,7 +57,7 @@ public class ProjectInfo extends BaseTask{
         已归档 10
      */
     @Column(name = "proj_state")
-    private Integer projState;
+    private String projState;
 
     @Column(name = "proj_tech")
     private String projTech;
