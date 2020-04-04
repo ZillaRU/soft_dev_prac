@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>主管项目</title>
-    <meta name="renderer" content="webkit">
+    <meta name="renderer" content="webkit">F
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
@@ -54,7 +54,7 @@
                 , {field: 'projNo', title: '编号', width: '16%', sort: true}
                 , {field: 'projCustomer', title: '客户代号', width: '10%'}
                 , {field: 'projMainFunc', title: '主要功能', width: '36%'}
-                , {field: 'projState', title: '状态', width:'10%', value:}
+                , {field: 'projState', title: '状态', width:'10%'}
                 , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
             ]]
             , page: true,

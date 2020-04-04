@@ -152,8 +152,6 @@ public class ProjectInfoController {
 
     @GetMapping("showPMproject")
     public String showPMproject() {
-        String id = Principal.getPrincipal().getId();
-        SysUser user = userService.selectByPrimaryKey(id);
         return "act/project/my-pm-project";
     }
 
