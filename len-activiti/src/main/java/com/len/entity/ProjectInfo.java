@@ -13,10 +13,11 @@ import java.util.List;
 @Table(name = "project_info")
 @ToString
 @Data
-public class ProjectInfo extends BaseTask{
+public class ProjectInfo extends BaseTask {
+
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "JDBC")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "JDBC")
     protected String id;
 
     @Override
@@ -31,6 +32,7 @@ public class ProjectInfo extends BaseTask{
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
     }
+
     @Column(name = "pm_id")
     private String pmId;
 
@@ -98,12 +100,13 @@ public class ProjectInfo extends BaseTask{
     private String qaName;
 
     //审核信息
-    private List<Opinion> opinionList=new ArrayList<>();
+    private List<Opinion> opinionList = new ArrayList<>();
 
-    public void addOpinion(Opinion Opinion){
+    public void addOpinion(Opinion Opinion) {
         this.opinionList.add(Opinion);
     }
-    public void addAllOpinion(List<Opinion> OpinionList){
+
+    public void addAllOpinion(List<Opinion> OpinionList) {
         this.opinionList.addAll(OpinionList);
     }
 

@@ -104,7 +104,14 @@ public class ProjectApprovalProcessController extends BaseController {
         return JsonUtil.sucess("操作成功！");
     }
 
-    @PostMapping("/project/setUpEPG")
+
+    @GetMapping("/epgSetting")
+    @RequiresRoles(RoleUtil.EPG_LEADER_ROLE_ID)
+    public String epgSetting() {
+        return "act/project/setEpg";
+    }
+
+    @PostMapping("/setUpEPG")
     @RequiresRoles(RoleUtil.EPG_LEADER_ROLE_ID)
     @ResponseBody
     public JsonUtil setProjEPG(String projId, String uid) {
@@ -115,11 +122,18 @@ public class ProjectApprovalProcessController extends BaseController {
                 .taskCandidateGroup(RoleUtil.EPG_LEADER_ROLE_ID)
                 .list();
 
+
         taskService.complete(tasks.get(0).getId());
         return JsonUtil.sucess("操作成功！");
     }
 
-    @PostMapping("/project/setUpQA")
+    @GetMapping("/qaSetting")
+    @RequiresRoles(RoleUtil.EPG_LEADER_ROLE_ID)
+    public String qaSetting() {
+        return "act/project/setQA";
+    }
+
+    @PostMapping("/setUpQA")
     @RequiresRoles(RoleUtil.QA_LEADER_ROLE_ID)
     @ResponseBody
     public JsonUtil setProjQA(String projId, String uid) {
@@ -129,6 +143,8 @@ public class ProjectApprovalProcessController extends BaseController {
                 .processInstanceId(instanceId)
                 .taskCandidateGroup(RoleUtil.QA_LEADER_ROLE_ID)
                 .list();
+
+
 
         taskService.complete(tasks.get(0).getId());
         return JsonUtil.sucess("操作成功！");
