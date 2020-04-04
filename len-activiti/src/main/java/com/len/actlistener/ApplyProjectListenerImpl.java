@@ -1,12 +1,24 @@
 package com.len.actlistener;
 
+import com.len.entity.SysUser;
+import com.len.service.SysUserService;
+import com.len.util.CommonUtil;
+import com.len.util.SpringUtil;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.DelegateTask;
 
 public class ApplyProjectListenerImpl extends ActNodeListener {
-    @Override
+
     public void notify(DelegateTask delegateTask) {
-        System.out.println("\nApplyProjectListenerImpl is working\n");
-        // vars 在PM提出申请任务完成时 就put了，也可在这完成
+        SysUser me = SpringUtil.getBean(SysUserService.class).selectByPrimaryKey(CommonUtil.getUser().getId());
+        String chief_id = me.getChiefId();
+        System.out.println("\nApplyProjectListenerImpl is working + chief --> \n" + chief_id);
+
+
+        // 获取节点 并设定assignee 还是在上一步完成后设定吧= =
+
+
+//        SpringUtil.getBean(TaskService.class).setAssignee(taskId, chief_id);
         super.notify(delegateTask);
     }
 }

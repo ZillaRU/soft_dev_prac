@@ -11,7 +11,7 @@
             		<div class="form-group">
             			<label for="assigneeField">{{'PROPERTY.ASSIGNMENT.ASSIGNEE' | translate}}</label>
 
-                        <input type="text" id="assigneeShowField" class="form-control"  readonly ng-model="assignment.assigneeshowname" placeholder="{{'PROPERTY.ASSIGNMENT.ASSIGNEE_PLACEHOLDER' | translate}}"
+                        <input type="text" id="assigneeShowField" class="form-control" readonly ng-model="assignment.assigneeshowname" placeholder="{{'PROPERTY.ASSIGNMENT.ASSIGNEE_PLACEHOLDER' | translate}}"
                                ng-click="choseAssignment('assignee')" ng-value="candidateUser.choseAssigneeShowname"/>
             			<input type="text" id="assigneeField" class="form-control"  ng-hide="true" ng-model="assignment.assignee" placeholder="{{'PROPERTY.ASSIGNMENT.ASSIGNEE_PLACEHOLDER' | translate}}"
                                  ng-value="candidateUser.choseAssignee"/>

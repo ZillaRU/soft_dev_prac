@@ -1,7 +1,6 @@
 package com.len.entity;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 

@@ -3,8 +3,11 @@ package com.len.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.len.base.CurrentUser;
 import com.len.core.shiro.Principal;
+import com.len.entity.BaseTask;
 import com.len.entity.ProjectInfo;
+import com.len.entity.SysRoleUser;
 import com.len.entity.SysUser;
 import com.len.exception.MyException;
 import com.len.service.ProjectInfoService;
@@ -36,6 +39,7 @@ import com.len.core.annotation.Log;
 import sun.lwawt.macosx.CSystemTray;
 import sun.misc.BASE64Encoder;
 
+import javax.persistence.Column;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -127,12 +131,13 @@ public class ProjectInfoController {
             vars.put("epg_mail", userService.getUserByRoleId("f7376c6bc042419491be758ae2683842").get(0).getEmail());
             vars.put("conf_mail", userService.getUserByRoleId("b1e002ad12ff4d2ebb024d74d27af432").get(0).getEmail());
             vars.put("proj_name", projectInfo.getProjName());
-
+            System.out.println("task----> " + task);
             taskService.complete(task.getId(), vars);
             // taskService.complete(task.getId());
             task = this.taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
             proj_with_proc.setTaskName(task.getName());
-            System.out.println("taskName " + task.getName());
+            taskService.setAssignee(task.getId(), chiefId);
+            System.out.println("task after----> " + task);
             projectInfoService.updateByPrimaryKeySelective(proj_with_proc);
         } catch (MyException e) {
             msg = "保存失败";
@@ -168,9 +173,43 @@ public class ProjectInfoController {
         return "act/project/projDetail";
     }
 
+    @ApiOperation(value = "审批项目申请页", httpMethod = "GET")
     @GetMapping("showApprovals")
-    public String showApprovals(Model model, String user) {
+    public String showApprovals(Model model) {
         return "act/project/approvals";
+    }
+
+    @ApiOperation(value = "需要某用户处理的项目", httpMethod = "POST")
+    @GetMapping("myTasks")
+    @ResponseBody
+    public String needMyApprovals() {
+        String myId = CommonUtil.getUser().getId();
+        // refer: https://www.cnblogs.com/jiqiyoudu/p/4704866.html
+        List<Task> myActiTasks = taskService.createTaskQuery()
+                .taskAssignee(myId)
+                .list();
+        List<com.len.entity.Task> tasks = new ArrayList<>();
+        Map<String, Map<String, Object>> mapMap = new HashMap<>();
+        Map<String, Object> map, objectMap;
+        com.len.entity.Task taskEntity;
+        Set<String> taskSet = new HashSet<String>();
+        for (Task task1 : myActiTasks) {
+            objectMap = new HashMap<>();
+            String taskId = task1.getId();
+            if (taskSet.contains(taskId)) {
+                continue;
+            }
+            map = taskService.getVariables(taskId);
+            BaseTask projApply = (BaseTask) map.get("baseTask");
+            taskEntity = new com.len.entity.Task(task1);
+            taskEntity.setPmName(projApply.getUserName());
+            taskEntity.setProjName(projApply.getProjName());
+            taskEntity.setUrlpath(projApply.getUrlpath());
+            mapMap.put(taskEntity.getId(), objectMap);
+            tasks.add(taskEntity);
+            taskSet.add(taskId);
+        }
+        return ReType.jsonStrng(tasks.size(), tasks, mapMap, "id");
     }
 
     @GetMapping("projFunc")

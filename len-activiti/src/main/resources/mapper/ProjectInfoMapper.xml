@@ -29,6 +29,7 @@
         <result column="create_by" jdbcType="VARCHAR" property="createBy" />
         <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
         <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+        <result column="taskName" jdbcType="VARCHAR" property="taskName" />
     </resultMap>
 
     <select id="selectByPmId" parameterType="java.lang.String" resultMap="BaseResultMap">
