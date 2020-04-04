@@ -64,10 +64,10 @@
             var data = obj.data;
             if (obj.event === 'detail') {
                 console.log(data.id);
-                get_detail_layer('查看项目信息', 'showProjDetail?projId=' + data.id, 1100, 600, 'proj_detail_layer');
+                get_detail_layer('查看项目信息', 'showProjDetail?projId=' + data.id, 900, 600, 'proj_detail_layer');
             } else if (obj.event === 'projFuncs') {
                 console.log(data.id);
-                get_detail_layer('项目功能设置', 'projFunc?projId=' + data.id, 1100, 600, 'proj_func_layer');
+                get_detail_layer('项目功能设置', 'projFunc?projId=' + data.id, 900, 600, 'proj_func_layer');
             } else if (obj.event === 'projPerson') {
                 console.log(data.id);
                 // todo
@@ -75,7 +75,7 @@
             } else if (obj.event === 'getProc') { // 查看流程现在走到了哪
                 var url = 'getProc?processInstanceId=' + data.processInstanceId + '';
                 console.log(url);
-                get_detail_layer('审批详情','projApprovalProcess?processInstanceId=' + data.processInstanceId, 1100, 600, 'proj_approval_proc_layer');
+                get_detail_layer('审批详情','projApprovalProcess?processInstanceId=' + data.processInstanceId, 900, 600, 'proj_approval_proc_layer');
             }
         });
 

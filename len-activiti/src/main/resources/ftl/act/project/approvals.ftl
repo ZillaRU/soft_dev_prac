@@ -43,8 +43,7 @@
             elem: '#projList'
             , url: 'myTasks'
             , cols: [[
-                {checkbox: false}
-                , {
+                {
                     field: 'projName',
                     title: '项目名称',
                     width: '20%',
@@ -60,19 +59,18 @@
         //监听工具条
         table.on('tool(proj)', function (obj) {
             var data = obj.data;
+            console.log(data + "\ndata['urlpath']: " + data['urlpath']);
             if (obj.event === 'detail') {
-                console.log(data.id);
-                get_detail_layer('查看项目信息', 'showProjDetail?projId=' + data.id, 1100, 600, 'proj_detail_layer');
-            } else if (obj.event === 'projFuncs') {
-                console.log(data.id);
-            } else if (obj.event === 'projPerson') {
-                console.log(data.id);
-                // todo
-                // get_detail_layer('项目人员设置', 'projFunc?projId=' + data.id, 1100, 600, "proj_per_layer");
+                get_detail_layer('查看项目信息', 'showProjDetail?projId=' + data['urlpath'], 900, 600, 'proj_detail_layer');
+            } else if (obj.event === 'pass_proj') {
+                approve_or_reject('确定批准立项吗？', 'chiefCheck', data['urlpath'], true);
+            } else if (obj.event === 'reject_proj') {
+                approve_or_reject('确定驳回立项吗？', 'chiefCheck', data['urlpath'], false);
             }
         });
 
     });
+
     function get_detail_layer(title, url, w, h, layer_id) {
         if (title == null || title == '') {
             title = false;
@@ -99,7 +97,37 @@
             // btn:['关闭']
         });
     }
+
+    function approve_or_reject(alert_msg, url, projId, flag) {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.msg(alert_msg, {
+                time: 3000,//3秒自动关闭
+                btn: ['确定', '取消'],
+                yes: function (index) {
+                    $.ajax({
+                        url: url,
+                        data: {
+                            'projId': projId,
+                            'flag': flag
+                        },
+                        type: "POST",
+                        dataType: "json",
+                        success:function(data){
+                            var index = parent.layer.getFrameIndex(window.name);
+                            window.top.layer.msg(data.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
+                            parent.layer.close(index);
+                            parent.location.replace(parent.location.href);
+                        },error:function(){
+                            var index = parent.layer.getFrameIndex(window.name);
+                            window.top.layer.msg('请求失败',{icon:5,offset: 'rb',area:['120px','80px'],anim:2});
+                            parent.layer.close(index);
+                        }
+                    });
+                    layer.close(index);
+                }
+            });
+        });
+    }
 </script>
-
-
 </html>

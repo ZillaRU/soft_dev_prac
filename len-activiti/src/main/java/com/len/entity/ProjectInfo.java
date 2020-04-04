@@ -47,6 +47,15 @@ public class ProjectInfo extends BaseTask{
     @Column(name = "proj_no")
     private String projNo;
 
+    /*
+        申请立项 0
+        已立项 1
+        立项驳回 -1
+        进行中 2
+        已交付 8
+        结束 9
+        已归档 10
+     */
     @Column(name = "proj_state")
     private Integer projState;
 

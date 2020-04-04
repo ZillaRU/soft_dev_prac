@@ -42,9 +42,11 @@ import sun.misc.BASE64Encoder;
 import javax.persistence.Column;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.List;
 
 
 @Controller
@@ -102,7 +104,7 @@ public class ProjectInfoController {
         try {
             projectInfoService.insertSelective(projectInfo);
             Map<String, Object> map = new HashMap<>();
-            projectInfo.setUrlpath("/project/showProjDetail/" + projectInfo.getId());
+            projectInfo.setUrlpath("/showProjDetail/projId=" + projectInfo.getId());
             map.put("baseTask", projectInfo);
             ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("ProjectApply", map);
             System.out.println("\nprocessInstanceId" + processInstance + "\n");
@@ -136,6 +138,7 @@ public class ProjectInfoController {
             // taskService.complete(task.getId());
             task = this.taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
             proj_with_proc.setTaskName(task.getName());
+            // 设定下个节点的处理人
             taskService.setAssignee(task.getId(), chiefId);
             System.out.println("task after----> " + task);
             projectInfoService.updateByPrimaryKeySelective(proj_with_proc);
@@ -201,10 +204,11 @@ public class ProjectInfoController {
             }
             map = taskService.getVariables(taskId);
             BaseTask projApply = (BaseTask) map.get("baseTask");
+
             taskEntity = new com.len.entity.Task(task1);
             taskEntity.setPmName(projApply.getUserName());
             taskEntity.setProjName(projApply.getProjName());
-            taskEntity.setUrlpath(projApply.getUrlpath());
+            taskEntity.setUrlpath(projApply.getId());
             mapMap.put(taskEntity.getId(), objectMap);
             tasks.add(taskEntity);
             taskSet.add(taskId);

@@ -64,12 +64,11 @@ public class ActivitiConfig {
         BASE64Encoder encoder = new BASE64Encoder();
         BASE64Decoder decoder = new BASE64Decoder();
         String s1 = new String(decoder.decodeBuffer(encoder.encode("2403287957@qq.com".getBytes())));
-        String s2 = new String(decoder.decodeBuffer(encoder.encode("achieve_it2020".getBytes())));
         processEngineConfiguration.setMailServerHost("smtp.qq.com")
                 .setMailServerUseSSL(true)
                 .setMailServerPort(465)
                 .setMailServerDefaultFrom(s1)
-                .setMailServerUsername(s2)
+                .setMailServerUsername(s1)
                 .setMailServerPassword(new String(decoder.decodeBuffer(encoder.encode("onybdiqnoqomdjji".getBytes()))));
 //        String s1 = new String(decoder.decodeBuffer(encoder.encode("achieve_it2020@163.com".getBytes())));
 //        processEngineConfiguration.setMailServerHost("smtp.163.com")
