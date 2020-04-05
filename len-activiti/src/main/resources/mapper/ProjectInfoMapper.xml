@@ -15,7 +15,7 @@
         <result column="proj_tech" jdbcType="VARCHAR" property="projTech" />
         <result column="proj_domain" jdbcType="VARCHAR" property="projDomain" />
         <result column="proj_main_func" jdbcType="VARCHAR" property="projMainFunc" />
-        <result column="epg_leader" jdbcType="VARCHAR" property="epgLeader" />
+        <result column="epg_manager" jdbcType="VARCHAR" property="epgManager" />
         <result column="config_manager" jdbcType="VARCHAR" property="configManager" />
         <result column="qa_manager" jdbcType="VARCHAR" property="qaManager" />
         <result column="epg_name" jdbcType="VARCHAR" property="epgName" />

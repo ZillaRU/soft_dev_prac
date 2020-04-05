@@ -78,9 +78,9 @@
             } else if (obj.event === 'reject_proj') {
                 approve_or_reject('确定驳回立项吗？', 'chiefCheck', data['urlpath'], false);
             } else if (obj.event === 'assign_qa') {
-                get_detail_layer('分配QA', 'qaSetting?projId=' + data['urlpath'], 400, 500, 'qa_layer');
+                get_detail_layer('分配QA', 'qaSetting?projId=' + data['urlpath'], 600, 500, 'qa_layer');
             } else if (obj.event === 'assign_epg') {
-                get_detail_layer('分配EPG', 'epgSetting?projId=' + data['urlpath'], 400, 500, 'epg_layer');
+                get_detail_layer('分配EPG', 'epgSetting?projId=' + data['urlpath'], 600, 500, 'epg_layer');
             } else if (obj.event === 'conf_complete') {
                 confirm_op("通知项目经理：配置已完成？", 'confCheck', data['urlpath']);
             }

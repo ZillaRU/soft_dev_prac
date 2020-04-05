@@ -81,8 +81,8 @@ public class ProjectInfo extends BaseTask {
     @Column(name = "end_date")
     private Date endDate;
 
-    @Column(name = "epg_leader")
-    private String epgLeader;
+    @Column(name = "epg_manager")
+    private String epgManager;
 
     @Column(name = "epg_name")
     private String epgName;

@@ -107,45 +107,48 @@ public class ProjectApprovalProcessController extends BaseController {
 
     @GetMapping("/epgSetting")
     @RequiresRoles(RoleUtil.EPG_LEADER_ROLE_ID)
-    public String epgSetting() {
+    public String epgSetting(Model model, String projId) {
+        model.addAttribute("projId",projId);
         return "act/project/setEpg";
     }
 
     @PostMapping("/setUpEPG")
     @RequiresRoles(RoleUtil.EPG_LEADER_ROLE_ID)
     @ResponseBody
-    public JsonUtil setProjEPG(String projId, String uid) {
+    public JsonUtil setProjEPG(String projId, String epgManager, String epgName) {
         ProjectInfo projectInfo = projectInfoService.selectByPrimaryKey(projId);
+        projectInfo.setEpgManager(epgManager);
+        projectInfo.setEpgName(epgName);
+        projectInfoService.updateByPrimaryKey(projectInfo);
         String instanceId = projectInfo.getProcessInstanceId();
         List<Task> tasks = this.taskService.createTaskQuery()
                 .processInstanceId(instanceId)
                 .taskCandidateGroup(RoleUtil.EPG_LEADER_ROLE_ID)
                 .list();
-
-
         taskService.complete(tasks.get(0).getId());
         return JsonUtil.sucess("操作成功！");
     }
 
     @GetMapping("/qaSetting")
-    @RequiresRoles(RoleUtil.EPG_LEADER_ROLE_ID)
-    public String qaSetting() {
+    @RequiresRoles(RoleUtil.QA_LEADER_ROLE_ID)
+    public String qaSetting(Model model, String projId) {
+        model.addAttribute("projId",projId);
         return "act/project/setQA";
     }
 
     @PostMapping("/setUpQA")
     @RequiresRoles(RoleUtil.QA_LEADER_ROLE_ID)
     @ResponseBody
-    public JsonUtil setProjQA(String projId, String uid) {
+    public JsonUtil setProjQA(String projId, String qaManager, String qaName) {
         ProjectInfo projectInfo = projectInfoService.selectByPrimaryKey(projId);
+        projectInfo.setQaManager(qaManager);
+        projectInfo.setQaName(qaName);
+        projectInfoService.updateByPrimaryKey(projectInfo);
         String instanceId = projectInfo.getProcessInstanceId();
         List<Task> tasks = this.taskService.createTaskQuery()
                 .processInstanceId(instanceId)
                 .taskCandidateGroup(RoleUtil.QA_LEADER_ROLE_ID)
                 .list();
-
-
-
         taskService.complete(tasks.get(0).getId());
         return JsonUtil.sucess("操作成功！");
     }

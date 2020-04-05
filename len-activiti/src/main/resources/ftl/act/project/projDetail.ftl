@@ -77,8 +77,8 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="epg_leader" class="layui-form-label" style="width:130px;padding: 9px 0px;">
-                    EPG Leader
+                <label for="epg_manager" class="layui-form-label" style="width:130px;padding: 9px 0px;">
+                    EPG Manager
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" readonly value="${projectDetail.epgName}">
