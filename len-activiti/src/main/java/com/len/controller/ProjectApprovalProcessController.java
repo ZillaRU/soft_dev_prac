@@ -71,6 +71,14 @@ public class ProjectApprovalProcessController extends BaseController {
     @Autowired
     RoleUserService roleUserService;
 
+    @GetMapping("showProjDetail")
+    public String showProjDetail(Model model, String projId) {
+        ProjectInfo projectInfo = projectInfoService.selectByPrimaryKey(projId);
+        System.out.println(JSON.toJSONString(projectInfo));
+        model.addAttribute("projectDetail", projectInfo);
+        return "act/project/projDetail";
+    }
+
     // https://www.bilibili.com/video/BV1k4411B7mu?p=53 驳回 批准
     // https://www.cnblogs.com/haore147/p/5213467.html
     @PostMapping("/project/chiefCheck")

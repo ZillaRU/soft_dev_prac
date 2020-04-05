@@ -16,7 +16,7 @@
 <body>
 <div class="x-body" style="height: fit-content">
     <form class="layui-form layui-form-pane" style="margin-left: 20px;" autocomplete="off">
-        <div style="width:100%;height: 90%;overflow: auto;">
+        <div style="width:100%;height: 400px;overflow: auto;">
             <div class="layui-form-item">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
                     <legend style="font-size:16px;">项目QA设置</legend>
