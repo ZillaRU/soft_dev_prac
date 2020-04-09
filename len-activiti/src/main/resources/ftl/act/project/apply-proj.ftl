@@ -181,6 +181,9 @@
             },
             no_pattern: function (value) {
                 // if(value) 正则匹配项目编号 yyyyccccTxx
+                if(!(value.trim().match("[0-9]{4}[0-9]{4}[DMSO]{1}[0-9]{2}"))) {
+                    return "项目编号格式不匹配 应为 4位年份 4位客户代号 研发类型（D、M、S，O）顺序2位";
+                }
             }
         });
 

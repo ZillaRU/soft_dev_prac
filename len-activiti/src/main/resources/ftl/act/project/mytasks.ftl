@@ -19,10 +19,7 @@
 <table id="projList" class="layui-hide" lay-filter="proj"></table>
 </body>
 <script type="text/html" id="barDemo">
-    <#--    <@shiro.hasPermission name="user:select">-->
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">基本信息</a>
-    <#--    </@shiro.hasPermission>-->
-    <#--    shiro-->
     <@shiro.hasPermission name="project:approval">
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="pass_proj">允许</a>
         <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="reject_proj">驳回</a>
