@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class ProjectWorkerInfoServiceImpl extends BaseServiceImpl<ProjectWorkerInfo, String> implements ProjectWorkerInfoService {
 
@@ -17,13 +18,15 @@ public class ProjectWorkerInfoServiceImpl extends BaseServiceImpl<ProjectWorkerI
     private ProjectWorkerInfoMapper projectWorkerInfoMapper;
 
     @Override
-    public BaseMapper<ProjectWorkerInfo, String> getMappser() {
-        return projectWorkerInfoMapper;
-    }
+    public BaseMapper<ProjectWorkerInfo, String> getMappser() { return projectWorkerInfoMapper; }
 
     @Override
     public List<ProjectWorkerInfo> selectByPmId(String pm_id) {
         return projectWorkerInfoMapper.selectByPmId(pm_id);
+    }
+
+    public List<ProjectWorkerInfo> selectByProName(ProjectWorkerInfo worInfo) {
+        return projectWorkerInfoMapper.selectByProName(worInfo);
     }
 
 }

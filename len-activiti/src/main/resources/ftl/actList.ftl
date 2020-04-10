@@ -124,6 +124,8 @@
       select: function () {
         var deploymentId = $('#deploymentId').val();
         var name = $('#name').val();
+        console.info(deploymentId);
+        console.info(name);
         table.reload('actList', {
           where: {
             deploymentId: deploymentId,

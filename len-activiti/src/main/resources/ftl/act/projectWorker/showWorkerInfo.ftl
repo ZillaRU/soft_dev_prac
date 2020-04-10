@@ -38,13 +38,13 @@
         </button>
     </div>
 </div>
-<table id="projWorkerList" class="layui-hide" lay-filter="proj" ></table>
+<table id="projWorkerList" class="layui-hide" lay-filter="act" ></table>
 <script type="text/html" id="barDemo">
     <#--    <@shiro.hasPermission name="user:select">-->
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <#--    </@shiro.hasPermission>-->
     <#--    shiro-->
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="projFuncs">项目功能</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
 </script>
 <script>
     document.onkeydown = function (e) { // 回车提交表单
@@ -60,9 +60,9 @@
         table.render({
             id: 'projWorkerList',
             elem: '#projWorkerList'
-            , url: 'showPMprojctList'
+            , url: 'info'
             , cols: [[
-                {checkbox: false}
+                {checkbox: true, fixed: true, width: '5%'}
                 , {
                     field: 'proName',
                     title: '项目名称',
@@ -70,33 +70,33 @@
                     sort: true,
                     style: 'background-color: #009688; color: #fff;'
                 }
-                , {field: 'distrWorker', title: '分配人员', width: '10%'}
                 , {field: 'proStatus', title: '项目状态', width: '10%'}
                 , {field: 'testLeaderName', title: '测试负责人', width: '10%'}
-                , {field: 'devWorkerName', title: '测试人员', width: '10%'}
+                , {field: 'devLeaderName', title: '开发负责人', width: '10%'}
                 , {field: 'configManagerName', title: '配置管理人员', width: '12%'}
                 , {field: 'qaManagerName', title: 'QA管理人员', width: '12%'}
                 , {field: 'epgLeaderName', title: 'epg人员', width: '10%'}
                 , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
-            ]],
-            height: 'full-83'
+            ]]
+            , page: true
+            , height: 'full-83'
         });
 
         var $ = layui.$, active = {
             select: function () {
-                var projworkername = $('#projworkername').val();
-                console.info(proworkerjname);
+                var proName = $('#proName').val();
+                console.info(proName);
                 table.reload('projWorkerList', {
                     where: {
-                        projName: projname
+                        proName: proName
                     }
                 });
             },
             reload: function () {
-                $('#projworkername').val('');
+                $('#proName').val('');
                 table.reload('projworkerList', {
                     where: {
-                        projworkerName: null
+                        proName: null
                     }
                 });
             },
@@ -109,7 +109,7 @@
                 }
                 detail('查看项目信息', 'showProjWorkerDetail?projId=' + data[0].id, 1100, 600);
             },
-            projFuncs: function () {
+            edit: function () {
                 var checkStatus = table.checkStatus('projworkerList')
                     , data = checkStatus.data;
                 if (data.length != 1) {
@@ -120,15 +120,24 @@
             }
         };
 
+        $('.layui-col-md12 .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        $('.select .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
         //监听工具条
-        table.on('tool(proj)', function (obj) {
+        table.on('tool(act)', function (obj) {
             var data = obj.data;
             if (obj.event === 'detail') {
                 console.log(data.id);
-                detail('查看项目信息', 'showProjDetail?projId=' + data.id, 1100, 600);
-            } else if(obj.event === 'projFuncs') {
+                detail('查看项目人员信息', 'showProjWorkerInfoDetail?projId=' + data.id, 1100, 600);
+            } else if(obj.event === 'edit') {
                 console.log(data.id);
-                detail('项目功能设置', 'projFunc?projId=' + data.id, 1100, 600);
+                detail('项目人员导入', 'projWorkerInfoExport?projId=' + data.id, 1100, 600);
             }
         });
 

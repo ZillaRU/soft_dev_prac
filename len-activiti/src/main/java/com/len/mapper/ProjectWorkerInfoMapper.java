@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface ProjectWorkerInfoMapper extends BaseMapper<ProjectWorkerInfo,String>{
     List<ProjectWorkerInfo> selectByPmId(String pm_id);
+
+    List<ProjectWorkerInfo> selectByProName(ProjectWorkerInfo worInfo);
 }
