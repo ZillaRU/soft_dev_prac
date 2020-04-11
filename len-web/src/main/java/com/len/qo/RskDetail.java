@@ -25,7 +25,7 @@ public class RskDetail {
 
     private String hState;
 
-    private String hFrequency;
+    private int hFrequency;
 
     private String pManager;
 

@@ -61,6 +61,7 @@ public class RiskInfoController {
             rskInfo.sethId(UUID.randomUUID().toString());
 //            rskInfo.sethManager(Principal.getPrincipal().getId());
 //            rskInfo.sethRelate("a");
+            rskInfo.sethFrequency(0);
             riskInfoService.insertSelective(rskInfo);
         } catch (MyException e) {
             msg = "保存失败";
@@ -102,10 +103,11 @@ public class RiskInfoController {
                 rskDetail.setHGrade(i.gethGrade());
                 rskDetail.setHInfluence(i.gethInfluence());
                 rskDetail.setHState(i.gethState());
+                rskDetail.setPManager(i.gethManager());
                 rskDetail.setHTactics(i.gethTactics());
                 rskDetail.setHType(i.gethType());
 //                rskDetail.setPMember(member);
-                rskDetail.setPManager("fgh");
+
                 list.add(rskDetail);
             }
         }
@@ -133,7 +135,7 @@ public class RiskInfoController {
         rskDetail.setHTactics(i.gethTactics());
         rskDetail.setHType(i.gethType());
 //        rskDetail.setPMember(member);
-        rskDetail.setPManager("managerA");
+        rskDetail.setPManager(i.gethManager());
         System.out.println(JSON.toJSONString(rskDetail));
         model.addAttribute("riskDetail", rskDetail);
         return "rsk/risk-detail";

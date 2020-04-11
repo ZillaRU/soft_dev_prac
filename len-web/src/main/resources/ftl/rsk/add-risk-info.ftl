@@ -72,18 +72,18 @@
                     </div>
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label for="H_Frequency" class="layui-form-label" style="width:130px;padding: 9px 0px;">
-                    <span class="x-red">*</span>风险频度
-                </label>
-                <div class="layui-input-inline">
-                    <select id="selectHFrequency" name="hFrequency" lay-verify="nnull" lay-search>
-                        <option value="high">高</option>
-                        <option value="medium">中</option>
-                        <option value="low">低</option>
-                    </select>
-                </div>
-            </div>
+<#--            <div class="layui-form-item">-->
+<#--                <label for="H_Frequency" class="layui-form-label" style="width:130px;padding: 9px 0px;">-->
+<#--                    <span class="x-red">*</span>风险跟踪频度-->
+<#--                </label>-->
+<#--                <div class="layui-input-inline">-->
+<#--                    <select id="selectHFrequency" name="hFrequency" lay-verify="nnull" lay-search>-->
+<#--                        <option value="high">高</option>-->
+<#--                        <option value="medium">中</option>-->
+<#--                        <option value="low">低</option>-->
+<#--                    </select>-->
+<#--                </div>-->
+<#--            </div>-->
             <div class="layui-form-item">
                 <label for="H_Influence" class="layui-form-label" style="width:130px;padding: 9px 0px;">
                     <span class="x-red">风险影响度</span>

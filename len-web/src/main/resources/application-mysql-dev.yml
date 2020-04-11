@@ -5,7 +5,7 @@ spring:
       restart:
         enabled: true
   datasource:
-        url: jdbc:mysql://39.97.120.235:10056/xttdb?useUnicode=true&characterEncoding=UTF-8
+        url: jdbc:mysql://39.97.120.235:10056/achieve_it_db?useUnicode=true&characterEncoding=UTF-8
         username: root
         password: "010056"
         # 使用druid数据源

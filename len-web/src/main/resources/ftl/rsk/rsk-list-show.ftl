@@ -24,8 +24,8 @@
 
 <body>
 <div class="lenos-search">
-    <div class="select">
-        风险名称：
+<#--    <div class="select">-->
+<#--        风险名称：-->
 <#--        <div class="layui-inline">-->
 <#--            <input class="layui-input" height="20px" id="projname" autocomplete="off">-->
 <#--        </div>-->
@@ -35,10 +35,10 @@
 <#--                data-type="reload">-->
 <#--            <i class="layui-icon">ဂ</i>-->
 <#--        </button>-->
-    </div>
+<#--    </div>-->
 
 </div>
-<table id="riskList" class="layui-hide" lay-filter="user"></table>
+<table id="riskList" class="layui-hide" lay-filter="risk"></table>
 <script type="text/html" id="barDemo">
     <#--    <@shiro.hasPermission name="user:select">-->
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
@@ -60,16 +60,17 @@
             elem: '#riskList'
             , url: 'showRiskList'
             , cols: [[
-                {checkbox: false, fixed: true, width: '5%'}
-                , {field: 'hid', title: '风险编号', width: '10%', sort: true}
-                , {field: 'pname', title: '项目名称', width: '10%', sort: true}
+                // {checkbox: false, fixed: true, width: '5%'}
+                // ,
+                {field: 'hid', title: '风险编号', width: '25%', sort: true}
+                , {field: 'pname', title: '项目名称', width: '20%', sort: true}
                 , {field: 'htype', title: '风险类型', width: '10%'}
-                , {field: 'hstate', title: '风险状态', width: '5%'}
+                , {field: 'hstate', title: '风险状态', width: '10%'}
                 , {field: 'hgrade', title: '风险级别', width: '10%'}
                 , {field: 'hinfluence', title: '风险影响度', width: '10%'}
-                , {field: 'hfrequency', title: '风险跟踪频度', width: '10%'}
-                , {field: 'hdes', title: '风险描述', width: '10%'}
-                , {field: 'htactics', title: '风险应对策略', width: '10%'}
+                , {field: 'hfrequency', title: '风险跟踪频度', width: '5%'}
+                // , {field: 'hdes', title: '风险描述', width: '10%'}
+                // , {field: 'htactics', title: '风险应对策略', width: '10%'}
                 , {field: 'right', title: '操作', width: '10%', toolbar: "#barDemo"}
             ]],
             height: 'full-83'
@@ -93,27 +94,27 @@
             //         }
             //     });
             // },
-            detail: function () {
-                var checkStatus = table.checkStatus('riskList')
-                    , data = checkStatus.data;
-                if (data.length != 1) {
-                    layer.msg('请选择一行查看,已选[' + data.length + ']行', {icon: 5});
-                    return false;
-                }
-                detail('查看项目信息', 'showProjDetail?projId=' + data[0].id, 1100, 600);
-            }
+            // detail: function () {
+            //     var checkStatus = table.checkStatus('riskList')
+            //         , data = checkStatus.data;
+            //     if (data.length != 1) {
+            //         layer.msg('请选择一行查看,已选[' + data.length + ']行', {icon: 5});
+            //         return false;
+            //     }
+            //     detail('查看项目信息', 'showRiskDetail?riskId=' + data[0].id, 1100, 600);
+            // }
         };
 
         //监听表格复选框选择
-        table.on('checkbox(proj)', function (obj) {
+        table.on('checkbox(risk)', function (obj) {
             console.log(obj)
         });
         //监听工具条
-        table.on('tool(proj)', function (obj) {
+        table.on('tool(risk)', function (obj) {
             var data = obj.data;
             if (obj.event === 'detail') {
-                console.log(data.id);
-                detail('查看项目信息', 'showRiskDetail?riskId=' + data.id, 1100, 600);
+                console.log(data);
+                detail('查看项目信息', 'showRiskDetail?riskId=' + data.hid, 1100, 600);
             }
         });
 
