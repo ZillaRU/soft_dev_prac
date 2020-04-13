@@ -76,7 +76,7 @@ public class ProjectInfoController {
     @Autowired
     RoleUserService roleUserService;
 
-    @GetMapping("showApply")
+    @GetMapping(value = "showApply", produces = "application/json;charset=utf-8")
     public String applyProject(Model model) {
         String id = Principal.getPrincipal().getId();
         SysUser user = userService.selectByPrimaryKey(id);

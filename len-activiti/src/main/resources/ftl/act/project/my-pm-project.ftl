@@ -54,10 +54,10 @@
                 , {field: 'projNo', title: '编号', width: '16%', sort: true}
                 , {field: 'projCustomer', title: '客户代号', width: '10%'}
                 , {field: 'projMainFunc', title: '主要功能', width: '36%'}
-                , {field: 'projState', title: '状态', width:'10%'}
+                , {field: 'projState', title: '状态', width: '10%', sort: true}
                 , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
             ]]
-            , page: true,
+            , page: false,
             height: 'full-83'
         });
 
@@ -77,7 +77,7 @@
             } else if (obj.event === 'getProc') { // 查看流程现在走到了哪
                 var url = 'getProc?processInstanceId=' + data.processInstanceId + '';
                 console.log(url);
-                get_detail_layer('审批详情','projApprovalProcess?processInstanceId=' + data.processInstanceId, 900, 600, 'proj_approval_proc_layer');
+                get_detail_layer('审批详情', 'projApprovalProcess?processInstanceId=' + data.processInstanceId, 900, 600, 'proj_approval_proc_layer');
             }
         });
 

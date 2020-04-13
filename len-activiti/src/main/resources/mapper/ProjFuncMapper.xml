@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.ProjFuncMapper">
+    <resultMap id="BaseResultMap" type="com.len.entity.ProjectFunction">
+        <id column="proj_id" jdbcType="VARCHAR" property="projId" />
+        <id column="func_id" jdbcType="VARCHAR" property="funcId" />
+        <result column="func_name" jdbcType="VARCHAR" property="funcName" />
+    </resultMap>
+
+    <select id="selectByProjId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT func_id, func_name
+        from proj_func
+        where proj_id = #{proj_id}
+    </select>
+
+</mapper>
