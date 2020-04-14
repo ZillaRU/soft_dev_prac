@@ -6,9 +6,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.len.core.annotation.Log;
 import com.len.core.shiro.Principal;
 import com.len.entity.BaseTask;
+import com.len.entity.ProjectFunction;
 import com.len.entity.ProjectInfo;
 import com.len.entity.SysUser;
 import com.len.exception.MyException;
+import com.len.service.ProjFuncService;
 import com.len.service.ProjectInfoService;
 import com.len.service.RoleUserService;
 import com.len.service.SysUserService;
@@ -75,6 +77,9 @@ public class ProjectInfoController {
 
     @Autowired
     RoleUserService roleUserService;
+
+    @Autowired
+    ProjFuncService projFuncService;
 
     @GetMapping(value = "showApply", produces = "application/json;charset=utf-8")
     public String applyProject(Model model) {
@@ -196,7 +201,6 @@ public class ProjectInfoController {
             }
             map = taskService.getVariables(taskId);
             BaseTask projApply = (BaseTask) map.get("baseTask");
-
             taskEntity = new com.len.entity.Task(task1);
             taskEntity.setPmName(projApply.getUserName());
             taskEntity.setProjName(projApply.getProjName());
@@ -212,6 +216,14 @@ public class ProjectInfoController {
     public String setProjFuncs(Model model, String projId) {
         model.addAttribute("projectId", projId);
         return "act/project/proj-func";
+    }
+
+    @GetMapping("showProjFunc")
+    @ResponseBody
+    public ReType showProjFuncs(String projId) {
+        List<ProjectFunction> list = projFuncService.selectByProjId(projId);
+        System.out.println("projFuncService.selectByProjId = " + projId);
+        return new ReType(list);
     }
 
     @GetMapping("/projApprovalProcess")

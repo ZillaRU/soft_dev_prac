@@ -19,13 +19,20 @@
 <body>
 <table id="projList" class="layui-hide" lay-filter="proj"></table>
 <script type="text/html" id="barDemo">
+    <#--https://blog.csdn.net/huangbaokang/article/details/80593566-->
     <#--    <@shiro.hasPermission name="user:select">-->
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">基本信息</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="getProc"><i class="layui-icon">&#xe6b2;</i>审批流程</a>
     <#--    </@shiro.hasPermission>-->
     <#--    shiro-->
+    {{#  if(d.projState == '已立项'){ }}
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="projFuncs">功能</a>
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="projPerson">人员</a>
+    {{#  } }}
+    {{#  if(d.projState == '结束'){ }}
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="projArchive">申请归档</a>
+    {{#  } }}
+
 </script>
 <script>
     document.onkeydown = function (e) { // 回车提交表单
@@ -111,5 +118,4 @@
     }
 </script>
 </body>
-
 </html>
