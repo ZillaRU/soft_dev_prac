@@ -40,11 +40,16 @@
 </div>
 <table id="projWorkerList" class="layui-hide" lay-filter="act" ></table>
 <script type="text/html" id="barDemo">
-    <#--    <@shiro.hasPermission name="user:select">-->
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-    <#--    </@shiro.hasPermission>-->
-    <#--    shiro-->
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
+</script>
+<script type="text/html" id="barDemoDev">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detailDev">查看</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="editDev">编辑</a>
+</script>
+<script type="text/html" id="barDemoTest">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detailTest">查看</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="editTest">编辑</a>
 </script>
 <script>
     document.onkeydown = function (e) { // 回车提交表单
@@ -70,15 +75,16 @@
                     sort: true,
                     style: 'background-color: #009688; color: #fff;'
                 }
-                , {field: 'proStatus', title: '项目状态', width: '10%'}
-                , {field: 'testLeaderName', title: '测试负责人', width: '10%'}
+                , {field: 'proStatus', title: '项目状态', width: '10%',}
                 , {field: 'devLeaderName', title: '开发负责人', width: '10%'}
+                , {field: 'devGroup', title: '开发小组', width: '15%',  toolbar: "#barDemoDev"}
+                , {field: 'testLeaderName', title: '测试负责人', width: '10%'}
+                , {field: 'testGroup', title: '测试小组', width: '15%',  toolbar: "#barDemoTest"}
                 , {field: 'configManagerName', title: '配置管理人员', width: '12%'}
                 , {field: 'qaManagerName', title: 'QA管理人员', width: '12%'}
                 , {field: 'epgLeaderName', title: 'epg人员', width: '10%'}
-                , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
+                , {field: 'operate', title: '操作', width: '15%', toolbar: "#barDemo"}
             ]]
-            , page: true
             , height: 'full-83'
         });
 
@@ -96,18 +102,19 @@
                 $('#proName').val('');
                 table.reload('projworkerList', {
                     where: {
-                        proName: null
+                        proName: ""
                     }
                 });
             },
             detail: function () {
                 var checkStatus = table.checkStatus('projworkerList')
                     , data = checkStatus.data;
+                console.log(data)
                 if (data.length != 1) {
                     layer.msg('请选择一行查看,已选[' + data.length + ']行', {icon: 5});
                     return false;
                 }
-                detail('查看项目信息', 'showProjWorkerDetail?projId=' + data[0].id, 1100, 600);
+                detail('查看项目信息', 'showProDetail?proId=' + data[0].id, 700, 600);
             },
             edit: function () {
                 var checkStatus = table.checkStatus('projworkerList')
@@ -128,16 +135,21 @@
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
+        $('.refresh .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
 
         //监听工具条
         table.on('tool(act)', function (obj) {
             var data = obj.data;
+            console.log(data)
             if (obj.event === 'detail') {
-                console.log(data.id);
-                detail('查看项目人员信息', 'showProjWorkerInfoDetail?projId=' + data.id, 1100, 600);
+                console.log(data.proId);
+                detail('查看项目人员信息', 'showProDetail?proId=' + data.proId, 1100, 600);
             } else if(obj.event === 'edit') {
-                console.log(data.id);
-                detail('项目人员导入', 'projWorkerInfoExport?projId=' + data.id, 1100, 600);
+                console.log(data.proId);
+                detail('项目人员导入', 'projWorkerInfoExport?proId=' + data.id, 1100, 600);
             }
         });
 

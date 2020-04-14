@@ -58,4 +58,16 @@ public class SysUser {
      */
     @Column(name = "del_flag")
     private Byte delFlag;
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public String getEmail(){
+        return this.email;
+    }
+
+    public String getPhone(){
+        return this.phone;
+    }
 }

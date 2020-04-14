@@ -104,6 +104,8 @@ function toolDelByFlag(id,list, flag) {
         }
     });
 }
+
+
 function toolDel(id, list) {
     toolDelByFlag(id,list,null);
 }

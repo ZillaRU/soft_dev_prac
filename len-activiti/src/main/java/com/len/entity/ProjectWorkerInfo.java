@@ -6,6 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+
+import java.util.List;
 
 
 @Table(name = "pro_worker_info")
@@ -13,8 +16,9 @@ import javax.persistence.*;
 @Data
 @Getter
 @Setter
-public class ProjectWorkerInfo extends BaseTask {
-    @Column(name = "pro_id")
+public class ProjectWorkerInfo {
+    @Id
+    @Column(name = "id")
     private String proId;
 
     @Column(name = "pro_name")
@@ -66,4 +70,21 @@ public class ProjectWorkerInfo extends BaseTask {
     public void setProName(String proName) {
         this.proName = proName;
     }
+
+    public String getProId(){ return this.proId;}
+
+    private List<ProWorInfoMan> worInfoList = new ArrayList<>();
+
+    public void addWorInfoList(ProWorInfoMan proWorInfoMan){
+        this.worInfoList.add(proWorInfoMan);
+    }
+
+    public List<ProWorInfoMan> getWorInfoList() {
+        return worInfoList;
+    }
+
+    public void setWorInfoList(List<ProWorInfoMan> proWorInfoMan) {
+        this.worInfoList = proWorInfoMan;
+    }
+
 }
