@@ -222,7 +222,6 @@ public class ProjectInfoController {
     @ResponseBody
     public ReType showProjFuncs(String projId) {
         List<ProjectFunction> list = projFuncService.selectByProjId(projId);
-        System.out.println("projFuncService.selectByProjId = " + projId);
         return new ReType(list);
     }
 

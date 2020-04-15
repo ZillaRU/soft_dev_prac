@@ -22,7 +22,9 @@
     <#--https://blog.csdn.net/huangbaokang/article/details/80593566-->
     <#--    <@shiro.hasPermission name="user:select">-->
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">基本信息</a>
+    {{#  if(d.projState == '已立项'){ }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="getProc"><i class="layui-icon">&#xe6b2;</i>审批流程</a>
+    {{#  } }}
     <#--    </@shiro.hasPermission>-->
     <#--    shiro-->
     {{#  if(d.projState == '已立项'){ }}

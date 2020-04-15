@@ -20,13 +20,21 @@
         </fieldset>
     </div>
     <button type="button" class="layui-btn layui-btn-normal" id="importData" onchange="uploadFile(this)">
+        <#--        <a href="logout">-->
         <i class="layui-icon">&#xe67c;</i>导入
+        <#--        </a>-->
     </button>
     <input type="file" style="display: none" id="file" name="file" onchange="uploadFile(this)"/>
     <button class="layui-btn layui-btn-primary" id="export_xlsx" onclick="exportData()">
-        导出
+        <a href="/excel/exportData?projId=${projectId}">
+            导出
+        </a>
     </button>
-    <button class="layui-btn layui-btn-warm" onclick="downloadTemplate()">模板下载</button>
+    <button class="layui-btn layui-btn-warm">
+        <a href="/excelTemple/funcTemple.xls" download="funcTemple.xls">
+            模板下载
+        </a>
+    </button>
 </div>
 <table id="projFuncList" class="layui-hide"></table>
 <script>
@@ -49,24 +57,24 @@
             height: 'full-83'
         });
         // refreshTable();
-        <#--layui.upload.render({-->
-        <#--    elem: "#importData",//导入id-->
-        <#--    url: "/excel/importData",-->
-        <#--    data: {'projId': '${projectId}'},-->
-        <#--    type: "post",-->
-        <#--    size: '3072',-->
-        <#--    accept: "file",-->
-        <#--    exts: 'xls|xlsx|xlsm|xlt|xltx|xltm',-->
-        <#--    done: function (result) {-->
-        <#--        if (result.status == 0) {-->
-        <#--            refreshTable()-->
-        <#--        }-->
-        <#--        if (result.message != null) {-->
-        <#--            refreshTable();-->
-        <#--            layer.msg(result.message)-->
-        <#--        }-->
-        <#--    }-->
-        <#--});-->
+        layui.upload.render({
+            elem: "#importData",//导入id
+            url: "/excel/importData",
+            data: {projId: '${projectId}'},
+            type: "post",
+            size: '3072',
+            accept: "file",
+            exts: 'xls|xlsx|xlsm|xlt|xltx|xltm',
+            done: function (result) {
+                if (result.status == 0) {
+                    refreshTable()
+                }
+                if (result.message != null) {
+                    refreshTable();
+                    layer.msg(result.message)
+                }
+            }
+        });
     });
 
     function uploadFile(file) {

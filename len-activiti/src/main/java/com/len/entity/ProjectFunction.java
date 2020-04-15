@@ -1,5 +1,6 @@
 package com.len.entity;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -15,14 +16,10 @@ public class ProjectFunction {
     private String projId;
 
     @Column(name = "func_id")
+    @Excel(name = "功能编号")
     private String funcId; // pattern: 一级4位二级4位 00230045 二级全0为一级功能名称
 
     @Column(name = "func_name")
+    @Excel(name = "功能名称")
     private String funcName;
-
-    public ProjectFunction(String projId, String funcId, String funcName) {
-        this.projId =  projId;
-        this.funcId = funcId;
-        this.funcName = funcName;
-    }
 }
