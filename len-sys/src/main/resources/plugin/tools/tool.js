@@ -58,6 +58,8 @@ function layerAjax(url,data,tableId){
     type:'post',
     data:data,
     traditional: true,
+    dataType: "json",
+    async: false,
     success:function(d){
       var index = parent.layer.getFrameIndex(window.name);
       if(d.flag){

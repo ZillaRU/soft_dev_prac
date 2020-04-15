@@ -19,4 +19,7 @@ public interface RoleUserService  extends BaseService<SysRoleUser,String>{
   int selectCountByCondition(SysRoleUser sysRoleUser);
 
   List<SysRoleUser> selectByCondition(SysRoleUser sysRoleUser);
+
+  // list of role_id
+  List<String> selectByUserId(String user_id);
 }

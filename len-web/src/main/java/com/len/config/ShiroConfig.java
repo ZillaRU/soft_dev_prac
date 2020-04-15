@@ -26,22 +26,11 @@ public class ShiroConfig {
 
     @Bean
     public RetryLimitCredentialsMatcher getRetryLimitCredentialsMatcher() {
-//    RetryLimitCredentialsMatcher rm = new RetryLimitCredentialsMatcher(getCacheManager(),2);
         RetryLimitCredentialsMatcher rm = new RetryLimitCredentialsMatcher(getCacheManager());
         rm.setHashAlgorithmName("md5");
         rm.setHashIterations(4);
         return rm;
-
     }
-
-   /* @Bean
-    public BlogRetryLimitCredentialsMatcher getBlogRetryLimitCredentialsMatcher() {
-        BlogRetryLimitCredentialsMatcher rm = new BlogRetryLimitCredentialsMatcher(getCacheManager());
-        rm.setHashAlgorithmName("md5");
-        rm.setHashIterations(4);
-        return rm;
-
-    }*/
 
     @Bean(name = "userLoginRealm")
     public LoginRealm getLoginRealm() {
@@ -49,11 +38,6 @@ public class ShiroConfig {
         realm.setCredentialsMatcher(getRetryLimitCredentialsMatcher());
         return realm;
     }
-
-//    @Bean(name = "blogLoginRealm")
-//    public BlogRealm blogLoginRealm() {
-//        return new BlogRealm();
-//    }
 
     @Bean
     public EhCacheManager getCacheManager() {
@@ -80,17 +64,12 @@ public class ShiroConfig {
     }
 
     @Bean(name = "securityManager")
-    public SecurityManager getSecurityManager(@Qualifier("userLoginRealm") LoginRealm loginRealm
-//            ,
-//                                              @Qualifier("blogLoginRealm") BlogRealm blogLoginRealm
-                                              ) {
+    public SecurityManager getSecurityManager(@Qualifier("userLoginRealm") LoginRealm loginRealm) {
         DefaultWebSecurityManager dwm = new DefaultWebSecurityManager();
         List<Realm> loginRealms = new ArrayList<>();
         dwm.setAuthenticator(getMyModularRealmAuthenticator());
         loginRealm.setName("UserLogin");
-//        blogLoginRealm.setName("BlogLogin");
         loginRealms.add(loginRealm);
-//        loginRealms.add(blogLoginRealm);
         dwm.setRealms(loginRealms);
         dwm.setCacheManager(getCacheManager());
         dwm.setSessionManager(defaultWebSessionManager());
@@ -102,10 +81,6 @@ public class ShiroConfig {
         return new PermissionFilter();
     }
 
-//    @Bean
-//    public MyBasicHttpAuthenticationFilter getAuthenticationFilter() {
-//        return new MyBasicHttpAuthenticationFilter();
-//    }
 
     @Bean
     public VerfityCodeFilter getVerfityCodeFilter() {
@@ -125,11 +100,9 @@ public class ShiroConfig {
         Map<String, Filter> filters = new HashMap<>();
         filters.put("per", getPermissionFilter());
         filters.put("verCode", getVerfityCodeFilter());
-//        filters.put("jwt", getAuthenticationFilter());
         sfb.setFilters(filters);
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/login", "verCode,anon");
-        filterMap.put("/proj/**", "anon");
         filterMap.put("/error/**", "anon");
         filterMap.put("/getCode", "anon");
         filterMap.put("/actuator/**", "anon");
@@ -166,17 +139,4 @@ public class ShiroConfig {
         defaultWebSessionManager.setSessionIdUrlRewritingEnabled(false);
         return defaultWebSessionManager;
     }
-/*
-  @Bean
-  public FilterRegistrationBean delegatingFilterProxy(){
-    FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
-    DelegatingFilterProxy proxy = new DelegatingFilterProxy();
-    proxy.setTargetFilterLifecycle(true);
-    proxy.setTargetBeanName("shiroFilter");
-
-    filterRegistrationBean.setFilter(proxy);
-    return filterRegistrationBean;
-  }*/
-
-
 }

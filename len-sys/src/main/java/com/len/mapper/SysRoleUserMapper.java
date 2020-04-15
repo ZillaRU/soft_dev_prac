@@ -11,4 +11,6 @@ public interface SysRoleUserMapper extends BaseMapper<SysRoleUser,String> {
     List<SysRoleUser> selectByCondition(SysRoleUser sysRoleUser);
 
     int selectCountByCondition(SysRoleUser sysRoleUser);
+
+    List<String> selectByUserId(String user_id);
 }

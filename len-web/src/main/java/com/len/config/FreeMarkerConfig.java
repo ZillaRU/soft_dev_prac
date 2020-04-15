@@ -67,5 +67,4 @@ public class FreeMarkerConfig{
     result.setFreemarkerSettings(settings);
     return result;
   }
-
 }

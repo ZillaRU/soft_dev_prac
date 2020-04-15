@@ -53,6 +53,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/images/**").addResourceLocations("file:" + imagePath);
         registry.addResourceHandler("/img/**").addResourceLocations("file:" + imagePath);
         registry.addResourceHandler("/file/**").addResourceLocations("file:" + imagePath);
+        registry.addResourceHandler("/excelTemple/**").addResourceLocations("file:./excelTemple/");
         super.addResourceHandlers(registry);
     }
 

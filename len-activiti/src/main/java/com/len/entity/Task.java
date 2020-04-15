@@ -19,6 +19,13 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author zhuxiaomeng
@@ -41,9 +48,10 @@ public class Task {
   private String description;
   private String category;
 
-  private String userName;
-  private String reason;
   private String urlpath;
+  private String pmName;
+  private String projName;
+
   public Task() {
   }
   public Task(org.activiti.engine.task.Task t) {

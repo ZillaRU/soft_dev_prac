@@ -27,4 +27,11 @@
       <if test="roleId!=null and roleId!=''">and role_id =#{roleId,jdbcType=VARCHAR}</if>
     </where>
   </select>
+
+  <select id="selectByUserId" parameterType="java.lang.String" resultType="java.lang.String">
+    select
+    role_id
+    from sys_role_user
+    where user_id = #{user_id}
+  </select>
 </mapper>

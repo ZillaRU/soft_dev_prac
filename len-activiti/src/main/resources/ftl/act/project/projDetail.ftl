@@ -57,6 +57,17 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
+                    <label for="proj_customer" class="layui-form-label">
+                        客户代号
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="proj_customer" readonly name="projCustomer" class="layui-input"
+                               value="${projectDetail.projCustomer}">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
                     <label for="pm_name" class="layui-form-label">
                         项目经理
                     </label>
@@ -66,8 +77,8 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="epg_leader" class="layui-form-label" style="width:130px;padding: 9px 0px;">
-                    EPG Leader
+                <label for="epg_manager" class="layui-form-label" style="width:130px;padding: 9px 0px;">
+                    EPG Manager
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" readonly value="${projectDetail.epgName}">

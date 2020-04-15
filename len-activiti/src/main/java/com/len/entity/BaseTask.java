@@ -34,8 +34,6 @@ public abstract class BaseTask implements Serializable{
     @Column(name = "user_name")
     protected String userName;
 
-
-
     @Column(name = "process_instance_Id")
     protected String processInstanceId;
 
@@ -53,23 +51,17 @@ public abstract class BaseTask implements Serializable{
     @Column(name = "update_by")
     protected String updateBy;
 
-    @Column(name = "role_id")
-    protected String roleId;
-
-//    protected String reason;
+    @Column(name = "proj_name")
+    protected String projName;
 
     //***实时节点信息
     @Transient
+    @Column(name = "task_name")
     protected String taskName;
-
 
     private String urlpath;
 
-
     private Integer submittimes;
-
-
-
 
     /**
      * @return user_id
@@ -209,5 +201,13 @@ public abstract class BaseTask implements Serializable{
 
     public void setSubmittimes(Integer submittimes) {
         this.submittimes = submittimes;
+    }
+
+    public String getProjName() {
+        return projName;
+    }
+
+    public void setProjName(String name) {
+        this.projName = name;
     }
 }

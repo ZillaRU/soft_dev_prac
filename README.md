@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 配置
 配置文件**application.yml**在![如图，现在选中的是application-mysql-dev](https://upload-images.jianshu.io/upload_images/10854666-c0543524604ae982.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -86,3 +87,16 @@ push前需要邀请为collaborator。
 ![shiro也是一写写一套的= =](https://upload-images.jianshu.io/upload_images/10854666-521efabec6d8ded5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 - [Git在IDEA中的使用（详细图文全解）](https://blog.csdn.net/mucaoyx/article/details/98476174)
      ######大家各自新建分支，push到分支。merge前一定要检查！！！
+=======
+# [开发说明 | AchieveIt和lenosp脚手架 Q&A](https://www.jianshu.com/p/85f585f4fedf)
+
+# 演示在[这里](http://39.97.120.235:8081/)
+admin 123456
+其余密码和用户名相同
+QA_leader_Tom
+admin
+chieflwj
+EPG-leader-Grace
+config
+PMwifi
+>>>>>>> 8d6e2dac417cc9f507568d67c6294e9daa3ec78a

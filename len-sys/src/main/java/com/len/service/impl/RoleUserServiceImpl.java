@@ -40,4 +40,9 @@ public class RoleUserServiceImpl extends BaseServiceImpl<SysRoleUser,String> imp
   public List<SysRoleUser> selectByCondition(SysRoleUser sysRoleUser) {
     return sysRoleUserMapper.selectByCondition(sysRoleUser);
   }
+
+  @Override
+  public List<String> selectByUserId(String user_id) {
+    return sysRoleUserMapper.selectByUserId(user_id);
+  }
 }

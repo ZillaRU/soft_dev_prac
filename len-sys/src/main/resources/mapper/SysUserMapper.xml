@@ -152,7 +152,7 @@
 
 
   <select id="getUserByRoleId" resultMap="BaseResultMap">
-    select sys_user.id,sys_user.real_name,sys_user.username from sys_user sysuser inner join sys_role_user roleuser on sysuser.id = roleuser.user_id and roleuser.role_id = #{roleId,jdbcType=VARCHAR}
+    select sys_user.id,sys_user.real_name,sys_user.username,sys_user.email from sys_user sys_user inner join sys_role_user on sys_user.id = sys_role_user.user_id and sys_role_user.role_id = #{roleId,jdbcType=VARCHAR}
   </select>
 
   <select id="selectAllNameId" resultMap="BaseResultMap">

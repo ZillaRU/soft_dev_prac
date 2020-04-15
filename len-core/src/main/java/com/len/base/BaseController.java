@@ -58,5 +58,4 @@ public abstract class BaseController<T> {
         return requestedWith != null && requestedWith.equalsIgnoreCase("XMLHttpRequest");
     }
 
-
 }

@@ -122,7 +122,7 @@
     if (code == 13) {
       $(".select .select-on").click();
     }
-  }
+  };
   layui.use('table', function () {
     var table = layui.table;
     //方法级渲染
