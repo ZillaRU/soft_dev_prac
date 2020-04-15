@@ -13,4 +13,14 @@ public interface ProWorInfoManService extends BaseService<ProWorInfoMan, String>
     public int delById(String id);
 
     public int insertProWor(ProWorInfoMan worInfo);
+
+    public int selectRoleNum(ProWorInfoMan worInfo);
+
+    // 更新项目人员
+    public int updateRoleById(ProWorInfoMan worInfo);
+
+    List<ProWorInfoMan> selectByProId(String proId);
+
+    // 查找某一项目的某一角色的所有用户
+    List<ProWorInfoMan> selectUserByRoleName(ProWorInfoMan worInfo);
 }

@@ -40,25 +40,9 @@
 </div>
 <table id="projWorkerList" class="layui-hide" lay-filter="act" ></table>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
-</script>
-<script type="text/html" id="barDemoDev">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detailDev">查看</a>
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="editDev">编辑</a>
-</script>
-<script type="text/html" id="barDemoTest">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detailTest">查看</a>
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="editTest">编辑</a>
+    <a class="layui-btn layui-btn-primary layui-bg-green layui-btn-xs" lay-event="detail">查看</a>
 </script>
 <script>
-    document.onkeydown = function (e) { // 回车提交表单
-        var theEvent = window.event || e;
-        var code = theEvent.keyCode || theEvent.which;
-        if (code == 13) {
-            $(".select .select-on").click();
-        }
-    };
     layui.use('table', function () {
         var table = layui.table;
         //方法级渲染
@@ -67,24 +51,24 @@
             elem: '#projWorkerList'
             , url: 'info'
             , cols: [[
-                {checkbox: true, fixed: true, width: '5%'}
-                , {
+                {
                     field: 'proName',
                     title: '项目名称',
                     width: '10%',
                     sort: true,
                     style: 'background-color: #009688; color: #fff;'
                 }
-                , {field: 'proStatus', title: '项目状态', width: '10%',}
-                , {field: 'devLeaderName', title: '开发负责人', width: '10%'}
-                , {field: 'devGroup', title: '开发小组', width: '15%',  toolbar: "#barDemoDev"}
-                , {field: 'testLeaderName', title: '测试负责人', width: '10%'}
-                , {field: 'testGroup', title: '测试小组', width: '15%',  toolbar: "#barDemoTest"}
-                , {field: 'configManagerName', title: '配置管理人员', width: '12%'}
-                , {field: 'qaManagerName', title: 'QA管理人员', width: '12%'}
-                , {field: 'epgLeaderName', title: 'epg人员', width: '10%'}
-                , {field: 'operate', title: '操作', width: '15%', toolbar: "#barDemo"}
+                , {field: 'proStatus', title: '项目状态', width: '10%'}
+                , {field: 'devLeader', title: '开发负责人', width: '10%'}
+                , {field: 'dev', title: '开发小组', width: '15%'}
+                , {field: 'testLeader', title: '测试负责人', width: '10%'}
+                , {field: 'test', title: '测试小组', width: '15%'}
+                , {field: 'confMan', title: '配置管理人员', width: '12%'}
+                , {field: 'qa', title: 'QA管理人员', width: '12%'}
+                , {field: 'epg', title: 'epg人员', width: '10%'}
+                , {field: 'operate', title: '操作', width: '8%', toolbar: "#barDemo"}
             ]]
+            , page: true
             , height: 'full-83'
         });
 
@@ -109,22 +93,9 @@
             detail: function () {
                 var checkStatus = table.checkStatus('projworkerList')
                     , data = checkStatus.data;
-                console.log(data)
-                if (data.length != 1) {
-                    layer.msg('请选择一行查看,已选[' + data.length + ']行', {icon: 5});
-                    return false;
-                }
-                detail('查看项目信息', 'showProDetail?proId=' + data[0].id, 700, 600);
+                console.log(data);
+                detail('查看项目信息', 'showProDetail?proId=' + data[0].id, 900, 600);
             },
-            edit: function () {
-                var checkStatus = table.checkStatus('projworkerList')
-                    , data = checkStatus.data;
-                if (data.length != 1) {
-                    layer.msg('请选择一行操作,已选[' + data.length + ']行', {icon: 5});
-                    return false;
-                }
-                setProjFuncs('项目功能设置', 'projFunc?projId=' + data[0].id, 1100, 600);
-            }
         };
 
         $('.layui-col-md12 .layui-btn').on('click', function () {
@@ -145,11 +116,7 @@
             var data = obj.data;
             console.log(data)
             if (obj.event === 'detail') {
-                console.log(data.proId);
-                detail('查看项目人员信息', 'showProDetail?proId=' + data.proId, 1100, 600);
-            } else if(obj.event === 'edit') {
-                console.log(data.proId);
-                detail('项目人员导入', 'projWorkerInfoExport?proId=' + data.id, 1100, 600);
+                detail('查看项目人员信息', 'showProDetail?proId=' + data.proId, 700, 500);
             }
         });
 
@@ -178,33 +145,6 @@
             shade: 0.4,
             title: title,
             content: url + '&detail=true'
-            // btn:['关闭']
-        });
-    }
-
-    function setProjFuncs(title, url, w, h) {
-        if (title == null || title == '') {
-            title = false;
-        }
-        if (url == null || url == '') {
-            url = "error/404";
-        }
-        if (w == null || w == '') {
-            w = ($(window).width() * 0.9);
-        }
-        if (h == null || h == '') {
-            h = ($(window).height() - 50);
-        }
-        layer.open({
-            id: 'proj-funcs',
-            type: 2,
-            area: [w + 'px', h + 'px'],
-            fix: false,
-            maxmin: true,
-            shadeClose: true,
-            shade: 0.4,
-            title: title,
-            content: url
             // btn:['关闭']
         });
     }

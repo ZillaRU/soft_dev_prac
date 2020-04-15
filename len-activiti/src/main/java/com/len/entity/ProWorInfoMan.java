@@ -7,7 +7,7 @@ import lombok.ToString;
 import javax.persistence.*;
 
 
-@Table(name = "pro_dev_group")
+@Table(name = "pro_wor_info_man")
 @ToString
 @Data
 @Getter
@@ -16,9 +16,6 @@ public class ProWorInfoMan {
     @Id
     @Column(name = "id")
     private String id;
-
-    public String roleMapper[] = new String[]{"开发负责人",
-    "开发人员","测试负责人","测试人员","配置管理人员","QA管理人员","epg人员"};
 
     @Column(name = "user_id")
     private String userId;
@@ -41,22 +38,22 @@ public class ProWorInfoMan {
     @Column(name = "pm_id")
     private String pmId;
 
-    @Column(name = "pro_role_id")
-    private int proRoleId;
-
+    @Column(name = "pro_role_name")
     private String proRoleName;
 
-    public void setProRoleName(int proRoleId){
-        this.proRoleName = this.roleMapper[proRoleId];
+    public void setProRoleName(String proRoleName){
+            this.proRoleName = proRoleName;
     }
 
-    public int getProRoleId(){
-        return this.proRoleId;
+    public String getProRoleName(){
+        return this.proRoleName;
     }
 
     public String getProId(){
         return this.proId;
     }
+
+    public String getUserName(){ return this.userName;}
 
     public void setPmId(String pmId){this.pmId = pmId;}
 
@@ -64,11 +61,9 @@ public class ProWorInfoMan {
 
     public void setId(String id){this.id = id;}
 
-    public void setProId(String proId){this.id = proId;}
+    public void setProId(String proId){this.proId = proId;}
 
     public void setUserId(String userId){this.userId = userId;}
-
-    public void setProRoleId(int proRoleId){this.proRoleId = proRoleId;}
 
     public void setUserName(String userName){this.userName = userName;}
 

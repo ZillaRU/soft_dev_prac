@@ -38,15 +38,9 @@
 <table id="proWorList" class="layui-hide" lay-filter="worInfoTable" ></table>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delete"><i class="layui-icon">&#xe640;</i>删除</a>
+    <a class="layui-btn layui-bg-green layui-btn-sm" lay-event="update"><i class="layui-icon">&#xe642;</i>修改</a>
 </script>
 <script>
-    document.onkeydown = function (e) { // 回车提交表单
-        var theEvent = window.event || e;
-        var code = theEvent.keyCode || theEvent.which;
-        if (code == 13) {
-            $(".select .select-on").click();
-        }
-    };
     layui.use('table', function () {
         var table = layui.table;
         table.render({
@@ -63,10 +57,11 @@
                 }
                 , {field: 'userName', title: '项目人员名称', width: '15%'}
                 , {field: 'userPhone', title: '项目人员手机', width: '15%'}
-                , {field: 'userEmail', title: '项目人员邮箱', width: '15%'}
+                , {field: 'userEmail', title: '项目人员邮箱', width: '20%'}
                 , {field: 'proRoleName', title: '项目人员角色', width: '15%'}
-                , {field: 'operation', title: '操作', width: '15%', toolbar: "#barDemo"}
+                , {field: 'operation', title: '操作', width: '20%', toolbar: "#barDemo"}
             ]]
+            , page :true
             , height: 'full-83'
         });
 
@@ -97,11 +92,12 @@
         {
             var data = obj.data;
             if(obj.event==='delete'){
-                console.info(data);
                 layer.confirm('确定删除项目<label style="color: #00AA91;">' + data.proName + '</label>' + '的<label style="color: #00AA91;">' + data.userName + '</label>?', function(){
                     del(data.id);
                 });
-                }
+                }else if(obj.event==='update'){
+                update('修改项目人员信息', 'showUpdProWor?id='+data.id, 700, 450);
+            }
         });
 
         $('.layui-col-md12 .layui-btn').on('click', function () {
@@ -153,6 +149,31 @@
         };
         layer.open({
             id: 'pro_wor_add',
+            type: 2,
+            area: [w + 'px', h + 'px'],
+            fix: false,
+            maxmin: true,
+            shadeClose: false,
+            shade: 0.4,
+            title: title,
+            content: url
+        });
+    }
+    function update(title, url, w, h) {
+        if (title == null || title == '') {
+            title = false;
+        };
+        if (url == null || url == '') {
+            url = "/error/404";
+        };
+        if (w == null || w == '') {
+            w = ($(window).width() * 0.7);
+        };
+        if (h == null || h == '') {
+            h = ($(window).height() - 30);
+        };
+        layer.open({
+            id: 'pro_wor_upd',
             type: 2,
             area: [w + 'px', h + 'px'],
             fix: false,

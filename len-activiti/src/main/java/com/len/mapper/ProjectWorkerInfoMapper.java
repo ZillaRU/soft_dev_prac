@@ -12,4 +12,7 @@ public interface ProjectWorkerInfoMapper extends BaseMapper<ProjectWorkerInfo,St
 
     // 支持项目名称的模糊搜索
     List<ProjectWorkerInfo> selectByProName(ProjectWorkerInfo worInfo);
+
+    // 更新项目状态
+    public int updateProStatus(String pro_status);
 }

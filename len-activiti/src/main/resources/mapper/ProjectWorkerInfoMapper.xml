@@ -7,21 +7,15 @@
         <result column="pro_status" jdbcType="VARCHAR" property="proStatus" />
         <result column="pm_id" jdbcType="VARCHAR" property="pmId" />
         <result column="pm_name" jdbcType="VARCHAR" property="pmName" />
-        <result column="dev_leader_id" jdbcType="VARCHAR" property="devLeaderId" />
-        <result column="dev_leader_name" jdbcType="VARCHAR" property="devLeaderName" />
-        <result column="test_leader_id" jdbcType="VARCHAR" property="testLeaderId" />
-        <result column="test_leader_name" jdbcType="VARCHAR" property="testLeaderName" />
-        <result column="config_manager" jdbcType="VARCHAR" property="configManager" />
-        <result column="config_manager_name" jdbcType="VARCHAR" property="configManagerName" />
-        <result column="qa_manager" jdbcType="VARCHAR" property="qaManager" />
-        <result column="qa_manager_name" jdbcType="VARCHAR" property="qaManagerName" />
-        <result column="epg_leader" jdbcType="VARCHAR" property="epgLeader" />
-        <result column="epg_leader_name" jdbcType="VARCHAR" property="epgLeaderName" />
-    </resultMap>
+        </resultMap>
 
     <select id="selectByPmId" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT * FROM pro_worker_info where pm_id = #{pmId}
     </select>
+
+    <update id="updateProStatus" parameterType="java.lang.String">
+        update pro_worker_info set pro_status = #{proStatus}
+    </update>
 
     <select id="selectByProName" parameterType="com.len.entity.ProjectWorkerInfo" resultMap="BaseResultMap">
         SELECT * FROM pro_worker_info

@@ -9,4 +9,8 @@ public interface ProjectWorkerInfoService extends BaseService<ProjectWorkerInfo,
     List<ProjectWorkerInfo> selectByPmId(String pm_id);
 
     List<ProjectWorkerInfo> selectByProName(ProjectWorkerInfo worInfo);
+
+    // 更新项目状态
+    public int updateProStatus(String pro_status);
+
 }

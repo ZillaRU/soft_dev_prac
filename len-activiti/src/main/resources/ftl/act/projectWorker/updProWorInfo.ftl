@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>新增项目人员</title>
+    <title>修改项目人员信息</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -20,16 +20,15 @@
         <div style="width:100%;height: 100%;">
             <div class="layui-form-item">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
-                    <legend style="font-size:16px;">人员信息填写</legend>
+                    <legend style="font-size:16px;">人员信息修改</legend>
                 </fieldset>
             </div>
             <div class="layui-form-item">
                 <label for="projname" class="layui-form-label" style="width:100px;padding: 9px 0px;">
-                    <span class="x-red">*</span>选择项目
+                    当前所属项目
                 </label>
                 <div class="layui-input-inline">
-                    <select id="proId" name="proId" lay-search>
-                    </select>
+                    <input type="text" id="proName" value="${currentInfo.proName}" autocomplete="off" class="layui-input" readonly>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -38,14 +37,23 @@
                         人员姓名
                     </label>
                     <div class="layui-input-inline">
-                        <select id="userId" name="userId" lay-search>
-                        </select>
+                        <input type="text" id="proName" value="${currentInfo.userName}" autocomplete="off" class="layui-input" readonly>
                     </div>
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label for="proRoleId" class="layui-form-label" style="width:100px;padding: 9px 0px;">
+                    <label for="nowRoleName" class="layui-form-label" style="width:100px;padding: 9px 0px;">
+                        当前角色
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="proName" value="${currentInf.proRoleName}" autocomplete="off" class="layui-input" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label for="proRoId" class="layui-form-label" style="width:100px;padding: 9px 0px;">
                         项目角色选择
                     </label>
                     <div class="layui-input-inline">
@@ -65,8 +73,8 @@
         <div style="width: 100%;height: 55px;background-color: white;border-top:1px solid #e6e6e6;
   position: fixed;bottom: 1px;margin-left:-20px;">
             <div class="layui-form-item" style=" float: right;margin-right: 30px;margin-top: 8px">
-                <button class="layui-btn layui-btn-normal" lay-filter="add" lay-submit="">
-                    增加
+                <button class="layui-btn layui-btn-normal" lay-filter="update" lay-submit="">
+                    确认修改
                 </button>
                 <button class="layui-btn layui-btn-primary" id="close" lay-even="">
                     取消
@@ -79,38 +87,19 @@
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
         var form = layui.form, layer = layui.layer;
-        $.ajax({
-            url: '/projectWorker/showAllPro',
-            type: 'post',
-            dataType: 'json',
-            success: function(data){
-                $('#proId').empty();
-                for (var u in data['projs']){
-                    $('#proId').append("<option value= '"+data['projs'][u].id +"'>"+ data['projs'][u].projName + "</option>");
-                }
-                form.render();
-            }
-        });
-        $.ajax({
-            url: '/user/showAllUser',
-            type: 'post',
-            dataType: 'json',
-            success: function (data) {
-                $('#userId').empty();
-                for (var u in data['users']) {
-                    $('#userId').append("<option value= '"+ data['users'][u].id +"'>"+ data['users'][u].realName + "</option>");
-                    }
-                form.render();
-            }
-        });
-
+        form.render();
         //监听提交
-        form.on('submit(add)', function (data) {
-            data.field.userId = $("#userId option:selected").val();
+        form.on('submit(update)', function (data) {
+            data.field.id = "${currentInfo.id}";
+            data.field.proId = "${currentInfo.proId}";
             data.field.proRoleName = $("#proRoleName option:selected").val();
-            data.field.proId = $("#proId option:selected").val();
-            data.field.proName = $("#proId option:selected").text();
-            layerAjax('addProWor', data.field, 'proWorList');
+            if(data.field.proRoleName === "${currentInfo.proRoleName}"){
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index);
+            }else {
+                console.log(data.field);
+                layerAjax('updProWor', data.field, 'proWorList');
+            }
             return false;
         });
 

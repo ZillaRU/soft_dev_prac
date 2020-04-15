@@ -16,6 +16,18 @@ public interface ProWorInfoManMapper extends BaseMapper<ProWorInfoMan,String> {
     //按照id删除某项目下的某成员
     public int delById(String Id);
 
-    //插入管理人员
+    //插入项目人员
     public int insertProWor(ProWorInfoMan worInfo);
+
+    //得到角色的个数
+    public int selectRoleNum(ProWorInfoMan worInfo);
+
+    // 更新项目人员
+    public int updateRoleById(ProWorInfoMan worInfo);
+
+    //搜索出该项目下的人员
+    List<ProWorInfoMan> selectByProId(String proId);
+
+    // 查找出某一角色下的所有成员
+    List<ProWorInfoMan> selectUserByRoleName(ProWorInfoMan worInfo);
 }

@@ -28,12 +28,27 @@ public class ProWorInfoManServiceImpl extends BaseServiceImpl<ProWorInfoMan, Str
         return proWorInfoManMapper.selectByProName(worInfo);
     }
 
+    public List<ProWorInfoMan> selectByProId(String proId) {
+        return proWorInfoManMapper.selectByProId(proId);
+    }
+
     public int delById(String id){
         return proWorInfoManMapper.delById(id);
     }
 
+    public int selectRoleNum(ProWorInfoMan worInfo){return proWorInfoManMapper.selectRoleNum(worInfo);}
+
     public int insertProWor(ProWorInfoMan worInfo){
         return proWorInfoManMapper.insertProWor(worInfo);
     }
+
+    // 查找某一项目的某一角色的所有用户
+    public List<ProWorInfoMan> selectUserByRoleName(ProWorInfoMan worInfo){
+        return proWorInfoManMapper.selectUserByRoleName(worInfo);
+    }
+
+    // 更新项目人员
+    public int updateRoleById(ProWorInfoMan worInfo){
+        return proWorInfoManMapper.updateRoleById(worInfo);}
 
 }
