@@ -77,10 +77,6 @@ public abstract class BaseTask implements Serializable{
         this.userId = userId == null ? null : userId.trim();
     }
 
-    public void setRoleId(String roleId) {
-        this.roleId = roleId == null ? null : roleId.trim();
-    }
-
     /**
      * @return user_name
      */
