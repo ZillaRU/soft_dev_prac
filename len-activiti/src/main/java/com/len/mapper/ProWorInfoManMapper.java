@@ -22,6 +22,9 @@ public interface ProWorInfoManMapper extends BaseMapper<ProWorInfoMan,String> {
     //得到角色的个数
     public int selectRoleNum(ProWorInfoMan worInfo);
 
+    //得到是否有一模一样的情况
+    public int selectSameCondi(ProWorInfoMan worInfo);
+
     // 更新项目人员
     public int updateRoleById(ProWorInfoMan worInfo);
 

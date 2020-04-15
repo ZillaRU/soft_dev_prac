@@ -318,6 +318,7 @@ public class ProjectWorkerInfoController {
             ProWorInfoMan proWor = new ProWorInfoMan();
             proWor.setProId(proId);
             proWor.setProRoleName(proRoleName);
+            proWor.setUserId(userId);
             int resnum = proWorInfoManService.selectRoleNum(proWor);
             if(resnum == 1){
                 msg = "新增项目人员失败,该角色下已有人员";
@@ -332,6 +333,14 @@ public class ProjectWorkerInfoController {
         proWorInfoMan.setProId(proId);
         proWorInfoMan.setUserId(userId);
         proWorInfoMan.setProRoleName(proRoleName);
+        int sameUser = proWorInfoManService.selectSameCondi(proWorInfoMan);
+        System.out.println(sameUser);
+        if(sameUser == 1){
+            msg = "新增项目人员失败,该人员已经在此项目承担了该角色";
+            j.setFlag(false);
+            j.setMsg(msg);
+            return j;
+        }
         String pmId = Principal.getPrincipal().getId();
         proWorInfoMan.setPmId(pmId);
         SysUser sysUser = userService.selectByPrimaryKey(userId);

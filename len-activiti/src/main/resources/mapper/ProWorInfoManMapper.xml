@@ -45,6 +45,10 @@
         SELECT count(*) FROM pro_wor_info_man where pro_id = #{proId} and pro_role_name = #{proRoleName}
     </select>
 
+    <select id="selectSameCondi" parameterType="com.len.entity.ProWorInfoMan" resultType="Integer">
+        SELECT count(*) FROM pro_wor_info_man where pro_id=#{proId} and pro_role_name=#{proRoleName} and user_id=#{userId}
+    </select>
+
     <select id="selectUserByRoleName" parameterType="com.len.entity.ProWorInfoMan" resultMap="BaseResultMap">
         select * from pro_wor_info_man where pro_id = #{proId} and pro_role_name = #{proRoleName}
     </select>

@@ -47,6 +47,8 @@ public class ProWorInfoManServiceImpl extends BaseServiceImpl<ProWorInfoMan, Str
         return proWorInfoManMapper.selectUserByRoleName(worInfo);
     }
 
+    public int selectSameCondi(ProWorInfoMan worInfo){return proWorInfoManMapper.selectSameCondi(worInfo);}
+
     // 更新项目人员
     public int updateRoleById(ProWorInfoMan worInfo){
         return proWorInfoManMapper.updateRoleById(worInfo);}
