@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.len.mapper.ProjectWorkerInfoMapper">
     <resultMap id="BaseResultMap" type="com.len.entity.ProjectWorkerInfo">
-        <id column="id" jdbcType="VARCHAR" property="proId" />
+        <id column="pro_id" jdbcType="VARCHAR" property="proId" />
         <result column="pro_name" jdbcType="VARCHAR" property="proName" />
         <result column="pro_status" jdbcType="VARCHAR" property="proStatus" />
         <result column="pm_id" jdbcType="VARCHAR" property="pmId" />
