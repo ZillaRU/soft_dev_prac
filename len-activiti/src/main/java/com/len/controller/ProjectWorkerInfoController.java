@@ -169,7 +169,7 @@ public class ProjectWorkerInfoController {
         String id = Principal.getPrincipal().getId();
         worInfo.setPmId(id);
         worInfo.setProName(proName);
-        List<ProWorInfoTmp> res = new ArrayList<ProWorInfoTmp>();
+        List<ProWorInfoTmp> res = new ArrayList<>();
         List<ProjectWorkerInfo> worInf = projectWorkerInfoService.selectByProName(worInfo);
         for (int i = 0; i < worInf.size(); i++) {
             ProWorInfoTmp proWorInfoTmp = findProUsername(worInf.get(i));

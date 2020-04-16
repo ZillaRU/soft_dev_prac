@@ -36,4 +36,16 @@
         SELECT * FROM project_info where pm_id = #{pm_id}
     </select>
 
+    <select id="selectByEPGIdandState" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM project_info where epg_manager = #{user_id} and proj_state = '申请归档'
+    </select>
+
+    <select id="selectListByPage" parameterType="com.len.entity.ProjectInfo" resultMap="BaseResultMap">
+        SELECT *
+        from project_info
+        <where>
+            <if test="projName!=null and projName!=''"> and proj_name LIKE '%${projName}%'</if>
+        </where>
+    </select>
+
 </mapper>

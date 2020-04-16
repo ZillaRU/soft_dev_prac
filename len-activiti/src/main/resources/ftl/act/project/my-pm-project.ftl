@@ -29,7 +29,6 @@
     <#--    shiro-->
     {{#  if(d.projState == '已立项'){ }}
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="projFuncs">功能</a>
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="projPerson">人员</a>
     {{#  } }}
     {{#  if(d.projState == '结束'){ }}
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="projArchive">申请归档</a>
@@ -79,10 +78,9 @@
             } else if (obj.event === 'projFuncs') {
                 console.log(data.id);
                 get_detail_layer('项目功能设置', 'projFunc?projId=' + data.id, 900, 600, 'proj_func_layer');
-            } else if (obj.event === 'projPerson') {
+            } else if (obj.event === 'projArchive') {
                 console.log(data.id);
-                // todo
-                // get_detail_layer('项目人员设置', 'projFunc?projId=' + data.id, 1100, 600, "proj_per_layer");
+                confirm_op("确认申请归档？", 'archiveCheck', data.id);
             } else if (obj.event === 'getProc') { // 查看流程现在走到了哪
                 var url = 'getProc?processInstanceId=' + data.processInstanceId + '';
                 console.log(url);
@@ -91,6 +89,36 @@
         });
 
     });
+
+    function confirm_op(alert_msg, url, projId) {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.msg(alert_msg, {
+                btn: ['确定', '取消'],
+                yes: function (index) {
+                    $.ajax({
+                        url: url,
+                        data: {
+                            'projId': projId
+                        },
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data) {
+                            var index = parent.layer.getFrameIndex(window.name);
+                            window.top.layer.msg(data.msg, {icon: 6, offset: 'rb', area: ['120px', '80px'], anim: 2});
+                            parent.layer.close(index);
+                            parent.location.replace(parent.location.href);
+                        }, error: function () {
+                            var index = parent.layer.getFrameIndex(window.name);
+                            window.top.layer.msg('请求失败', {icon: 5, offset: 'rb', area: ['120px', '80px'], anim: 2});
+                            parent.layer.close(index);
+                        }
+                    });
+                    layer.close(index);
+                }
+            });
+        });
+    }
 
     function get_detail_layer(title, url, w, h, layer_id) {
         if (title == null || title == '') {

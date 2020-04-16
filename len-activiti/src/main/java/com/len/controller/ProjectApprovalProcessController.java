@@ -63,7 +63,7 @@ public class ProjectApprovalProcessController extends BaseController {
     @Autowired
     ProWorInfoManService proWorInfoManService;
 
-    @GetMapping("showProjDetail")
+    @GetMapping({"showProjDetail","share/showProjDetail"})
     public String showProjDetail(Model model, String projId) {
         ProjectInfo projectInfo = projectInfoService.selectByPrimaryKey(projId);
         System.out.println(JSON.toJSONString(projectInfo));
@@ -93,6 +93,16 @@ public class ProjectApprovalProcessController extends BaseController {
             workerInfo.setPmName(projectInfo.getPmName());
             projectWorkerInfoService.insert(workerInfo);
         } else projectInfo.setProjState("已驳回"); //状态：已驳回
+        projectInfoService.updateByPrimaryKey(projectInfo);
+        return JsonUtil.sucess("操作成功！");
+    }
+
+    @PostMapping("/project/archiveCheck")
+    @RequiresRoles(RoleUtil.PM_ROLE_ID)
+    @ResponseBody
+    public JsonUtil archiveCheck(String projId) {
+        ProjectInfo projectInfo = projectInfoService.selectByPrimaryKey(projId);
+        projectInfo.setProjState("申请归档");
         projectInfoService.updateByPrimaryKey(projectInfo);
         return JsonUtil.sucess("操作成功！");
     }
@@ -265,5 +275,18 @@ public class ProjectApprovalProcessController extends BaseController {
             taskSet.add(taskId);
         }
         return ReType.jsonStrng(tasks.size(), tasks, mapMap, "id");
+    }
+
+    @GetMapping("/share/proj")
+    public String allProj() {
+        return "act/project/share";
+    }
+
+    @GetMapping("/share/getAllProj")
+    @ResponseBody
+    public ReType showPMprojctList(String proName, int page, int limit) {
+        ProjectInfo projectInfo = new ProjectInfo();
+        projectInfo.setProjName(proName);
+        return projectInfoService.show(projectInfo, page, limit);
     }
 }
