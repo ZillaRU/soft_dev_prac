@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.len.mapper.ProjectWorkerInfoMapper">
     <resultMap id="BaseResultMap" type="com.len.entity.ProjectWorkerInfo">
-        <id column="id" jdbcType="VARCHAR" property="proId" />
+        <id column="pro_id" jdbcType="VARCHAR" property="proId" />
         <result column="pro_name" jdbcType="VARCHAR" property="proName" />
         <result column="pro_status" jdbcType="VARCHAR" property="proStatus" />
         <result column="pm_id" jdbcType="VARCHAR" property="pmId" />
@@ -13,9 +13,13 @@
         SELECT * FROM pro_worker_info where pm_id = #{pmId}
     </select>
 
-    <update id="updateProStatus" parameterType="java.lang.String">
-        update pro_worker_info set pro_status = #{proStatus}
+    <update id="updateProStatus" parameterType="com.len.entity.ProjectWorkerInfo">
+        update pro_worker_info set pro_status=#{proStatus} where pro_id=#{proId}
     </update>
+
+    <select id="selectByProId" parameterType="com.len.entity.ProjectWorkerInfo" resultMap="BaseResultMap">
+    select * from pro_worker_info where pro_id = #{proId}
+    </select>
 
     <select id="selectByProName" parameterType="com.len.entity.ProjectWorkerInfo" resultMap="BaseResultMap">
         SELECT * FROM pro_worker_info

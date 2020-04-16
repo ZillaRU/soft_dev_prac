@@ -55,6 +55,12 @@ public class ProWorInfoMan {
 
     public String getUserName(){ return this.userName;}
 
+    public String getProName(){ return this.proName;}
+
+    public String getUserId(){ return this.userId;}
+
+    public String getPmId(){ return this.pmId;}
+
     public void setPmId(String pmId){this.pmId = pmId;}
 
     public void setProName(String proName){this.proName = proName;}
