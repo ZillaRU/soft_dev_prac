@@ -25,7 +25,6 @@ import org.activiti.image.HMProcessDiagramGenerator;
 import org.activiti.spring.ProcessEngineFactoryBean;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -223,10 +222,12 @@ public class ProjectInfoController {
         List<ProjectFunction> list = projFuncService.selectByProjId(projId);
         ProjectWorkerInfo info = new ProjectWorkerInfo();
         info.setProId(projId);
-        if(!list.isEmpty() && projectWorkerInfoService.selectByPrimaryKey(info).getProStatus().equals("finished")) {
+        if (!list.isEmpty() && projectWorkerInfoService.selectByPrimaryKey(info) != null) {
             ProjectInfo projectInfo = new ProjectInfo();
             projectInfo.setId(projId);
             projectInfo.setProjState("进行中");
+            Task task = this.taskService.createTaskQuery().processInstanceId(projectInfoService.selectByPrimaryKey(projId).getProcessInstanceId()).singleResult();
+            if (task != null) taskService.complete(task.getId());
             projectInfoService.updateByPrimaryKeySelective(projectInfo);
         }
         return new ReType(list);

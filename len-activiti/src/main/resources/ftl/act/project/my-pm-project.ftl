@@ -132,11 +132,10 @@
             } else if (obj.event === 'projArchive') {
                 confirm_op("确认申请归档？", 'archiveCheck', data.id);
             } else if (obj.event === 'getProc') { // 查看流程现在走到了哪
-                var url = 'getProc?processInstanceId=' + data.processInstanceId + '';
                 get_detail_layer('审批详情', 'projApprovalProcess?processInstanceId=' + data.processInstanceId, 900, 600, 'proj_approval_proc_layer');
             } else if (obj.event === 'projReady') {
                 confirm_op("确认已交付给客户？", 'projReady', data.id);
-            } else if (obj.event === 'projArchive') {
+            } else if (obj.event === 'projEnd') {
                 confirm_op("确认项目结束？", 'projEnd', data.id);
             }
         });

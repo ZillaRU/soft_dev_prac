@@ -20,7 +20,7 @@ layui.define(['jquery', 'element', 'nprogress', 'utils'], function(exports) {
     var Tab = function() {
         this.config = {
             elem: undefined,
-            mainUrl: 'druid/index.html',
+            mainUrl: 'share/proj',
             renderType: 'iframe',
             openWait: true
         };

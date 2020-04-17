@@ -30,11 +30,13 @@
             导出
         </a>
     </button>
-    <button class="layui-btn layui-btn-warm">
-        <a href="/excelTemple/funcTemple.xls" download="funcTemple.xls">
+
+    <a href="/excelTemple/funcTemple.xls" download="funcTemple.xls">
+        <button class="layui-btn layui-btn-warm">
             模板下载
-        </a>
-    </button>
+        </button>
+    </a>
+
 </div>
 <table id="projFuncList" class="layui-hide"></table>
 <script>
