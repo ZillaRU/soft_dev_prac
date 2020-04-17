@@ -42,7 +42,7 @@ public class ProjectWorkerInfoController {
     @Autowired
     private SysUserService userService;
 
-    public List<String> listr = new ArrayList<String>() {
+    public static final List<String> listr = new ArrayList<String>() {
         {
             add("dev");
             add("devleader");
@@ -54,20 +54,21 @@ public class ProjectWorkerInfoController {
         }
     };
 
-    public String definFinish() {
+    public String definFinish(String proId) {
         ProWorInfoMan proWorInfoMan = new ProWorInfoMan();
+        proWorInfoMan.setProId(proId);
         String proStatus = "notFinish";
-        int flag = 1;
+        boolean flag = true;
         for (int i = 0; i < listr.size(); i++) {
             proWorInfoMan.setProRoleName(listr.get(i));
             int resnum = proWorInfoManService.selectRoleNum(proWorInfoMan);
             if (resnum == 0) {
                 proStatus = "notFinish";
                 projectWorkerInfoService.updateProStatus(proStatus);
-                flag = 0;
+                flag = false;
             }
         }
-        if (flag == 1) {
+        if (flag) {
             proStatus = "finished";
             projectWorkerInfoService.updateProStatus(proStatus);
         }
@@ -237,6 +238,9 @@ public class ProjectWorkerInfoController {
         JsonUtil j = new JsonUtil();
         String proStatus;
         String msg = "删除成功";
+        ProWorInfoMan man = new ProWorInfoMan();
+        man.setId(id);
+        String proId = proWorInfoManService.selectByPrimaryKey(man).getProId();
         try {
             proWorInfoManService.delById(id);
         } catch (MyException e) {
@@ -246,7 +250,7 @@ public class ProjectWorkerInfoController {
         }
         j.setFlag(true);
         j.setMsg(msg);
-        proStatus = definFinish();
+        proStatus = definFinish(proId);
         projectWorkerInfoService.updateProStatus(proStatus);
         return j;
     }
@@ -321,7 +325,7 @@ public class ProjectWorkerInfoController {
         }
         j.setFlag(true);
         j.setMsg(msg);
-        proStatus = definFinish();
+        proStatus = definFinish(proId);
         projectWorkerInfoService.updateProStatus(proStatus);
         return j;
     }
@@ -356,7 +360,7 @@ public class ProjectWorkerInfoController {
                 }
                 j.setFlag(true);
                 j.setMsg(msg);
-                proStatus = definFinish();
+                proStatus = definFinish(proId);
                 projectWorkerInfoService.updateProStatus(proStatus);
                 return j;
             }
@@ -371,7 +375,7 @@ public class ProjectWorkerInfoController {
             }
             j.setFlag(true);
             j.setMsg(msg);
-            proStatus = definFinish();
+            proStatus = definFinish(proId);
             projectWorkerInfoService.updateProStatus(proStatus);
             return j;
         }

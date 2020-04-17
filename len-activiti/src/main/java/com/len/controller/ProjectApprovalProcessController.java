@@ -97,6 +97,26 @@ public class ProjectApprovalProcessController extends BaseController {
         return JsonUtil.sucess("操作成功！");
     }
 
+    @PostMapping("/project/projReady")
+    @RequiresRoles(RoleUtil.PM_ROLE_ID)
+    @ResponseBody
+    public JsonUtil projReady(String projId) {
+        ProjectInfo projectInfo = projectInfoService.selectByPrimaryKey(projId);
+        projectInfo.setProjState("已交付");
+        projectInfoService.updateByPrimaryKey(projectInfo);
+        return JsonUtil.sucess("操作成功！");
+    }
+
+    @PostMapping("/project/projEnd")
+    @RequiresRoles(RoleUtil.PM_ROLE_ID)
+    @ResponseBody
+    public JsonUtil projEnd(String projId) {
+        ProjectInfo projectInfo = projectInfoService.selectByPrimaryKey(projId);
+        projectInfo.setProjState("结束");
+        projectInfoService.updateByPrimaryKey(projectInfo);
+        return JsonUtil.sucess("操作成功！");
+    }
+
     @PostMapping("/project/archiveCheck")
     @RequiresRoles(RoleUtil.PM_ROLE_ID)
     @ResponseBody

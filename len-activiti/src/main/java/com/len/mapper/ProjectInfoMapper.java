@@ -2,7 +2,6 @@ package com.len.mapper;
 
 import com.len.base.BaseMapper;
 import com.len.entity.ProjectInfo;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 //@Mapper

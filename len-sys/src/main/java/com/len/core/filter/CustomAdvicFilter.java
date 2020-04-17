@@ -2,10 +2,11 @@ package com.len.core.filter;
 
 import com.len.service.MenuService;
 import com.len.service.SysUserService;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
 /**
  * @author zhuxiaomeng

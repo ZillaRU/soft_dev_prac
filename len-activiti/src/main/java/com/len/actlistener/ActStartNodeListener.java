@@ -19,7 +19,6 @@ import com.len.entity.BaseTask;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.TaskListener;
 
-import java.util.List;
 import java.util.Map;
 
 /**

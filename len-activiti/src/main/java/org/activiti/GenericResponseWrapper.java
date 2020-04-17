@@ -1,10 +1,10 @@
 package org.activiti;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintWriter;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
 
 public class GenericResponseWrapper extends HttpServletResponseWrapper {
     private ByteArrayOutputStream output;

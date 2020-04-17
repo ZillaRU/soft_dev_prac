@@ -20,11 +20,10 @@ import com.len.service.ActAssigneeService;
 import com.len.service.impl.ActAssigneeServiceImpl;
 import com.len.util.AssigneeType;
 import com.len.util.SpringUtil;
-
-import java.util.List;
-
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.TaskListener;
+
+import java.util.List;
 
 /**
  * @author zhuxiaomeng

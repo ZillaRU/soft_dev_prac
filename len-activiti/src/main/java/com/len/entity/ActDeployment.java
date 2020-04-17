@@ -15,11 +15,12 @@
  */
 package com.len.entity;
 
-import java.io.Serializable;
-import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import org.activiti.engine.repository.Deployment;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author zhuxiaomeng

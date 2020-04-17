@@ -12,11 +12,11 @@
  */
 package org.activiti.image;
 
+import org.activiti.bpmn.model.BpmnModel;
+
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.List;
-
-import org.activiti.bpmn.model.BpmnModel;
 
 /**
  * This interface declares methods to generate process diagram

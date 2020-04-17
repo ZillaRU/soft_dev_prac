@@ -3,7 +3,6 @@ package com.len.service.impl;
 import com.len.base.BaseMapper;
 import com.len.base.impl.BaseServiceImpl;
 import com.len.entity.ProjectFunction;
-import com.len.entity.ProjectInfo;
 import com.len.mapper.ProjFuncMapper;
 import com.len.service.ProjFuncService;
 import org.springframework.beans.factory.annotation.Autowired;

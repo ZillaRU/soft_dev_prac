@@ -1,6 +1,5 @@
 package com.len.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.len.base.BaseController;
@@ -9,9 +8,6 @@ import com.len.exception.MyException;
 import com.len.mapper.SysLogMapper;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
-
-import java.util.List;
-
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * @author zhuxiaomeng

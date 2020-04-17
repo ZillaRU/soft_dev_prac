@@ -5,9 +5,10 @@ import com.len.base.impl.BaseServiceImpl;
 import com.len.entity.SysRoleMenu;
 import com.len.mapper.SysRoleMenuMapper;
 import com.len.service.RoleMenuService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author zhuxiaomeng

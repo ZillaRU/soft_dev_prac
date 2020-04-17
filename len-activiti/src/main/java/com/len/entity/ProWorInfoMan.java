@@ -1,10 +1,13 @@
 package com.len.entity;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Table(name = "pro_wor_info_man")
