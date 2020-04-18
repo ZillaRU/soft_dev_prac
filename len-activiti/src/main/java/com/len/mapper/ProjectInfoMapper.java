@@ -5,8 +5,10 @@ import com.len.entity.ProjectInfo;
 
 import java.util.List;
 //@Mapper
-public interface ProjectInfoMapper extends BaseMapper<ProjectInfo,String> {
+public interface ProjectInfoMapper extends BaseMapper<ProjectInfo, String> {
     List<ProjectInfo> selectByPmId(String pm_id);
+
     List<ProjectInfo> selectByEPGIdandState(String user_id);
-    List<ProjectInfo> selectByProjName(String projName);
+
+    List<ProjectInfo> selectByPState();
 }

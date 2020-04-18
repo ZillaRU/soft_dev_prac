@@ -122,40 +122,7 @@
             ]],
             height: 'full-83'
         });
-        <#--console.log('${riskList.hcreator}');-->
-        // var $ = layui.$, active = {
-        // select: function () {
-        //     var projname = $('#projname').val();
-        //     console.info(projname);
-        //     table.reload('projList', {
-        //         where: {
-        //             projName: projname
-        //         }
-        //     });
-        // },
-        // reload: function () {
-        //     $('#projname').val('');
-        //     table.reload('projList', {
-        //         where: {
-        //             projName: null
-        //         }
-        //     });
-        // },
-        // detail: function () {
-        //     var checkStatus = table.checkStatus('riskList')
-        //         , data = checkStatus.data;
-        //     if (data.length != 1) {
-        //         layer.msg('请选择一行查看,已选[' + data.length + ']行', {icon: 5});
-        //         return false;
-        //     }
-        //     detail('查看项目信息', 'showRiskDetail?riskId=' + data[0].id, 1100, 600);
-        // }
-        // };
 
-        //监听表格复选框选择
-        // table.on('checkbox(risk)', function (obj) {
-        //     console.log(obj)
-        // });
         //监听工具条
         table.on('tool(risk)', function (obj) {
             var data = obj.data;
@@ -198,7 +165,6 @@
             type: 'get',
             success: function (d) {
                 console.log(d);
-
                 parent.layer.msg("操作成功!", {time: 1000}, function () {
                     //重新加载父页面
                     layui.table.reload('riskList');
@@ -272,34 +238,6 @@
         });
     }
 
-    // /*弹出层*/
-    // /*
-    //  参数解释：
-    //  title   标题
-    //  url     请求的url
-    //  id      需要操作的数据id
-    //  w       弹出层宽度（缺省调默认值）
-    //  h       弹出层高度（缺省调默认值）
-    //  */
-    // function add(title, url, w, h) {
-    //     if (title == null || title == '') {
-    //         title = false;
-    //     }
-    //     ;
-    //     if (url == null || url == '') {
-    //         url = "404.html";
-    //     }
-    //     ;
-    //     if (w == null || w == '') {
-    //         w = ($(window).width() * 0.9);
-    //     }
-    //     ;
-    //     if (h == null || h == '') {
-    //         h = ($(window).height() - 50);
-    //     }
-    //     ;
-    // }
-
 
     function trace(title, url) {
         if (title == null || title === '') {
@@ -314,7 +252,6 @@
             type: 'get',
             success: function (d) {
                 console.log(d);
-
                 parent.layer.msg("跟踪成功", {time: 1000}, function () {
                     layui.table.reload('riskList');
                 });
@@ -322,8 +259,6 @@
             error: function () {
                 console.log('error');
                 parent.layer.msg("操作失败", {time: 1000}, function () {
-                    //重新加载父页面
-                    // parent.location.reload();
                 });
             }
         });

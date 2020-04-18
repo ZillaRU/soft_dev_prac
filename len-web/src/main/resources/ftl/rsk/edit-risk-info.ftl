@@ -219,8 +219,6 @@
             });
             data.field.HMember = HMember;
             console.log(data.field);
-            // alert('bj');
-            // alert(data);
             $.ajax({
                 url: 'updateRisk',
                 type: 'post',
@@ -232,16 +230,9 @@
                         parent.layer.close(index);
                         parent.layui.table.reload('riskList');
                     });
-
-                    // layer.msg("操作成功!");
-
                     return false;
                 }, error: function () {
                     console.log('error');
-                    //     layer.alert("请求失败", {icon: 6},function () {
-                    //         var index = parent.layer.getFrameIndex(window.name);
-                    //         parent.layer.close(index);
-                    //     });
                 }
             });
         });

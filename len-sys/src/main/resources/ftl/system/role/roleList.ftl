@@ -96,14 +96,14 @@
   };
 
   //数字前置补零
-  layui.laytpl.digit = function(num, length, end){
+  layui.laytpl.digit = function (num, length, end) {
     var str = '';
     num = String(num);
     length = length || 2;
-    for(var i = num.length; i < length; i++){
+    for (var i = num.length; i < length; i++) {
       str += '0';
     }
-    return num < Math.pow(10, length) ? str + (num|0) : num;
+    return num < Math.pow(10, length) ? str + (num | 0) : num;
   };
 
   document.onkeydown = function (e) { // 回车提交表单
@@ -112,7 +112,7 @@
     if (code == 13) {
       $(".select .select-on").click();
     }
-  }
+  };
   layui.use('table', function () {
     var table = layui.table;
     //方法级渲染

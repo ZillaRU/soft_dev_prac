@@ -31,4 +31,12 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfo, String>
         return projectInfoMapper.selectByEPGIdandState(user_id);
     }
 
+    @Override
+    public List<ProjectInfo> selectByPState() {
+        return projectInfoMapper.selectByPState();
+    }
+
+    ;
+
+
 }

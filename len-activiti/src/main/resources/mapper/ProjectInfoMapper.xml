@@ -45,6 +45,12 @@
           and proj_state = '申请归档'
     </select>
 
+    <select id="selectByPState" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT proj_name
+        FROM project_info
+        where proj_state = '进行中'
+    </select>
+
     <select id="selectListByPage" parameterType="com.len.entity.ProjectInfo" resultMap="BaseResultMap">
         SELECT *
         from project_info

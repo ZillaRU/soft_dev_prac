@@ -143,7 +143,6 @@
     layui.use(['form', 'laydate', 'layer'], function () {
         $ = layui.jquery;
         var form = layui.form, laydate = layui.laydate, layer = layui.layer;
-
         //执行一个laydate实例
         var std = laydate.render({
             elem: '#startDate',
@@ -171,7 +170,7 @@
                 }; // 结束日选好后，重置开始日的最大日期
             }
         });
-
+        form.render();
         //自定义验证规则
         form.verify({
             nnull: function (value) {
@@ -181,12 +180,11 @@
             },
             no_pattern: function (value) {
                 // if(value) 正则匹配项目编号 yyyyccccTxx
-                if(value.trim() != "" && !(value.trim().match("[0-9]{4}[0-9]{4}[DMSO]{1}[0-9]{2}"))) {
+                if (value.trim() != "" && !(value.trim().match("[0-9]{4}[0-9]{4}[DMSO]{1}[0-9]{2}"))) {
                     return "项目编号格式不匹配 应为 4位年份 4位客户代号 研发类型（D、M、S，O）顺序2位";
                 }
             }
         });
-
         //监听提交
         form.on('submit(add)', function (data) {
             layerAjax('applyProject', data.field, 'projList');
