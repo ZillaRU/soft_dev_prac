@@ -225,10 +225,15 @@ public class ProjectInfoController {
         if (!list.isEmpty() && projectWorkerInfoService.selectByPrimaryKey(info) != null) {
             ProjectInfo projectInfo = new ProjectInfo();
             projectInfo.setId(projId);
-            projectInfo.setProjState("进行中");
-            Task task = this.taskService.createTaskQuery().processInstanceId(projectInfoService.selectByPrimaryKey(projId).getProcessInstanceId()).singleResult();
-            if (task != null) taskService.complete(task.getId());
-            projectInfoService.updateByPrimaryKeySelective(projectInfo);
+            projectInfo = projectInfoService.selectByPrimaryKey(projectInfo);
+            if (projectInfo.getEpgManager() != null && projectInfo.getQaManager() != null) {
+                Task task = this.taskService.createTaskQuery().processInstanceId(projectInfoService.selectByPrimaryKey(projId).getProcessInstanceId()).singleResult();
+                if (task != null && !task.getAssignee().equals(RoleUtil.CONF_MASTER_ROLE_ID)) {
+                    taskService.complete(task.getId());
+                    projectInfo.setProjState("进行中");
+                    projectInfoService.updateByPrimaryKeySelective(projectInfo);
+                }
+            }
         }
         return new ReType(list);
     }
