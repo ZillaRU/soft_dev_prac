@@ -25,12 +25,14 @@ spring:
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
   http:
-      encoding:
-        force: true
-#  boot:
-#    admin:
-#      client:
-#        url: http://localhost:8082
+    encoding:
+      force: true
+
+  mail:
+    host: smtp.qq.com
+    username: 562064601@qq.com
+    password: mlkitnnpeypabfaj
+    default-encoding: UTF-8
 
 mybatis:
     type-aliases-package: com.len.entity

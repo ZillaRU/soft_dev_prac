@@ -16,6 +16,10 @@ public interface ProWorInfoManService extends BaseService<ProWorInfoMan, String>
 
     public int selectRoleNum(ProWorInfoMan worInfo);
 
+    List<ProWorInfoMan> selectByUId(String u_id);
+
+    List<ProWorInfoMan> selectByPId(String p_id);
+
     // 更新项目人员
     public int updateRoleById(ProWorInfoMan worInfo);
 

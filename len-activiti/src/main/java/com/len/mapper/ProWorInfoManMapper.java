@@ -25,6 +25,10 @@ public interface ProWorInfoManMapper extends BaseMapper<ProWorInfoMan,String> {
     // 更新项目人员
     public int updateRoleById(ProWorInfoMan worInfo);
 
+    List<ProWorInfoMan> selectByUId(String u_id);
+
+    List<ProWorInfoMan> selectByPId(String p_id);
+
     //搜索出该项目下的人员
     List<ProWorInfoMan> selectByProId(String proId);
 
