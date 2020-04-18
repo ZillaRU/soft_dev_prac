@@ -190,21 +190,12 @@
             url: url,
             type: "get",
             success: function (d) {
-                if (d.msg) {
-                    layer.msg(d.msg, {icon: 6, offset: 'rb', area: ['120px', '80px'], anim: 2});
-                    layui.table.reload('equList');
-                } else {
-                    layer.msg(d.msg, {icon: 5, offset: 'rb', area: ['120px', '80px'], anim: 2});
-                }
+                layer.msg(d.msg, {icon: 6});
+                layui.table.reload('equList');
             },
             error: function () {
                 console.log('error');
-                parent.layer.msg("操作失败", {
-                    time: 1000
-                }, function () {
-                    //重新加载父页面
-                    // parent.location.reload();
-                });
+                parent.layer.msg("操作失败");
             }
         });
     }
@@ -213,15 +204,15 @@
         if (title == null || title == '') {
             title = false;
         }
-        ;
+
         if (url == null || url == '') {
             url = "error/404";
         }
-        ;
+
         if (w == null || w == '') {
             w = ($(window).width() * 0.9);
         }
-        ;
+
         if (h == null || h == '') {
             h = ($(window).height() - 50);
         }
@@ -282,19 +273,19 @@
         if (title == null || title == '') {
             title = false;
         }
-        ;
+
         if (url == null || url == '') {
             url = "/error/404";
         }
-        ;
+
         if (w == null || w == '') {
             w = ($(window).width() * 0.9);
         }
-        ;
+
         if (h == null || h == '') {
             h = ($(window).height() - 50);
         }
-        ;
+
         layer.open({
             id: 'add-equ',
             type: 2,

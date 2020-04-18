@@ -35,8 +35,4 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfo, String>
     public List<ProjectInfo> selectByPState() {
         return projectInfoMapper.selectByPState();
     }
-
-    ;
-
-
 }
