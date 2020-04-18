@@ -1,7 +1,6 @@
 package com.len.entity;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,10 +13,11 @@ import java.util.List;
 @Table(name = "project_info")
 @ToString
 @Data
-public class ProjectInfo extends BaseTask{
+public class ProjectInfo extends BaseTask {
+
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "JDBC")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "JDBC")
     protected String id;
 
     @Override
@@ -32,6 +32,7 @@ public class ProjectInfo extends BaseTask{
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
     }
+
     @Column(name = "pm_id")
     private String pmId;
 
@@ -48,8 +49,17 @@ public class ProjectInfo extends BaseTask{
     @Column(name = "proj_no")
     private String projNo;
 
+    /*
+        申请立项 0
+        已立项 1
+        立项驳回 -1
+        进行中 2
+        已交付 8
+        结束 9
+        已归档 10
+     */
     @Column(name = "proj_state")
-    private Integer projState;
+    private String projState;
 
     @Column(name = "proj_tech")
     private String projTech;
@@ -71,8 +81,8 @@ public class ProjectInfo extends BaseTask{
     @Column(name = "end_date")
     private Date endDate;
 
-    @Column(name = "epg_leader")
-    private String epgLeader;
+    @Column(name = "epg_manager")
+    private String epgManager;
 
     @Column(name = "epg_name")
     private String epgName;
@@ -90,12 +100,13 @@ public class ProjectInfo extends BaseTask{
     private String qaName;
 
     //审核信息
-    private List<Opinion> opinionList=new ArrayList<>();
+    private List<Opinion> opinionList = new ArrayList<>();
 
-    public void addOpinion(Opinion Opinion){
+    public void addOpinion(Opinion Opinion) {
         this.opinionList.add(Opinion);
     }
-    public void addAllOpinion(List<Opinion> OpinionList){
+
+    public void addAllOpinion(List<Opinion> OpinionList) {
         this.opinionList.addAll(OpinionList);
     }
 

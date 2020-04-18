@@ -9,6 +9,8 @@ import java.util.List;
 public interface ProjectInfoMapper extends BaseMapper<ProjectInfo,String> {
     List<ProjectInfo> selectByPmId(String pm_id);
 
+    List<ProjectInfo> selectByPState();
+
 //    /* 获取所有项目 */
 //    List<ProjectInfo> getAllProj();
 //

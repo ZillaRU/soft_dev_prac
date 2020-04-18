@@ -8,14 +8,14 @@
         <result column="pm_id" jdbcType="VARCHAR" property="pmId" />
         <result column="pm_name" jdbcType="VARCHAR" property="pmName" />
         <result column="proj_customer" jdbcType="VARCHAR" property="projCustomer" />
-        <result column="proj_state" jdbcType="INTEGER" property="projState" />
+        <result column="proj_state" jdbcType="VARCHAR" property="projState" />
         <result column="start_date" jdbcType="DATE" property="startDate" />
         <result column="end_date" jdbcType="DATE" property="endDate" />
         <result column="milestone" jdbcType="VARCHAR" property="milestone" />
         <result column="proj_tech" jdbcType="VARCHAR" property="projTech" />
         <result column="proj_domain" jdbcType="VARCHAR" property="projDomain" />
         <result column="proj_main_func" jdbcType="VARCHAR" property="projMainFunc" />
-        <result column="epg_leader" jdbcType="VARCHAR" property="epgLeader" />
+        <result column="epg_manager" jdbcType="VARCHAR" property="epgManager" />
         <result column="config_manager" jdbcType="VARCHAR" property="configManager" />
         <result column="qa_manager" jdbcType="VARCHAR" property="qaManager" />
         <result column="epg_name" jdbcType="VARCHAR" property="epgName" />
@@ -29,10 +29,15 @@
         <result column="create_by" jdbcType="VARCHAR" property="createBy" />
         <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
         <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+        <result column="taskName" jdbcType="VARCHAR" property="taskName" />
     </resultMap>
 
     <select id="selectByPmId" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT * FROM project_info where pm_id = #{pm_id}
+    </select>
+
+    <select id="selectByPState" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT proj_name FROM project_info where proj_state = "已立项"
     </select>
 
 </mapper>
