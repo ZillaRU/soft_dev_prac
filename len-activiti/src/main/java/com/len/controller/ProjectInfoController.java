@@ -218,11 +218,13 @@ public class ProjectInfoController {
 
     @GetMapping("showProjFunc")
     @ResponseBody
-    public ReType showProjFuncs(String projId) {
-        List<ProjectFunction> list = projFuncService.selectByProjId(projId);
+    public ReType showProjFuncs(String projId, String funcName, int page, int limit) {
+        // List<ProjectFunction> list = projFuncService.selectByProjId(projId);
+        ReType reType = projFuncService.show(new ProjectFunction(projId, funcName), page, limit);
+        List<?> list = reType.getData();
         ProjectWorkerInfo info = new ProjectWorkerInfo();
         info.setProId(projId);
-        if (!list.isEmpty() && projectWorkerInfoService.selectByPrimaryKey(info) != null) {
+        if (page == 0 && !list.isEmpty() && projectWorkerInfoService.selectByPrimaryKey(info) != null) {
             ProjectInfo projectInfo = new ProjectInfo();
             projectInfo.setId(projId);
             projectInfo = projectInfoService.selectByPrimaryKey(projectInfo);
@@ -235,7 +237,30 @@ public class ProjectInfoController {
                 }
             }
         }
-        return new ReType(list);
+        return reType;
+    }
+
+    @GetMapping("updateFunc")
+    public String updateFunc(Model model, String projId, String funcId) {
+        model.addAttribute("projectId", projId);
+        model.addAttribute("funcId", funcId);
+        return "act/project/editFunc";
+    }
+
+    @PostMapping("editFunc")
+    @ResponseBody
+    public JsonUtil updateRiskInfo(ProjectFunction func) {
+        JsonUtil j = new JsonUtil();
+        String msg = "更新项目功能成功";
+        try {
+            projFuncService.updateByCoPrimaryKey(func);
+        } catch (MyException e) {
+            msg = "保存失败";
+            j.setFlag(false);
+            e.printStackTrace();
+        }
+        j.setMsg(msg);
+        return j;
     }
 
     @GetMapping("/projApprovalProcess")

@@ -3,8 +3,8 @@
 <mapper namespace="com.len.mapper.ProjFuncMapper">
     <resultMap id="BaseResultMap" type="com.len.entity.ProjectFunction">
         <id column="proj_id" jdbcType="VARCHAR" property="projId" />
-        <id column="func_id" jdbcType="VARCHAR" property="funcId" />
-        <result column="func_name" jdbcType="VARCHAR" property="funcName" />
+        <id column="func_id" jdbcType="VARCHAR" property="funcId"/>
+        <result column="func_name" jdbcType="VARCHAR" property="funcName"/>
     </resultMap>
 
     <select id="selectByProjId" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -13,4 +13,19 @@
         where proj_id = #{proj_id}
     </select>
 
+    <select id="selectListByPage" parameterType="com.len.entity.ProjectFunction" resultMap="BaseResultMap">
+        SELECT *
+        from proj_func
+        <where>
+            proj_id = #{projId}
+            <if test="funcName!=null and funcName!=''">and func_name like '%${funcName}%'</if>
+        </where>
+    </select>
+
+    <update id="updateByCoPrimaryKey" parameterType="com.len.entity.ProWorInfoMan">
+        update proj_func
+        set func_name=#{funcName}
+        where proj_id = #{projId}
+          and func_id = #{funcId}
+    </update>
 </mapper>

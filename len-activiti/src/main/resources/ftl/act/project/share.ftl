@@ -77,7 +77,6 @@
                         proName: ""
                     }
                 });
-                select();
             }
         };
 

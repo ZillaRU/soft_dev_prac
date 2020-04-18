@@ -58,9 +58,6 @@
                 window.parent.$("#txtHDes").text(data.hDes);
                 window.parent.$("#txtHTactics").text(data.hTactics);
                 form.render();
-                // var index = parent.layer.getFrameIndex(window.name);
-                // parent.layer.close(index);
-                // detail('导入风险信息', 'showRiskDetail?riskId=' + data.hid, 1100, 600);
             }
         });
 

@@ -25,4 +25,9 @@ public class ProjFuncServiceImpl extends BaseServiceImpl<ProjectFunction, String
     public List<ProjectFunction> selectByProjId(String proj_id) {
         return projFuncMapper.selectByProjId(proj_id);
     }
+
+    @Override
+    public int updateByCoPrimaryKey(ProjectFunction func) {
+        return projFuncMapper.updateByCoPrimaryKey(func);
+    }
 }

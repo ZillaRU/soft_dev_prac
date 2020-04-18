@@ -33,14 +33,10 @@
 </div>
 <table id="projList" class="layui-hide" lay-filter="proj"></table>
 <script type="text/html" id="barDemo">
-    <#--https://blog.csdn.net/huangbaokang/article/details/80593566-->
-    <#--    <@shiro.hasPermission name="user:select">-->
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">基本信息</a>
     {{#  if(d.projState == '已立项' || d.projState == '申请立项' || d.projState == '已驳回'){ }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="getProc"><i class="layui-icon">&#xe6b2;</i>审批流程</a>
     {{#  } }}
-    <#--    </@shiro.hasPermission>-->
-    <#--    shiro-->
     {{#  if(d.projState == '已立项'){ }}
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="projFuncs">功能</a>
     {{#  } }}
@@ -74,15 +70,15 @@
                 , {
                     field: 'projName',
                     title: '项目名称',
-                    width: '20%',
+                    width: '18%',
                     sort: true,
                     style: 'background-color: #009688; color: #fff;'
                 }
-                , {field: 'projNo', title: '编号', width: '16%', sort: true}
+                , {field: 'projNo', title: '编号', width: '10%', sort: true}
                 , {field: 'projCustomer', title: '客户代号', width: '10%'}
-                , {field: 'projMainFunc', title: '主要功能', width: '36%'}
+                , {field: 'projMainFunc', title: '主要功能', width: '20%'}
                 , {field: 'projState', title: '状态', width: '10%', sort: true}
-                , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
+                , {field: 'right', title: '操作', width: '24%', toolbar: "#barDemo"}
             ]]
             , page: true,
             height: 'full-83'
@@ -105,7 +101,6 @@
                         proName: ""
                     }
                 });
-                select();
             }
         };
 
