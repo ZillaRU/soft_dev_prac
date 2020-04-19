@@ -97,27 +97,27 @@
       elem: '#userList'
       , url: 'showUserList'
       , cols: [[
-        {checkbox: true, fixed: true, width: '5%'}
-        , {
-          field: 'username',
-          title: '用户名',
-          width: '10%',
-          sort: true,
-          style: 'background-color: #009688; color: #fff;'
-        }
-        , {field: 'department', title: '部门', width: '10%', sort: true}
-        , {field: 'realName', title: '真实姓名', width: '10%'}
-        , {field: 'email', title: '邮箱', width: '13%'}
-        , {field: 'phone', title: '手机', width: '13%' }
-        , {field: 'photo', title: '头像', width: '13%', template: '#switchTpl'}
-        , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
-      ]]
-      , page: true,
-      height: 'full-83'
+            {checkbox: true, fixed: true, width: '5%'}
+            , {
+                field: 'username',
+                title: '用户名',
+                width: '10%',
+                sort: true,
+                style: 'background-color: #009688; color: #fff;'
+            }
+            , {field: 'department', title: '部门', width: '10%', sort: true}
+            , {field: 'realName', title: '真实姓名', width: '10%'}
+            , {field: 'email', title: '邮箱', width: '18%'}
+            , {field: 'phone', title: '手机', width: '13%'}
+            , {field: 'photo', title: '头像', width: '13%', template: '#switchTpl'}
+            , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
+        ]]
+        , page: true,
+        height: 'full-83'
     });
 
-    var $ = layui.$, active = {
-      select: function () {
+      var $ = layui.$, active = {
+          select: function () {
         var uname = $('#uname').val();
         var email = $('#email').val();
         console.info(uname);

@@ -63,6 +63,7 @@ function layerAjax(url,data,tableId){
     success:function(d){
       var index = parent.layer.getFrameIndex(window.name);
       if(d.flag){
+        layer.msg(d.msg);
         parent.layer.close(index);
         window.parent.layui.table.reload(tableId);
         window.top.layer.msg(d.msg,{icon:6,offset: 'rb',area:['200px','80px'],anim:2});

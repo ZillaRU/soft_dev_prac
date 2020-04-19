@@ -53,7 +53,7 @@
                 }
                 , {field: 'projNo', title: '编号', width: '16%', sort: true}
                 , {field: 'projCustomer', title: '客户代号', width: '10%'}
-                , {field: 'projMainFunc', title: '主要功能', width: '36%'}
+                , {field: 'projMainFunc', title: '主要功能', width: '24%'}
                 , {field: 'projState', title: '状态', width: '10%', sort: true}
                 , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
             ]]
@@ -102,7 +102,6 @@
             }
         });
     });
-
 
     function get_detail_layer(title, url, w, h, layer_id) {
         if (title == null || title == '') {

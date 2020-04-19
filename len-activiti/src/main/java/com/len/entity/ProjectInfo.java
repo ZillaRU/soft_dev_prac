@@ -6,9 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Table(name = "project_info")
 @ToString
@@ -89,23 +87,4 @@ public class ProjectInfo extends BaseTask {
 
     @Column(name = "qa_name")
     private String qaName;
-
-    //审核信息
-    private List<Opinion> opinionList = new ArrayList<>();
-
-    public void addOpinion(Opinion Opinion) {
-        this.opinionList.add(Opinion);
-    }
-
-    public void addAllOpinion(List<Opinion> OpinionList) {
-        this.opinionList.addAll(OpinionList);
-    }
-
-    public List<Opinion> getOpinionList() {
-        return opinionList;
-    }
-
-    public void setOpinionList(List<Opinion> opinionList) {
-        this.opinionList = opinionList;
-    }
 }
