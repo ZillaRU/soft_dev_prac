@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.ProWorInfoManMapper">
+    <resultMap id="BaseResultMap" type="com.len.entity.ProWorInfoMan">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="pro_id" jdbcType="VARCHAR" property="proId" />
+        <result column="pro_name" jdbcType="VARCHAR" property="proName" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+        <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+        <result column="pm_id" jdbcType="VARCHAR" property="pmId" />
+        <result column="pro_role_name" jdbcType="VARCHAR" property="proRoleName" />
+    </resultMap>
+
+    <sql id="proWorColumn">
+        <trim suffix="" suffixOverrides=",">
+            id, user_id, user_name, pro_id, pro_name, user_phone, user_email, pm_id, pro_role_name,
+        </trim>
+    </sql>
+
+    <sql id="proWorValue">
+        <trim suffix="" suffixOverrides=",">
+            #{id}, #{userId}, #{userName}, #{proId}, #{proName}, #{userPhone}, #{userEmail}, #{pmId}, #{proRoleName},
+        </trim>
+    </sql>
+
+    <select id="selectByUId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT *
+        FROM pro_wor_info_man
+        where user_id = #{u_id}
+    </select>
+    <select id="selectByPId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT *
+        FROM pro_wor_info_man
+        where pro_id = #{p_id}
+    </select>
+
+    <select id="selectByPmId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT *
+        FROM pro_wor_info_man
+        where pm_id = #{pmId}
+    </select>
+
+    <select id="selectByProName" parameterType="com.len.entity.ProWorInfoMan" resultMap="BaseResultMap">
+        SELECT * FROM pro_wor_info_man
+        <where>
+            pm_id = #{pmId}
+            <if test="proName!=null and proName!=''">and pro_name LIKE '%${proName}%'</if>
+        </where>
+    </select>
+
+    <select id="selectByProId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM pro_wor_info_man where pro_id = #{proId}
+    </select>
+
+    <select id="selectRoleNum" parameterType="com.len.entity.ProWorInfoMan" resultType="Integer">
+        SELECT count(*) FROM pro_wor_info_man where pro_id = #{proId} and pro_role_name = #{proRoleName}
+    </select>
+
+    <select id="selectUserByRoleName" parameterType="com.len.entity.ProWorInfoMan" resultMap="BaseResultMap">
+        select * from pro_wor_info_man where pro_id = #{proId} and pro_role_name = #{proRoleName}
+    </select>
+
+    <delete id="delById" parameterType="java.lang.String">
+        delete from pro_wor_info_man where id=#{id}
+    </delete>
+
+    <update id="updateRoleById" parameterType="com.len.entity.ProWorInfoMan">
+        update pro_wor_info_man set pro_role_name=#{proRoleName} where id=#{id}
+    </update>
+
+    <insert id="insertProWor" parameterType="com.len.entity.ProWorInfoMan">
+        insert into pro_wor_info_man(
+        <include refid="proWorColumn"/>
+        ) values (
+        <include refid="proWorValue"/>
+        )
+    </insert>
+
+    <select id="selectUser" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT distinct user_name
+        FROM pro_wor_info_man
+    </select>
+
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.ProjectWorkerInfoMapper">
+    <resultMap id="BaseResultMap" type="com.len.entity.ProjectWorkerInfo">
+        <id column="pro_id" jdbcType="VARCHAR" property="proId" />
+        <result column="pro_name" jdbcType="VARCHAR" property="proName" />
+        <result column="pro_status" jdbcType="VARCHAR" property="proStatus" />
+        <result column="pm_id" jdbcType="VARCHAR" property="pmId" />
+        <result column="pm_name" jdbcType="VARCHAR" property="pmName" />
+        </resultMap>
+
+    <select id="selectByPmId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM pro_worker_info where pm_id = #{pmId}
+    </select>
+
+    <update id="updateProStatus" parameterType="java.lang.String">
+        update pro_worker_info set pro_status = #{proStatus}
+    </update>
+
+    <select id="selectByProName" parameterType="com.len.entity.ProjectWorkerInfo" resultMap="BaseResultMap">
+        SELECT * FROM pro_worker_info
+        <where>
+            pm_id = #{pmId}
+            <if test="proName!=null and proName!=''"> and pro_name LIKE '%${proName}%'</if>
+        </where>
+    </select>
+
+</mapper>
