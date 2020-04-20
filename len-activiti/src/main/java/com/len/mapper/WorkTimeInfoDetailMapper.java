@@ -23,4 +23,6 @@ public interface WorkTimeInfoDetailMapper extends BaseMapper<WorkTimeInfoDetail,
     public WorkTimeInfoDetail selectHasSub(WorkTimeInfoDetail workTimeInfoDetail);
 
     public int updateById(WorkTimeInfoDetail workTimeInfoDetail);
+
+    public List<WorkTimeInfoDetail> selectSubmitted(WorkTimeInfoDetail workTimeInfoDetail);
 }

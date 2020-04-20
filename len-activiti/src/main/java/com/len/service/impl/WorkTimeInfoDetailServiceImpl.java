@@ -53,4 +53,8 @@ public class WorkTimeInfoDetailServiceImpl extends BaseServiceImpl<WorkTimeInfoD
         return workTimeInfoDetailMapper.updateById(workTimeInfoDetail);
     }
 
+    public List<WorkTimeInfoDetail> selectSubmitted(WorkTimeInfoDetail workTimeInfoDetail){
+        return workTimeInfoDetailMapper.selectSubmitted(workTimeInfoDetail);
+    }
+
 }

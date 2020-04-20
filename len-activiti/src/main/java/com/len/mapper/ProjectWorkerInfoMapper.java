@@ -16,5 +16,5 @@ public interface ProjectWorkerInfoMapper extends BaseMapper<ProjectWorkerInfo,St
     ProjectWorkerInfo selectByProId(String pro_id);
 
     // 更新项目状态
-    public int updateProStatus(ProjectWorkerInfo worInfo);
+    public int updateProStatus(ProjectWorkerInfo projectWorkerInfo);
 }

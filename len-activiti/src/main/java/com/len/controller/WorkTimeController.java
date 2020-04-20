@@ -398,6 +398,22 @@ public class WorkTimeController {
         workTimeInfoDetail.setId(id);
         String info_status = "processing";
         workTimeInfoDetail.setInfoStatus(info_status);
+        List<WorkTimeInfoDetail> submitted = workTimeInfoDetailService.selectSubmitted(workTimeInfoDetail);
+        if(submitted.size()>=1){
+            for(int k=0; k<submitted.size(); k++){
+                String start = submitted.get(k).getStartTime();
+                String end = submitted.get(k).getEndTime();
+                if(endTime.compareTo(start)<=0 || startTime.compareTo(end)>=0){
+                    continue;
+                }
+                else{
+                    msg = "提交时间重复,提交失败";
+                    j.setFlag(false);
+                    j.setMsg(msg);
+                    return j;
+                }
+            }
+        }
         try{
             workTimeInfoDetailService.insertWorkTimeInfo(workTimeInfoDetail);
         }catch (MyException e) {
@@ -405,6 +421,7 @@ public class WorkTimeController {
             j.setFlag(false);
             j.setMsg(msg);
             e.printStackTrace();
+            return j;
         }
         j.setFlag(true);
         j.setMsg(msg);
@@ -551,9 +568,11 @@ public class WorkTimeController {
                                         String submitDate, String note) {
         JsonUtil j = new JsonUtil();
         String msg = "工时信息修改成功";
+        String sendUser= Principal.getPrincipal().getId();
         WorkTimeInfoDetail worIn = new WorkTimeInfoDetail();
         worIn.setProId(proId);
         worIn.setReceiveUserId(receiveUserId);
+        worIn.setSendUserId(sendUser);
         worIn.setSubmitDate(submitDate);
         worIn.setActivId(activId);
         worIn.setId(id);
@@ -563,6 +582,22 @@ public class WorkTimeController {
         worIn.setEndTime(endTime);
         worIn.setNote(note);
         worIn.setInfoStatus("processing");
+        List<WorkTimeInfoDetail> submitted = workTimeInfoDetailService.selectSubmitted(worIn);
+        if(submitted.size()>=1){
+            for(int k=0; k<submitted.size(); k++){
+                String start = submitted.get(k).getStartTime();
+                String end = submitted.get(k).getEndTime();
+                if(endTime.compareTo(start)<=0 || startTime.compareTo(end)>=0){
+                    continue;
+                }
+                else{
+                    msg = "提交时间重复,修改失败";
+                    j.setFlag(false);
+                    j.setMsg(msg);
+                    return j;
+                }
+            }
+        }
         int renum = workTimeInfoDetailService.selectHasSubmitted(worIn);
         if(renum == 1){
             WorkTimeInfoDetail workTimeInfoDetail = workTimeInfoDetailService.selectHasSub(worIn);
@@ -583,8 +618,7 @@ public class WorkTimeController {
                 return j;
             }
         }
-        else{
-            try{
+        try{
                 workTimeInfoDetailService.updateById(worIn);
             }catch (MyException e) {
                 msg = "修改失败";
@@ -593,7 +627,6 @@ public class WorkTimeController {
                 e.printStackTrace();
                 return j;
             }
-        }
         j.setFlag(true);
         j.setMsg(msg);
         return j;

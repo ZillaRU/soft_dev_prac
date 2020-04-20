@@ -89,4 +89,8 @@
       select * from work_time_info_detail where id=#{id}
     </select>
 
+    <select id="selectSubmitted" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select start_time, end_time from work_time_info_detail where submit_date=#{submitDate} and send_user_id=#{sendUserId}
+    </select>
+
 </mapper>

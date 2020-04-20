@@ -16,14 +16,13 @@ public interface ProWorInfoManService extends BaseService<ProWorInfoMan, String>
 
     public int selectRoleNum(ProWorInfoMan worInfo);
 
-<<<<<<< HEAD
+
     //得到是否有一模一样的情况
     public int selectSameCondi(ProWorInfoMan worInfo);
-=======
+
     List<ProWorInfoMan> selectByUId(String u_id);
 
     List<ProWorInfoMan> selectByPId(String p_id);
->>>>>>> origin/rzy_test_ok
 
     // 更新项目人员
     public int updateRoleById(ProWorInfoMan worInfo);

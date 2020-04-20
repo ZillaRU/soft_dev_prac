@@ -13,6 +13,6 @@ public interface ProjectWorkerInfoService extends BaseService<ProjectWorkerInfo,
     public ProjectWorkerInfo selectByProId(String pro_id);
 
     // 更新项目状态
-    public int updateProStatus(ProjectWorkerInfo worInfo);
+    public int updateProStatus(ProjectWorkerInfo projectWorkerInfo);
 
 }

@@ -64,13 +64,11 @@ public class ProjectWorkerInfoController {
             int resnum = proWorInfoManService.selectRoleNum(proWorInfoMan);
             if (resnum == 0) {
                 proStatus = "notFinish";
-                projectWorkerInfoService.updateProStatus(proStatus);
                 flag = false;
             }
         }
         if (flag) {
             proStatus = "finished";
-            projectWorkerInfoService.updateProStatus(proStatus);
         }
         return proStatus;
     }
@@ -239,8 +237,10 @@ public class ProjectWorkerInfoController {
         String proStatus;
         String msg = "删除成功";
         ProWorInfoMan man = new ProWorInfoMan();
+        ProjectWorkerInfo projectWorkerInfo = new ProjectWorkerInfo();
         man.setId(id);
         String proId = proWorInfoManService.selectByPrimaryKey(man).getProId();
+        projectWorkerInfo.setProId(proId);
         try {
             proWorInfoManService.delById(id);
         } catch (MyException e) {
@@ -251,7 +251,8 @@ public class ProjectWorkerInfoController {
         j.setFlag(true);
         j.setMsg(msg);
         proStatus = definFinish(proId);
-        projectWorkerInfoService.updateProStatus(proStatus);
+        projectWorkerInfo.setProStatus(proStatus);
+        projectWorkerInfoService.updateProStatus(projectWorkerInfo);
         return j;
     }
 
@@ -275,8 +276,8 @@ public class ProjectWorkerInfoController {
     public String showAllPro() {
         JSONObject returnValue = new JSONObject();
         String id = Principal.getPrincipal().getId();
-        List<ProjectInfo> projectInfos = projectInfoService.selectByPmId(id);
-        returnValue.put("projs", projectInfos);
+        List<ProjectWorkerInfo> projectInfos = projectWorkerInfoService.selectByPmId(id);
+        returnValue.put("pro", projectInfos);
         return JSON.toJSONString(returnValue);
     }
 
@@ -287,6 +288,8 @@ public class ProjectWorkerInfoController {
     public JsonUtil addProWor(String proId, String proName, String userId, String proRoleName) {
         JsonUtil j = new JsonUtil();
         String msg = "新增项目人员成功";
+        ProjectWorkerInfo workerInfo = new ProjectWorkerInfo();
+        workerInfo.setProId(proId);
         if (proRoleName.equals("devleader") || proRoleName.equals("testleader") || proRoleName.equals("qa") || proRoleName.equals("confman") || proRoleName.equals("epg")) {
             ProWorInfoMan proWor = new ProWorInfoMan();
             proWor.setProId(proId);
@@ -326,7 +329,8 @@ public class ProjectWorkerInfoController {
         j.setFlag(true);
         j.setMsg(msg);
         proStatus = definFinish(proId);
-        projectWorkerInfoService.updateProStatus(proStatus);
+        workerInfo.setProStatus(proStatus);
+        projectWorkerInfoService.updateProStatus(workerInfo);
         return j;
     }
 
@@ -338,6 +342,8 @@ public class ProjectWorkerInfoController {
         JsonUtil j = new JsonUtil();
         String msg = "项目人员信息修改成功";
         ProWorInfoMan proWorInfoMan = new ProWorInfoMan();
+        ProjectWorkerInfo projectWorkerInfo = new ProjectWorkerInfo();
+        projectWorkerInfo.setProId(proId);
         proWorInfoMan.setProId(proId);
         proWorInfoMan.setId(id);
         String proStatus;
@@ -361,7 +367,8 @@ public class ProjectWorkerInfoController {
                 j.setFlag(true);
                 j.setMsg(msg);
                 proStatus = definFinish(proId);
-                projectWorkerInfoService.updateProStatus(proStatus);
+                projectWorkerInfo.setProStatus(proStatus);
+                projectWorkerInfoService.updateProStatus(projectWorkerInfo);
                 return j;
             }
         } else {
@@ -376,7 +383,8 @@ public class ProjectWorkerInfoController {
             j.setFlag(true);
             j.setMsg(msg);
             proStatus = definFinish(proId);
-            projectWorkerInfoService.updateProStatus(proStatus);
+            projectWorkerInfo.setProStatus(proStatus);
+            projectWorkerInfoService.updateProStatus(projectWorkerInfo);
             return j;
         }
     }

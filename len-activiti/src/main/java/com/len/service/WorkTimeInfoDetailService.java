@@ -21,4 +21,6 @@ public interface WorkTimeInfoDetailService extends BaseService<WorkTimeInfoDetai
     public WorkTimeInfoDetail selectHasSub(WorkTimeInfoDetail workTimeInfoDetail);
 
     public int updateById(WorkTimeInfoDetail workTimeInfoDetail);
+
+    public List<WorkTimeInfoDetail> selectSubmitted(WorkTimeInfoDetail workTimeInfoDetail);
 }

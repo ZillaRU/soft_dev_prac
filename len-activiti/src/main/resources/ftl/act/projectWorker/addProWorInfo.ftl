@@ -85,8 +85,8 @@
             dataType: 'json',
             success: function(data){
                 $('#proId').empty();
-                for (var u in data['projs']){
-                    $('#proId').append("<option value= '"+data['projs'][u].id +"'>"+ data['projs'][u].projName + "</option>");
+                for (var u in data['pro']){
+                    $('#proId').append("<option value= '"+data['pro'][u].proId +"'>"+ data['pro'][u].proName + "</option>");
                 }
                 form.render();
             }
