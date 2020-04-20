@@ -93,6 +93,18 @@ public class ProjectApprovalProcessController extends BaseController {
             workerInfo.setPmId(projectInfo.getPmId());
             workerInfo.setPmName(projectInfo.getPmName());
             projectWorkerInfoService.insert(workerInfo);
+            ProWorInfoMan man = new ProWorInfoMan();
+            man.setId(UUID.randomUUID().toString());
+            SysUser user = sysUserService.selectByPrimaryKey(CommonUtil.getUser().getId());
+            man.setUserId(user.getId());
+            man.setUserName(user.getRealName());
+            man.setUserEmail(user.getEmail());
+            man.setUserPhone(user.getPhone());
+            man.setProRoleName("PM");
+            man.setProId(projId);
+            man.setProName(projectInfo.getProjName());
+            man.setPmId(projectInfo.getPmId());
+            proWorInfoManService.insert(man);
         } else projectInfo.setProjState("已驳回"); //状态：已驳回
         projectInfoService.updateByPrimaryKey(projectInfo);
         return JsonUtil.sucess("操作成功！");

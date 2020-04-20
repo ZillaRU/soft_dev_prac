@@ -33,7 +33,7 @@
 
 <table id="projList" class="layui-hide" lay-filter="projTable"></table>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="detail"><i class="layui-icon">&#xe640;</i>基本信息</a>
+    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="detail">基本信息</a>
 </script>
 <script>
     layui.use('table', function () {
@@ -51,9 +51,9 @@
                     sort: true,
                     style: 'background-color: #009688; color: #fff;'
                 }
-                , {field: 'projNo', title: '编号', width: '16%', sort: true}
+                , {field: 'projNo', title: '编号', width: '12%', sort: true}
                 , {field: 'projCustomer', title: '客户代号', width: '10%'}
-                , {field: 'projMainFunc', title: '主要功能', width: '36%'}
+                , {field: 'projMainFunc', title: '主要功能', width: '30%'}
                 , {field: 'projState', title: '状态', width: '10%', sort: true}
                 , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
             ]]

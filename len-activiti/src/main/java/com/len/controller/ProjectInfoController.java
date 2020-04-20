@@ -224,13 +224,14 @@ public class ProjectInfoController {
         List<?> list = reType.getData();
         ProjectWorkerInfo info = new ProjectWorkerInfo();
         info.setProId(projId);
-        if (page == 0 && !list.isEmpty() && projectWorkerInfoService.selectByPrimaryKey(info) != null) {
-            ProjectInfo projectInfo = new ProjectInfo();
-            projectInfo.setId(projId);
-            projectInfo = projectInfoService.selectByPrimaryKey(projectInfo);
+        ProjectInfo projectInfo = new ProjectInfo();
+        projectInfo.setId(projId);
+        projectInfo = projectInfoService.selectByPrimaryKey(projectInfo);
+        if (!projectInfo.getProjState().equals("进行中") && !list.isEmpty() && projectWorkerInfoService.selectByPrimaryKey(info) != null) {
             if (projectInfo.getEpgManager() != null && projectInfo.getQaManager() != null) {
                 Task task = this.taskService.createTaskQuery().processInstanceId(projectInfoService.selectByPrimaryKey(projId).getProcessInstanceId()).singleResult();
-                if (task != null && !task.getAssignee().equals(RoleUtil.CONF_MASTER_ROLE_ID)) {
+                System.out.println("showProjFunc; task " + task);
+                if (task != null && task.getAssignee() == null) {
                     taskService.complete(task.getId());
                     projectInfo.setProjState("进行中");
                     projectInfoService.updateByPrimaryKeySelective(projectInfo);

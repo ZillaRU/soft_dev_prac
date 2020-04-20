@@ -36,15 +36,17 @@ To change this template use File | Settings | File Templates.-->
             </label>
             <div class="layui-input-inline">
                 <input value="${baseInfo.proId}" type="hidden" name="id">
-                <input type="text" id="proName" value="${baseInfo.proName}" autocomplete="off" class="layui-input">
+                <input type="text" id="proName" value="${baseInfo.proName}" autocomplete="off" class="layui-input"
+                       readonly>
             </div>
             <div class="layui-inline">
                 <label for="proStatus" class="layui-form-label">
                     项⽬状态
                 </label>
-            <div class="layui-input-inline">
-                <input type="text" id="proStatus" name="proStatus" value="${baseInfo.proStatus}" autocomplete="off" class="layui-input">
-            </div>
+                <div class="layui-input-inline">
+                    <input type="text" id="proStatus" name="proStatus" value="${baseInfo.proStatus}" autocomplete="off"
+                           class="layui-input">
+                </div>
                 <div id="finishStatus" class="layui-form-mid layui-word-aux">
                     <span id="finishStatus"></span>
                 </div>
@@ -63,13 +65,7 @@ To change this template use File | Settings | File Templates.-->
             elem: '#worList'
             , url: 'allWor?proId=' + '${baseInfo.proId}'
             , cols: [[
-                {
-                    field: 'proName',
-                    title: '项目名称',
-                    width: '20%',
-                    style: 'background-color: #009688; color: #fff;'
-                }
-                , {field: 'proRoleName', title: '项目人员角色', width: '20%'}
+                {field: 'proRoleName', title: '项目人员角色', width: '20%'}
                 , {field: 'userName', title: '项目人员名称', width: '20%'}
                 , {field: 'userEmail', title: '项目人员邮箱', width: '20%'}
                 , {field: 'userPhone', title: '项目人员电话', width: '20%'}

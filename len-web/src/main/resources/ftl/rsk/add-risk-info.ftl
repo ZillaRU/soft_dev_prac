@@ -215,10 +215,10 @@
                 if (proData[pro].id === data.value) {
                     for (var j in proData[pro].projMember) {
                         console.log(j);
-                        $('#selectHManager').append("<option value='" + proData[pro].projMember[j].uId
-                            + "'>" + proData[pro].projMember[j].uName + "</option>");
-                        $('#selectHMember').append("<input type='checkbox' name='member' value='" + proData[pro].projMember[j].uId
-                            + "' title='" + proData[pro].projMember[j].uName + "'>");
+                        $('#selectHManager').append("<option value='" + proData[pro].projMember[j].userId
+                            + "'>" + proData[pro].projMember[j].userName + "</option>");
+                        $('#selectHMember').append("<input type='checkbox' name='member' value='" + proData[pro].projMember[j].userId
+                            + "' title='" + proData[pro].projMember[j].userName + "'>");
                     }
                 }
             }

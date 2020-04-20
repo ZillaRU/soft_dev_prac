@@ -30,6 +30,7 @@
         FROM pro_wor_info_man
         where user_id = #{u_id}
     </select>
+
     <select id="selectByPId" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT *
         FROM pro_wor_info_man

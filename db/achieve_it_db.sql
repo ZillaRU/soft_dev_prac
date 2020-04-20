@@ -873,505 +873,516 @@ INSERT INTO `act_ru_variable` VALUES ('177519', 1, 'string', 'proj_name', '17750
 INSERT INTO `act_ru_variable` VALUES ('177521', 1, 'string', 'epg_mail', '177501', '177501', NULL, NULL, NULL, NULL, '1369547712@qq.com', NULL);
 INSERT INTO `act_ru_variable` VALUES ('177523', 1, 'string', 'pm_mail', '177501', '177501', NULL, NULL, NULL, NULL, '313160454@qq.com', NULL);
 INSERT INTO `act_ru_variable` VALUES ('177535', 1, 'boolean', 'flag', '177501', '177501', NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `act_ru_variable` VALUES ('177544', 1, 'serializable', 'baseTask', '177541', '177541', NULL, '177543', NULL, NULL, NULL, NULL);
-INSERT INTO `act_ru_variable` VALUES ('177551', 1, 'string', 'conf_mail', '177541', '177541', NULL, NULL, NULL, NULL, '744346614@qq.com', NULL);
-INSERT INTO `act_ru_variable` VALUES ('177553', 1, 'string', 'chief_mail', '177541', '177541', NULL, NULL, NULL, NULL, 'achieve_it2020@163.com', NULL);
-INSERT INTO `act_ru_variable` VALUES ('177555', 1, 'string', 'pm_name', '177541', '177541', NULL, NULL, NULL, NULL, '魏婴', NULL);
-INSERT INTO `act_ru_variable` VALUES ('177557', 1, 'string', 'qa_mail', '177541', '177541', NULL, NULL, NULL, NULL, '10152140148@stu.ecnu.edu.cn', NULL);
-INSERT INTO `act_ru_variable` VALUES ('177559', 1, 'string', 'proj_name', '177541', '177541', NULL, NULL, NULL, NULL, '贴吧 for windows phone', NULL);
-INSERT INTO `act_ru_variable` VALUES ('177561', 1, 'string', 'epg_mail', '177541', '177541', NULL, NULL, NULL, NULL, '1369547712@qq.com', NULL);
-INSERT INTO `act_ru_variable` VALUES ('177563', 1, 'string', 'pm_mail', '177541', '177541', NULL, NULL, NULL, NULL, '313160454@qq.com', NULL);
-INSERT INTO `act_ru_variable` VALUES ('177575', 1, 'boolean', 'flag', '177541', '177541', NULL, NULL, NULL, 1, NULL, NULL);
+INSERT INTO `act_ru_variable`
+VALUES ('177544', 1, 'serializable', 'baseTask', '177541', '177541', NULL, '177543', NULL, NULL, NULL, NULL);
+INSERT INTO `act_ru_variable`
+VALUES ('177551', 1, 'string', 'conf_mail', '177541', '177541', NULL, NULL, NULL, NULL, '744346614@qq.com', NULL);
+INSERT INTO `act_ru_variable`
+VALUES ('177553', 1, 'string', 'chief_mail', '177541', '177541', NULL, NULL, NULL, NULL, 'achieve_it2020@163.com',
+        NULL);
+INSERT INTO `act_ru_variable`
+VALUES ('177555', 1, 'string', 'pm_name', '177541', '177541', NULL, NULL, NULL, NULL, '魏婴', NULL);
+INSERT INTO `act_ru_variable`
+VALUES ('177557', 1, 'string', 'qa_mail', '177541', '177541', NULL, NULL, NULL, NULL, '10152140148@stu.ecnu.edu.cn',
+        NULL);
+INSERT INTO `act_ru_variable`
+VALUES ('177559', 1, 'string', 'proj_name', '177541', '177541', NULL, NULL, NULL, NULL, '贴吧 for windows phone', NULL);
+INSERT INTO `act_ru_variable`
+VALUES ('177561', 1, 'string', 'epg_mail', '177541', '177541', NULL, NULL, NULL, NULL, '1369547712@qq.com', NULL);
+INSERT INTO `act_ru_variable`
+VALUES ('177563', 1, 'string', 'pm_mail', '177541', '177541', NULL, NULL, NULL, NULL, '313160454@qq.com', NULL);
+INSERT INTO `act_ru_variable`
+VALUES ('177575', 1, 'boolean', 'flag', '177541', '177541', NULL, NULL, NULL, 1, NULL, NULL);
 COMMIT;
-
--- ----------------------------
--- Table structure for arc_info
--- ----------------------------
-DROP TABLE IF EXISTS `arc_info`;
-CREATE TABLE `arc_info` (
-  `p_id` char(11) NOT NULL,
-  `f_id` varchar(20) NOT NULL,
-  `f_state` varchar(20) NOT NULL,
-  PRIMARY KEY (`p_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Table structure for pro_dev_group
--- ----------------------------
-DROP TABLE IF EXISTS `pro_dev_group`;
-CREATE TABLE `pro_dev_group` (
-  `id` varchar(36) NOT NULL,
-  `user_id` varchar(36) DEFAULT NULL,
-  `user_name` varchar(36) DEFAULT NULL,
-  `pro_id` varchar(36) DEFAULT NULL COMMENT '属于某个项目中的开发组',
-  `pro_name` varchar(36) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Table structure for pro_test_group
--- ----------------------------
-DROP TABLE IF EXISTS `pro_test_group`;
-CREATE TABLE `pro_test_group` (
-  `id` varchar(36) NOT NULL,
-  `user_id` varchar(36) DEFAULT NULL,
-  `user_name` varchar(36) DEFAULT NULL,
-  `pro_id` varchar(36) DEFAULT NULL,
-  `pro_name` varchar(36) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Table structure for pro_worker_info
--- ----------------------------
-DROP TABLE IF EXISTS `pro_worker_info`;
-CREATE TABLE `pro_worker_info` (
-  `pro_id` varchar(36) NOT NULL,
-  `pro_name` varchar(36) NOT NULL COMMENT '项目经理',
-  `pro_status` varchar(36) NOT NULL,
-  `pm_id` varchar(36) NOT NULL,
-  `pm_name` varchar(36) NOT NULL,
-  `dev_leader_id` varchar(36) DEFAULT NULL,
-  `dev_leader_name` varchar(36) DEFAULT NULL,
-  `test_leader_id` varchar(36) DEFAULT NULL,
-  `test_leader_name` varchar(36) DEFAULT NULL,
-  `config_manager_id` varchar(36) DEFAULT NULL,
-  `config_manager_name` varchar(36) DEFAULT NULL,
-  `qa_manager_id` varchar(36) DEFAULT NULL,
-  `qa_manager_name` varchar(36) DEFAULT NULL,
-  `epg_leader_id` varchar(36) DEFAULT NULL,
-  `epg_leader_name` varchar(36) DEFAULT NULL,
-  PRIMARY KEY (`pro_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Table structure for proj_conf
--- ----------------------------
-DROP TABLE IF EXISTS `proj_conf`;
-CREATE TABLE `proj_conf` (
-  `proj_id` varchar(36) NOT NULL DEFAULT '',
-  `proj_name` varchar(80) DEFAULT NULL,
-  `git_addr` varchar(80) DEFAULT NULL,
-  `file_addr` varchar(80) DEFAULT NULL,
-  `vspace` varchar(80) DEFAULT NULL,
-  PRIMARY KEY (`proj_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for project_info
--- ----------------------------
-DROP TABLE IF EXISTS `project_info`;
-CREATE TABLE `project_info` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `pm_id` varchar(36) NOT NULL,
-  `proj_customer` varchar(36) DEFAULT NULL,
-  `proj_name` varchar(80) NOT NULL,
-  `proj_no` varchar(16) DEFAULT NULL,
-  `proj_state` varchar(16) NOT NULL DEFAULT '申请立项' COMMENT '申请立项 0\n已立项 1\n立项驳回 -1\n进行中 2\n已交付 8\n结束 9\n已归档 10',
-  `start_date` date DEFAULT NULL,
-  `end_date` date DEFAULT NULL,
-  `milestone` mediumtext,
-  `proj_tech` mediumtext,
-  `proj_domain` mediumtext,
-  `proj_main_func` mediumtext,
-  `epg_manager` varchar(36) DEFAULT NULL,
-  `config_manager` varchar(36) DEFAULT NULL,
-  `qa_manager` varchar(36) DEFAULT NULL,
-  `pm_name` varchar(18) DEFAULT NULL,
-  `epg_name` varchar(18) DEFAULT NULL,
-  `qa_name` varchar(18) DEFAULT NULL,
-  `conf_name` varchar(18) DEFAULT NULL,
-  `user_id` varchar(36) DEFAULT NULL,
-  `user_name` varchar(18) DEFAULT NULL,
-  `process_instance_id` varchar(32) DEFAULT NULL,
-  `status` varchar(64) DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL,
-  `create_by` varchar(32) DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  `update_by` varchar(32) DEFAULT NULL,
-  `urlpath` varchar(255) DEFAULT NULL,
-  `submittimes` int(10) DEFAULT '1',
-  `taskName` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of project_info
--- ----------------------------
-BEGIN;
-INSERT INTO `project_info` VALUES ('3bca5d7cdd844fc19f84781ca472c074', 'f301e0e4b8674f1198bf34f08e4cfccf', NULL, '连连看 for MAC', NULL, '已驳回', '2020-06-01', '2020-12-13', 'ui设计完成\n测试完成', 'javafx', '娱乐益智小游戏', '娱乐 游戏 益智', NULL, NULL, NULL, '魏婴', NULL, NULL, NULL, NULL, '魏婴', '177501', NULL, NULL, NULL, NULL, NULL, '/showProjDetail/projId=3bca5d7cdd844fc19f84781ca472c074', 1, NULL);
-INSERT INTO `project_info` VALUES ('c43d2cbee5ed421faaa70afcd168182b', 'f301e0e4b8674f1198bf34f08e4cfccf', '090811', '钉钉打卡APP（校园版）', '20200809D03', '已立项', '2020-05-21', '2021-04-06', '客户端原型设计完成\nAPI完成\n前后端联调', 'springboot\nAndroid', '打卡签到 业务系统', '打卡签到 任务提示', 'e6ea8a31042540c79ee27ad41c77824d', NULL, 'd7a4560c974649ce80d3ba150cd37d21', '魏婴', NULL, 'QA 蓝二', NULL, NULL, '魏婴', '170001', NULL, NULL, NULL, NULL, NULL, '/showProjDetail/projId=c43d2cbee5ed421faaa70afcd168182b', 1, NULL);
-INSERT INTO `project_info` VALUES ('cbd0aa14800d4fcd9b39fb639c01afc3', 'f301e0e4b8674f1198bf34f08e4cfccf', '074521', '贴吧 for windows phone', '20200801D11', '已立项', '2020-06-30', '2021-04-06', '看帖板块开发测试完成\n用户互动板块内测', 'java\nspringboot\nmybatis', '社交应用开发', '发帖、社交、交流平台', NULL, NULL, '75824222f3ac4f299973a782ad333851', '魏婴', NULL, 'QA 汤姆', NULL, NULL, '魏婴', '177541', NULL, NULL, NULL, NULL, NULL, '/showProjDetail/projId=cbd0aa14800d4fcd9b39fb639c01afc3', 1, NULL);
-COMMIT;
-
--- ----------------------------
--- Table structure for rsk_info
--- ----------------------------
-DROP TABLE IF EXISTS `rsk_info`;
-CREATE TABLE `rsk_info` (
-  `H_ID` varchar(36) NOT NULL,
-  `P_ID` varchar(36) DEFAULT NULL,
-  `H_Type` varchar(20) NOT NULL,
-  `H_Des` varchar(100) NOT NULL,
-  `H_Grade` varchar(20) NOT NULL,
-  `H_Influence` varchar(30) NOT NULL,
-  `H_Tactics` varchar(100) NOT NULL,
-  `H_State` varchar(20) NOT NULL,
-  `H_Frequency` varchar(5) NOT NULL,
-  PRIMARY KEY (`H_ID`),
-  KEY `P_ID_FK_H_ID` (`P_ID`) USING BTREE,
-  CONSTRAINT `P_ID_FK_H_ID` FOREIGN KEY (`P_ID`) REFERENCES `project_info` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for sys_dict_item
--- ----------------------------
-DROP TABLE IF EXISTS `sys_dict_item`;
-CREATE TABLE `sys_dict_item` (
-  `id` varchar(32) NOT NULL,
-  `sequence` int(11) NOT NULL COMMENT '序号',
-  `value` varchar(100) NOT NULL COMMENT '值',
-  `description` varchar(100) NOT NULL COMMENT '描述',
-  `type_id` varchar(32) NOT NULL COMMENT '字典id外检',
-  `create_by` varchar(32) DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL,
-  `update_by` varchar(32) DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  `del_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除标识',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典子表';
-
--- ----------------------------
--- Table structure for sys_dict_type
--- ----------------------------
-DROP TABLE IF EXISTS `sys_dict_type`;
-CREATE TABLE `sys_dict_type` (
-  `id` varchar(32) NOT NULL,
-  `code` varchar(255) NOT NULL COMMENT '编码',
-  `del_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除标识',
-  `text` varchar(255) NOT NULL COMMENT '字典名称',
-  `create_by` varchar(32) DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `update_by` varchar(32) DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典主表';
-
--- ----------------------------
--- Table structure for sys_job
--- ----------------------------
-DROP TABLE IF EXISTS `sys_job`;
-CREATE TABLE `sys_job` (
-  `id` varchar(32) NOT NULL,
-  `job_name` varchar(255) NOT NULL COMMENT '描述任务',
-  `cron` varchar(255) NOT NULL COMMENT '任务表达式',
-  `status` tinyint(1) NOT NULL COMMENT '状态:0未启动false/1启动true',
-  `clazz_path` varchar(255) NOT NULL COMMENT '任务执行方法',
-  `job_desc` varchar(255) DEFAULT NULL COMMENT '其他描述',
-  `create_by` varchar(255) DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL,
-  `update_by` varchar(255) DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for sys_log
--- ----------------------------
-DROP TABLE IF EXISTS `sys_log`;
-CREATE TABLE `sys_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(32) DEFAULT NULL,
-  `ip` varchar(255) DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
-  `text` varchar(255) DEFAULT NULL,
-  `param` text,
-  `create_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=611 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of sys_log
--- ----------------------------
-BEGIN;
-INSERT INTO `sys_log` VALUES (586, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 10:07:18');
-INSERT INTO `sys_log` VALUES (587, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '申报项目', '[参数1:{\"endDate\":1617206400000,\"id\":\"8522e85b671746239e353b9240d1b7e8\",\"milestone\":\"原型设计完成\\n客户端开发完成\\n前后端联调\",\"opinionList\":[],\"pmId\":\"f301e0e4b8674f1198bf34f08e4cfccf\",\"pmName\":\"魏婴\",\"processInstanceId\":\"165001\",\"projCustomer\":\"090806\",\"projDomain\":\"打卡系统\",\"projMainFunc\":\"自定义打卡签到\",\"projName\":\"钉钉打卡app\",\"projNo\":\"\",\"projTech\":\"Android\\nspringboot\",\"startDate\":1586102400000,\"urlpath\":\"/showProjDetail/projId=8522e85b671746239e353b9240d1b7e8\",\"userName\":\"魏婴\"}]', '2020-04-05 10:07:19');
-INSERT INTO `sys_log` VALUES (588, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 12:20:16');
-INSERT INTO `sys_log` VALUES (589, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '申报项目', '[参数1:{\"endDate\":1601395200000,\"id\":\"58c0af730f294a2d939042af6a27f131\",\"milestone\":\"硬件模块测试完成\\n客户端开发完成\\n软硬件联调\",\"opinionList\":[],\"pmId\":\"f301e0e4b8674f1198bf34f08e4cfccf\",\"pmName\":\"魏婴\",\"processInstanceId\":\"167501\",\"projCustomer\":\"109098\",\"projDomain\":\"物联网应用\",\"projMainFunc\":\"无钥匙进入系统（蓝牙实现）\",\"projName\":\"蓝牙门锁配套钥匙APP\",\"projNo\":\"20200506D09\",\"projTech\":\"Android\\n蓝牙BLE\",\"startDate\":1588089600000,\"urlpath\":\"/showProjDetail/projId=58c0af730f294a2d939042af6a27f131\",\"userName\":\"魏婴\"}]', '2020-04-05 12:25:28');
-INSERT INTO `sys_log` VALUES (590, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 12:25:33');
-INSERT INTO `sys_log` VALUES (591, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 12:36:14');
-INSERT INTO `sys_log` VALUES (592, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '申报项目', '[参数1:{\"endDate\":1617638400000,\"id\":\"c43d2cbee5ed421faaa70afcd168182b\",\"milestone\":\"客户端原型设计完成\\nAPI完成\\n前后端联调\",\"opinionList\":[],\"pmId\":\"f301e0e4b8674f1198bf34f08e4cfccf\",\"pmName\":\"魏婴\",\"processInstanceId\":\"170001\",\"projCustomer\":\"090811\",\"projDomain\":\"打卡签到 业务系统\",\"projMainFunc\":\"打卡签到 任务提示\",\"projName\":\"钉钉打卡APP（校园版）\",\"projNo\":\"20200809D03\",\"projTech\":\"springboot\\nAndroid\",\"startDate\":1589990400000,\"urlpath\":\"/showProjDetail/projId=c43d2cbee5ed421faaa70afcd168182b\",\"userName\":\"魏婴\"}]', '2020-04-05 12:38:06');
-INSERT INTO `sys_log` VALUES (593, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 12:38:11');
-INSERT INTO `sys_log` VALUES (594, 'admin', '0:0:0:0:0:0:0:1', 'ATHOR', '更新角色', '[参数1:{\"id\":\"0d3178de48cb482cb0bb3a9ae9ff3764\",\"remark\":\"QA leader\",\"roleName\":\"QAleader\"}][参数2:[\"cfda8029dfb311e7b555201a068c6482\",\"cfe54921dfb311e7b555201a068c6482\",\"cdbcb92b27e84c1d9114c13e77408a3d\",\"e06da471f90311e780aa201a068c6482\",\"47013023eb9f423cac0dbbf78880178f\"]]', '2020-04-05 12:40:13');
-INSERT INTO `sys_log` VALUES (595, 'admin', '0:0:0:0:0:0:0:1', 'ATHOR', '更新角色', '[参数1:{\"id\":\"f7376c6bc042419491be758ae2683842\",\"remark\":\"EPGleader\",\"roleName\":\"EPGleader\"}][参数2:[\"cfda8029dfb311e7b555201a068c6482\",\"cfe54921dfb311e7b555201a068c6482\",\"cdbcb92b27e84c1d9114c13e77408a3d\",\"e06da471f90311e780aa201a068c6482\",\"30ed4a5daa5c4c94b575d41bea2b71eb\"]]', '2020-04-05 12:40:21');
-INSERT INTO `sys_log` VALUES (596, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 12:41:05');
-INSERT INTO `sys_log` VALUES (597, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 12:55:04');
-INSERT INTO `sys_log` VALUES (598, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 13:09:55');
-INSERT INTO `sys_log` VALUES (599, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 14:31:58');
-INSERT INTO `sys_log` VALUES (600, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '申报项目', '[参数1:{\"endDate\":1607788800000,\"id\":\"3bca5d7cdd844fc19f84781ca472c074\",\"milestone\":\"ui设计完成\\n测试完成\",\"opinionList\":[],\"pmId\":\"f301e0e4b8674f1198bf34f08e4cfccf\",\"pmName\":\"魏婴\",\"processInstanceId\":\"177501\",\"projCustomer\":\"\",\"projDomain\":\"娱乐益智小游戏\",\"projMainFunc\":\"娱乐 游戏 益智\",\"projName\":\"连连看 for MAC\",\"projNo\":\"\",\"projTech\":\"javafx\",\"startDate\":1590940800000,\"urlpath\":\"/showProjDetail/projId=3bca5d7cdd844fc19f84781ca472c074\",\"userName\":\"魏婴\"}]', '2020-04-05 14:34:30');
-INSERT INTO `sys_log` VALUES (601, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 14:34:33');
-INSERT INTO `sys_log` VALUES (602, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 14:48:48');
-INSERT INTO `sys_log` VALUES (603, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '申报项目', '[参数1:{\"endDate\":1617638400000,\"id\":\"cbd0aa14800d4fcd9b39fb639c01afc3\",\"milestone\":\"看帖板块开发测试完成\\n用户互动板块内测\",\"opinionList\":[],\"pmId\":\"f301e0e4b8674f1198bf34f08e4cfccf\",\"pmName\":\"魏婴\",\"processInstanceId\":\"177541\",\"projCustomer\":\"074521\",\"projDomain\":\"社交应用开发\",\"projMainFunc\":\"发帖、社交、交流平台\",\"projName\":\"贴吧 for windows phone\",\"projNo\":\"20200801D11\",\"projTech\":\"java\\nspringboot\\nmybatis\",\"startDate\":1593446400000,\"urlpath\":\"/showProjDetail/projId=cbd0aa14800d4fcd9b39fb639c01afc3\",\"userName\":\"魏婴\"}]', '2020-04-05 14:48:50');
-INSERT INTO `sys_log` VALUES (604, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 14:54:48');
-INSERT INTO `sys_log` VALUES (605, 'admin', '0:0:0:0:0:0:0:1', 'ATHOR', '更新角色', '[参数1:{\"id\":\"b1e002ad12ff4d2ebb024d74d27af432\",\"remark\":\"配置管理员\",\"roleName\":\"conf_master\"}][参数2:[\"cfda8029dfb311e7b555201a068c6482\",\"cfe54921dfb311e7b555201a068c6482\",\"cdbcb92b27e84c1d9114c13e77408a3d\",\"e06da471f90311e780aa201a068c6482\",\"8c2009add81e41e0abae5a3a69884a4f\"]]', '2020-04-05 14:57:17');
-INSERT INTO `sys_log` VALUES (606, 'admin', '0:0:0:0:0:0:0:1', 'ATHOR', '更新角色', '[参数1:{\"id\":\"0d3178de48cb482cb0bb3a9ae9ff3764\",\"remark\":\"QA leader\",\"roleName\":\"QAleader\"}][参数2:[\"cfda8029dfb311e7b555201a068c6482\",\"cfe54921dfb311e7b555201a068c6482\",\"cdbcb92b27e84c1d9114c13e77408a3d\",\"e06da471f90311e780aa201a068c6482\",\"47013023eb9f423cac0dbbf78880178f\"]]', '2020-04-05 14:57:29');
-INSERT INTO `sys_log` VALUES (607, 'admin', '0:0:0:0:0:0:0:1', 'ATHOR', '更新角色', '[参数1:{\"id\":\"f7376c6bc042419491be758ae2683842\",\"remark\":\"EPGleader\",\"roleName\":\"EPGleader\"}][参数2:[\"cfda8029dfb311e7b555201a068c6482\",\"cfe54921dfb311e7b555201a068c6482\",\"cdbcb92b27e84c1d9114c13e77408a3d\",\"e06da471f90311e780aa201a068c6482\",\"30ed4a5daa5c4c94b575d41bea2b71eb\"]]', '2020-04-05 14:57:48');
-INSERT INTO `sys_log` VALUES (608, 'admin', '115.62.250.57', 'UPDATE', '更新用户', '[参数1:{\"age\":23,\"email\":\"2403287957@qq.com\",\"id\":\"acfc0e9232f54732a5d9ffe9071bf572\",\"phone\":\"17521999999\",\"photo\":\"bb635928-e5e9-4647-b0de-951549ec2352.png\",\"realName\":\"rzy\"}]', '2020-04-05 22:28:04');
-INSERT INTO `sys_log` VALUES (609, 'admin', '115.62.250.57', 'UPDATE', '更新用户', '[参数1:{\"age\":23,\"email\":\"2403287957@qq.com\",\"id\":\"acfc0e9232f54732a5d9ffe9071bf572\",\"phone\":\"17521999999\",\"photo\":\"bb635928-e5e9-4647-b0de-951549ec2352.png\",\"realName\":\"rzy\"}]', '2020-04-05 22:28:44');
-INSERT INTO `sys_log` VALUES (610, 'PMwifi', '115.62.250.57', 'ATHOR', '主管项目', '', '2020-04-06 11:51:51');
-COMMIT;
-
--- ----------------------------
--- Table structure for sys_menu
--- ----------------------------
-DROP TABLE IF EXISTS `sys_menu`;
-CREATE TABLE `sys_menu` (
-  `id` varchar(36) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `p_id` varchar(36) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
-  `order_num` int(4) DEFAULT NULL COMMENT '排序字段',
-  `icon` varchar(255) DEFAULT NULL COMMENT '图标',
-  `create_by` varchar(32) DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL,
-  `update_by` varchar(32) DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  `permission` varchar(255) DEFAULT NULL COMMENT '权限',
-  `menu_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1栏目2菜单',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of sys_menu
--- ----------------------------
-BEGIN;
-INSERT INTO `sys_menu` VALUES ('0e6c8d4cf09511e78a57201a068c6482', '删除', 'cff61424dfb311e7b555201a068c6482', NULL, 3, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-03 22:47:44', NULL, NULL, 'role:del', 1);
-INSERT INTO `sys_menu` VALUES ('18bf8d5df09511e78a57201a068c6482', '新增', '3873ccc2dfda11e7b555201a068c6482', NULL, 1, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-03 22:48:01', NULL, NULL, 'nemu:add', 1);
-INSERT INTO `sys_menu` VALUES ('1967670ea5a94ece8d545ffca66d7fa8', '项目审批', 'e06da471f90311e780aa201a068c6482', '/project/showApprovals', 1, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-16 18:43:09', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 17:02:54', 'project:approval', 0);
-INSERT INTO `sys_menu` VALUES ('28661300f9d411e7a009201a068c6482', '流程管理', 'e06da471f90311e780aa201a068c6482', '/act/goAct', 2, '&#xe630;', 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-15 17:12:06', NULL, NULL, 'act:deployment', 0);
-INSERT INTO `sys_menu` VALUES ('2b56410cf09411e78a57201a068c6482', '新增', 'cff61424dfb311e7b555201a068c6482', NULL, 1, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-03 22:41:23', NULL, NULL, 'role:add', 1);
-INSERT INTO `sys_menu` VALUES ('30ed4a5daa5c4c94b575d41bea2b71eb', '分配EPG', 'e06da471f90311e780aa201a068c6482', '/epg', 1, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 16:56:21', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 17:29:59', 'project:epg', 0);
-INSERT INTO `sys_menu` VALUES ('3873ccc2dfda11e7b555201a068c6482', '菜单管理', 'cfda8029dfb311e7b555201a068c6482', 'menu/showMenu', 1, '', NULL, '2017-12-14 14:02:50', 'acfc0e9232f54732a5d9ffe9071bf572', '2018-04-23 19:43:54', 'menu:show', 0);
-INSERT INTO `sys_menu` VALUES ('433089a6eb0111e782d5201a068c6482', '编辑', 'cfe54921dfb311e7b555201a068c6482', NULL, NULL, '1', 'acfc0e9232f54732a5d9ffe9071bf572', '2017-12-27 20:27:11', NULL, NULL, 'user:update', 1);
-INSERT INTO `sys_menu` VALUES ('47013023eb9f423cac0dbbf78880178f', '分配QA', 'e06da471f90311e780aa201a068c6482', '/qa', 1, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 17:29:34', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-02 00:14:11', 'project:qa', 0);
-INSERT INTO `sys_menu` VALUES ('59c8a57055274a779be9ee26e16bd037', '项目归档', 'e06da471f90311e780aa201a068c6482', '/project/showArchive', 2, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 14:15:28', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 14:23:29', 'project:Archive', 0);
-INSERT INTO `sys_menu` VALUES ('5ae3d4e9f38e11e7aca0201a068c6482', '新增', 'e9a13e55f35911e7aca0201a068c6482', NULL, 1, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 17:37:30', NULL, NULL, 'job:add', 1);
-INSERT INTO `sys_menu` VALUES ('6315968bf37111e7aca0201a068c6482', '停止', 'e9a13e55f35911e7aca0201a068c6482', NULL, 4, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 14:10:09', NULL, NULL, 'job:end', 1);
-INSERT INTO `sys_menu` VALUES ('63da4415fc6211e7a781201a068c6482', '模型列表', 'e06da471f90311e780aa201a068c6482', '/act/goActModel', 3, '&#xe60a;', 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-18 23:15:17', NULL, NULL, 'act', 0);
-INSERT INTO `sys_menu` VALUES ('6931fd22f09611e78a57201a068c6482', '删除', 'b441914cee0811e7a60d201a068c6482', NULL, 1, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-03 22:57:26', NULL, NULL, 'control:del', 1);
-INSERT INTO `sys_menu` VALUES ('69f3f59cf38e11e7aca0201a068c6482', '编辑', 'e9a13e55f35911e7aca0201a068c6482', NULL, 2, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 17:37:56', NULL, NULL, 'job:update', 1);
-INSERT INTO `sys_menu` VALUES ('6cdd898044a04dba9c319d9c5d9b8cdf', '主管项目', 'e06da471f90311e780aa201a068c6482', '/project/showPMproject', 2, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-17 22:28:48', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-17 23:50:30', 'project:view', 0);
-INSERT INTO `sys_menu` VALUES ('6dc13c6eec5f11e7a472201a068c6482', '系统日志', 'a1ca6642ec5e11e7a472201a068c6482', 'log/showLog', 1, '&#xe60a;', 'acfc0e9232f54732a5d9ffe9071bf572', '2017-12-29 14:43:46', NULL, '2017-12-29 14:43:46', 'log:show', 0);
-INSERT INTO `sys_menu` VALUES ('7092bf6527144bf3bfdeefafb19c624d', '项目申报', 'e06da471f90311e780aa201a068c6482', '/project/showApply', 1, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-16 18:37:21', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-17 16:44:19', 'project:apply', 0);
-INSERT INTO `sys_menu` VALUES ('788d8e34f38e11e7aca0201a068c6482', '删除', 'e9a13e55f35911e7aca0201a068c6482', NULL, 5, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 17:38:20', NULL, NULL, 'job:del', 1);
-INSERT INTO `sys_menu` VALUES ('7967e098ee0611e7a60d201a068c6482', '接口api', 'a1ca6642ec5e11e7a472201a068c6482', 'swagger-ui.html', 2, '&#xe64e;', 'acfc0e9232f54732a5d9ffe9071bf572', '2017-12-31 16:42:04', NULL, NULL, NULL, 0);
-INSERT INTO `sys_menu` VALUES ('873f30b0f38e11e7aca0201a068c6482', '查看', 'e9a13e55f35911e7aca0201a068c6482', NULL, 6, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 17:38:45', NULL, NULL, 'job:select', 1);
-INSERT INTO `sys_menu` VALUES ('88b8e5d1f38911e7aca0201a068c6482', '查看', 'cff61424dfb311e7b555201a068c6482', NULL, 4, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 17:03:00', NULL, NULL, 'role:select', 1);
-INSERT INTO `sys_menu` VALUES ('8a6c8bfa7f804eac810c5790cad9a62a', '删除', '3873ccc2dfda11e7b555201a068c6482', NULL, 2, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-06-20 21:55:55', NULL, NULL, 'menu:del', 1);
-INSERT INTO `sys_menu` VALUES ('8c2009add81e41e0abae5a3a69884a4f', '配置管理', 'e06da471f90311e780aa201a068c6482', '/conf', 1, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-02 00:06:07', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-02 00:06:18', 'project:conf', 0);
-INSERT INTO `sys_menu` VALUES ('a1ca6642ec5e11e7a472201a068c6482', '系统监控', NULL, NULL, 2, '&#xe62c;', 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-03 10:56:14', NULL, '2018-01-03 10:56:14', NULL, 0);
-INSERT INTO `sys_menu` VALUES ('b441914cee0811e7a60d201a068c6482', '系统监控', 'a1ca6642ec5e11e7a472201a068c6482', 'druid/index.html', 3, '&#xe628;', 'acfc0e9232f54732a5d9ffe9071bf572', '2017-12-31 16:58:01', NULL, NULL, NULL, 0);
-INSERT INTO `sys_menu` VALUES ('cdbcb92b27e84c1d9114c13e77408a3d', '仅查看', 'cfe54921dfb311e7b555201a068c6482', NULL, 3, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-26 23:06:03', NULL, NULL, 'user:get', 1);
-INSERT INTO `sys_menu` VALUES ('cfda8029dfb311e7b555201a068c6482', '系统管理', NULL, NULL, 1, '&#xe614;', NULL, '2018-01-03 10:56:13', NULL, '2018-01-03 10:56:13', NULL, 0);
-INSERT INTO `sys_menu` VALUES ('cfe54921dfb311e7b555201a068c6482', '用户管理', 'cfda8029dfb311e7b555201a068c6482', '/user/showUser', 2, '', NULL, '2017-12-29 14:40:34', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 23:50:16', 'user:show', 0);
-INSERT INTO `sys_menu` VALUES ('cfe54921dfb311e7b555201a068c6483', '增加', 'cfe54921dfb311e7b555201a068c6482', NULL, 1, NULL, NULL, NULL, NULL, NULL, 'user:select', 1);
-INSERT INTO `sys_menu` VALUES ('cff61424dfb311e7b555201a068c6482', '角色管理', 'cfda8029dfb311e7b555201a068c6482', '/role/showRole', 3, '&#xe613;', NULL, '2017-12-29 14:40:36', NULL, '2017-12-29 14:40:36', 'role:show', 0);
-INSERT INTO `sys_menu` VALUES ('e06da471f90311e780aa201a068c6482', '工作流程', NULL, NULL, 3, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-14 16:21:10', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-16 18:30:45', NULL, 0);
-INSERT INTO `sys_menu` VALUES ('e3b11497eb9e11e7928d201a068c6482', '删除', 'cfe54921dfb311e7b555201a068c6482', NULL, NULL, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2017-12-28 15:17:07', NULL, '2017-12-28 15:17:07', 'user:del', 1);
-INSERT INTO `sys_menu` VALUES ('e9a13e55f35911e7aca0201a068c6482', '定时任务', 'a1ca6642ec5e11e7a472201a068c6482', '/job/showJob', 3, '&#xe756;', 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 11:22:06', NULL, NULL, 'job:show', 0);
-INSERT INTO `sys_menu` VALUES ('ecda560cf36f11e7aca0201a068c6482', '启动', 'e9a13e55f35911e7aca0201a068c6482', NULL, 3, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 13:59:41', NULL, NULL, 'job:start', 1);
-INSERT INTO `sys_menu` VALUES ('f23f6a6bf09511e78a57201a068c6482', '修改密码', 'cfe54921dfb311e7b555201a068c6482', NULL, 4, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-03 22:54:06', NULL, NULL, 'user:repass', 1);
-INSERT INTO `sys_menu` VALUES ('ff015ea5f09411e78a57201a068c6482', '编辑', 'cff61424dfb311e7b555201a068c6482', NULL, 2, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-03 22:47:18', NULL, NULL, 'role:update', 1);
-COMMIT;
-
--- ----------------------------
--- Table structure for sys_role
--- ----------------------------
-DROP TABLE IF EXISTS `sys_role`;
-CREATE TABLE `sys_role` (
-  `id` varchar(32) NOT NULL,
-  `role_name` varchar(128) DEFAULT NULL,
-  `remark` varchar(255) DEFAULT NULL,
-  `create_by` varchar(32) DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL,
-  `update_by` varchar(32) DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of sys_role
--- ----------------------------
-BEGIN;
-INSERT INTO `sys_role` VALUES ('0d3178de48cb482cb0bb3a9ae9ff3764', 'QAleader', 'QA leader', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 17:27:30', NULL, NULL);
-INSERT INTO `sys_role` VALUES ('1f01d6c37afc4a7892bf2970d718f144', 'pm', '项目经理', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-17 17:04:38', NULL, NULL);
-INSERT INTO `sys_role` VALUES ('2619a672e53811e7b983201a068c6482', 'admin', '管理员', 'acfc0e9232f54732a5d9ffe9071bf572', '2017-12-20 11:44:57', NULL, '2018-01-02 11:38:37');
-INSERT INTO `sys_role` VALUES ('b1e002ad12ff4d2ebb024d74d27af432', 'conf_master', '配置管理员', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 23:51:22', NULL, NULL);
-INSERT INTO `sys_role` VALUES ('e3249d0b395d4965a317365a3a774370', 'pm_chief', '项目上级', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-17 17:05:44', NULL, NULL);
-INSERT INTO `sys_role` VALUES ('f7376c6bc042419491be758ae2683842', 'EPGleader', 'EPGleader', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 16:54:20', NULL, NULL);
-COMMIT;
-
--- ----------------------------
--- Table structure for sys_role_menu
--- ----------------------------
-DROP TABLE IF EXISTS `sys_role_menu`;
-CREATE TABLE `sys_role_menu` (
-  `role_id` varchar(32) NOT NULL,
-  `menu_id` varchar(32) NOT NULL,
-  PRIMARY KEY (`role_id`,`menu_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of sys_role_menu
--- ----------------------------
-BEGIN;
-INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', '433089a6eb0111e782d5201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', '4d603831fe9b11e7b472201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', 'cfda8029dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', 'cfe54921dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', 'cfe54921dfb311e7b555201a068c6483');
-INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', 'e06da471f90311e780aa201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', 'e3b11497eb9e11e7928d201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', 'f23f6a6bf09511e78a57201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('0d3178de48cb482cb0bb3a9ae9ff3764', '47013023eb9f423cac0dbbf78880178f');
-INSERT INTO `sys_role_menu` VALUES ('0d3178de48cb482cb0bb3a9ae9ff3764', 'cdbcb92b27e84c1d9114c13e77408a3d');
-INSERT INTO `sys_role_menu` VALUES ('0d3178de48cb482cb0bb3a9ae9ff3764', 'cfda8029dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('0d3178de48cb482cb0bb3a9ae9ff3764', 'cfe54921dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('0d3178de48cb482cb0bb3a9ae9ff3764', 'e06da471f90311e780aa201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', '433089a6eb0111e782d5201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', '4d603831fe9b11e7b472201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', '6931fd22f09611e78a57201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', '6dc13c6eec5f11e7a472201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', 'a1ca6642ec5e11e7a472201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', 'cfda8029dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', 'cfe54921dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', 'e06da471f90311e780aa201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('1f01d6c37afc4a7892bf2970d718f144', '6cdd898044a04dba9c319d9c5d9b8cdf');
-INSERT INTO `sys_role_menu` VALUES ('1f01d6c37afc4a7892bf2970d718f144', '7092bf6527144bf3bfdeefafb19c624d');
-INSERT INTO `sys_role_menu` VALUES ('1f01d6c37afc4a7892bf2970d718f144', 'cdbcb92b27e84c1d9114c13e77408a3d');
-INSERT INTO `sys_role_menu` VALUES ('1f01d6c37afc4a7892bf2970d718f144', 'cfda8029dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('1f01d6c37afc4a7892bf2970d718f144', 'cfe54921dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('1f01d6c37afc4a7892bf2970d718f144', 'e06da471f90311e780aa201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '0e6c8d4cf09511e78a57201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '18bf8d5df09511e78a57201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '28661300f9d411e7a009201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '2b56410cf09411e78a57201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '3873ccc2dfda11e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '433089a6eb0111e782d5201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '5ae3d4e9f38e11e7aca0201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '6315968bf37111e7aca0201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '63da4415fc6211e7a781201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '6931fd22f09611e78a57201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '69f3f59cf38e11e7aca0201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '6dc13c6eec5f11e7a472201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '788d8e34f38e11e7aca0201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '7967e098ee0611e7a60d201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '873f30b0f38e11e7aca0201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '88b8e5d1f38911e7aca0201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '8a6c8bfa7f804eac810c5790cad9a62a');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'a1ca6642ec5e11e7a472201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'b441914cee0811e7a60d201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'cdbcb92b27e84c1d9114c13e77408a3d');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'cfda8029dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'cfe54921dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'cfe54921dfb311e7b555201a068c6483');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'cff61424dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'e06da471f90311e780aa201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'e3b11497eb9e11e7928d201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'e9a13e55f35911e7aca0201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'ecda560cf36f11e7aca0201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'f23f6a6bf09511e78a57201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'ff015ea5f09411e78a57201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('35f7934d335e4641b7887e4b3b1885a5', '18bf8d5df09511e78a57201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('35f7934d335e4641b7887e4b3b1885a5', '3873ccc2dfda11e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('35f7934d335e4641b7887e4b3b1885a5', 'cfda8029dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('a56219ffeb7d11e7928d201a068c6482', '433089a6eb0111e782d5201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('a56219ffeb7d11e7928d201a068c6482', 'cfda8029dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('a56219ffeb7d11e7928d201a068c6482', 'cfe54921dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('b1e002ad12ff4d2ebb024d74d27af432', '8c2009add81e41e0abae5a3a69884a4f');
-INSERT INTO `sys_role_menu` VALUES ('b1e002ad12ff4d2ebb024d74d27af432', 'cdbcb92b27e84c1d9114c13e77408a3d');
-INSERT INTO `sys_role_menu` VALUES ('b1e002ad12ff4d2ebb024d74d27af432', 'cfda8029dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('b1e002ad12ff4d2ebb024d74d27af432', 'cfe54921dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('b1e002ad12ff4d2ebb024d74d27af432', 'e06da471f90311e780aa201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', '4d603831fe9b11e7b472201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', '5ae3d4e9f38e11e7aca0201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', '6315968bf37111e7aca0201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', '69f3f59cf38e11e7aca0201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', '788d8e34f38e11e7aca0201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', '873f30b0f38e11e7aca0201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', 'a1ca6642ec5e11e7a472201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', 'e06da471f90311e780aa201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', 'e9a13e55f35911e7aca0201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', 'ecda560cf36f11e7aca0201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('e3249d0b395d4965a317365a3a774370', '1967670ea5a94ece8d545ffca66d7fa8');
-INSERT INTO `sys_role_menu` VALUES ('e3249d0b395d4965a317365a3a774370', 'cdbcb92b27e84c1d9114c13e77408a3d');
-INSERT INTO `sys_role_menu` VALUES ('e3249d0b395d4965a317365a3a774370', 'cfda8029dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('e3249d0b395d4965a317365a3a774370', 'cfe54921dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('e3249d0b395d4965a317365a3a774370', 'e06da471f90311e780aa201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('e346e96368484c8fa7f217ce550a0186', '4d603831fe9b11e7b472201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('e346e96368484c8fa7f217ce550a0186', 'e06da471f90311e780aa201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('f7376c6bc042419491be758ae2683842', '30ed4a5daa5c4c94b575d41bea2b71eb');
-INSERT INTO `sys_role_menu` VALUES ('f7376c6bc042419491be758ae2683842', 'cdbcb92b27e84c1d9114c13e77408a3d');
-INSERT INTO `sys_role_menu` VALUES ('f7376c6bc042419491be758ae2683842', 'cfda8029dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('f7376c6bc042419491be758ae2683842', 'cfe54921dfb311e7b555201a068c6482');
-INSERT INTO `sys_role_menu` VALUES ('f7376c6bc042419491be758ae2683842', 'e06da471f90311e780aa201a068c6482');
-COMMIT;
-
--- ----------------------------
--- Table structure for sys_role_user
--- ----------------------------
-DROP TABLE IF EXISTS `sys_role_user`;
-CREATE TABLE `sys_role_user` (
-  `user_id` varchar(32) NOT NULL,
-  `role_id` varchar(32) NOT NULL,
-  PRIMARY KEY (`user_id`,`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of sys_role_user
--- ----------------------------
-BEGIN;
-INSERT INTO `sys_role_user` VALUES ('75824222f3ac4f299973a782ad333851', '0d3178de48cb482cb0bb3a9ae9ff3764');
-INSERT INTO `sys_role_user` VALUES ('acfc0e9232f54732a5d9ffe9071bf572', '2619a672e53811e7b983201a068c6482');
-INSERT INTO `sys_role_user` VALUES ('d7a4560c974649ce80d3ba150cd37d21', 'e3249d0b395d4965a317365a3a774370');
-INSERT INTO `sys_role_user` VALUES ('e6ea8a31042540c79ee27ad41c77824d', 'f7376c6bc042419491be758ae2683842');
-INSERT INTO `sys_role_user` VALUES ('e7c3460190b14757abba80f44200711e', 'b1e002ad12ff4d2ebb024d74d27af432');
-INSERT INTO `sys_role_user` VALUES ('f301e0e4b8674f1198bf34f08e4cfccf', '1f01d6c37afc4a7892bf2970d718f144');
-COMMIT;
-
--- ----------------------------
--- Table structure for sys_user
--- ----------------------------
-DROP TABLE IF EXISTS `sys_user`;
-CREATE TABLE `sys_user` (
-  `id` varchar(36) NOT NULL,
-  `username` varchar(64) NOT NULL,
-  `password` varchar(128) NOT NULL,
-  `age` int(4) DEFAULT NULL,
-  `email` varchar(128) DEFAULT NULL,
-  `photo` varchar(255) DEFAULT NULL,
-  `real_name` varchar(18) DEFAULT NULL,
-  `create_by` varchar(32) DEFAULT NULL,
-  `update_by` varchar(32) DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  `del_flag` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0可用1封禁',
-  `phone` varchar(20) DEFAULT NULL,
-  `chief_id` varchar(36) DEFAULT NULL,
-  `department` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of sys_user
--- ----------------------------
-BEGIN;
-INSERT INTO `sys_user` VALUES ('75824222f3ac4f299973a782ad333851', 'QA_leader_Tom', '7538642bbefbd17b8086d4bf50c7c2a5', 32, '10152140148@stu.ecnu.edu.cn', NULL, '汤姆', 'acfc0e9232f54732a5d9ffe9071bf572', NULL, '2020-04-01 17:32:35', NULL, 0, NULL, NULL, 'QA');
-INSERT INTO `sys_user` VALUES ('acfc0e9232f54732a5d9ffe9071bf572', 'admin', 'e0b141de1c8091be350d3fc80de66528', 23, '2403287957@qq.com', 'bb635928-e5e9-4647-b0de-951549ec2352.png', 'rzy', NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2017-12-20 16:34:06', '2020-04-05 22:28:44', 0, '17521999999', NULL, 'ADMIN');
-INSERT INTO `sys_user` VALUES ('d7a4560c974649ce80d3ba150cd37d21', 'chieflwj', 'e05dde8de6f326ad039d9559fc774edb', 2, 'achieve_it2020@163.com', 'd186428b-8317-4992-b902-bf2d79e14ba6.png', '蓝二', 'acfc0e9232f54732a5d9ffe9071bf572', 'd7a4560c974649ce80d3ba150cd37d21', '2020-03-17 18:25:06', '2020-03-17 18:39:12', 0, '13545645645', NULL, 'QA');
-INSERT INTO `sys_user` VALUES ('e6ea8a31042540c79ee27ad41c77824d', 'EPG-leader-Grace', '92be28fa2cea9d4898575145068d30e2', 40, '1369547712@qq.com', NULL, '格雷', 'acfc0e9232f54732a5d9ffe9071bf572', NULL, '2020-04-01 16:58:58', NULL, 0, NULL, NULL, 'EPG');
-INSERT INTO `sys_user` VALUES ('e7c3460190b14757abba80f44200711e', 'config', 'f1ee2a79a064c86f79e4b7e602562121', 30, '744346614@qq.com', NULL, '张伟', 'acfc0e9232f54732a5d9ffe9071bf572', NULL, '2020-04-01 23:52:55', NULL, 0, NULL, NULL, 'CONF');
-INSERT INTO `sys_user` VALUES ('f301e0e4b8674f1198bf34f08e4cfccf', 'PMwifi', 'ee50af8029d65d25fd0d5ff099ead0dc', 3, '313160454@qq.com', NULL, '魏婴', 'acfc0e9232f54732a5d9ffe9071bf572', NULL, '2020-03-17 18:27:04', NULL, 0, '12324234233', 'd7a4560c974649ce80d3ba150cd37d21', 'PM');
-COMMIT;
+#
+# ----------------------------
+# Table structure for arc_info
+# ----------------------------
+# DROP TABLE IF EXISTS `arc_info`;
+# CREATE TABLE `arc_info` (
+#   `p_id` char(11) NOT NULL,
+#   `f_id` varchar(20) NOT NULL,
+#   `f_state` varchar(20) NOT NULL,
+#   PRIMARY KEY (`p_id`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+#
+# -- ----------------------------
+# -- Table structure for pro_dev_group
+# -- ----------------------------
+# DROP TABLE IF EXISTS `pro_dev_group`;
+# CREATE TABLE `pro_dev_group` (
+#   `id` varchar(36) NOT NULL,
+#   `user_id` varchar(36) DEFAULT NULL,
+#   `user_name` varchar(36) DEFAULT NULL,
+#   `pro_id` varchar(36) DEFAULT NULL COMMENT '属于某个项目中的开发组',
+#   `pro_name` varchar(36) DEFAULT NULL,
+#   PRIMARY KEY (`id`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+#
+# -- ----------------------------
+# -- Table structure for pro_test_group
+# -- ----------------------------
+# DROP TABLE IF EXISTS `pro_test_group`;
+# CREATE TABLE `pro_test_group` (
+#   `id` varchar(36) NOT NULL,
+#   `user_id` varchar(36) DEFAULT NULL,
+#   `user_name` varchar(36) DEFAULT NULL,
+#   `pro_id` varchar(36) DEFAULT NULL,
+#   `pro_name` varchar(36) DEFAULT NULL,
+#   PRIMARY KEY (`id`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+#
+# -- ----------------------------
+# -- Table structure for pro_worker_info
+# -- ----------------------------
+# DROP TABLE IF EXISTS `pro_worker_info`;
+# CREATE TABLE `pro_worker_info` (
+#   `pro_id` varchar(36) NOT NULL,
+#   `pro_name` varchar(36) NOT NULL COMMENT '项目经理',
+#   `pro_status` varchar(36) NOT NULL,
+#   `pm_id` varchar(36) NOT NULL,
+#   `pm_name` varchar(36) NOT NULL,
+#   `dev_leader_id` varchar(36) DEFAULT NULL,
+#   `dev_leader_name` varchar(36) DEFAULT NULL,
+#   `test_leader_id` varchar(36) DEFAULT NULL,
+#   `test_leader_name` varchar(36) DEFAULT NULL,
+#   `config_manager_id` varchar(36) DEFAULT NULL,
+#   `config_manager_name` varchar(36) DEFAULT NULL,
+#   `qa_manager_id` varchar(36) DEFAULT NULL,
+#   `qa_manager_name` varchar(36) DEFAULT NULL,
+#   `epg_leader_id` varchar(36) DEFAULT NULL,
+#   `epg_leader_name` varchar(36) DEFAULT NULL,
+#   PRIMARY KEY (`pro_id`) USING BTREE
+# ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+#
+# -- ----------------------------
+# -- Table structure for proj_conf
+# -- ----------------------------
+# DROP TABLE IF EXISTS `proj_conf`;
+# CREATE TABLE `proj_conf` (
+#   `proj_id` varchar(36) NOT NULL DEFAULT '',
+#   `proj_name` varchar(80) DEFAULT NULL,
+#   `git_addr` varchar(80) DEFAULT NULL,
+#   `file_addr` varchar(80) DEFAULT NULL,
+#   `vspace` varchar(80) DEFAULT NULL,
+#   PRIMARY KEY (`proj_id`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# -- ----------------------------
+# -- Table structure for project_info
+# -- ----------------------------
+# DROP TABLE IF EXISTS `project_info`;
+# CREATE TABLE `project_info` (
+#   `id` varchar(36) NOT NULL DEFAULT '',
+#   `pm_id` varchar(36) NOT NULL,
+#   `proj_customer` varchar(36) DEFAULT NULL,
+#   `proj_name` varchar(80) NOT NULL,
+#   `proj_no` varchar(16) DEFAULT NULL,
+#   `proj_state` varchar(16) NOT NULL DEFAULT '申请立项' COMMENT '申请立项 0\n已立项 1\n立项驳回 -1\n进行中 2\n已交付 8\n结束 9\n已归档 10',
+#   `start_date` date DEFAULT NULL,
+#   `end_date` date DEFAULT NULL,
+#   `milestone` mediumtext,
+#   `proj_tech` mediumtext,
+#   `proj_domain` mediumtext,
+#   `proj_main_func` mediumtext,
+#   `epg_manager` varchar(36) DEFAULT NULL,
+#   `config_manager` varchar(36) DEFAULT NULL,
+#   `qa_manager` varchar(36) DEFAULT NULL,
+#   `pm_name` varchar(18) DEFAULT NULL,
+#   `epg_name` varchar(18) DEFAULT NULL,
+#   `qa_name` varchar(18) DEFAULT NULL,
+#   `conf_name` varchar(18) DEFAULT NULL,
+#   `user_id` varchar(36) DEFAULT NULL,
+#   `user_name` varchar(18) DEFAULT NULL,
+#   `process_instance_id` varchar(32) DEFAULT NULL,
+#   `status` varchar(64) DEFAULT NULL,
+#   `create_date` datetime DEFAULT NULL,
+#   `create_by` varchar(32) DEFAULT NULL,
+#   `update_date` datetime DEFAULT NULL,
+#   `update_by` varchar(32) DEFAULT NULL,
+#   `urlpath` varchar(255) DEFAULT NULL,
+#   `submittimes` int(10) DEFAULT '1',
+#   `taskName` varchar(255) DEFAULT NULL,
+#   PRIMARY KEY (`id`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# -- ----------------------------
+# -- Records of project_info
+# -- ----------------------------
+# BEGIN;
+# INSERT INTO `project_info` VALUES ('3bca5d7cdd844fc19f84781ca472c074', 'f301e0e4b8674f1198bf34f08e4cfccf', NULL, '连连看 for MAC', NULL, '已驳回', '2020-06-01', '2020-12-13', 'ui设计完成\n测试完成', 'javafx', '娱乐益智小游戏', '娱乐 游戏 益智', NULL, NULL, NULL, '魏婴', NULL, NULL, NULL, NULL, '魏婴', '177501', NULL, NULL, NULL, NULL, NULL, '/showProjDetail/projId=3bca5d7cdd844fc19f84781ca472c074', 1, NULL);
+# INSERT INTO `project_info` VALUES ('c43d2cbee5ed421faaa70afcd168182b', 'f301e0e4b8674f1198bf34f08e4cfccf', '090811', '钉钉打卡APP（校园版）', '20200809D03', '已立项', '2020-05-21', '2021-04-06', '客户端原型设计完成\nAPI完成\n前后端联调', 'springboot\nAndroid', '打卡签到 业务系统', '打卡签到 任务提示', 'e6ea8a31042540c79ee27ad41c77824d', NULL, 'd7a4560c974649ce80d3ba150cd37d21', '魏婴', NULL, 'QA 蓝二', NULL, NULL, '魏婴', '170001', NULL, NULL, NULL, NULL, NULL, '/showProjDetail/projId=c43d2cbee5ed421faaa70afcd168182b', 1, NULL);
+# INSERT INTO `project_info` VALUES ('cbd0aa14800d4fcd9b39fb639c01afc3', 'f301e0e4b8674f1198bf34f08e4cfccf', '074521', '贴吧 for windows phone', '20200801D11', '已立项', '2020-06-30', '2021-04-06', '看帖板块开发测试完成\n用户互动板块内测', 'java\nspringboot\nmybatis', '社交应用开发', '发帖、社交、交流平台', NULL, NULL, '75824222f3ac4f299973a782ad333851', '魏婴', NULL, 'QA 汤姆', NULL, NULL, '魏婴', '177541', NULL, NULL, NULL, NULL, NULL, '/showProjDetail/projId=cbd0aa14800d4fcd9b39fb639c01afc3', 1, NULL);
+# COMMIT;
+#
+# -- ----------------------------
+# -- Table structure for rsk_info
+# -- ----------------------------
+# DROP TABLE IF EXISTS `rsk_info`;
+# CREATE TABLE `rsk_info` (
+#   `H_ID` varchar(36) NOT NULL,
+#   `P_ID` varchar(36) DEFAULT NULL,
+#   `H_Type` varchar(20) NOT NULL,
+#   `H_Des` varchar(100) NOT NULL,
+#   `H_Grade` varchar(20) NOT NULL,
+#   `H_Influence` varchar(30) NOT NULL,
+#   `H_Tactics` varchar(100) NOT NULL,
+#   `H_State` varchar(20) NOT NULL,
+#   `H_Frequency` varchar(5) NOT NULL,
+#   PRIMARY KEY (`H_ID`),
+#   KEY `P_ID_FK_H_ID` (`P_ID`) USING BTREE,
+#   CONSTRAINT `P_ID_FK_H_ID` FOREIGN KEY (`P_ID`) REFERENCES `project_info` (`id`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# -- ----------------------------
+# -- Table structure for sys_dict_item
+# -- ----------------------------
+# DROP TABLE IF EXISTS `sys_dict_item`;
+# CREATE TABLE `sys_dict_item` (
+#   `id` varchar(32) NOT NULL,
+#   `sequence` int(11) NOT NULL COMMENT '序号',
+#   `value` varchar(100) NOT NULL COMMENT '值',
+#   `description` varchar(100) NOT NULL COMMENT '描述',
+#   `type_id` varchar(32) NOT NULL COMMENT '字典id外检',
+#   `create_by` varchar(32) DEFAULT NULL,
+#   `create_date` datetime DEFAULT NULL,
+#   `update_by` varchar(32) DEFAULT NULL,
+#   `update_date` datetime DEFAULT NULL,
+#   `del_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除标识',
+#   PRIMARY KEY (`id`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典子表';
+#
+# -- ----------------------------
+# -- Table structure for sys_dict_type
+# -- ----------------------------
+# DROP TABLE IF EXISTS `sys_dict_type`;
+# CREATE TABLE `sys_dict_type` (
+#   `id` varchar(32) NOT NULL,
+#   `code` varchar(255) NOT NULL COMMENT '编码',
+#   `del_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除标识',
+#   `text` varchar(255) NOT NULL COMMENT '字典名称',
+#   `create_by` varchar(32) DEFAULT NULL,
+#   `create_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+#   `update_by` varchar(32) DEFAULT NULL,
+#   `update_date` datetime DEFAULT NULL,
+#   PRIMARY KEY (`id`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典主表';
+#
+# -- ----------------------------
+# -- Table structure for sys_job
+# -- ----------------------------
+# DROP TABLE IF EXISTS `sys_job`;
+# CREATE TABLE `sys_job` (
+#   `id` varchar(32) NOT NULL,
+#   `job_name` varchar(255) NOT NULL COMMENT '描述任务',
+#   `cron` varchar(255) NOT NULL COMMENT '任务表达式',
+#   `status` tinyint(1) NOT NULL COMMENT '状态:0未启动false/1启动true',
+#   `clazz_path` varchar(255) NOT NULL COMMENT '任务执行方法',
+#   `job_desc` varchar(255) DEFAULT NULL COMMENT '其他描述',
+#   `create_by` varchar(255) DEFAULT NULL,
+#   `create_date` datetime DEFAULT NULL,
+#   `update_by` varchar(255) DEFAULT NULL,
+#   `update_date` datetime DEFAULT NULL,
+#   PRIMARY KEY (`id`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# -- ----------------------------
+# -- Table structure for sys_log
+# -- ----------------------------
+# DROP TABLE IF EXISTS `sys_log`;
+# CREATE TABLE `sys_log` (
+#   `id` int(11) NOT NULL AUTO_INCREMENT,
+#   `user_name` varchar(32) DEFAULT NULL,
+#   `ip` varchar(255) DEFAULT NULL,
+#   `type` varchar(255) DEFAULT NULL,
+#   `text` varchar(255) DEFAULT NULL,
+#   `param` text,
+#   `create_time` datetime DEFAULT NULL,
+#   PRIMARY KEY (`id`)
+# ) ENGINE=InnoDB AUTO_INCREMENT=611 DEFAULT CHARSET=utf8;
+#
+# -- ----------------------------
+# -- Records of sys_log
+# -- ----------------------------
+# BEGIN;
+# INSERT INTO `sys_log` VALUES (586, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 10:07:18');
+# INSERT INTO `sys_log` VALUES (587, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '申报项目', '[参数1:{\"endDate\":1617206400000,\"id\":\"8522e85b671746239e353b9240d1b7e8\",\"milestone\":\"原型设计完成\\n客户端开发完成\\n前后端联调\",\"opinionList\":[],\"pmId\":\"f301e0e4b8674f1198bf34f08e4cfccf\",\"pmName\":\"魏婴\",\"processInstanceId\":\"165001\",\"projCustomer\":\"090806\",\"projDomain\":\"打卡系统\",\"projMainFunc\":\"自定义打卡签到\",\"projName\":\"钉钉打卡app\",\"projNo\":\"\",\"projTech\":\"Android\\nspringboot\",\"startDate\":1586102400000,\"urlpath\":\"/showProjDetail/projId=8522e85b671746239e353b9240d1b7e8\",\"userName\":\"魏婴\"}]', '2020-04-05 10:07:19');
+# INSERT INTO `sys_log` VALUES (588, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 12:20:16');
+# INSERT INTO `sys_log` VALUES (589, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '申报项目', '[参数1:{\"endDate\":1601395200000,\"id\":\"58c0af730f294a2d939042af6a27f131\",\"milestone\":\"硬件模块测试完成\\n客户端开发完成\\n软硬件联调\",\"opinionList\":[],\"pmId\":\"f301e0e4b8674f1198bf34f08e4cfccf\",\"pmName\":\"魏婴\",\"processInstanceId\":\"167501\",\"projCustomer\":\"109098\",\"projDomain\":\"物联网应用\",\"projMainFunc\":\"无钥匙进入系统（蓝牙实现）\",\"projName\":\"蓝牙门锁配套钥匙APP\",\"projNo\":\"20200506D09\",\"projTech\":\"Android\\n蓝牙BLE\",\"startDate\":1588089600000,\"urlpath\":\"/showProjDetail/projId=58c0af730f294a2d939042af6a27f131\",\"userName\":\"魏婴\"}]', '2020-04-05 12:25:28');
+# INSERT INTO `sys_log` VALUES (590, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 12:25:33');
+# INSERT INTO `sys_log` VALUES (591, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 12:36:14');
+# INSERT INTO `sys_log` VALUES (592, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '申报项目', '[参数1:{\"endDate\":1617638400000,\"id\":\"c43d2cbee5ed421faaa70afcd168182b\",\"milestone\":\"客户端原型设计完成\\nAPI完成\\n前后端联调\",\"opinionList\":[],\"pmId\":\"f301e0e4b8674f1198bf34f08e4cfccf\",\"pmName\":\"魏婴\",\"processInstanceId\":\"170001\",\"projCustomer\":\"090811\",\"projDomain\":\"打卡签到 业务系统\",\"projMainFunc\":\"打卡签到 任务提示\",\"projName\":\"钉钉打卡APP（校园版）\",\"projNo\":\"20200809D03\",\"projTech\":\"springboot\\nAndroid\",\"startDate\":1589990400000,\"urlpath\":\"/showProjDetail/projId=c43d2cbee5ed421faaa70afcd168182b\",\"userName\":\"魏婴\"}]', '2020-04-05 12:38:06');
+# INSERT INTO `sys_log` VALUES (593, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 12:38:11');
+# INSERT INTO `sys_log` VALUES (594, 'admin', '0:0:0:0:0:0:0:1', 'ATHOR', '更新角色', '[参数1:{\"id\":\"0d3178de48cb482cb0bb3a9ae9ff3764\",\"remark\":\"QA leader\",\"roleName\":\"QAleader\"}][参数2:[\"cfda8029dfb311e7b555201a068c6482\",\"cfe54921dfb311e7b555201a068c6482\",\"cdbcb92b27e84c1d9114c13e77408a3d\",\"e06da471f90311e780aa201a068c6482\",\"47013023eb9f423cac0dbbf78880178f\"]]', '2020-04-05 12:40:13');
+# INSERT INTO `sys_log` VALUES (595, 'admin', '0:0:0:0:0:0:0:1', 'ATHOR', '更新角色', '[参数1:{\"id\":\"f7376c6bc042419491be758ae2683842\",\"remark\":\"EPGleader\",\"roleName\":\"EPGleader\"}][参数2:[\"cfda8029dfb311e7b555201a068c6482\",\"cfe54921dfb311e7b555201a068c6482\",\"cdbcb92b27e84c1d9114c13e77408a3d\",\"e06da471f90311e780aa201a068c6482\",\"30ed4a5daa5c4c94b575d41bea2b71eb\"]]', '2020-04-05 12:40:21');
+# INSERT INTO `sys_log` VALUES (596, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 12:41:05');
+# INSERT INTO `sys_log` VALUES (597, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 12:55:04');
+# INSERT INTO `sys_log` VALUES (598, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 13:09:55');
+# INSERT INTO `sys_log` VALUES (599, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 14:31:58');
+# INSERT INTO `sys_log` VALUES (600, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '申报项目', '[参数1:{\"endDate\":1607788800000,\"id\":\"3bca5d7cdd844fc19f84781ca472c074\",\"milestone\":\"ui设计完成\\n测试完成\",\"opinionList\":[],\"pmId\":\"f301e0e4b8674f1198bf34f08e4cfccf\",\"pmName\":\"魏婴\",\"processInstanceId\":\"177501\",\"projCustomer\":\"\",\"projDomain\":\"娱乐益智小游戏\",\"projMainFunc\":\"娱乐 游戏 益智\",\"projName\":\"连连看 for MAC\",\"projNo\":\"\",\"projTech\":\"javafx\",\"startDate\":1590940800000,\"urlpath\":\"/showProjDetail/projId=3bca5d7cdd844fc19f84781ca472c074\",\"userName\":\"魏婴\"}]', '2020-04-05 14:34:30');
+# INSERT INTO `sys_log` VALUES (601, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 14:34:33');
+# INSERT INTO `sys_log` VALUES (602, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 14:48:48');
+# INSERT INTO `sys_log` VALUES (603, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '申报项目', '[参数1:{\"endDate\":1617638400000,\"id\":\"cbd0aa14800d4fcd9b39fb639c01afc3\",\"milestone\":\"看帖板块开发测试完成\\n用户互动板块内测\",\"opinionList\":[],\"pmId\":\"f301e0e4b8674f1198bf34f08e4cfccf\",\"pmName\":\"魏婴\",\"processInstanceId\":\"177541\",\"projCustomer\":\"074521\",\"projDomain\":\"社交应用开发\",\"projMainFunc\":\"发帖、社交、交流平台\",\"projName\":\"贴吧 for windows phone\",\"projNo\":\"20200801D11\",\"projTech\":\"java\\nspringboot\\nmybatis\",\"startDate\":1593446400000,\"urlpath\":\"/showProjDetail/projId=cbd0aa14800d4fcd9b39fb639c01afc3\",\"userName\":\"魏婴\"}]', '2020-04-05 14:48:50');
+# INSERT INTO `sys_log` VALUES (604, 'PMwifi', '0:0:0:0:0:0:0:1', 'ATHOR', '主管项目', '', '2020-04-05 14:54:48');
+# INSERT INTO `sys_log` VALUES (605, 'admin', '0:0:0:0:0:0:0:1', 'ATHOR', '更新角色', '[参数1:{\"id\":\"b1e002ad12ff4d2ebb024d74d27af432\",\"remark\":\"配置管理员\",\"roleName\":\"conf_master\"}][参数2:[\"cfda8029dfb311e7b555201a068c6482\",\"cfe54921dfb311e7b555201a068c6482\",\"cdbcb92b27e84c1d9114c13e77408a3d\",\"e06da471f90311e780aa201a068c6482\",\"8c2009add81e41e0abae5a3a69884a4f\"]]', '2020-04-05 14:57:17');
+# INSERT INTO `sys_log` VALUES (606, 'admin', '0:0:0:0:0:0:0:1', 'ATHOR', '更新角色', '[参数1:{\"id\":\"0d3178de48cb482cb0bb3a9ae9ff3764\",\"remark\":\"QA leader\",\"roleName\":\"QAleader\"}][参数2:[\"cfda8029dfb311e7b555201a068c6482\",\"cfe54921dfb311e7b555201a068c6482\",\"cdbcb92b27e84c1d9114c13e77408a3d\",\"e06da471f90311e780aa201a068c6482\",\"47013023eb9f423cac0dbbf78880178f\"]]', '2020-04-05 14:57:29');
+# INSERT INTO `sys_log` VALUES (607, 'admin', '0:0:0:0:0:0:0:1', 'ATHOR', '更新角色', '[参数1:{\"id\":\"f7376c6bc042419491be758ae2683842\",\"remark\":\"EPGleader\",\"roleName\":\"EPGleader\"}][参数2:[\"cfda8029dfb311e7b555201a068c6482\",\"cfe54921dfb311e7b555201a068c6482\",\"cdbcb92b27e84c1d9114c13e77408a3d\",\"e06da471f90311e780aa201a068c6482\",\"30ed4a5daa5c4c94b575d41bea2b71eb\"]]', '2020-04-05 14:57:48');
+# INSERT INTO `sys_log` VALUES (608, 'admin', '115.62.250.57', 'UPDATE', '更新用户', '[参数1:{\"age\":23,\"email\":\"2403287957@qq.com\",\"id\":\"acfc0e9232f54732a5d9ffe9071bf572\",\"phone\":\"17521999999\",\"photo\":\"bb635928-e5e9-4647-b0de-951549ec2352.png\",\"realName\":\"rzy\"}]', '2020-04-05 22:28:04');
+# INSERT INTO `sys_log` VALUES (609, 'admin', '115.62.250.57', 'UPDATE', '更新用户', '[参数1:{\"age\":23,\"email\":\"2403287957@qq.com\",\"id\":\"acfc0e9232f54732a5d9ffe9071bf572\",\"phone\":\"17521999999\",\"photo\":\"bb635928-e5e9-4647-b0de-951549ec2352.png\",\"realName\":\"rzy\"}]', '2020-04-05 22:28:44');
+# INSERT INTO `sys_log` VALUES (610, 'PMwifi', '115.62.250.57', 'ATHOR', '主管项目', '', '2020-04-06 11:51:51');
+# COMMIT;
+#
+# -- ----------------------------
+# -- Table structure for sys_menu
+# -- ----------------------------
+# DROP TABLE IF EXISTS `sys_menu`;
+# CREATE TABLE `sys_menu` (
+#   `id` varchar(36) NOT NULL,
+#   `name` varchar(255) NOT NULL,
+#   `p_id` varchar(36) DEFAULT NULL,
+#   `url` varchar(255) DEFAULT NULL,
+#   `order_num` int(4) DEFAULT NULL COMMENT '排序字段',
+#   `icon` varchar(255) DEFAULT NULL COMMENT '图标',
+#   `create_by` varchar(32) DEFAULT NULL,
+#   `create_date` datetime DEFAULT NULL,
+#   `update_by` varchar(32) DEFAULT NULL,
+#   `update_date` datetime DEFAULT NULL,
+#   `permission` varchar(255) DEFAULT NULL COMMENT '权限',
+#   `menu_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1栏目2菜单',
+#   PRIMARY KEY (`id`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# -- ----------------------------
+# -- Records of sys_menu
+# -- ----------------------------
+# BEGIN;
+# INSERT INTO `sys_menu` VALUES ('0e6c8d4cf09511e78a57201a068c6482', '删除', 'cff61424dfb311e7b555201a068c6482', NULL, 3, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-03 22:47:44', NULL, NULL, 'role:del', 1);
+# INSERT INTO `sys_menu` VALUES ('18bf8d5df09511e78a57201a068c6482', '新增', '3873ccc2dfda11e7b555201a068c6482', NULL, 1, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-03 22:48:01', NULL, NULL, 'nemu:add', 1);
+# INSERT INTO `sys_menu` VALUES ('1967670ea5a94ece8d545ffca66d7fa8', '项目审批', 'e06da471f90311e780aa201a068c6482', '/project/showApprovals', 1, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-16 18:43:09', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 17:02:54', 'project:approval', 0);
+# INSERT INTO `sys_menu` VALUES ('28661300f9d411e7a009201a068c6482', '流程管理', 'e06da471f90311e780aa201a068c6482', '/act/goAct', 2, '&#xe630;', 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-15 17:12:06', NULL, NULL, 'act:deployment', 0);
+# INSERT INTO `sys_menu` VALUES ('2b56410cf09411e78a57201a068c6482', '新增', 'cff61424dfb311e7b555201a068c6482', NULL, 1, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-03 22:41:23', NULL, NULL, 'role:add', 1);
+# INSERT INTO `sys_menu` VALUES ('30ed4a5daa5c4c94b575d41bea2b71eb', '分配EPG', 'e06da471f90311e780aa201a068c6482', '/epg', 1, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 16:56:21', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 17:29:59', 'project:epg', 0);
+# INSERT INTO `sys_menu` VALUES ('3873ccc2dfda11e7b555201a068c6482', '菜单管理', 'cfda8029dfb311e7b555201a068c6482', 'menu/showMenu', 1, '', NULL, '2017-12-14 14:02:50', 'acfc0e9232f54732a5d9ffe9071bf572', '2018-04-23 19:43:54', 'menu:show', 0);
+# INSERT INTO `sys_menu` VALUES ('433089a6eb0111e782d5201a068c6482', '编辑', 'cfe54921dfb311e7b555201a068c6482', NULL, NULL, '1', 'acfc0e9232f54732a5d9ffe9071bf572', '2017-12-27 20:27:11', NULL, NULL, 'user:update', 1);
+# INSERT INTO `sys_menu` VALUES ('47013023eb9f423cac0dbbf78880178f', '分配QA', 'e06da471f90311e780aa201a068c6482', '/qa', 1, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 17:29:34', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-02 00:14:11', 'project:qa', 0);
+# INSERT INTO `sys_menu` VALUES ('59c8a57055274a779be9ee26e16bd037', '项目归档', 'e06da471f90311e780aa201a068c6482', '/project/showArchive', 2, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 14:15:28', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 14:23:29', 'project:Archive', 0);
+# INSERT INTO `sys_menu` VALUES ('5ae3d4e9f38e11e7aca0201a068c6482', '新增', 'e9a13e55f35911e7aca0201a068c6482', NULL, 1, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 17:37:30', NULL, NULL, 'job:add', 1);
+# INSERT INTO `sys_menu` VALUES ('6315968bf37111e7aca0201a068c6482', '停止', 'e9a13e55f35911e7aca0201a068c6482', NULL, 4, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 14:10:09', NULL, NULL, 'job:end', 1);
+# INSERT INTO `sys_menu` VALUES ('63da4415fc6211e7a781201a068c6482', '模型列表', 'e06da471f90311e780aa201a068c6482', '/act/goActModel', 3, '&#xe60a;', 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-18 23:15:17', NULL, NULL, 'act', 0);
+# INSERT INTO `sys_menu` VALUES ('6931fd22f09611e78a57201a068c6482', '删除', 'b441914cee0811e7a60d201a068c6482', NULL, 1, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-03 22:57:26', NULL, NULL, 'control:del', 1);
+# INSERT INTO `sys_menu` VALUES ('69f3f59cf38e11e7aca0201a068c6482', '编辑', 'e9a13e55f35911e7aca0201a068c6482', NULL, 2, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 17:37:56', NULL, NULL, 'job:update', 1);
+# INSERT INTO `sys_menu` VALUES ('6cdd898044a04dba9c319d9c5d9b8cdf', '主管项目', 'e06da471f90311e780aa201a068c6482', '/project/showPMproject', 2, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-17 22:28:48', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-17 23:50:30', 'project:view', 0);
+# INSERT INTO `sys_menu` VALUES ('6dc13c6eec5f11e7a472201a068c6482', '系统日志', 'a1ca6642ec5e11e7a472201a068c6482', 'log/showLog', 1, '&#xe60a;', 'acfc0e9232f54732a5d9ffe9071bf572', '2017-12-29 14:43:46', NULL, '2017-12-29 14:43:46', 'log:show', 0);
+# INSERT INTO `sys_menu` VALUES ('7092bf6527144bf3bfdeefafb19c624d', '项目申报', 'e06da471f90311e780aa201a068c6482', '/project/showApply', 1, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-16 18:37:21', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-17 16:44:19', 'project:apply', 0);
+# INSERT INTO `sys_menu` VALUES ('788d8e34f38e11e7aca0201a068c6482', '删除', 'e9a13e55f35911e7aca0201a068c6482', NULL, 5, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 17:38:20', NULL, NULL, 'job:del', 1);
+# INSERT INTO `sys_menu` VALUES ('7967e098ee0611e7a60d201a068c6482', '接口api', 'a1ca6642ec5e11e7a472201a068c6482', 'swagger-ui.html', 2, '&#xe64e;', 'acfc0e9232f54732a5d9ffe9071bf572', '2017-12-31 16:42:04', NULL, NULL, NULL, 0);
+# INSERT INTO `sys_menu` VALUES ('873f30b0f38e11e7aca0201a068c6482', '查看', 'e9a13e55f35911e7aca0201a068c6482', NULL, 6, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 17:38:45', NULL, NULL, 'job:select', 1);
+# INSERT INTO `sys_menu` VALUES ('88b8e5d1f38911e7aca0201a068c6482', '查看', 'cff61424dfb311e7b555201a068c6482', NULL, 4, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 17:03:00', NULL, NULL, 'role:select', 1);
+# INSERT INTO `sys_menu` VALUES ('8a6c8bfa7f804eac810c5790cad9a62a', '删除', '3873ccc2dfda11e7b555201a068c6482', NULL, 2, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-06-20 21:55:55', NULL, NULL, 'menu:del', 1);
+# INSERT INTO `sys_menu` VALUES ('8c2009add81e41e0abae5a3a69884a4f', '配置管理', 'e06da471f90311e780aa201a068c6482', '/conf', 1, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-02 00:06:07', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-02 00:06:18', 'project:conf', 0);
+# INSERT INTO `sys_menu` VALUES ('a1ca6642ec5e11e7a472201a068c6482', '系统监控', NULL, NULL, 2, '&#xe62c;', 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-03 10:56:14', NULL, '2018-01-03 10:56:14', NULL, 0);
+# INSERT INTO `sys_menu` VALUES ('b441914cee0811e7a60d201a068c6482', '系统监控', 'a1ca6642ec5e11e7a472201a068c6482', 'druid/index.html', 3, '&#xe628;', 'acfc0e9232f54732a5d9ffe9071bf572', '2017-12-31 16:58:01', NULL, NULL, NULL, 0);
+# INSERT INTO `sys_menu` VALUES ('cdbcb92b27e84c1d9114c13e77408a3d', '仅查看', 'cfe54921dfb311e7b555201a068c6482', NULL, 3, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-26 23:06:03', NULL, NULL, 'user:get', 1);
+# INSERT INTO `sys_menu` VALUES ('cfda8029dfb311e7b555201a068c6482', '系统管理', NULL, NULL, 1, '&#xe614;', NULL, '2018-01-03 10:56:13', NULL, '2018-01-03 10:56:13', NULL, 0);
+# INSERT INTO `sys_menu` VALUES ('cfe54921dfb311e7b555201a068c6482', '用户管理', 'cfda8029dfb311e7b555201a068c6482', '/user/showUser', 2, '', NULL, '2017-12-29 14:40:34', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 23:50:16', 'user:show', 0);
+# INSERT INTO `sys_menu` VALUES ('cfe54921dfb311e7b555201a068c6483', '增加', 'cfe54921dfb311e7b555201a068c6482', NULL, 1, NULL, NULL, NULL, NULL, NULL, 'user:select', 1);
+# INSERT INTO `sys_menu` VALUES ('cff61424dfb311e7b555201a068c6482', '角色管理', 'cfda8029dfb311e7b555201a068c6482', '/role/showRole', 3, '&#xe613;', NULL, '2017-12-29 14:40:36', NULL, '2017-12-29 14:40:36', 'role:show', 0);
+# INSERT INTO `sys_menu` VALUES ('e06da471f90311e780aa201a068c6482', '工作流程', NULL, NULL, 3, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-14 16:21:10', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-16 18:30:45', NULL, 0);
+# INSERT INTO `sys_menu` VALUES ('e3b11497eb9e11e7928d201a068c6482', '删除', 'cfe54921dfb311e7b555201a068c6482', NULL, NULL, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2017-12-28 15:17:07', NULL, '2017-12-28 15:17:07', 'user:del', 1);
+# INSERT INTO `sys_menu` VALUES ('e9a13e55f35911e7aca0201a068c6482', '定时任务', 'a1ca6642ec5e11e7a472201a068c6482', '/job/showJob', 3, '&#xe756;', 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 11:22:06', NULL, NULL, 'job:show', 0);
+# INSERT INTO `sys_menu` VALUES ('ecda560cf36f11e7aca0201a068c6482', '启动', 'e9a13e55f35911e7aca0201a068c6482', NULL, 3, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-07 13:59:41', NULL, NULL, 'job:start', 1);
+# INSERT INTO `sys_menu` VALUES ('f23f6a6bf09511e78a57201a068c6482', '修改密码', 'cfe54921dfb311e7b555201a068c6482', NULL, 4, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-03 22:54:06', NULL, NULL, 'user:repass', 1);
+# INSERT INTO `sys_menu` VALUES ('ff015ea5f09411e78a57201a068c6482', '编辑', 'cff61424dfb311e7b555201a068c6482', NULL, 2, NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-03 22:47:18', NULL, NULL, 'role:update', 1);
+# COMMIT;
+#
+# -- ----------------------------
+# -- Table structure for sys_role
+# -- ----------------------------
+# DROP TABLE IF EXISTS `sys_role`;
+# CREATE TABLE `sys_role` (
+#   `id` varchar(32) NOT NULL,
+#   `role_name` varchar(128) DEFAULT NULL,
+#   `remark` varchar(255) DEFAULT NULL,
+#   `create_by` varchar(32) DEFAULT NULL,
+#   `create_date` datetime DEFAULT NULL,
+#   `update_by` varchar(32) DEFAULT NULL,
+#   `update_date` datetime DEFAULT NULL,
+#   PRIMARY KEY (`id`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# -- ----------------------------
+# -- Records of sys_role
+# -- ----------------------------
+# BEGIN;
+# INSERT INTO `sys_role` VALUES ('0d3178de48cb482cb0bb3a9ae9ff3764', 'QAleader', 'QA leader', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 17:27:30', NULL, NULL);
+# INSERT INTO `sys_role` VALUES ('1f01d6c37afc4a7892bf2970d718f144', 'pm', '项目经理', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-17 17:04:38', NULL, NULL);
+# INSERT INTO `sys_role` VALUES ('2619a672e53811e7b983201a068c6482', 'admin', '管理员', 'acfc0e9232f54732a5d9ffe9071bf572', '2017-12-20 11:44:57', NULL, '2018-01-02 11:38:37');
+# INSERT INTO `sys_role` VALUES ('b1e002ad12ff4d2ebb024d74d27af432', 'conf_master', '配置管理员', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 23:51:22', NULL, NULL);
+# INSERT INTO `sys_role` VALUES ('e3249d0b395d4965a317365a3a774370', 'pm_chief', '项目上级', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-03-17 17:05:44', NULL, NULL);
+# INSERT INTO `sys_role` VALUES ('f7376c6bc042419491be758ae2683842', 'EPGleader', 'EPGleader', 'acfc0e9232f54732a5d9ffe9071bf572', '2020-04-01 16:54:20', NULL, NULL);
+# COMMIT;
+#
+# -- ----------------------------
+# -- Table structure for sys_role_menu
+# -- ----------------------------
+# DROP TABLE IF EXISTS `sys_role_menu`;
+# CREATE TABLE `sys_role_menu` (
+#   `role_id` varchar(32) NOT NULL,
+#   `menu_id` varchar(32) NOT NULL,
+#   PRIMARY KEY (`role_id`,`menu_id`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# -- ----------------------------
+# -- Records of sys_role_menu
+# -- ----------------------------
+# BEGIN;
+# INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', '433089a6eb0111e782d5201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', '4d603831fe9b11e7b472201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', 'cfda8029dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', 'cfe54921dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', 'cfe54921dfb311e7b555201a068c6483');
+# INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', 'e06da471f90311e780aa201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', 'e3b11497eb9e11e7928d201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('023366f3457511e8bcf1309c2315f9aa', 'f23f6a6bf09511e78a57201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('0d3178de48cb482cb0bb3a9ae9ff3764', '47013023eb9f423cac0dbbf78880178f');
+# INSERT INTO `sys_role_menu` VALUES ('0d3178de48cb482cb0bb3a9ae9ff3764', 'cdbcb92b27e84c1d9114c13e77408a3d');
+# INSERT INTO `sys_role_menu` VALUES ('0d3178de48cb482cb0bb3a9ae9ff3764', 'cfda8029dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('0d3178de48cb482cb0bb3a9ae9ff3764', 'cfe54921dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('0d3178de48cb482cb0bb3a9ae9ff3764', 'e06da471f90311e780aa201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', '433089a6eb0111e782d5201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', '4d603831fe9b11e7b472201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', '6931fd22f09611e78a57201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', '6dc13c6eec5f11e7a472201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', 'a1ca6642ec5e11e7a472201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', 'cfda8029dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', 'cfe54921dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('0ea934e5e55411e7b983201a068c6482', 'e06da471f90311e780aa201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('1f01d6c37afc4a7892bf2970d718f144', '6cdd898044a04dba9c319d9c5d9b8cdf');
+# INSERT INTO `sys_role_menu` VALUES ('1f01d6c37afc4a7892bf2970d718f144', '7092bf6527144bf3bfdeefafb19c624d');
+# INSERT INTO `sys_role_menu` VALUES ('1f01d6c37afc4a7892bf2970d718f144', 'cdbcb92b27e84c1d9114c13e77408a3d');
+# INSERT INTO `sys_role_menu` VALUES ('1f01d6c37afc4a7892bf2970d718f144', 'cfda8029dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('1f01d6c37afc4a7892bf2970d718f144', 'cfe54921dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('1f01d6c37afc4a7892bf2970d718f144', 'e06da471f90311e780aa201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '0e6c8d4cf09511e78a57201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '18bf8d5df09511e78a57201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '28661300f9d411e7a009201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '2b56410cf09411e78a57201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '3873ccc2dfda11e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '433089a6eb0111e782d5201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '5ae3d4e9f38e11e7aca0201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '6315968bf37111e7aca0201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '63da4415fc6211e7a781201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '6931fd22f09611e78a57201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '69f3f59cf38e11e7aca0201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '6dc13c6eec5f11e7a472201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '788d8e34f38e11e7aca0201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '7967e098ee0611e7a60d201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '873f30b0f38e11e7aca0201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '88b8e5d1f38911e7aca0201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', '8a6c8bfa7f804eac810c5790cad9a62a');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'a1ca6642ec5e11e7a472201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'b441914cee0811e7a60d201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'cdbcb92b27e84c1d9114c13e77408a3d');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'cfda8029dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'cfe54921dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'cfe54921dfb311e7b555201a068c6483');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'cff61424dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'e06da471f90311e780aa201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'e3b11497eb9e11e7928d201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'e9a13e55f35911e7aca0201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'ecda560cf36f11e7aca0201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'f23f6a6bf09511e78a57201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'ff015ea5f09411e78a57201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('35f7934d335e4641b7887e4b3b1885a5', '18bf8d5df09511e78a57201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('35f7934d335e4641b7887e4b3b1885a5', '3873ccc2dfda11e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('35f7934d335e4641b7887e4b3b1885a5', 'cfda8029dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('a56219ffeb7d11e7928d201a068c6482', '433089a6eb0111e782d5201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('a56219ffeb7d11e7928d201a068c6482', 'cfda8029dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('a56219ffeb7d11e7928d201a068c6482', 'cfe54921dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('b1e002ad12ff4d2ebb024d74d27af432', '8c2009add81e41e0abae5a3a69884a4f');
+# INSERT INTO `sys_role_menu` VALUES ('b1e002ad12ff4d2ebb024d74d27af432', 'cdbcb92b27e84c1d9114c13e77408a3d');
+# INSERT INTO `sys_role_menu` VALUES ('b1e002ad12ff4d2ebb024d74d27af432', 'cfda8029dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('b1e002ad12ff4d2ebb024d74d27af432', 'cfe54921dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('b1e002ad12ff4d2ebb024d74d27af432', 'e06da471f90311e780aa201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', '4d603831fe9b11e7b472201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', '5ae3d4e9f38e11e7aca0201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', '6315968bf37111e7aca0201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', '69f3f59cf38e11e7aca0201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', '788d8e34f38e11e7aca0201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', '873f30b0f38e11e7aca0201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', 'a1ca6642ec5e11e7a472201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', 'e06da471f90311e780aa201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', 'e9a13e55f35911e7aca0201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('dcb0f642fe9611e7b472201a068c6482', 'ecda560cf36f11e7aca0201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('e3249d0b395d4965a317365a3a774370', '1967670ea5a94ece8d545ffca66d7fa8');
+# INSERT INTO `sys_role_menu` VALUES ('e3249d0b395d4965a317365a3a774370', 'cdbcb92b27e84c1d9114c13e77408a3d');
+# INSERT INTO `sys_role_menu` VALUES ('e3249d0b395d4965a317365a3a774370', 'cfda8029dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('e3249d0b395d4965a317365a3a774370', 'cfe54921dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('e3249d0b395d4965a317365a3a774370', 'e06da471f90311e780aa201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('e346e96368484c8fa7f217ce550a0186', '4d603831fe9b11e7b472201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('e346e96368484c8fa7f217ce550a0186', 'e06da471f90311e780aa201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('f7376c6bc042419491be758ae2683842', '30ed4a5daa5c4c94b575d41bea2b71eb');
+# INSERT INTO `sys_role_menu` VALUES ('f7376c6bc042419491be758ae2683842', 'cdbcb92b27e84c1d9114c13e77408a3d');
+# INSERT INTO `sys_role_menu` VALUES ('f7376c6bc042419491be758ae2683842', 'cfda8029dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('f7376c6bc042419491be758ae2683842', 'cfe54921dfb311e7b555201a068c6482');
+# INSERT INTO `sys_role_menu` VALUES ('f7376c6bc042419491be758ae2683842', 'e06da471f90311e780aa201a068c6482');
+# COMMIT;
+#
+# -- ----------------------------
+# -- Table structure for sys_role_user
+# -- ----------------------------
+# DROP TABLE IF EXISTS `sys_role_user`;
+# CREATE TABLE `sys_role_user` (
+#   `user_id` varchar(32) NOT NULL,
+#   `role_id` varchar(32) NOT NULL,
+#   PRIMARY KEY (`user_id`,`role_id`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# -- ----------------------------
+# -- Records of sys_role_user
+# -- ----------------------------
+# BEGIN;
+# INSERT INTO `sys_role_user` VALUES ('75824222f3ac4f299973a782ad333851', '0d3178de48cb482cb0bb3a9ae9ff3764');
+# INSERT INTO `sys_role_user` VALUES ('acfc0e9232f54732a5d9ffe9071bf572', '2619a672e53811e7b983201a068c6482');
+# INSERT INTO `sys_role_user` VALUES ('d7a4560c974649ce80d3ba150cd37d21', 'e3249d0b395d4965a317365a3a774370');
+# INSERT INTO `sys_role_user` VALUES ('e6ea8a31042540c79ee27ad41c77824d', 'f7376c6bc042419491be758ae2683842');
+# INSERT INTO `sys_role_user` VALUES ('e7c3460190b14757abba80f44200711e', 'b1e002ad12ff4d2ebb024d74d27af432');
+# INSERT INTO `sys_role_user` VALUES ('f301e0e4b8674f1198bf34f08e4cfccf', '1f01d6c37afc4a7892bf2970d718f144');
+# COMMIT;
+#
+# -- ----------------------------
+# -- Table structure for sys_user
+# -- ----------------------------
+# DROP TABLE IF EXISTS `sys_user`;
+# CREATE TABLE `sys_user` (
+#   `id` varchar(36) NOT NULL,
+#   `username` varchar(64) NOT NULL,
+#   `password` varchar(128) NOT NULL,
+#   `age` int(4) DEFAULT NULL,
+#   `email` varchar(128) DEFAULT NULL,
+#   `photo` varchar(255) DEFAULT NULL,
+#   `real_name` varchar(18) DEFAULT NULL,
+#   `create_by` varchar(32) DEFAULT NULL,
+#   `update_by` varchar(32) DEFAULT NULL,
+#   `create_date` datetime DEFAULT NULL,
+#   `update_date` datetime DEFAULT NULL,
+#   `del_flag` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0可用1封禁',
+#   `phone` varchar(20) DEFAULT NULL,
+#   `chief_id` varchar(36) DEFAULT NULL,
+#   `department` varchar(20) DEFAULT NULL,
+#   PRIMARY KEY (`id`)
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# -- ----------------------------
+# -- Records of sys_user
+# -- ----------------------------
+# BEGIN;
+# INSERT INTO `sys_user` VALUES ('75824222f3ac4f299973a782ad333851', 'QA_leader_Tom', '7538642bbefbd17b8086d4bf50c7c2a5', 32, '10152140148@stu.ecnu.edu.cn', NULL, '汤姆', 'acfc0e9232f54732a5d9ffe9071bf572', NULL, '2020-04-01 17:32:35', NULL, 0, NULL, NULL, 'QA');
+# INSERT INTO `sys_user` VALUES ('acfc0e9232f54732a5d9ffe9071bf572', 'admin', 'e0b141de1c8091be350d3fc80de66528', 23, '2403287957@qq.com', 'bb635928-e5e9-4647-b0de-951549ec2352.png', 'rzy', NULL, 'acfc0e9232f54732a5d9ffe9071bf572', '2017-12-20 16:34:06', '2020-04-05 22:28:44', 0, '17521999999', NULL, 'ADMIN');
+# INSERT INTO `sys_user` VALUES ('d7a4560c974649ce80d3ba150cd37d21', 'chieflwj', 'e05dde8de6f326ad039d9559fc774edb', 2, 'achieve_it2020@163.com', 'd186428b-8317-4992-b902-bf2d79e14ba6.png', '蓝二', 'acfc0e9232f54732a5d9ffe9071bf572', 'd7a4560c974649ce80d3ba150cd37d21', '2020-03-17 18:25:06', '2020-03-17 18:39:12', 0, '13545645645', NULL, 'QA');
+# INSERT INTO `sys_user` VALUES ('e6ea8a31042540c79ee27ad41c77824d', 'EPG-leader-Grace', '92be28fa2cea9d4898575145068d30e2', 40, '1369547712@qq.com', NULL, '格雷', 'acfc0e9232f54732a5d9ffe9071bf572', NULL, '2020-04-01 16:58:58', NULL, 0, NULL, NULL, 'EPG');
+# INSERT INTO `sys_user` VALUES ('e7c3460190b14757abba80f44200711e', 'config', 'f1ee2a79a064c86f79e4b7e602562121', 30, '744346614@qq.com', NULL, '张伟', 'acfc0e9232f54732a5d9ffe9071bf572', NULL, '2020-04-01 23:52:55', NULL, 0, NULL, NULL, 'CONF');
+# INSERT INTO `sys_user` VALUES ('f301e0e4b8674f1198bf34f08e4cfccf', 'PMwifi', 'ee50af8029d65d25fd0d5ff099ead0dc', 3, '313160454@qq.com', NULL, '魏婴', 'acfc0e9232f54732a5d9ffe9071bf572', NULL, '2020-03-17 18:27:04', NULL, 0, '12324234233', 'd7a4560c974649ce80d3ba150cd37d21', 'PM');
+# COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

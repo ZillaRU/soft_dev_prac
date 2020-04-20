@@ -98,7 +98,6 @@ public class ActivitiController extends BaseController {
     @Autowired
     private TaskService taskService;
 
-
     /**
      * 同步用户 角色 用户角色到activiti表中
      */

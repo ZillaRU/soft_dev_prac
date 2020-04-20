@@ -145,7 +145,7 @@
 
     //将消息显示在网页上
     function setMessageInnerHTML(innerHTML) {
-        layer.alert(innerHTML, {icon: 6, title: "提示", offset: "auto", skin: "layui-layer-molv"});
+        layui.layer.alert(innerHTML, {icon: 6, title: "提示", offset: "auto", skin: "layui-layer-molv"});
     }
 
 

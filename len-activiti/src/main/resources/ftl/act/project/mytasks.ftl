@@ -131,7 +131,6 @@
                             var index = parent.layer.getFrameIndex(window.name);
                             window.top.layer.msg(data.msg, {icon: 6, offset: 'rb', area: ['120px', '80px'], anim: 2});
                             parent.layer.close(index);
-                            window.parent.location.reload();
                         }, error: function () {
                             var index = parent.layer.getFrameIndex(window.name);
                             window.top.layer.msg('请求失败', {icon: 5, offset: 'rb', area: ['120px', '80px'], anim: 2});
@@ -161,7 +160,6 @@
                             var index = parent.layer.getFrameIndex(window.name);
                             window.top.layer.msg(data.msg, {icon: 6, offset: 'rb', area: ['120px', '80px'], anim: 2});
                             parent.layer.close(index);
-                            window.parent.location.reload();
                         }, error: function () {
                             var index = parent.layer.getFrameIndex(window.name);
                             window.top.layer.msg('请求失败', {icon: 5, offset: 'rb', area: ['120px', '80px'], anim: 2});

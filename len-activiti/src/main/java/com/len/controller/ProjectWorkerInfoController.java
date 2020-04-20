@@ -154,9 +154,9 @@ public class ProjectWorkerInfoController {
             worInf.setProRoleName("配置管理人员");
         } else if (worInf.getProRoleName().equals("qa")) {
             worInf.setProRoleName("QA");
-        } else {
+        } else if (worInf.getProRoleName().equals("epg")) {
             worInf.setProRoleName("EPG");
-        }
+        } else worInf.setProRoleName("PM");
         return worInf;
     }
 
@@ -220,9 +220,9 @@ public class ProjectWorkerInfoController {
                     worInfo.get(i).setProRoleName("配置管理人员");
                 } else if (worInfo.get(i).getProRoleName().equals("qa")) {
                     worInfo.get(i).setProRoleName("QA");
-                } else {
+                } else if (worInfo.get(i).getProRoleName().equals("epg")) {
                     worInfo.get(i).setProRoleName("EPG");
-                }
+                } else worInfo.get(i).setProRoleName("PM");
             }
         }
         return new ReType(worInfo.size(), worInfo);
@@ -278,7 +278,12 @@ public class ProjectWorkerInfoController {
         JSONObject returnValue = new JSONObject();
         String id = Principal.getPrincipal().getId();
         List<ProjectInfo> projectInfos = projectInfoService.selectByPmId(id);
-        returnValue.put("projs", projectInfos);
+        List<ProjectInfo> infos = new ArrayList<>();
+        for (ProjectInfo info : projectInfos) {
+            if (info.getProjState().equals("已立项"))
+                infos.add(info);
+        }
+        returnValue.put("projs", infos);
         return JSON.toJSONString(returnValue);
     }
 
