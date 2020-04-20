@@ -34,5 +34,5 @@ public interface ProWorInfoManMapper extends BaseMapper<ProWorInfoMan,String> {
     // 查找出某一角色下的所有成员
     List<ProWorInfoMan> selectUserByRoleName(ProWorInfoMan worInfo);
 
-    List<ProWorInfoMan> selectMyProIds(String userId);
+    List<ProWorInfoMan> selectMyProIds(ProWorInfoMan worInfo);
 }

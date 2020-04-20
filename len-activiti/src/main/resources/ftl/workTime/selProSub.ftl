@@ -1,9 +1,3 @@
-<#-- Created by IntelliJ IDEA.
- User: Administrator
- Date: 2017/12/6
- Time: 14:00
- To change this template use File | Settings | File Templates.
- 项目人员信息显示-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,23 +18,14 @@
 
 <body>
 
-<div class="lenos-search">
-    <div class="select">
-        项目名称:
-        <div class="layui-inline">
-            <input class="layui-input" height="20px" id="proName" autocomplete="off">
-        </div>
-        <button class="select-on layui-btn layui-btn-sm" data-type="select"><i class="layui-icon"></i>
-        </button>
-        <button class="layui-btn layui-btn-sm icon-position-button" id="refresh" style="float: right;"
-                data-type="reload">
-            <i class="layui-icon">ဂ</i>
-        </button>
-    </div>
-</div>
 <table id="myProList" class="layui-hide" lay-filter="workTime" ></table>
-<script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-bg-green layui-btn-xs" lay-event="detail">查看</a>
+<script type="text/html" id="showProInfo">
+    <a class="layui-btn layui-btn-primary layui-bg-green layui-btn-sm" lay-event="detail">
+        <i class="layui-icon">&#xe60a;</i>角色列表</a>
+</script>
+<script type="text/html" id="subWorTime">
+    <a class="layui-btn layui-btn-primary layui-bg-green layui-btn-sm" lay-event="submit">
+        <i class="layui-icon">&#xe642;</i>写入提交</a>
 </script>
 <script>
     layui.use('table', function () {
@@ -54,73 +39,34 @@
                 {
                     field: 'proName',
                     title: '项目名称',
-                    width: '10%',
+                    width: '20%',
                     sort: true,
                     style: 'background-color: #009688; color: #fff;'
                 }
-                , {field: 'proStatus', title: '项目状态', width: '10%'}
-                , {field: 'devLeader', title: '开发负责人', width: '10%'}
-                , {field: 'dev', title: '开发小组', width: '15%'}
-                , {field: 'testLeader', title: '测试负责人', width: '10%'}
-                , {field: 'test', title: '测试小组', width: '15%'}
-                , {field: 'confMan', title: '配置管理人员', width: '12%'}
-                , {field: 'qa', title: 'QA管理人员', width: '12%'}
-                , {field: 'epg', title: 'epg人员', width: '10%'}
-                , {field: 'operate', title: '操作', width: '8%', toolbar: "#barDemo"}
+                , {field: 'pmName', title: '项目经理', width: '20%'}
+                , {field: 'receiveUserName', title: '信息审核人员', width: '20%'}
+                , {field: 'viewDetail', title: '查看项目角色信息', width: '20%', toolbar: "#showProInfo"}
+                , {field: 'operate', title: '提交工时', width: '20%', toolbar: "#subWorTime"}
             ]]
             , page: true
             , height: 'full-83'
         });
 
-        var $ = layui.$, active = {
-            select: function () {
-                var proName = $('#proName').val();
-                console.info(proName);
-                table.reload('projWorkerList', {
-                    where: {
-                        proName: proName
-                    }
-                });
-            },
-            reload: function () {
-                $('#proName').val('');
-                table.reload('projworkerList', {
-                    where: {
-                        proName: ""
-                    }
-                });
-            },
-            detail: function () {
-                var checkStatus = table.checkStatus('projworkerList')
-                    , data = checkStatus.data;
-                console.log(data);
-                detail('查看项目信息', 'showProDetail?proId=' + data[0].id, 900, 600);
-            },
-        };
-
-        $('.layui-col-md12 .layui-btn').on('click', function () {
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
-        $('.select .layui-btn').on('click', function () {
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
-        $('.refresh .layui-btn').on('click', function () {
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
-
         //监听工具条
-        table.on('tool(act)', function (obj) {
+        table.on('tool(workTime)', function (obj) {
             var data = obj.data;
-            console.log(data)
+            console.log(data);
             if (obj.event === 'detail') {
-                detail('查看项目人员信息', 'showProDetail?proId=' + data.proId, 700, 500);
+                detail('查看项目人员角色信息', 'showProRoleDetail?proId=' + data.proId + '&proName=' + data.proName
+                    +'&pmName=' + data.pmName, 700, 500);
+            }else if(obj.event === 'submit'){
+                submit('提交项目工时信息', 'submitWorkTimeInfo?id=' + data.id, 700, 500);
             }
         });
 
     });
+
+    var laydate = layui.laydate, layer = layui.layer;
 
     function detail(title, url, w, h) {
         if (title == null || title == '') {
@@ -136,7 +82,7 @@
             h = ($(window).height() - 50);
         }
         layer.open({
-            id: 'proj-detail',
+            id: 'pro_role_detail',
             type: 2,
             area: [w + 'px', h + 'px'],
             fix: false,
@@ -146,6 +92,48 @@
             title: title,
             content: url + '&detail=true'
             // btn:['关闭']
+        });
+    }
+
+    function submit(title, url, w, h) {
+        if (title == null || title == '') {
+            title = false;
+        }
+        if (url == null || url == '') {
+            url = "error/404";
+        }
+        if (w == null || w == '') {
+            w = ($(window).width() * 0.9);
+        }
+        if (h == null || h == '') {
+            h = ($(window).height() - 50);
+        }
+        layer.open({
+            id: 'sub_work_time',
+            type: 2,
+            area: [w + 'px', h + 'px'],
+            fix: false,
+            maxmin: true,
+            shadeClose: true,
+            shade: 0.4,
+            title: title,
+            content: url,
+            success: function(layero, index) {
+                laydate.render({
+                    elem: '#subDate',
+                    type: 'datetime'
+                });
+                laydate.render({
+                    elem: '#startTime',
+                    type: 'time',
+                    format: 'HH:mm:ss'
+                    });
+                laydate.render({
+                    elem: '#endTime',
+                    type: 'time',
+                    format: 'HH:mm:ss'
+                });
+            }
         });
     }
 </script>

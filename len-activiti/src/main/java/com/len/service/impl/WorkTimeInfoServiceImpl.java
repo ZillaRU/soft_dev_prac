@@ -9,6 +9,8 @@ import com.len.service.WorkTimeInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class WorkTimeInfoServiceImpl extends BaseServiceImpl<WorkTimeInfo, String> implements WorkTimeInfoService {
 
@@ -24,5 +26,17 @@ public class WorkTimeInfoServiceImpl extends BaseServiceImpl<WorkTimeInfo, Strin
 
     public int insertWorkTimeInfo(WorkTimeInfo workTimeInfo){
         return workTimeInfoMapper.insertWorkTimeInfo(workTimeInfo);
+    }
+
+    public List<WorkTimeInfo> selectByProIdUserId(WorkTimeInfo workTimeInfo) {
+        return workTimeInfoMapper.selectByProIdUserId(workTimeInfo);
+    }
+
+    public List<WorkTimeInfo> selectByUserId(WorkTimeInfo workTimeInfo) {
+        return workTimeInfoMapper.selectByUserId(workTimeInfo);
+    }
+
+    public WorkTimeInfo selectById(String id){
+        return workTimeInfoMapper.selectById(id);
     }
 }

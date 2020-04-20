@@ -87,11 +87,12 @@ public class ProjectWorkerInfoController {
     }
 
     @GetMapping("showInfo")
-    public String showInfo(Model model) {
+    public String showInfo(Model model, String proName) {
         String id = Principal.getPrincipal().getId();
         SysUser user = userService.selectByPrimaryKey(id);
         System.out.println(JSON.toJSONString(user));
         model.addAttribute("user", user);
+        dealFunction(proName);
         return "act/projectWorker/showWorkerInfo";
     }
 
@@ -188,21 +189,30 @@ public class ProjectWorkerInfoController {
         return worInf;
     }
 
-    @ApiOperation(value = "项目人员信息", httpMethod = "GET")
-    @Log(desc = "当前项目经理管理的项目人员信息")
-    @GetMapping("info")
-    @ResponseBody
-    public ReType proWorkerInfo(Model mol, String proName, ProjectWorkerInfo worInfo, String page, String limit) {
+    public void dealFunction(String proName){
+        ProjectWorkerInfo worInfo = new ProjectWorkerInfo();
         String id = Principal.getPrincipal().getId();
         worInfo.setPmId(id);
         worInfo.setProName(proName);
         String proId;
-        List<ProWorInfoTmp> res = new ArrayList<ProWorInfoTmp>();
         List<ProjectWorkerInfo> worInf = projectWorkerInfoService.selectByProName(worInfo);
         for(int j=0; j<worInf.size(); j++){
             proId = worInf.get(j).getProId();
             definFinish(proId);
         }
+
+    }
+
+    @ApiOperation(value = "项目人员信息", httpMethod = "GET")
+    @Log(desc = "当前项目经理管理的项目人员信息")
+    @GetMapping("info")
+    @ResponseBody
+    public ReType proWorkerInfo(Model mol, String proName, String page, String limit) {
+        String id = Principal.getPrincipal().getId();
+        ProjectWorkerInfo worInfo = new ProjectWorkerInfo();
+        worInfo.setPmId(id);
+        worInfo.setProName(proName);
+        List<ProWorInfoTmp> res = new ArrayList<ProWorInfoTmp>();
         List<ProjectWorkerInfo> worInff = projectWorkerInfoService.selectByProName(worInfo);
         for (int i = 0; i < worInff.size(); i++) {
             ProWorInfoTmp proWorInfoTmp = findProUsername(worInff.get(i));
@@ -274,7 +284,6 @@ public class ProjectWorkerInfoController {
     @ResponseBody
     public JsonUtil delWor(String id){
         JsonUtil j = new JsonUtil();
-        String proStatus;
         String msg="删除成功";
         try{
             proWorInfoManService.delById(id);

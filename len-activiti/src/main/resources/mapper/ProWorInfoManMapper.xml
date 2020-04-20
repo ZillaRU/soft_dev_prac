@@ -49,7 +49,7 @@
         SELECT count(*) FROM pro_wor_info_man where pro_id=#{proId} and pro_role_name=#{proRoleName} and user_id=#{userId}
     </select>
 
-    <select id="selectMyProIds" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="selectMyProIds" parameterType="com.len.entity.ProWorInfoMan" resultMap="BaseResultMap">
         SELECT distinct pro_id FROM pro_wor_info_man where user_id = #{userId}
     </select>
 

@@ -28,8 +28,8 @@ public class ProWorInfoManServiceImpl extends BaseServiceImpl<ProWorInfoMan, Str
         return proWorInfoManMapper.selectByProName(worInfo);
     }
 
-    public List<ProWorInfoMan> selectMyProIds(String userId){
-        return proWorInfoManMapper.selectMyProIds(userId);}
+    public List<ProWorInfoMan> selectMyProIds(ProWorInfoMan worInfo){
+        return proWorInfoManMapper.selectMyProIds(worInfo);}
 
     public List<ProWorInfoMan> selectByProId(String proId) {
         return proWorInfoManMapper.selectByProId(proId);

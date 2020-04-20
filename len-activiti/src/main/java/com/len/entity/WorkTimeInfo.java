@@ -8,7 +8,7 @@ import lombok.ToString;
 import javax.persistence.*;
 
 
-@Table(name = "wor_time_info")
+@Table(name = "work_time_info")
 @ToString
 @Data
 @Getter
@@ -24,6 +24,12 @@ public class WorkTimeInfo {
 
     @Column(name = "pro_name")
     private String proName;
+
+    @Column(name = "pm_id")
+    private String pmId;
+
+    @Column(name = "pm_name")
+    private String pmName;
 
     @Column(name = "send_user_id")
     private String sendUserId;
@@ -48,6 +54,10 @@ public class WorkTimeInfo {
     public void setProName(String proName) {
         this.proName = proName;
     }
+
+    public void setPmId(String pmId) { this.pmId = pmId;}
+
+    public void setPmName(String pmName) {this.pmName = pmName;}
 
     public void setSendUserId(String sendUserId) {
         this.sendUserId = sendUserId;
