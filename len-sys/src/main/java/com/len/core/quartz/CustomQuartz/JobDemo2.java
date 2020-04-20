@@ -5,14 +5,14 @@ import com.len.entity.SysUser;
 import com.len.service.SysUserService;
 import com.len.service.impl.SysUserServiceImpl;
 import com.len.util.SpringUtil;
-import java.text.SimpleDateFormat;
-import java.util.List;
-
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.context.ApplicationContext;
+
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * @author zhuxiaomeng

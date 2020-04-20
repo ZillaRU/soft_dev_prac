@@ -15,11 +15,11 @@
  */
 package com.len.entity;
 
-import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.activiti.engine.repository.Model;
+
+import java.util.Date;
 
 /**
  * @author zhuxiaomeng

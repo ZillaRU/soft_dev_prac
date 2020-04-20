@@ -35,25 +35,38 @@ public class ProWorInfoManServiceImpl extends BaseServiceImpl<ProWorInfoMan, Str
         return proWorInfoManMapper.selectByProId(proId);
     }
 
-    public int delById(String id){
+    public int delById(String id) {
         return proWorInfoManMapper.delById(id);
     }
 
-    public int selectRoleNum(ProWorInfoMan worInfo){return proWorInfoManMapper.selectRoleNum(worInfo);}
+    public int selectRoleNum(ProWorInfoMan worInfo) {
+        return proWorInfoManMapper.selectRoleNum(worInfo);
+    }
 
-    public int insertProWor(ProWorInfoMan worInfo){
+    public int insertProWor(ProWorInfoMan worInfo) {
         return proWorInfoManMapper.insertProWor(worInfo);
     }
 
+    @Override
+    public List<ProWorInfoMan> selectByUId(String u_id) {
+        return proWorInfoManMapper.selectByUId(u_id);
+    }
+
+    @Override
+    public List<ProWorInfoMan> selectByPId(String p_id) {
+        return proWorInfoManMapper.selectByPId(p_id);
+    }
+
     // 查找某一项目的某一角色的所有用户
-    public List<ProWorInfoMan> selectUserByRoleName(ProWorInfoMan worInfo){
+    public List<ProWorInfoMan> selectUserByRoleName(ProWorInfoMan worInfo) {
         return proWorInfoManMapper.selectUserByRoleName(worInfo);
     }
 
     public int selectSameCondi(ProWorInfoMan worInfo){return proWorInfoManMapper.selectSameCondi(worInfo);}
 
     // 更新项目人员
-    public int updateRoleById(ProWorInfoMan worInfo){
-        return proWorInfoManMapper.updateRoleById(worInfo);}
+    public int updateRoleById(ProWorInfoMan worInfo) {
+        return proWorInfoManMapper.updateRoleById(worInfo);
+    }
 
 }

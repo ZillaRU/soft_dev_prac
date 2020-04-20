@@ -1,9 +1,9 @@
 package com.len.core.BootListener;
 
+import org.springframework.stereotype.Component;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-
-import org.springframework.stereotype.Component;
 
 /**
  * @author zhuxiaomeng

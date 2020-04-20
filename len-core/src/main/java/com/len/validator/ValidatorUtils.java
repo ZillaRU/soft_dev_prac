@@ -1,11 +1,11 @@
 package com.len.validator;
-import com.len.exception.MyException;
 
-import java.util.Set;
+import com.len.exception.MyException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import java.util.Set;
 
 /**
  * 

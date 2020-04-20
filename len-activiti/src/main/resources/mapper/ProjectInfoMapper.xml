@@ -2,38 +2,62 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.len.mapper.ProjectInfoMapper">
     <resultMap id="BaseResultMap" type="com.len.entity.ProjectInfo">
-        <id column="id" jdbcType="VARCHAR" property="id" />
-        <result column="proj_name" jdbcType="VARCHAR" property="projName" />
-        <result column="proj_no" jdbcType="VARCHAR" property="projNo" />
-        <result column="pm_id" jdbcType="VARCHAR" property="pmId" />
-        <result column="pm_name" jdbcType="VARCHAR" property="pmName" />
-        <result column="proj_customer" jdbcType="VARCHAR" property="projCustomer" />
-        <result column="proj_state" jdbcType="VARCHAR" property="projState" />
-        <result column="start_date" jdbcType="DATE" property="startDate" />
-        <result column="end_date" jdbcType="DATE" property="endDate" />
-        <result column="milestone" jdbcType="VARCHAR" property="milestone" />
-        <result column="proj_tech" jdbcType="VARCHAR" property="projTech" />
-        <result column="proj_domain" jdbcType="VARCHAR" property="projDomain" />
-        <result column="proj_main_func" jdbcType="VARCHAR" property="projMainFunc" />
-        <result column="epg_manager" jdbcType="VARCHAR" property="epgManager" />
-        <result column="config_manager" jdbcType="VARCHAR" property="configManager" />
-        <result column="qa_manager" jdbcType="VARCHAR" property="qaManager" />
-        <result column="epg_name" jdbcType="VARCHAR" property="epgName" />
-        <result column="conf_name" jdbcType="VARCHAR" property="confName" />
-        <result column="qa_name" jdbcType="VARCHAR" property="qaName" />
-        <result column="user_id" jdbcType="VARCHAR" property="userId" />
-        <result column="user_name" jdbcType="VARCHAR" property="userName" />
-        <result column="process_instance_Id" jdbcType="VARCHAR" property="processInstanceId" />
-        <result column="status" jdbcType="VARCHAR" property="status" />
-        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
-        <result column="create_by" jdbcType="VARCHAR" property="createBy" />
-        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
-        <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
-        <result column="taskName" jdbcType="VARCHAR" property="taskName" />
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="proj_name" jdbcType="VARCHAR" property="projName"/>
+        <result column="proj_no" jdbcType="VARCHAR" property="projNo"/>
+        <result column="pm_id" jdbcType="VARCHAR" property="pmId"/>
+        <result column="pm_name" jdbcType="VARCHAR" property="pmName"/>
+        <result column="proj_customer" jdbcType="VARCHAR" property="projCustomer"/>
+        <result column="proj_state" jdbcType="VARCHAR" property="projState"/>
+        <result column="start_date" jdbcType="DATE" property="startDate"/>
+        <result column="end_date" jdbcType="DATE" property="endDate"/>
+        <result column="milestone" jdbcType="VARCHAR" property="milestone"/>
+        <result column="proj_tech" jdbcType="VARCHAR" property="projTech"/>
+        <result column="proj_domain" jdbcType="VARCHAR" property="projDomain"/>
+        <result column="proj_main_func" jdbcType="VARCHAR" property="projMainFunc"/>
+        <result column="epg_manager" jdbcType="VARCHAR" property="epgManager"/>
+        <result column="config_manager" jdbcType="VARCHAR" property="configManager"/>
+        <result column="qa_manager" jdbcType="VARCHAR" property="qaManager"/>
+        <result column="epg_name" jdbcType="VARCHAR" property="epgName"/>
+        <result column="conf_name" jdbcType="VARCHAR" property="confName"/>
+        <result column="qa_name" jdbcType="VARCHAR" property="qaName"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="process_instance_Id" jdbcType="VARCHAR" property="processInstanceId"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="taskName" jdbcType="VARCHAR" property="taskName"/>
     </resultMap>
 
     <select id="selectByPmId" parameterType="java.lang.String" resultMap="BaseResultMap">
-        SELECT * FROM project_info where pm_id = #{pm_id}
+        SELECT *
+        FROM project_info
+        where pm_id = #{pm_id}
+    </select>
+
+    <select id="selectByEPGIdandState" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT *
+        FROM project_info
+        where epg_manager = #{user_id}
+          and proj_state = '申请归档'
+    </select>
+
+    <select id="selectByPState" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT proj_name
+        FROM project_info
+        where proj_state = '进行中'
+    </select>
+
+    <select id="selectListByPage" parameterType="com.len.entity.ProjectInfo" resultMap="BaseResultMap">
+        SELECT *
+        from project_info
+        <where>
+            <if test="projName!=null and projName!=''">and proj_name LIKE '%${projName}%'</if>
+            <if test="pmId!=null and pmId!=''">and pm_id = #{pmId}</if>
+        </where>
     </select>
 
 </mapper>

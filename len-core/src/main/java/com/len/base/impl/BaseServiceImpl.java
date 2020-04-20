@@ -230,11 +230,9 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
         try {
             tList = getMappser().selectListByPage(t);
         } catch (MyException e) {
-//            logger.error("class:BaseServiceImpl ->method:show->message:" + e.getMessage());
             log.error("class:BaseServiceImpl ->method:show->message:" + e.getMessage());
             e.printStackTrace();
         }
-//        ReType reType = new ReType(  tList);
         return JSON.toJSONString(tList);
     }
 

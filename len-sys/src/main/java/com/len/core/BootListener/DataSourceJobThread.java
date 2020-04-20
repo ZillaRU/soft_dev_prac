@@ -3,14 +3,13 @@ package com.len.core.BootListener;
 import com.len.core.quartz.JobTask;
 import com.len.entity.SysJob;
 import com.len.service.JobService;
-import com.len.util.SpringUtil;
 import com.len.service.RoleService;
-
-import java.util.List;
-
+import com.len.util.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 /**
  * @author zhuxiaomeng

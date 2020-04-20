@@ -1,15 +1,16 @@
 package com.len.core.quartz.CustomQuartz;
 
-import com.len.util.SpringUtil;
 import com.len.entity.SysUser;
 import com.len.service.SysUserService;
-import java.text.SimpleDateFormat;
-import java.util.List;
+import com.len.util.SpringUtil;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * @author zhuxiaomeng

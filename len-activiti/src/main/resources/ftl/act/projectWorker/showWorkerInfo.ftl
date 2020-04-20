@@ -114,7 +114,7 @@
         //监听工具条
         table.on('tool(act)', function (obj) {
             var data = obj.data;
-            console.log(data)
+            console.log(data);
             if (obj.event === 'detail') {
                 detail('查看项目人员信息', 'showProDetail?proId=' + data.proId, 700, 500);
             }

@@ -1,11 +1,12 @@
 package com.len.config;
 
-import java.util.Properties;
 import org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
+
+import java.util.Properties;
 
 /**
  * @author zhuxiaomeng

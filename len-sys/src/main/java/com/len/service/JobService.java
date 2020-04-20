@@ -2,7 +2,6 @@ package com.len.service;
 
 import com.len.base.BaseService;
 import com.len.entity.SysJob;
-import com.len.entity.SysMenu;
 import com.len.util.JsonUtil;
 
 /**

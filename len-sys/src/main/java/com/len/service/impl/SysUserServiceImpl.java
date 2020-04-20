@@ -18,17 +18,19 @@ import com.len.service.MenuService;
 import com.len.service.RoleService;
 import com.len.service.RoleUserService;
 import com.len.service.SysUserService;
-import com.len.util.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.len.util.BeanUtil;
+import com.len.util.Checkbox;
+import com.len.util.JsonUtil;
+import com.len.util.Md5Util;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**

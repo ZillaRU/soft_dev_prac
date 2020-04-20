@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.RskReUsrMapper">
+    <resultMap id="BaseResultMap" type="com.len.entity.RskReUsr">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="H_ID" jdbcType="VARCHAR" property="hId"/>
+        <result column="U_ID" jdbcType="VARCHAR" property="uId"/>
+        <result column="U_Name" jdbcType="VARCHAR" property="uName"/>
+    </resultMap>
+    <select id="selectByRId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT *
+        FROM rsk_re_usr
+        where H_ID = #{r_id}
+    </select>
+    <select id="selectByUId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT *
+        FROM rsk_re_usr
+        where U_ID = #{u_id}
+    </select>
+
+    <delete id="deleteByRId" parameterType="java.lang.String">
+        DELETE
+        FROM rsk_re_usr
+        where H_ID = #{r_id}
+    </delete>
+</mapper>

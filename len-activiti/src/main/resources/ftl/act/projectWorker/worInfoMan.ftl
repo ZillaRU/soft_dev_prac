@@ -81,7 +81,6 @@
                         proName: ""
                     }
                 });
-                select();
             },
             add: function () {
                 add('添加项目人员', 'showAddProWor', 700, 450);

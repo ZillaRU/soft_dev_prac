@@ -5,15 +5,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.len.core.annotation.Log;
 import com.len.core.shiro.Principal;
-import com.len.entity.BaseTask;
-import com.len.entity.ProjectFunction;
-import com.len.entity.ProjectInfo;
-import com.len.entity.SysUser;
+import com.len.entity.*;
 import com.len.exception.MyException;
-import com.len.service.ProjFuncService;
-import com.len.service.ProjectInfoService;
-import com.len.service.RoleUserService;
-import com.len.service.SysUserService;
+import com.len.service.*;
 import com.len.util.*;
 import io.swagger.annotations.ApiOperation;
 import org.activiti.bpmn.model.BpmnModel;
@@ -37,7 +31,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.misc.BASE64Encoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -80,6 +73,9 @@ public class ProjectInfoController {
 
     @Autowired
     ProjFuncService projFuncService;
+
+    @Autowired
+    ProjectWorkerInfoService projectWorkerInfoService;
 
     @GetMapping(value = "showApply", produces = "application/json;charset=utf-8")
     public String applyProject(Model model) {
@@ -160,9 +156,11 @@ public class ProjectInfoController {
     @Log(desc = "主管项目")
     @GetMapping("showPMprojctList")
     @ResponseBody
-    public ReType showPMprojctList() {
-        List<ProjectInfo> list = projectInfoService.selectByPmId(Principal.getPrincipal().getId());
-        return new ReType(list.size(), list);
+    public ReType showPMprojctList(String proName, int page, int limit) {
+        ProjectInfo projectInfo = new ProjectInfo();
+        projectInfo.setPmId(Principal.getPrincipal().getId());
+        projectInfo.setProjName(proName);
+        return projectInfoService.show(projectInfo, page, limit);
     }
 
     @GetMapping("showProjDetail")
@@ -220,9 +218,49 @@ public class ProjectInfoController {
 
     @GetMapping("showProjFunc")
     @ResponseBody
-    public ReType showProjFuncs(String projId) {
-        List<ProjectFunction> list = projFuncService.selectByProjId(projId);
-        return new ReType(list);
+    public ReType showProjFuncs(String projId, String funcName, int page, int limit) {
+        // List<ProjectFunction> list = projFuncService.selectByProjId(projId);
+        ReType reType = projFuncService.show(new ProjectFunction(projId, funcName), page, limit);
+        List<?> list = reType.getData();
+        ProjectWorkerInfo info = new ProjectWorkerInfo();
+        info.setProId(projId);
+        if (page == 0 && !list.isEmpty() && projectWorkerInfoService.selectByPrimaryKey(info) != null) {
+            ProjectInfo projectInfo = new ProjectInfo();
+            projectInfo.setId(projId);
+            projectInfo = projectInfoService.selectByPrimaryKey(projectInfo);
+            if (projectInfo.getEpgManager() != null && projectInfo.getQaManager() != null) {
+                Task task = this.taskService.createTaskQuery().processInstanceId(projectInfoService.selectByPrimaryKey(projId).getProcessInstanceId()).singleResult();
+                if (task != null && !task.getAssignee().equals(RoleUtil.CONF_MASTER_ROLE_ID)) {
+                    taskService.complete(task.getId());
+                    projectInfo.setProjState("进行中");
+                    projectInfoService.updateByPrimaryKeySelective(projectInfo);
+                }
+            }
+        }
+        return reType;
+    }
+
+    @GetMapping("updateFunc")
+    public String updateFunc(Model model, String projId, String funcId) {
+        model.addAttribute("projectId", projId);
+        model.addAttribute("funcId", funcId);
+        return "act/project/editFunc";
+    }
+
+    @PostMapping("editFunc")
+    @ResponseBody
+    public JsonUtil updateRiskInfo(ProjectFunction func) {
+        JsonUtil j = new JsonUtil();
+        String msg = "更新项目功能成功";
+        try {
+            projFuncService.updateByCoPrimaryKey(func);
+        } catch (MyException e) {
+            msg = "保存失败";
+            j.setFlag(false);
+            e.printStackTrace();
+        }
+        j.setMsg(msg);
+        return j;
     }
 
     @GetMapping("/projApprovalProcess")
@@ -237,7 +275,6 @@ public class ProjectInfoController {
             throws IOException {
         JSONObject result = new JSONObject();
         JSONArray shineProImages = new JSONArray();
-        BASE64Encoder encoder = new BASE64Encoder();
         InputStream imageStream = generateStream(request, resp, processInstanceId, true);
         if (imageStream != null) {
             String imageCurrentNode = Base64Utils.ioToBase64(imageStream);

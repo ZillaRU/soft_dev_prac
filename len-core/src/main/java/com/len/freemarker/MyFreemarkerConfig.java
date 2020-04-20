@@ -3,8 +3,9 @@ package com.len.freemarker;
 import com.jagregory.shiro.freemarker.ShiroTags;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
-import java.io.IOException;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+
+import java.io.IOException;
 
 /**
  * @author zhuxiaomeng

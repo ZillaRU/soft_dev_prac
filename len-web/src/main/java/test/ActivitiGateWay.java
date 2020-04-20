@@ -1,9 +1,6 @@
 package test;
 
 import com.len.Application;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.util.List;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -20,6 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * @author zhuxiaomeng

@@ -6,11 +6,6 @@ import com.len.core.shiro.Principal;
 import com.len.entity.SysLog;
 import com.len.mapper.SysLogMapper;
 import com.len.util.IpUtil;
-
-import java.lang.reflect.Method;
-import java.util.Date;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.shiro.UnavailableSecurityManagerException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -24,6 +19,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
+import java.util.Date;
 
 /**
  * @author zhuxiaomeng

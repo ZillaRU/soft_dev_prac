@@ -1,7 +1,6 @@
 package com.len.core.shiro;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
+import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -10,7 +9,7 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
 
-import cn.hutool.core.util.StrUtil;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 验证器，增加了登录次数校验功能

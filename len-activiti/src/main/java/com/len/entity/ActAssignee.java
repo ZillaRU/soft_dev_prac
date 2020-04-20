@@ -1,6 +1,8 @@
 package com.len.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "act_assignee")
 public class ActAssignee {

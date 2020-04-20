@@ -22,4 +22,12 @@ public class ProjectFunction {
     @Column(name = "func_name")
     @Excel(name = "功能名称")
     private String funcName;
+
+    public ProjectFunction() {
+    }
+
+    public ProjectFunction(String projId, String funcName) {
+        this.projId = projId;
+        this.funcName = funcName;
+    }
 }
