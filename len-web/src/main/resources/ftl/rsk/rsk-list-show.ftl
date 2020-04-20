@@ -99,26 +99,16 @@
                 // {checkbox: false, fixed: true, width: '5%'}
                 // ,
                 {field: 'hid', title: '风险编号', width: '20%', sort: true}
-                , {field: 'pname', title: '项目名称', width: '20%', sort: true}
+                , {field: 'hdes', title: '风险描述', width: '20%'}
+                , {field: 'pname', title: '项目名称', width: '15%', sort: true}
                 , {field: 'htype', title: '风险类型', width: '10%'}
-                , {
-                    field: 'hstate', title: '风险状态', width: '10%', templet: function (item) {
-                        console.log(item);
-                        if (item.hstate === "todo") {
-                            return "未开始";
-                        } else if (item.hstate == 'doing') {
-                            return "进行中";
-                        } else if (item.hstate == 'done') {
-                            return "已完成";
-                        }
-                    }
-                }
+                // , {field: 'hstate', title: '风险状态', width: '10%'}
                 // , {field: 'hgrade', title: '风险级别', width: '10%'}
                 // , {field: 'hinfluence', title: '风险影响度', width: '10%'}
                 , {field: 'hfrequency', title: '跟踪频度', width: '10%'}
-                // , {field: 'hdes', title: '风险描述', width: '10%'}
+
                 // , {field: 'htactics', title: '风险应对策略', width: '10%'}
-                , {field: 'right', title: '操作', width: '30%', toolbar: "#barDemo"}
+                , {field: 'right', title: '操作', width: '25%', toolbar: "#barDemo"}
             ]],
             height: 'full-83'
         });

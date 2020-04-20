@@ -175,8 +175,8 @@
 
                 for (var j in data['data']) {
                     console.log(data['data'][j]);
-                    $('#selectHManager').append("<option value='" + data['data'][j].uId + "'>" + data['data'][j].uName + "</option>");
-                    $('#selectHMember').append("<input type='checkbox' name='member' value='" + data['data'][j].uId + "' title='" + data['data'][j].uName + "'>");
+                    $('#selectHManager').append("<option value='" + data['data'][j].userId + "'>" + data['data'][j].userName + "</option>");
+                    $('#selectHMember').append("<input type='checkbox' name='member' value='" + data['data'][j].userId + "' title='" + data['data'][j].userName + "'>");
                 }
                 // }
                 //

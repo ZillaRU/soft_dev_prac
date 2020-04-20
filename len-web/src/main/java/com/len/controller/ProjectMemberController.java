@@ -30,6 +30,7 @@ public class ProjectMemberController {
 
     @Autowired
     private ProjectInfoService projectInfoService;
+
     @Autowired
     private SysUserService userService;
 
@@ -52,7 +53,7 @@ public class ProjectMemberController {
             System.out.println("一轮:");
             System.out.println(proWorInfoMan.getProId());
             ProjectInfo projectInfo = projectInfoService.selectByPrimaryKey(proWorInfoMan.getProId());
-            System.out.println(projectInfo.getId());
+            System.out.println(projectInfo.getProjState());
 
             if (projectInfo.getProjState().equals("进行中")) {
                 List<ProWorInfoMan> proWorInfoMans = proWorInfoManService.selectByPId(projectInfo.getId());
