@@ -2,6 +2,7 @@ package com.len.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.len.base.BaseController;
+import com.len.core.annotation.Log;
 import com.len.entity.*;
 import com.len.service.*;
 import com.len.util.CommonUtil;
@@ -63,7 +64,7 @@ public class ProjectApprovalProcessController extends BaseController {
     @Autowired
     ProWorInfoManService proWorInfoManService;
 
-    @GetMapping({"showProjDetail","share/showProjDetail"})
+    @GetMapping({"showProjDetail", "share/showProjDetail"})
     public String showProjDetail(Model model, String projId) {
         ProjectInfo projectInfo = projectInfoService.selectByPrimaryKey(projId);
         System.out.println(JSON.toJSONString(projectInfo));
@@ -71,8 +72,8 @@ public class ProjectApprovalProcessController extends BaseController {
         return "act/project/projDetail";
     }
 
-    // https://www.bilibili.com/video/BV1k4411B7mu?p=53 驳回 批准
-    // https://www.cnblogs.com/haore147/p/5213467.html
+    @ApiOperation(value = "项目上级：项目通过、驳回", httpMethod = "POST")
+    @Log(desc = "主管项目")
     @PostMapping("/project/chiefCheck")
     @RequiresRoles(RoleUtil.CHIEF_ROLE_ID)
     @ResponseBody

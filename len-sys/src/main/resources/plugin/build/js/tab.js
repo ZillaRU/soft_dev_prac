@@ -91,7 +91,7 @@ layui.define(['jquery', 'element', 'nprogress', 'utils'], function(exports) {
             var tpl = [
                     '<div class="layui-tab layui-tab-card kit-tab" lay-filter="' + that._filter + '">',
                     '<ul class="layui-tab-title">',
-                    '<li class="layui-this" lay-id="-1" data-url="' + _config.mainUrl + '"><i class="layui-icon">&#xe68e;</i> 控制面板</li>',
+                    '<li class="layui-this" lay-id="-1" data-url="' + _config.mainUrl + '"><i class="layui-icon">&#xe68e;</i> 信息共享</li>',
                     '</ul>',
                     '<div class="kit-tab-tool">操作&nbsp;<i class="fa fa-caret-down"></i></div>',
                     '<div class="kit-tab-tool-body layui-anim layui-anim-upbit">',

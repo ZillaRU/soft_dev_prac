@@ -61,7 +61,7 @@
                 , {field: 'proRoleName', title: '项目人员角色', width: '15%'}
                 , {field: 'operation', title: '操作', width: '20%', toolbar: "#barDemo"}
             ]]
-            , page :true
+            , page: false
             , height: 'full-83'
         });
 

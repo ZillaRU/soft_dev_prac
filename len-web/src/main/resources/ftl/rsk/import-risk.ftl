@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>新增项目基本信息</title>
+    <title>项目风险信息</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -57,28 +57,10 @@
                 window.parent.$("#txtHDes").text(data.hDes);
                 window.parent.$("#txtHTactics").text(data.hTactics);
                 form.render();
-                // var index = parent.layer.getFrameIndex(window.name);
-                // parent.layer.close(index);
-                // detail('导入风险信息', 'showRiskDetail?riskId=' + data.hid, 1100, 600);
             }
         });
 
     });
-
-
-    <#--$.ajax({-->
-    <#--    url: '${re.contextPath}/ftl/rsk/risk-list.json',-->
-    <#--    type: 'GET',-->
-    <#--    dataType: 'json',-->
-    <#--    success: function (data) {-->
-    <#--        console.log(data);-->
-    <#--    },-->
-    <#--    error: function(){-->
-    <#--        console.log("error");-->
-    <#--    }-->
-
-    <#--});-->
-
 
 </script>
 </body>

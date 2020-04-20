@@ -18,7 +18,9 @@ public class ProWorInfoManServiceImpl extends BaseServiceImpl<ProWorInfoMan, Str
     private ProWorInfoManMapper proWorInfoManMapper;
 
     @Override
-    public BaseMapper<ProWorInfoMan, String> getMappser() { return proWorInfoManMapper; }
+    public BaseMapper<ProWorInfoMan, String> getMappser() {
+        return proWorInfoManMapper;
+    }
 
     public List<ProWorInfoMan> selectByPmId(String pro_id) {
         return proWorInfoManMapper.selectByPmId(pro_id);
@@ -26,6 +28,10 @@ public class ProWorInfoManServiceImpl extends BaseServiceImpl<ProWorInfoMan, Str
 
     public List<ProWorInfoMan> selectByProName(ProWorInfoMan worInfo) {
         return proWorInfoManMapper.selectByProName(worInfo);
+    }
+
+    public List<ProWorInfoMan> selectMyProIds(ProWorInfoMan worInfo) {
+        return proWorInfoManMapper.selectMyProIds(worInfo);
     }
 
     public List<ProWorInfoMan> selectByProId(String proId) {
@@ -57,6 +63,10 @@ public class ProWorInfoManServiceImpl extends BaseServiceImpl<ProWorInfoMan, Str
     // 查找某一项目的某一角色的所有用户
     public List<ProWorInfoMan> selectUserByRoleName(ProWorInfoMan worInfo) {
         return proWorInfoManMapper.selectUserByRoleName(worInfo);
+    }
+
+    public int selectSameCondi(ProWorInfoMan worInfo) {
+        return proWorInfoManMapper.selectSameCondi(worInfo);
     }
 
     // 更新项目人员

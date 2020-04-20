@@ -48,29 +48,59 @@ public class ProWorInfoMan {
             this.proRoleName = proRoleName;
     }
 
-    public String getProRoleName(){
+    public String getProRoleName() {
         return this.proRoleName;
     }
 
-    public String getProId(){
+    public String getProId() {
         return this.proId;
     }
 
-    public String getUserName(){ return this.userName;}
+    public String getUserName() {
+        return this.userName;
+    }
 
-    public void setPmId(String pmId){this.pmId = pmId;}
+    public String getProName() {
+        return this.proName;
+    }
 
-    public void setProName(String proName){this.proName = proName;}
+    public String getUserId() {
+        return this.userId;
+    }
 
-    public void setId(String id){this.id = id;}
+    public String getPmId() {
+        return this.pmId;
+    }
 
-    public void setProId(String proId){this.proId = proId;}
+    public void setPmId(String pmId) {
+        this.pmId = pmId;
+    }
 
-    public void setUserId(String userId){this.userId = userId;}
+    public void setProName(String proName) {
+        this.proName = proName;
+    }
 
-    public void setUserName(String userName){this.userName = userName;}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public void setUserEmail(String userEmail){this.userEmail = userEmail;}
+    public void setProId(String proId) {
+        this.proId = proId;
+    }
 
-    public void setUserPhone(String userPhone){this.userPhone = userPhone;}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
 }

@@ -6,13 +6,15 @@ import com.len.entity.ProjectWorkerInfo;
 import java.util.List;
 
 
-public interface ProjectWorkerInfoMapper extends BaseMapper<ProjectWorkerInfo,String>{
+public interface ProjectWorkerInfoMapper extends BaseMapper<ProjectWorkerInfo, String> {
     // 按照项目id查找项目
     List<ProjectWorkerInfo> selectByPmId(String pm_id);
 
     // 支持项目名称的模糊搜索
     List<ProjectWorkerInfo> selectByProName(ProjectWorkerInfo worInfo);
 
+    ProjectWorkerInfo selectByProId(String pro_id);
+
     // 更新项目状态
-    public int updateProStatus(String pro_status);
+    public int updateProStatus(ProjectWorkerInfo projectWorkerInfo);
 }

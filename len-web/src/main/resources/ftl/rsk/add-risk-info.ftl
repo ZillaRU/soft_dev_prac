@@ -285,33 +285,15 @@
             });
             data.field.HMember = HMember;
             console.log(data.field);
-            // alert('bj');
-            // alert(data);
             $.ajax({
                 url: 'addRisk',
                 type: 'post',
                 data: data.field,
                 traditional: true,
                 success: function (d) {
-
-                    // layerAjax('addRisk', data.field, 'iList');
-                    // parent.layer.msg("操作成功!", {time: 1000}, function () {
-                    // });
-                    //
-                    // var index = parent.layer.getFrameIndex(window.name);
-                    // if(d.flag){
-                    //     // parent.layer.close(index);
-                    //     // window.parent.layui.table.reload('projList');
                     layer.msg("操作成功!");
-                    // }else{
-                    //     layer.msg(d.msg,{icon:5});
-                    // }
                 }, error: function () {
                     console.log('error');
-                    //     layer.alert("请求失败", {icon: 6},function () {
-                    //         var index = parent.layer.getFrameIndex(window.name);
-                    //         parent.layer.close(index);
-                    //     });
                 }
             });
         });

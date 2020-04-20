@@ -53,7 +53,6 @@
                     <dd><a href="javascript:;" kit-target
                            data-options="{url:'/person',icon:'&#xe658;',title:'基本资料',id:'966'}"><span>基本资料</span></a>
                     </dd>
-                    <dd><a href="javascript:;">安全设置</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a></li>
@@ -120,7 +119,7 @@
     //连接成功建立的回调方法
     websocket.onopen = function (event) {
         setMessageInnerHTML("open");
-    }
+    };
 
 
     //接收到消息的回调方法
@@ -129,19 +128,19 @@
         console.log(currentUser);
         if (currentUser === "pm")
             setMessageInnerHTML(event.data);
-    }
+    };
 
 
     //连接关闭的回调方法
     websocket.onclose = function () {
         // setMessageInnerHTML("close");
-    }
+    };
 
 
     //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
     window.onbeforeunload = function () {
         websocket.close();
-    }
+    };
 
 
     //将消息显示在网页上
@@ -162,9 +161,6 @@
         websocket.send(message);
     }
 </script>
-<#--————————————————-->
-<#--版权声明：本文为CSDN博主「小目标青年」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。-->
-<#--原文链接：https://blog.csdn.net/qq_35387940/article/details/93483678-->
 <script src="${re.contextPath}/plugin/layui/layui.js"></script>
 <script src="${re.contextPath}/plugin/tools/main.js"></script>
 </body>

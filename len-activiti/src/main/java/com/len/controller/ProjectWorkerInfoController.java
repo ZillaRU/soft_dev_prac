@@ -64,13 +64,11 @@ public class ProjectWorkerInfoController {
             int resnum = proWorInfoManService.selectRoleNum(proWorInfoMan);
             if (resnum == 0) {
                 proStatus = "notFinish";
-                projectWorkerInfoService.updateProStatus(proStatus);
                 flag = false;
             }
         }
         if (flag) {
             proStatus = "finished";
-            projectWorkerInfoService.updateProStatus(proStatus);
         }
         return proStatus;
     }
@@ -239,19 +237,23 @@ public class ProjectWorkerInfoController {
         String proStatus;
         String msg = "删除成功";
         ProWorInfoMan man = new ProWorInfoMan();
+        ProjectWorkerInfo projectWorkerInfo = new ProjectWorkerInfo();
         man.setId(id);
         String proId = proWorInfoManService.selectByPrimaryKey(man).getProId();
+        projectWorkerInfo.setProId(proId);
         try {
             proWorInfoManService.delById(id);
         } catch (MyException e) {
             msg = "删除失败";
             j.setFlag(false);
+            j.setMsg(msg);
             e.printStackTrace();
         }
         j.setFlag(true);
         j.setMsg(msg);
         proStatus = definFinish(proId);
-        projectWorkerInfoService.updateProStatus(proStatus);
+        projectWorkerInfo.setProStatus(proStatus);
+        projectWorkerInfoService.updateProStatus(projectWorkerInfo);
         return j;
     }
 
@@ -287,10 +289,13 @@ public class ProjectWorkerInfoController {
     public JsonUtil addProWor(String proId, String proName, String userId, String proRoleName) {
         JsonUtil j = new JsonUtil();
         String msg = "新增项目人员成功";
+        ProjectWorkerInfo workerInfo = new ProjectWorkerInfo();
+        workerInfo.setProId(proId);
         if (proRoleName.equals("devleader") || proRoleName.equals("testleader") || proRoleName.equals("qa") || proRoleName.equals("confman") || proRoleName.equals("epg")) {
             ProWorInfoMan proWor = new ProWorInfoMan();
             proWor.setProId(proId);
             proWor.setProRoleName(proRoleName);
+            proWor.setUserId(userId);
             int resnum = proWorInfoManService.selectRoleNum(proWor);
             if (resnum == 1) {
                 msg = "新增项目人员失败,该角色下已有人员";
@@ -321,12 +326,14 @@ public class ProjectWorkerInfoController {
         } catch (MyException e) {
             msg = "新增项目人员失败";
             j.setFlag(false);
+            j.setMsg(msg);
             e.printStackTrace();
         }
         j.setFlag(true);
         j.setMsg(msg);
         proStatus = definFinish(proId);
-        projectWorkerInfoService.updateProStatus(proStatus);
+        workerInfo.setProStatus(proStatus);
+        projectWorkerInfoService.updateProStatus(workerInfo);
         return j;
     }
 
@@ -334,17 +341,30 @@ public class ProjectWorkerInfoController {
     @Log(desc = "修改项目人员信息")
     @PostMapping("updProWor")
     @ResponseBody
-    public JsonUtil updProWor(String id, String proId, String proRoleName) {
+    public JsonUtil updProWor(String id, String userId, String proId, String proRoleName) {
         JsonUtil j = new JsonUtil();
         String msg = "项目人员信息修改成功";
         ProWorInfoMan proWorInfoMan = new ProWorInfoMan();
+        ProjectWorkerInfo projectWorkerInfo = new ProjectWorkerInfo();
+        projectWorkerInfo.setProId(proId);
+        proWorInfoMan.setProId(proId);
+        proWorInfoMan.setProRoleName(proRoleName);
+        proWorInfoMan.setUserId(userId);
+        int num = proWorInfoManService.selectSameCondi(proWorInfoMan);
+        System.out.println(num);
+        if (num >= 1) {
+            msg = "修改失败,该用户已在此项目承担了此角色";
+            j.setFlag(false);
+            j.setMsg(msg);
+            return j;
+        }
         proWorInfoMan.setProId(proId);
         proWorInfoMan.setId(id);
         String proStatus;
         proWorInfoMan.setProRoleName(proRoleName);
         int resnum = proWorInfoManService.selectRoleNum(proWorInfoMan);
         if (proRoleName.equals("devleader") || proRoleName.equals("testleader") || proRoleName.equals("qa") || proRoleName.equals("confman") || proRoleName.equals("epg")) {
-            if (resnum == 1) {
+            if (resnum >= 1) {
                 msg = "修改项目人员失败,该角色下已有人员";
                 j.setFlag(false);
                 j.setMsg(msg);
@@ -361,7 +381,8 @@ public class ProjectWorkerInfoController {
                 j.setFlag(true);
                 j.setMsg(msg);
                 proStatus = definFinish(proId);
-                projectWorkerInfoService.updateProStatus(proStatus);
+                projectWorkerInfo.setProStatus(proStatus);
+                projectWorkerInfoService.updateProStatus(projectWorkerInfo);
                 return j;
             }
         } else {
@@ -376,7 +397,9 @@ public class ProjectWorkerInfoController {
             j.setFlag(true);
             j.setMsg(msg);
             proStatus = definFinish(proId);
-            projectWorkerInfoService.updateProStatus(proStatus);
+            projectWorkerInfo.setProStatus(proStatus);
+            projectWorkerInfoService.updateProStatus(projectWorkerInfo);
+
             return j;
         }
     }

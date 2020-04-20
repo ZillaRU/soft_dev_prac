@@ -29,7 +29,11 @@ public class ProjectWorkerInfoServiceImpl extends BaseServiceImpl<ProjectWorkerI
         return projectWorkerInfoMapper.selectByProName(worInfo);
     }
 
-    // 更新项目状态
-    public int updateProStatus(String pro_status){return projectWorkerInfoMapper.updateProStatus(pro_status);}
+    public ProjectWorkerInfo selectByProId(String pro_id) {
+        return projectWorkerInfoMapper.selectByProId(pro_id);
+    }
 
+    public int updateProStatus(ProjectWorkerInfo worInfo) {
+        return projectWorkerInfoMapper.updateProStatus(worInfo);
+    }
 }

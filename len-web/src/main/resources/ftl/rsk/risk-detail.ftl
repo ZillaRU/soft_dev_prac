@@ -70,7 +70,13 @@
                         风险级别
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" name="hGrade" value="${riskDetail.HGrade}" readonly class="layui-input">
+                        <#if riskDetail.HGrade == 'high'>
+                            <input type="text" name="hGrade" value="高" readonly class="layui-input">
+                        <#elseif riskDetail.HGrade == 'medium'>
+                            <input type="text" name="hGrade" value="中" readonly class="layui-input">
+                        <#elseif riskDetail.HGrade == 'low'>
+                            <input type="text" name="hGrade" value="低" readonly class="layui-input">
+                        </#if>
                     </div>
                 </div>
             </div>
@@ -80,8 +86,22 @@
                         风险影响度
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="hInfluence" name="hInfluence" value="${riskDetail.HInfluence}" readonly
-                               class="layui-input">
+                        <#if riskDetail.HInfluence == 'catastrophe'>
+                            <input type="text" id="hInfluence" name="hInfluence" value="灾难" readonly
+                                   class="layui-input">
+                        <#elseif riskDetail.HInfluence == 'major'>
+                            <input type="text" id="hInfluence" name="hInfluence" value="重大" readonly
+                                   class="layui-input">
+                        <#elseif riskDetail.HInfluence == 'moderate'>
+                            <input type="text" id="hInfluence" name="hInfluence" value="中等" readonly
+                                   class="layui-input">
+                        <#elseif riskDetail.HInfluence == 'slight'>
+                            <input type="text" id="hInfluence" name="hInfluence" value="轻微" readonly
+                                   class="layui-input">
+                        <#elseif riskDetail.HInfluence == 'sslight'>
+                            <input type="text" id="hInfluence" name="hInfluence" value="极轻微" readonly
+                                   class="layui-input">
+                        </#if>
                     </div>
                 </div>
             </div>
@@ -91,8 +111,13 @@
                         风险状态
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="hState" name="hState" value="${riskDetail.HState}" readonly
-                               class="layui-input">
+                        <#if riskDetail.HState == 'todo'>
+                            <input type="text" id="hState" readonly name="hState" class="layui-input" value="未开始">
+                        <#elseif riskDetail.HState == 'doing'>
+                            <input type="text" id="hState" readonly name="hState" class="layui-input" value="进行中">
+                        <#elseif riskDetail.HState == 'done'>
+                            <input type="text" id="hState" readonly name="hState" class="layui-input" value="已完成">
+                        </#if>
                     </div>
                 </div>
             </div>
@@ -159,29 +184,11 @@
     </form>
 </div>
 
-
-<#--<script type="text/html" id="flag">-->
-<#--    {{# if(d.flag){ }}-->
-<#--    <span class="layui-badge layui-bg-green">通过</span>-->
-
-<#--    {{# }else{ }}-->
-<#--    <span class="layui-badge">未通过</span>-->
-<#--    {{#  } }}-->
-<#--</script>-->
-
 <script>
     // console.log("ggg");
     console.log("${riskDetail}");
     layui.use(['form'], function () {
         var form = layui.form;
-        <#--laydate.render({-->
-        <#--    elem: '#d1',-->
-        <#--    val: new Date(${projectDetail.startDate})-->
-        <#--});-->
-        <#--laydate.render({-->
-        <#--    elem: '#d2',-->
-        <#--    value: ${projectDetail.endDate}-->
-        <#--});-->
         form.render();
     });
 </script>

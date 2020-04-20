@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.WorkTimeInfoMapper">
+    <resultMap id="BaseResultMap" type="com.len.entity.WorkTimeInfo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="pro_id" jdbcType="VARCHAR" property="proId"/>
+        <result column="pro_name" jdbcType="VARCHAR" property="proName"/>
+        <result column="pm_id" jdbcType="VARCHAR" property="pmId"/>
+        <result column="pm_name" jdbcType="VARCHAR" property="pmName"/>
+        <result column="send_user_id" jdbcType="VARCHAR" property="sendUserId"/>
+        <result column="send_user_name" jdbcType="VARCHAR" property="sendUserName"/>
+        <result column="receive_user_id" jdbcType="VARCHAR" property="receiveUserId"/>
+        <result column="receive_user_name" jdbcType="VARCHAR" property="receiveUserName"/>
+    </resultMap>
+
+    <sql id="workTimeInfoColumn">
+        <trim suffix="" suffixOverrides=",">
+            id, pro_id, pro_name, send_user_id, receive_user_id, send_user_name, receive_user_name, pm_id, pm_name
+        </trim>
+    </sql>
+
+    <sql id="workTimeInfoValue">
+        <trim suffix="" suffixOverrides=",">
+            #{id}, #{proId}, #{proName}, #{sendUserId}, #{receiveUserId}, #{sendUserName}, #{receiveUserName}, #{pmId},
+            #{pmName}
+        </trim>
+    </sql>
+
+    <delete id="delByProId" parameterType="java.lang.String">
+        delete
+        from work_time_info
+        where pro_id = #{proId}
+    </delete>
+
+    <select id="selectByProIdUserId" parameterType="com.len.entity.WorkTimeInfo" resultMap="BaseResultMap">
+        select *
+        from work_time_info
+        where send_user_id = #{sendUserId}
+          and pro_id = #{proId}
+    </select>
+
+    <select id="selectByUserId" parameterType="com.len.entity.WorkTimeInfo" resultMap="BaseResultMap">
+        select *
+        from work_time_info
+        where send_user_id = #{sendUserId}
+    </select>
+
+    <select id="selectById" parameterType="com.len.entity.WorkTimeInfo" resultMap="BaseResultMap">
+        select *
+        from work_time_info
+        where id = #{id}
+    </select>
+
+    <insert id="insertWorkTimeInfo" parameterType="com.len.entity.WorkTimeInfo">
+        insert into work_time_info(
+        <include refid="workTimeInfoColumn"/>
+        ) values (
+        <include refid="workTimeInfoValue"/>
+        )
+    </insert>
+
+</mapper>

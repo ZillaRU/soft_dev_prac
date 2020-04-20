@@ -102,5 +102,4 @@ public class DruidConfig {
     pointcut.setPatterns(str);
     return pointcut;
   }
-
 }

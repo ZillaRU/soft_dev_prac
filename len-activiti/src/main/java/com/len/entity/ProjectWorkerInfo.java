@@ -32,7 +32,7 @@ public class ProjectWorkerInfo {
     @Column(name = "pm_name")
     private String pmName;
 
-    public void setProStatus(String proStatus){
+    public void setProStatus(String proStatus) {
         this.proStatus = proStatus;
     }
 
@@ -40,18 +40,32 @@ public class ProjectWorkerInfo {
         this.pmId = pmId;
     }
 
+    public void setProId(String proId) {
+        this.proId = proId;
+    }
+
     public void setProName(String proName) {
         this.proName = proName;
     }
 
-    public String getProStatus(){return this.proStatus;}
+    public String getProStatus() {
+        return this.proStatus;
+    }
 
-    public String getProId(){ return this.proId;}
+    public String getProId() {
+        return this.proId;
+    }
 
-    public String getProName(){return this.proName;}
+    public String getProName() {
+        return this.proName;
+    }
 
-    public String getPmName(){return this.pmName;}
+    public String getPmName() {
+        return this.pmName;
+    }
 
-    public String getPmId(){return this.pmId;}
+    public String getPmId() {
+        return this.pmId;
+    }
 
 }

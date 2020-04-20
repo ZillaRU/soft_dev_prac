@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.WorkTimeInfoDetailMapper">
+    <resultMap id="BaseResultMap" type="com.len.entity.WorkTimeInfoDetail">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="submit_date" jdbcType="VARCHAR" property="submitDate"/>
+        <result column="func_id" jdbcType="VARCHAR" property="funcId"/>
+        <result column="func_name" jdbcType="VARCHAR" property="funcName"/>
+        <result column="activ_id" jdbcType="VARCHAR" property="activId"/>
+        <result column="start_time" jdbcType="VARCHAR" property="startTime"/>
+        <result column="end_time" jdbcType="VARCHAR" property="endTime"/>
+        <result column="send_user_id" jdbcType="VARCHAR" property="sendUserId"/>
+        <result column="send_user_name" jdbcType="VARCHAR" property="sendUserName"/>
+        <result column="receive_user_id" jdbcType="VARCHAR" property="receiveUserId"/>
+        <result column="receive_user_name" jdbcType="VARCHAR" property="receiveUserName"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
+        <result column="info_status" jdbcType="VARCHAR" property="infoStatus"/>
+        <result column="pro_id" jdbcType="VARCHAR" property="proId"/>
+        <result column="pro_name" jdbcType="VARCHAR" property="proName"/>
+        <result column="pm_name" jdbcType="VARCHAR" property="pmName"/>
+    </resultMap>
+
+    <sql id="workTimeInfoDetailColumn">
+        <trim suffix="" suffixOverrides=",">
+            id, submit_date, func_id, func_name, activ_id, start_time, end_time, send_user_id,
+            send_user_name, receive_user_id, receive_user_name, note, info_status, pro_id, pro_name, pm_name
+        </trim>
+    </sql>
+
+    <sql id="workTimeInfoDetailValue">
+        <trim suffix="" suffixOverrides=",">
+            #{id}, #{submitDate}, #{funcId}, #{funcName}, #{activId}, #{startTime}, #{endTime},
+            #{sendUserId}, #{sendUserName}, #{receiveUserId}, #{receiveUserName}, #{note}, #{infoStatus},
+            #{proId}, #{proName}, #{pmName}
+        </trim>
+    </sql>
+
+    <insert id="insertWorkTimeInfo" parameterType="com.len.entity.WorkTimeInfoDetail">
+        insert into work_time_info_detail(
+        <include refid="workTimeInfoDetailColumn"/>
+        ) values (
+        <include refid="workTimeInfoDetailValue"/>
+        )
+    </insert>
+
+    <select id="selectHasSubmitted" parameterType="com.len.entity.WorkTimeInfoDetail" resultType="Integer">
+        SELECT count(*)
+        FROM work_time_info_detail
+        where pro_id = #{proId}
+          and submit_date = #{submitDate}
+          and receive_user_id = #{receiveUserId}
+    </select>
+
+    <select id="selectHasSub" parameterType="com.len.entity.WorkTimeInfoDetail" resultMap="BaseResultMap">
+        SELECT *
+        FROM work_time_info_detail
+        where pro_id = #{proId}
+          and submit_date = #{submitDate}
+          and receive_user_id = #{receiveUserId}
+    </select>
+
+    <select id="selectBySendUserId" parameterType="com.len.entity.WorkTimeInfoDetail" resultMap="BaseResultMap">
+        SELECT * FROM work_time_info_detail
+        <where>
+            send_user_id=#{sendUserId}
+            <if test="proName!=null and proName!=''">and pro_name LIKE '%${proName}%'</if>
+            <if test="infoStatus!=null and infoStatus!=''">and info_status=#{infoStatus}</if>
+        </where>
+    </select>
+
+    <select id="selectByReceiveUserId" parameterType="com.len.entity.WorkTimeInfoDetail" resultMap="BaseResultMap">
+        SELECT * FROM work_time_info_detail
+        <where>
+            receive_user_id=#{receiveUserId}
+            <if test="proName!=null and proName!=''">and pro_name LIKE '%${proName}%'</if>
+            <if test="infoStatus!=null and infoStatus!=''">and info_status=#{infoStatus}</if>
+        </where>
+    </select>
+
+    <update id="updateInfoStatus" parameterType="com.len.entity.WorkTimeInfoDetail">
+        update work_time_info_detail
+        set info_status=#{infoStatus}
+        where id = #{id}
+    </update>
+
+    <update id="updateById" parameterType="com.len.entity.WorkTimeInfoDetail">
+        update
+            work_time_info_detail
+        set submit_date=#{submitDate},
+            end_time=#{endTime},
+            start_time= #{startTime},
+            func_id=#{funcId},
+            func_name=#{funcName},
+            activ_id=#{activId},
+            note=#{note},
+            info_status=#{infoStatus}
+        where id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select *
+        from work_time_info_detail
+        where id = #{id}
+    </select>
+
+    <select id="selectSubmitted" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select start_time, end_time
+        from work_time_info_detail
+        where submit_date = #{submitDate}
+          and send_user_id = #{sendUserId}
+    </select>
+
+</mapper>

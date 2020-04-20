@@ -8,10 +8,7 @@ import com.len.entity.*;
 import com.len.enume.RiskTypeEnum;
 import com.len.exception.MyException;
 import com.len.qo.RskDetail;
-import com.len.service.ProjectInfoService;
-import com.len.service.RiskInfoService;
-import com.len.service.RskReUsrService;
-import com.len.service.SysUserService;
+import com.len.service.*;
 import com.len.service.impl.MailService;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
@@ -43,6 +40,8 @@ public class RiskInfoController {
     private RskReUsrService rskReUsrService;
     @Autowired
     private MailService mailService;
+    @Autowired
+    private ProWorInfoManService proWorInfoManService;
 
     @GetMapping("addRiskInfo")
     public String addRiskInfo(Model model) {
@@ -106,12 +105,11 @@ public class RiskInfoController {
     @GetMapping("showRiskList")
     @ResponseBody
     public ReType showRskList(Model model) {
-        //todo:改成项目参与者的风险列表
-        System.out.println("showRsklist!!!!!!!!!!!!!:" + Principal.getPrincipal().getId());
+        System.out.println("showRsklist!");
         List<RskDetail> list = new ArrayList<>();
-        List<ProjectInfo> proList = projectInfoService.selectByPmId(Principal.getPrincipal().getId());
-        for (ProjectInfo p : proList) {
-            List<RskInfo> rskInfoList = riskInfoService.selectByPmId(p.getId());
+        List<ProWorInfoMan> proWorInfoManList = proWorInfoManService.selectByUId(Principal.getPrincipal().getId());
+        for (ProWorInfoMan p : proWorInfoManList) {
+            List<RskInfo> rskInfoList = riskInfoService.selectByPmId(p.getProId());
             for (RskInfo i : rskInfoList) {
                 System.out.println("aaaa:" + i.gethId());
                 List<RskReUsr> rskReUsrList = rskReUsrService.selectByRId(i.gethId());
@@ -122,7 +120,7 @@ public class RiskInfoController {
                     k++;
                 }
                 String type = RiskTypeEnum.getValue(Integer.parseInt(i.gethType())).getMessage();
-                RskDetail rskDetail = new RskDetail(i.gethId(), p.getId(), p.getProjName(), type,
+                RskDetail rskDetail = new RskDetail(i.gethId(), p.getProId(), p.getProName(), type,
                         i.gethDes(), i.gethGrade(), i.gethInfluence(), i.gethTactics(), i.gethState(),
                         i.gethFrequency(), " ", members, i.gethCreator());
 
