@@ -91,6 +91,7 @@
         //监听提交
         form.on('submit(update)', function (data) {
             data.field.id = "${currentInfo.id}";
+            data.field.userId = "${currentInfo.userId}";
             data.field.proId = "${currentInfo.proId}";
             data.field.proRoleName = $("#proRoleName option:selected").val();
             if(data.field.proRoleName === "${currentInfo.proRoleName}"){

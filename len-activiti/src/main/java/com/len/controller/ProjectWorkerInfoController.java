@@ -338,16 +338,25 @@ public class ProjectWorkerInfoController {
     @Log(desc = "修改项目人员信息")
     @PostMapping("updProWor")
     @ResponseBody
-    public JsonUtil updProWor(String id, String proId, String proRoleName) {
+    public JsonUtil updProWor(String id, String userId, String proId, String proRoleName) {
         JsonUtil j = new JsonUtil();
         String msg = "项目人员信息修改成功";
         ProWorInfoMan proWorInfoMan = new ProWorInfoMan();
         ProjectWorkerInfo projectWorkerInfo = new ProjectWorkerInfo();
         projectWorkerInfo.setProId(proId);
         proWorInfoMan.setProId(proId);
+        proWorInfoMan.setProRoleName(proRoleName);
+        proWorInfoMan.setUserId(userId);
+        int num = proWorInfoManService.selectSameCondi(proWorInfoMan);
+        System.out.println(num);
+        if(num>=1){
+            msg = "修改失败,该用户已在此项目承担了此角色";
+            j.setFlag(false);
+            j.setMsg(msg);
+            return j;
+        }
         proWorInfoMan.setId(id);
         String proStatus;
-        proWorInfoMan.setProRoleName(proRoleName);
         int resnum = proWorInfoManService.selectRoleNum(proWorInfoMan);
         if (proRoleName.equals("devleader") || proRoleName.equals("testleader") || proRoleName.equals("qa") || proRoleName.equals("confman") || proRoleName.equals("epg")) {
             if (resnum == 1) {
