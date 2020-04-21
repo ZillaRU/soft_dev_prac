@@ -274,10 +274,13 @@
                 data: data.field,
                 traditional: true,
                 success: function (d) {
-                    layer.msg("操作成功!");
+
                 }, error: function () {
                     console.log('error');
                 }
+            });
+            console.log('success');
+            layer.msg("操作成功!", {time: 1000}, function () {
             });
         });
 

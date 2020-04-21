@@ -298,11 +298,12 @@ public class RiskInfoController {
     public String RiskEmail(String riskId) {
         List<RskReUsr> rskReUsrList = rskReUsrService.selectByRId(riskId);
         for (RskReUsr rskReUsr : rskReUsrList) {
+            System.out.println(rskReUsr.getuId());
             SysUser sysUser = userService.selectByPrimaryKey(rskReUsr.getuId());
-            mailService.sendMail("风险跟踪提醒",
-                    "您编号为" + riskId + "的一条风险信息，风险跟踪频度小于等于1次，请您尽快跟踪风险(～￣▽￣)～",
-                    sysUser.getEmail()
-            );
+            if(sysUser.getEmail()!=null)
+                mailService.sendMail("风险跟踪提醒",
+                        "您编号为" + riskId + "的一条风险信息，风险跟踪频度小于等于1次，请您尽快跟踪风险(～￣▽￣)～",
+                        sysUser.getEmail());
         }
 
         return "success";

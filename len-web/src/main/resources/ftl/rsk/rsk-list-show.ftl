@@ -36,7 +36,7 @@
     <#--            <i class="layui-icon">ဂ</i>-->
     <#--        </button>-->
     <#--    </div>-->
-    参与的项目的所有风险列表
+<#--    参与的项目的所有风险列表-->
 </div>
 <table id="riskList" class="layui-hide" lay-filter="risk"></table>
 <script type="text/html" id="barDemo">
