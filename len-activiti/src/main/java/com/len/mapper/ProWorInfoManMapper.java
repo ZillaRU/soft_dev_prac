@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProWorInfoManMapper extends BaseMapper<ProWorInfoMan,String> {
 
-    //按照项目id搜索出该项目下的开发人员
+    //按照项目id搜索出该项目下的人员
     List<ProWorInfoMan> selectByPmId(String pmId);
 
     // 支持项目名称的模糊搜索
@@ -39,4 +39,11 @@ public interface ProWorInfoManMapper extends BaseMapper<ProWorInfoMan,String> {
     List<ProWorInfoMan> selectUserByRoleName(ProWorInfoMan worInfo);
 
     List<ProWorInfoMan> selectMyProIds(ProWorInfoMan worInfo);
+
+    //根据userId和proId查找出该用户在该项目里承担的角色
+    List<ProWorInfoMan> selectRoleByUserId(ProWorInfoMan worInfo);
+
+    //找到某项目下的所有user
+    List<ProWorInfoMan> selectUserByProId(String proId);
+
 }

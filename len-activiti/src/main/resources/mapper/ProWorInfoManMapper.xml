@@ -86,4 +86,15 @@
         )
     </insert>
 
+    <select id="selectRoleByUserId" parameterType="com.len.entity.ProWorInfoMan" resultMap="BaseResultMap">
+        select distinct pro_role_name from pro_wor_info_man
+        where
+        user_id=#{userId} and pro_id=#{proId}
+    </select>
+
+    <select id="selectUserByProId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select distinct user_id, user_name from pro_wor_info_man
+        where pro_id=#{proId}
+    </select>
+
 </mapper>
