@@ -132,9 +132,6 @@
                 <button class="layui-btn layui-btn-normal" lay-filter="add" lay-submit="">
                     增加
                 </button>
-                <button class="layui-btn layui-btn-primary" id="close">
-                    取消
-                </button>
             </div>
         </div>
     </form>

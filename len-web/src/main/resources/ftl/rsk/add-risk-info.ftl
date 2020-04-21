@@ -76,18 +76,7 @@
                     </div>
                 </div>
             </div>
-            <#--            <div class="layui-form-item">-->
-            <#--                <label for="H_Frequency" class="layui-form-label" style="width:130px;padding: 9px 0px;">-->
-            <#--                    <span class="x-red">*</span>风险跟踪频度-->
-            <#--                </label>-->
-            <#--                <div class="layui-input-inline">-->
-            <#--                    <select id="selectHFrequency" name="hFrequency" lay-verify="nnull" lay-search>-->
-            <#--                        <option value="high">高</option>-->
-            <#--                        <option value="medium">中</option>-->
-            <#--                        <option value="low">低</option>-->
-            <#--                    </select>-->
-            <#--                </div>-->
-            <#--            </div>-->
+
             <div class="layui-form-item">
                 <label for="H_Influence" class="layui-form-label" style="width:130px;padding: 9px 0px;">
                     <span class="x-red">风险影响度</span>
@@ -164,9 +153,6 @@
                 <button class="layui-btn layui-btn-normal" lay-filter="add" lay-submit="">
                     新增
                 </button>
-                <button class="layui-btn layui-btn-primary" id="close">
-                    取消
-                </button>
             </div>
         </div>
     </form>
@@ -230,9 +216,6 @@
                 if (value.trim() == "") {
                     return "*项 不能为空";
                 }
-            },
-            no_pattern: function (value) {
-                // if(value) 正则匹配项目编号 yyyyccccTxx
             }
         });
 

@@ -32,4 +32,6 @@ public interface ProWorInfoManService extends BaseService<ProWorInfoMan, String>
 
     // 查找某一项目的某一角色的所有用户
     List<ProWorInfoMan> selectUserByRoleName(ProWorInfoMan worInfo);
+
+    List<ProWorInfoMan> selectUser();
 }

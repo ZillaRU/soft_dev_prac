@@ -5,10 +5,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.len.core.annotation.Log;
 import com.len.entity.EquInfo;
+import com.len.entity.ProWorInfoMan;
 import com.len.entity.ProjectInfo;
 import com.len.exception.MyException;
 import com.len.qo.EquDetail;
 import com.len.service.EquInfoService;
+import com.len.service.ProWorInfoManService;
 import com.len.service.ProjectInfoService;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
@@ -32,6 +34,9 @@ public class EquInfoController {
 
     @Autowired
     private ProjectInfoService projectInfoService;
+
+    @Autowired
+    private ProWorInfoManService proWorInfoManService;
 
     @GetMapping(value = "showList")
     public String showEqu() {
@@ -83,7 +88,7 @@ public class EquInfoController {
     @ResponseBody
     public JsonUtil addEquInfo(EquDetailInfo equDetailInfo) {
         JsonUtil j = new JsonUtil();
-        String msg = "新增项目风险信息成功";
+        String msg = "新增设备信息成功";
         try {
             EquInfo equInfo = new EquInfo(equDetailInfo.getRId(),
                     equDetailInfo.getPName(), equDetailInfo.getRManager(), equDetailInfo.getRDate(),
@@ -143,6 +148,15 @@ public class EquInfoController {
         JSONObject returnValue = new JSONObject();
         List<ProjectInfo> projectInfo = projectInfoService.selectByPState();
         returnValue.put("data", projectInfo);
+        return JSON.toJSONString(returnValue);
+    }
+
+    @PostMapping(value = "showUser")
+    @ResponseBody
+    public String showUser() {
+        JSONObject returnValue = new JSONObject();
+        List<ProWorInfoMan> proWorInfoMan = proWorInfoManService.selectUser();
+        returnValue.put("user", proWorInfoMan);
         return JSON.toJSONString(returnValue);
     }
 }

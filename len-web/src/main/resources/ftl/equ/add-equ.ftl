@@ -48,8 +48,8 @@
                     <span class="x-red">*</span>资产管理者
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="rManager" name="rManager" lay-verify="rManager"
-                           autocomplete="off" class="layui-input">
+                    <select id="selectRManager" name="rManager" lay-verify="nnull" lay-search>
+                    </select>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -59,9 +59,6 @@
                 <div class="layui-input-inline">
                     <input type="text" id="rDate" name="rDate" lay-verify="rDate" placeholder="yyyy-MM-dd"
                            autocomplete="off" class="layui-input">
-                </div>
-                <div id="ms" class="layui-form-mid layui-word-aux">
-                    <span id="ms">日期请按xxxx-xx-xx格式填写</span>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -133,6 +130,21 @@
                 for (var pro in data['data']) {
                     console.log(pro);
                     $('#selectPName').append("<option value= '" + data['data'][pro].id + "'>" + data['data'][pro].projName + "</option>");
+                }
+                form.render();
+            }
+        });
+
+        $.ajax({
+            url: '/equ/showUser',
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                console.info(data);
+                $('#selectRManager').empty();
+                for (var pro in data['user']) {
+                    console.log(pro);
+                    $('#selectRManager').append("<option value= '" + data['user'][pro].id + "'>" + data['user'][pro].userName + "</option>");
                 }
                 form.render();
             }
@@ -214,6 +226,7 @@
         //监听提交
         form.on('submit(add)', function (data) {
             data.field.pName = $("#selectPName option:selected").text();
+            data.field.rManager = $("#selectRManager option:selected").text();
             layerAjax('addEqu', data.field, 'equList');
         });
     });

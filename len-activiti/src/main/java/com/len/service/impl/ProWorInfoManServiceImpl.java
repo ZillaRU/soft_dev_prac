@@ -74,4 +74,8 @@ public class ProWorInfoManServiceImpl extends BaseServiceImpl<ProWorInfoMan, Str
         return proWorInfoManMapper.updateRoleById(worInfo);
     }
 
+    @Override
+    public List<ProWorInfoMan> selectUser() {
+        return proWorInfoManMapper.selectUser();
+    }
 }

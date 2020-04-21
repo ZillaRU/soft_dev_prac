@@ -77,35 +77,12 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="epg_manager" class="layui-form-label" style="width:130px;padding: 9px 0px;">
-                    EPG Manager
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" readonly value="${projectDetail.epgName}">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="configManager" class="layui-form-label" style="width:130px;padding: 9px 0px;">
-                    配置管理员
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" readonly value="${projectDetail.confName}">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="qaManager" class="layui-form-label" style="width:130px;padding: 9px 0px;">
-                    QA
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" readonly value="${projectDetail.qaName}">
-                </div>
-            </div>
-            <div class="layui-form-item">
                 <label for="startDate" class="layui-form-label" style="width:130px;padding: 9px 0px;">
                     预定日
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="d1" lay-verify="nnull" value="${projectDetail.startDate?string("yyyy-MM-dd")}" readonly>
+                    <input type="text" class="layui-input" id="d1" lay-verify="nnull"
+                           value="${(projectDetail.startDate?string("yyyy-MM-dd"))!}">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -113,7 +90,8 @@
                     交付日
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="d1" lay-verify="nnull" value="${projectDetail.endDate?string("yyyy-MM-dd")}" readonly>
+                    <input type="text" class="layui-input" id="d1" lay-verify="nnull"
+                           value="${(projectDetail.endDate?string("yyyy-MM-dd"))!}">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -122,7 +100,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <textarea type="text" id="milestone" name="milestone"
-                              autocomplete="off" class="layui-input-block" readonly
+                              autocomplete="off" class="layui-input-block"
                               style="width:400px; height: 150px">${projectDetail.milestone}</textarea>
                 </div>
             </div>
@@ -132,7 +110,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <textarea type="text" id="projTech" name="projTech"
-                              class="layui-input-block" readonly
+                              class="layui-input-block"
                               style="width:400px; height: 150px">${projectDetail.projTech}</textarea>
                 </div>
             </div>
@@ -142,7 +120,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <textarea type="text" id="projDomain" name="projDomain"
-                              class="layui-input-block" readonly
+                              class="layui-input-block"
                               style="width:400px; height: 150px">${projectDetail.projDomain}</textarea>
                 </div>
             </div>
@@ -152,23 +130,36 @@
                 </label>
                 <div class="layui-input-inline">
                     <textarea type="text" id="projMainFunc" name="projMainFunc"
-                              class="layui-input-block" readonly
+                              class="layui-input-block"
                               style="width:400px; height: 150px">${projectDetail.projMainFunc}</textarea>
                 </div>
             </div>
+            <input type="hidden" name="id" value="${projectDetail.id}" readonly>
             <div style="height: 60px"></div>
+            <div style="width: 100%;height: 55px;background-color: white;border-top:1px solid #e6e6e6;
+  position: fixed;bottom: 1px;margin-left:-20px;">
+                <div class="layui-form-item" style=" float: right;margin-right: 30px;margin-top: 8px">
+                    <button class="layui-btn layui-btn-normal" lay-filter="add" lay-submit="">
+                        更新
+                    </button>
+                </div>
+            </div>
         </div>
     </form>
 </div>
 
 <script>
     layui.use(['form', 'laydate'], function () {
-        var form = layui.form;
+        var form = layui.form, laydate = layui.laydate;
         laydate.render({
             elem: '#d1'
         });
         laydate.render({
             elem: '#d2'
+        });
+        //监听提交
+        form.on('submit(add)', function (data) {
+            layerAjax('updateProjectInfo', data.field, 'projList');
         });
         form.render();
     });

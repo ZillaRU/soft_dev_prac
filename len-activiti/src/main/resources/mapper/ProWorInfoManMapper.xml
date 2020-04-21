@@ -103,4 +103,8 @@
         )
     </insert>
 
+    <select id="selectUser" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT distinct user_name
+        FROM pro_wor_info_man
+    </select>
 </mapper>

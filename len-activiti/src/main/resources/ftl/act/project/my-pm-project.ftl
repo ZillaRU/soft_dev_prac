@@ -33,7 +33,11 @@
 </div>
 <table id="projList" class="layui-hide" lay-filter="proj"></table>
 <script type="text/html" id="barDemo">
+    {{#  if(d.projState == '申请立项'){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="editDetail">修正信息</a>
+    {{#  } else{ }}
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">基本信息</a>
+    {{#  } }}
     {{#  if(d.projState == '已立项' || d.projState == '申请立项' || d.projState == '已驳回'){ }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="getProc"><i class="layui-icon">&#xe6b2;</i>审批流程</a>
     {{#  } }}
@@ -122,6 +126,8 @@
             var data = obj.data;
             if (obj.event === 'detail') {
                 get_detail_layer('查看项目信息', 'showProjDetail?projId=' + data.id, 900, 600, 'proj_detail_layer');
+            } else if (obj.event === 'editDetail') {
+                get_detail_layer('查看项目信息', 'editProjDetail?projId=' + data.id, 900, 600, 'proj_detail_layer');
             } else if (obj.event === 'projFuncs') {
                 get_detail_layer('项目功能设置', 'projFunc?projId=' + data.id, 900, 600, 'proj_func_layer');
             } else if (obj.event === 'projArchive') {

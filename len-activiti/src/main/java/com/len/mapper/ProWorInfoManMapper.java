@@ -39,4 +39,6 @@ public interface ProWorInfoManMapper extends BaseMapper<ProWorInfoMan,String> {
     List<ProWorInfoMan> selectUserByRoleName(ProWorInfoMan worInfo);
 
     List<ProWorInfoMan> selectMyProIds(ProWorInfoMan worInfo);
+
+    List<ProWorInfoMan> selectUser();
 }

@@ -104,6 +104,8 @@ public class WorkTimeController {
             add("其他");
         }
     };
+    @Autowired
+    private ProjectInfoService projectInfoService;
 
     public String trans(char a, char b) {
         String res = "";
@@ -169,8 +171,7 @@ public class WorkTimeController {
         List<String> respair = new ArrayList<>();
         String mypair;
         String id;
-        // 先插入leader信息,leader提交给项目经理,排除同一人担任多份leader的情况
-        for (int i = 2; i < listr.size(); i++) {
+        for (int i = 0; i < listr.size(); i++) {
             proWorInfoMan.setProRoleName(listr.get(i));
             List<ProWorInfoMan> resList = proWorInfoManService.selectUserByRoleName(proWorInfoMan);
             if (i == 2 || i == 3 || i == 4 || i == 5 || i == 6) {
@@ -182,35 +183,31 @@ public class WorkTimeController {
                 ProWorInfoMan proWorInfoMan1 = new ProWorInfoMan();
                 proWorInfoMan1.setProId(proId);
                 proWorInfoMan1.setProRoleName(listr.get(2));
-                for (int j = 0; j < resList.size(); j++) {
+                for (ProWorInfoMan worInfoMan : resList) {
                     leaderids.add(proWorInfoManService.selectUserByRoleName(proWorInfoMan1).get(0).getUserId());
                     leadernames.add(proWorInfoManService.selectUserByRoleName(proWorInfoMan1).get(0).getUserName());
-                    workerids.add(resList.get(j).getUserId());
-                    workernames.add(resList.get(j).getUserName());
+                    workerids.add(worInfoMan.getUserId());
+                    workernames.add(worInfoMan.getUserName());
                 }
             } else if (i == 1) {
                 ProWorInfoMan proWorInfoMan2 = new ProWorInfoMan();
                 proWorInfoMan2.setProId(proId);
                 proWorInfoMan2.setProRoleName(listr.get(3));
-                for (int k = 0; k < resList.size(); k++) {
+                for (ProWorInfoMan worInfoMan : resList) {
                     leaderids.add(proWorInfoManService.selectUserByRoleName(proWorInfoMan2).get(0).getUserId());
                     leadernames.add(proWorInfoManService.selectUserByRoleName(proWorInfoMan2).get(0).getUserName());
-                    workerids.add(resList.get(k).getUserId());
-                    workernames.add(resList.get(k).getUserName());
+                    workerids.add(worInfoMan.getUserId());
+                    workernames.add(worInfoMan.getUserName());
                 }
             }
         }
         // 排除上级是自己的情况
         for (int ii = 0; ii < workerids.size(); ii++) {
             // 上级是自己
-            if (workerids.get(ii).equals(leaderids.get(ii))) {
-                continue;
-            } else {
+            if (!workerids.get(ii).equals(leaderids.get(ii))) {
                 // 排除leader和worker重复的情况
                 mypair = workerids.get(ii) + leaderids.get(ii);
-                if (respair.contains(mypair)) {
-                    continue;
-                } else {
+                if (!respair.contains(mypair)) {
                     respair.add(mypair);
                     resleaderids.add(leaderids.get(ii));
                     resleadernames.add(leadernames.get(ii));
@@ -230,6 +227,7 @@ public class WorkTimeController {
         }
     }
 
+
     public void preDeal() {
         String id = Principal.getPrincipal().getId();
         ProWorInfoMan pw = new ProWorInfoMan();
@@ -243,9 +241,9 @@ public class WorkTimeController {
             prId = proWorInfoMan.get(i).getProId();
             prow = projectWorkerInfoService.selectByProId(prId);
             proSta = prow.getProStatus();
+            System.out.println(prId + " " + proSta);
             if (proSta.equals("notFinish")) {
                 workTimeInfoService.delByProId(prId);
-                continue;
             } else {
                 preFunction(prId);
             }
@@ -268,6 +266,7 @@ public class WorkTimeController {
         WorkTimeInfo workTimeInfo = new WorkTimeInfo();
         workTimeInfo.setSendUserId(id);
         List<WorkTimeInfo> workTimeInfos = workTimeInfoService.selectByUserId(workTimeInfo);
+
         return new ReType(workTimeInfos.size(), workTimeInfos);
     }
 

@@ -171,6 +171,30 @@ public class ProjectInfoController {
         return "act/project/projDetail";
     }
 
+    @GetMapping("editProjDetail")
+    public String editProjDetail(Model model, String projId) {
+        ProjectInfo projectInfo = projectInfoService.selectByPrimaryKey(projId);
+        System.out.println(JSON.toJSONString(projectInfo));
+        model.addAttribute("projectDetail", projectInfo);
+        return "act/project/editProjDetail";
+    }
+
+    @PostMapping("updateProjectInfo")
+    @ResponseBody
+    public JsonUtil updateProjDetail(ProjectInfo projectInfo) {
+        JsonUtil j = new JsonUtil();
+        String msg = "更新成功";
+        try {
+            projectInfoService.updateByPrimaryKeySelective(projectInfo);
+        } catch (MyException e) {
+            msg = "更新失败";
+            j.setFlag(false);
+            e.printStackTrace();
+        }
+        j.setMsg(msg);
+        return j;
+    }
+
     @ApiOperation(value = "审批项目申请页", httpMethod = "GET")
     @GetMapping("showApprovals")
     public String showApprovals() {
@@ -329,11 +353,9 @@ public class ProjectInfoController {
         List<String> highLightedFlows = getHighLightedFlows(definitionEntity, historicActivityInstanceList);
 
         BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId);
-        //List<String> activeActivityIds = runtimeService.getActiveActivityIds(processInstanceId);
         processEngineConfiguration = processEngine.getProcessEngineConfiguration();
         Context.setProcessEngineConfiguration((ProcessEngineConfigurationImpl) processEngineConfiguration);
         HMProcessDiagramGenerator diagramGenerator = (HMProcessDiagramGenerator) processEngineConfiguration.getProcessDiagramGenerator();
-        //List<String> activeIds = this.runtimeService.getActiveActivityIds(processInstance.getId());
 
         InputStream imageStream = diagramGenerator.generateDiagram(
                 bpmnModel, "png",

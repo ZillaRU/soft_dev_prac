@@ -5,6 +5,4 @@ import com.len.entity.EquInfo;
 
 
 public interface EquInfoService extends BaseService<EquInfo, String> {
-
-
 }

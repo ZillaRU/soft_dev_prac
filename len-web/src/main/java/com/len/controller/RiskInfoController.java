@@ -173,6 +173,7 @@ public class RiskInfoController {
     @GetMapping("importSimilarProRisk")
     @ResponseBody
     public ReType importSimilarProRisk(String proId) {
+        System.out.println("importSimilarProRisk : " + proId);
         ProjectInfo project = projectInfoService.selectByPrimaryKey(proId);
         List<ProjectInfo> projectInfoList = projectInfoService.selectByPmId(project.getPmId());
         List<RskInfo> list = new ArrayList<>();
@@ -239,7 +240,6 @@ public class RiskInfoController {
 
 
             RskInfo rskInfo = riskInfoService.selectByPrimaryKey(rskDetailInfo.getHId());
-//            private String[] hMember;
             rskInfo.sethType(rskDetailInfo.getHType());
             rskInfo.sethDes(rskDetailInfo.getHDes());
             rskInfo.sethManager(rskDetailInfo.getHManager());

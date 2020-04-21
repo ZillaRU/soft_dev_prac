@@ -64,7 +64,6 @@ public class ProjectMemberController {
                 lists.add(projectMemberDetail);
             }
         }
-
         return new ReType(lists.size(), lists);
     }
 
