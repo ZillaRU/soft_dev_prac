@@ -182,10 +182,10 @@
                 }
                 for (var j in data['data'][0].projMember) {
                     console.log(j);
-                    $('#selectHManager').append("<option value='" + data['data'][0].projMember[j].uId
-                        + "'>" + data['data'][0].projMember[j].uName + "</option>");
-                    $('#selectHMember').append("<input type='checkbox' name='member' value='" + data['data'][0].projMember[j].uId
-                        + "' title='" + data['data'][0].projMember[j].uName + "'>");
+                    $('#selectHManager').append("<option value='" + data['data'][0].projMember[j].userId
+                        + "'>" + data['data'][0].projMember[j].userName + "</option>");
+                    $('#selectHMember').append("<input type='checkbox' name='member' value='" + data['data'][0].projMember[j].userId
+                        + "' title='" + data['data'][0].projMember[j].userName + "'>");
                 }
 
                 form.render();

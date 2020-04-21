@@ -66,7 +66,7 @@ public class RiskInfoController {
                 System.out.println(ll);
                 rskReUsr.sethId(rId);
                 rskReUsr.setuId(ll);
-                rskReUsr.setuName(userService.selectByPrimaryKey(ll).getUsername());
+                rskReUsr.setuName(userService.selectByPrimaryKey(ll).getRealName());
                 rskReUsrService.insertSelective(rskReUsr);
             }
 
@@ -146,7 +146,7 @@ public class RiskInfoController {
         String type = RiskTypeEnum.getValue(Integer.parseInt(i.gethType())).getMessage();
         RskDetail rskDetail = new RskDetail(i.gethId(), i.getpId(), projectInfo.getProjName(), type,
                 i.gethDes(), i.gethGrade(), i.gethInfluence(), i.gethTactics(), i.gethState(),
-                i.gethFrequency(), sysUser.getUsername(), members, i.gethCreator());
+                i.gethFrequency(), sysUser.getRealName(), members, i.gethCreator());
 
         System.out.println("addRisk");
         System.out.println(JSON.toJSONString(rskDetail));
@@ -218,7 +218,7 @@ public class RiskInfoController {
         }
         RskDetail rskDetail = new RskDetail(i.gethId(), i.getpId(), projectInfo.getProjName(), type,
                 i.gethDes(), i.gethGrade(), i.gethInfluence(), i.gethTactics(), i.gethState(),
-                i.gethFrequency(), sysUser.getUsername(), members, i.gethCreator());
+                i.gethFrequency(), sysUser.getRealName(), members, i.gethCreator());
 
         System.out.println("editRisk");
         System.out.println(JSON.toJSONString(rskDetail));
@@ -259,7 +259,7 @@ public class RiskInfoController {
                 rskReUsr.sethId(rskDetailInfo.getHId());
                 rskReUsr.setuId(members[i]);
                 SysUser sysUser = userService.selectByPrimaryKey(members[i]);
-                rskReUsr.setuName(sysUser.getUsername());
+                rskReUsr.setuName(sysUser.getRealName());
                 System.out.println("update rskreuser");
                 System.out.println(JSON.toJSONString(rskReUsr));
                 rskReUsrList.add(rskReUsr);

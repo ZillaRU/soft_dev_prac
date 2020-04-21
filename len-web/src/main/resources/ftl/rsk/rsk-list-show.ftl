@@ -47,7 +47,7 @@
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
     {{# } else{
     for(var member in d.hmember){
-    if(d.hmember[member] == '${user.username}'){
+    if(d.hmember[member] == '${user.realName}'){
     }}
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
     {{#     }
@@ -58,10 +58,11 @@
     {{# if((!d.hcreator?' ':d.hcreator) == '${user.id}'){  }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
     {{# }  }}
+
     {{# for(var member in d.hmember){
-    console.log('${user.username}');
+    console.log('${user.realName}');
     console.log(d.hmember[member]);
-    if(d.hmember[member] == '${user.username}'){
+    if(d.hmember[member] == '${user.realName}'){
     }}
     <a class="layui-btn layui-btn-xs" lay-event="trace">跟踪</a>
     {{#     }

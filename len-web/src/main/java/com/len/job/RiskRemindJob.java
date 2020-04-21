@@ -65,14 +65,19 @@ public class RiskRemindJob implements Job {
         for (RskInfo rskInfo : rskInfoList) {
             if (rskInfo.gethFrequency() < 2) {
                 List<RskReUsr> rskReUsrList = rskReUsrService.selectByRId(rskInfo.gethId());
+                SysUser sysUserManager = sysUserService.selectByPrimaryKey(rskInfo.gethManager());
+                mailService.sendMail("风险跟踪提醒",
+                        "您作为风险负责人，编号为" + rskInfo.gethId() + "的一条风险信息，风险跟踪频度小于等于1次，请您尽快跟踪风险(～￣▽￣)～",
+                        sysUserManager.getEmail());
+
                 for (RskReUsr rskReUsr : rskReUsrList) {
                     SysUser sysUser = sysUserService.selectByPrimaryKey(rskReUsr.getuId());
                     System.out.println("风险跟踪提醒" +
-                            "您编号为" + rskInfo.gethId() + "的一条风险信息，风险跟踪频度小于等于1次，请您尽快跟踪风险(～￣▽￣)～" +
+                            "您作为风险相关人，编号为" + rskInfo.gethId() + "的一条风险信息，风险跟踪频度小于等于1次，请您尽快跟踪风险(～￣▽￣)～" +
                             sysUser.getEmail());
 
                     mailService.sendMail("风险跟踪提醒",
-                            "您编号为" + rskInfo.gethId() + "的一条风险信息，风险跟踪频度小于等于1次，请您尽快跟踪风险(～￣▽￣)～",
+                            "您作为风险相关人，编号为" + rskInfo.gethId() + "的一条风险信息，风险跟踪频度小于等于1次，请您尽快跟踪风险(～￣▽￣)～",
                             sysUser.getEmail());
                 }
             }
