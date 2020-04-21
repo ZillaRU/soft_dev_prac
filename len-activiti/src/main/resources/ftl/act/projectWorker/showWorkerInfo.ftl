@@ -58,7 +58,7 @@
                     sort: true,
                     style: 'background-color: #009688; color: #fff;'
                 }
-                , {field: 'proStatus', title: '项目状态', width: '10%'}
+                , {field: 'proStatus', title: '状态', width: '10%'}
                 , {field: 'devLeader', title: '开发负责人', width: '10%'}
                 , {field: 'dev', title: '开发小组', width: '15%'}
                 , {field: 'testLeader', title: '测试负责人', width: '10%'}

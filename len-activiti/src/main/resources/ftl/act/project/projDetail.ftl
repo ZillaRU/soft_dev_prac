@@ -85,14 +85,6 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="configManager" class="layui-form-label" style="width:130px;padding: 9px 0px;">
-                    配置管理员
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" readonly value="${projectDetail.confName}">
-                </div>
-            </div>
-            <div class="layui-form-item">
                 <label for="qaManager" class="layui-form-label" style="width:130px;padding: 9px 0px;">
                     QA
                 </label>

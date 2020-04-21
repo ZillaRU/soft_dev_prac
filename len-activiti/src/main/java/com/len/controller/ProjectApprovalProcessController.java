@@ -95,7 +95,8 @@ public class ProjectApprovalProcessController extends BaseController {
             projectWorkerInfoService.insert(workerInfo);
             ProWorInfoMan man = new ProWorInfoMan();
             man.setId(UUID.randomUUID().toString());
-            SysUser user = sysUserService.selectByPrimaryKey(CommonUtil.getUser().getId());
+            String pm_id = projectInfoService.selectByPrimaryKey(projId).getPmId();
+            SysUser user = sysUserService.selectByPrimaryKey(pm_id);
             man.setUserId(user.getId());
             man.setUserName(user.getRealName());
             man.setUserEmail(user.getEmail());

@@ -5,10 +5,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-//@Service
-@Component
+@Service
 public class MailService {
 
     @Autowired
@@ -26,5 +25,4 @@ public class MailService {
         message.setText(url); //内容
         mailSender.send(message); //发送
     }
-
 }

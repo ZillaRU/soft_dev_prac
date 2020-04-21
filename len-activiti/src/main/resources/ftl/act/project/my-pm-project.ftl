@@ -13,7 +13,6 @@
     <script type="text/javascript" src="${re.contextPath}/plugin/layui/layui.all.js"
             charset="utf-8"></script>
     <script type="text/javascript" src="${re.contextPath}/plugin/tools/tool.js"></script>
-
 </head>
 
 <body>
@@ -41,7 +40,7 @@
     {{#  if(d.projState == '已立项' || d.projState == '申请立项' || d.projState == '已驳回'){ }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="getProc"><i class="layui-icon">&#xe6b2;</i>审批流程</a>
     {{#  } }}
-    {{#  if(d.projState == '已立项'){ }}
+    {{#  if(d.projState == '已立项' || d.projState == '进行中'){ }}
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="projFuncs">功能</a>
     {{#  } }}
     {{#  if(d.projState == '进行中'){ }}
@@ -159,12 +158,9 @@
                         success: function (data) {
                             var index = parent.layer.getFrameIndex(window.name);
                             window.top.layer.msg(data.msg, {icon: 6, offset: 'rb', area: ['120px', '80px'], anim: 2});
-                            parent.layer.close(index);
-                            parent.location.replace(parent.location.href);
                         }, error: function () {
                             var index = parent.layer.getFrameIndex(window.name);
                             window.top.layer.msg('请求失败', {icon: 5, offset: 'rb', area: ['120px', '80px'], anim: 2});
-                            parent.layer.close(index);
                         }
                     });
                     layer.close(index);

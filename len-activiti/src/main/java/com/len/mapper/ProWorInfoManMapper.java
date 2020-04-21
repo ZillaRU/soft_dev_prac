@@ -41,4 +41,10 @@ public interface ProWorInfoManMapper extends BaseMapper<ProWorInfoMan,String> {
     List<ProWorInfoMan> selectMyProIds(ProWorInfoMan worInfo);
 
     List<ProWorInfoMan> selectUser();
+
+    //根据userId和proId查找出该用户在该项目里承担的角色
+    List<ProWorInfoMan> selectRoleByUserId(ProWorInfoMan worInfo);
+
+    //找到某项目下的所有user
+    List<ProWorInfoMan> selectUserByProId(String proId);
 }

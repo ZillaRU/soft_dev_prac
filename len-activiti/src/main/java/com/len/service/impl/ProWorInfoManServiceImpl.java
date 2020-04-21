@@ -78,4 +78,14 @@ public class ProWorInfoManServiceImpl extends BaseServiceImpl<ProWorInfoMan, Str
     public List<ProWorInfoMan> selectUser() {
         return proWorInfoManMapper.selectUser();
     }
+
+    //根据userId和proId查找出该用户在该项目里承担的角色
+    public List<ProWorInfoMan> selectRoleByUserId(ProWorInfoMan worInfo) {
+        return proWorInfoManMapper.selectRoleByUserId(worInfo);
+    }
+
+    //找到某项目下的所有user
+    public List<ProWorInfoMan> selectUserByProId(String proId) {
+        return proWorInfoManMapper.selectUserByProId(proId);
+    }
 }

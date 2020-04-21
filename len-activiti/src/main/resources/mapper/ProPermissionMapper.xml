@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.ProPermissionMapper">
+    <resultMap id="BaseResultMap" type="com.len.entity.ProPermission">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="pro_id" jdbcType="VARCHAR" property="proId"/>
+        <result column="pro_name" jdbcType="VARCHAR" property="proName"/>
+        <result column="pm_id" jdbcType="VARCHAR" property="pmId"/>
+        <result column="pm_name" jdbcType="VARCHAR" property="pmName"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="pro_role_name" jdbcType="VARCHAR" property="proRoleName"/>
+        <result column="permi_doc" jdbcType="VARCHAR" property="permiDoc"/>
+        <result column="permi_git" jdbcType="VARCHAR" property="permiGit"/>
+        <result column="permi_in_email" jdbcType="VARCHAR" property="permiInEmail"/>
+    </resultMap>
+
+    <sql id="proPerColumn">
+        <trim suffix="" suffixOverrides=",">
+            id, pro_id, pro_name, pm_id, pm_name, user_id, user_name, pro_role_name
+        </trim>
+    </sql>
+
+    <sql id="proPerValue">
+        <trim suffix="" suffixOverrides=",">
+            #{id}, #{proId}, #{proName}, #{pmId}, #{pmName}, #{userId}, #{userName}, #{proRoleName}
+        </trim>
+    </sql>
+
+
+    <insert id="insertNew" parameterType="com.len.entity.ProPermission">
+        insert into pro_permission(
+        <include refid="proPerColumn"/>
+        ) values (
+        <include refid="proPerValue"/>
+        )
+    </insert>
+
+    <select id="selectNotInNum" parameterType="com.len.entity.ProPermission" resultType="Integer">
+        select count(*)
+        from pro_permission
+        where pro_id = #{proId}
+          and user_id = #{userId}
+    </select>
+
+    <select id="selectByPmId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select *
+        from pro_permission
+        where pm_id = #{pmId}
+    </select>
+
+    <select id="selectUserInfoByPidUid" parameterType="com.len.entity.ProPermission" resultMap="BaseResultMap">
+        select *
+        from pro_permission
+        where pro_id = #{proId}
+          and user_id = #{userId}
+    </select>
+
+    <select id="selectByPmIdPName" parameterType="com.len.entity.ProPermission" resultMap="BaseResultMap">
+        select * from pro_permission
+        <where>
+            <if test="proName!=null and proName!=''">
+                and pro_name LIKE '%${proName}%'
+            </if>
+        </where>
+    </select>
+
+    <update id="updateUserInfoByPidUid" parameterType="com.len.entity.ProPermission">
+        update pro_permission
+        set pro_role_name=#{proRoleName}
+        where pro_id = #{proId}
+          and user_id = #{userId}
+    </update>
+
+    <update id="updPerm" parameterType="com.len.entity.ProPermission">
+        update pro_permission
+        <set>
+            <if test="permiDoc!=null and permiDoc!=''">
+                permi_Doc=#{permiDoc},
+            </if>
+
+            <if test="permiGit!=null and permiGit!=''">
+                permi_git=#{permiGit},
+            </if>
+
+            <if test="permiInEmail!=null and permiInEmail!=''">
+                permi_in_email=#{permiInEmail},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDataByProId" parameterType="java.lang.String">
+        delete
+        from pro_permission
+        where pro_id = #{proId}
+    </delete>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete
+        from pro_permission
+        where id = #{id}
+    </delete>
+
+
+</mapper>
